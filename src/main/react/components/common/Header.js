@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import { FiSmile } from 'react-icons/fi';
@@ -14,7 +15,7 @@ const HeaderBlock = styled.div`
     !props.isHome &&
     css`
       background: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     `}
   ${props =>
     props.isModal &&
@@ -25,11 +26,13 @@ const HeaderBlock = styled.div`
 
 /* Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 Header 컴포넌트 생성 */
 const HeaderWrapper = styled(Responsive)`
-  height: 4rem;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  div {
+  height: 4rem;
+  .logo,
+  .right {
     color: ${props => (props.isHome ? 'white' : palette.primary)};
   }
   .logo {
@@ -39,11 +42,32 @@ const HeaderWrapper = styled(Responsive)`
     letter-spacing: 4px;
   }
   .right {
+    position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 40px;
+    height: 40px;
     font-size: 2rem;
     cursor: pointer;
   }
+`;
+
+// 최근 본 맛집 알림 뱃지
+const Badge = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: ${palette.primary};
+  width: 1.4rem;
+  height: 1.4rem;
+  color: white !important;
+  font-size: 0.75rem;
 `;
 
 /* 헤더가 fixed로 되어있기 때문에 페이지의 콘텐츠가 4rem 아래에 나타나도록 */
@@ -57,7 +81,9 @@ const Header = ({
   isModal,
   openSearchModal,
   openUserModal,
+  children,
 }) => {
+  const recent = useSelector(({ recent }) => recent.recent);
   const [isHome, setIsHome] = useState(false);
 
   // url이 '/'일 때 header를 숨기고 보여주는 이벤트
@@ -94,9 +120,11 @@ const Header = ({
               <button type="submit">검색</button>
             </form>
           )}
-          <div className="right">
-            <FiSmile onClick={openUserModal} />
+          <div className="right" onClick={openUserModal}>
+            <Badge>{recent.length}</Badge>
+            <FiSmile />
           </div>
+          {children}
         </HeaderWrapper>
       </HeaderBlock>
       {!isHome && <Spacer />}

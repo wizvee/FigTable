@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import path from '../Path';
 import styled from 'styled-components';
+import palette from '../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
+import { insertRecent } from '../../modules/recent';
 
 const Container = styled.div``;
 
@@ -26,10 +29,17 @@ const ImageContainer = styled.div`
   position: relative;
 `;
 
-const Title = styled.span`
-  display: block;
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 5px;
+  padding: 0 3px;
   font-size: 1rem;
+`;
+
+const Rating = styled.span`
+  color: ${palette.primary};
 `;
 
 const Location = styled.span`
@@ -55,17 +65,27 @@ const Reviews = styled.span`
   }
 `;
 
-const Poster = ({ id, title, location, views, reviews }) => {
+const Poster = props => {
+  const { id, title, location, views, reviews, rating } = props;
+
+  const dispatch = useDispatch();
+  const onInsert = useCallback(view => dispatch(insertRecent(view)), [
+    dispatch,
+  ]);
+
   return (
     <Link to={`/figtable/restaurants/${id}`}>
-      <Container>
+      <Container onClick={() => onInsert(props)}>
         <ImageContainer>
           <Image url={id} />
           <Like>
             <FiStar />
           </Like>
         </ImageContainer>
-        <Title>{title}</Title>
+        <Title>
+          {title}
+          <Rating>{rating}</Rating>
+        </Title>
         <Location>{location}</Location>
         <Views>
           <FiEye />

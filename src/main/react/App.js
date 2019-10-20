@@ -9,6 +9,7 @@ import ModalUser from './components/pages/ModalUser';
 import HomeContainer from './components/pages/HomeContainer';
 import DetailContainer from './components/pages/DetailContainer';
 
+// 반응형을 위한 block
 const ResponsiveBlock = styled(Responsive)`
   position: relative;
 `;
@@ -42,7 +43,12 @@ const App = () => {
       >
         <ModalSearch />
       </ModalTemplate>
-      <ResponsiveBlock>
+
+      <Header
+        isModal={isSearchModal}
+        openSearchModal={openSearchModal}
+        openUserModal={openUserModal}
+      >
         <ModalTemplate
           isModal={isUserModal}
           closeModal={closeUserModal}
@@ -50,12 +56,7 @@ const App = () => {
         >
           <ModalUser />
         </ModalTemplate>
-      </ResponsiveBlock>
-      <Header
-        isModal={isSearchModal}
-        openSearchModal={openSearchModal}
-        openUserModal={openUserModal}
-      />
+      </Header>
       <Switch>
         <Route path="/figtable" exact component={HomeContainer} />
         <Route path="/figtable/restaurants/:id" component={DetailContainer} />

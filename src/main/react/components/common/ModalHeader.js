@@ -29,7 +29,7 @@ const ModalHeader = ({ menu }) => {
   return (
     <ModalHeaderBlock>
       {menu.map((m, i) => (
-        <div key={m} className={i === 0 && 'selected'}>
+        <div key={m} className={i === 0 ? 'selected' : undefined}>
           {m}
         </div>
       ))}

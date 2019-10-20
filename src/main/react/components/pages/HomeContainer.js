@@ -94,6 +94,7 @@ const smaple = [
     category: '카페',
     views: 5449,
     reviews: 13,
+    rating: 4.3,
   },
   {
     id: 2,
@@ -102,6 +103,7 @@ const smaple = [
     category: 'bar, 카페',
     views: 3490,
     reviews: 9,
+    rating: 3.9,
   },
   {
     id: 3,
@@ -110,6 +112,7 @@ const smaple = [
     category: '마카롱, 카페',
     views: 3449,
     reviews: 21,
+    rating: 3.1,
   },
 ];
 

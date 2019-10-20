@@ -21,6 +21,7 @@ const HomePresenter = ({ popular, error, loading }) => {
             location={p.location}
             views={p.views}
             reviews={p.reviews}
+            rating={p.rating}
           />
         ))}
       </Section>
