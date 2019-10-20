@@ -52,7 +52,12 @@ const Spacer = styled.div`
   height: 4rem;
 `;
 
-const Header = ({ location: { pathname }, openSearchModal, openUserModal }) => {
+const Header = ({
+  location: { pathname },
+  isModal,
+  openSearchModal,
+  openUserModal,
+}) => {
   const [isHome, setIsHome] = useState(false);
 
   // url이 '/'일 때 header를 숨기고 보여주는 이벤트
@@ -74,7 +79,7 @@ const Header = ({ location: { pathname }, openSearchModal, openUserModal }) => {
 
   return (
     <>
-      <HeaderBlock isHome={isHome} isModal={false}>
+      <HeaderBlock isHome={isHome} isModal={isModal}>
         <HeaderWrapper isHome={isHome}>
           <div className="logo">
             <Link to="/figtable">FIGTABLE</Link>

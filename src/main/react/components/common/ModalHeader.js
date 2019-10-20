@@ -6,7 +6,7 @@ import { className } from 'postcss-selector-parser';
 const ModalHeaderBlock = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 2rem;
   width: 100%;
   height: 2rem;

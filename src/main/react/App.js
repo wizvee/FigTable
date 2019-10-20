@@ -5,8 +5,9 @@ import Header from './components/common/Header';
 import Responsive from './components/common/Responsive';
 import ModalTemplate from './components/common/ModalTemplate';
 import ModalSearch from './components/pages/ModalSearch';
-import HomeContainer from './components/pages/HomeContainer';
 import ModalUser from './components/pages/ModalUser';
+import HomeContainer from './components/pages/HomeContainer';
+import DetailContainer from './components/pages/DetailContainer';
 
 const ResponsiveBlock = styled(Responsive)`
   position: relative;
@@ -34,7 +35,6 @@ const App = () => {
 
   return (
     <>
-      <Header openSearchModal={openSearchModal} openUserModal={openUserModal} />
       <ModalTemplate
         isModal={isSearchModal}
         closeModal={closeSearchModal}
@@ -51,8 +51,14 @@ const App = () => {
           <ModalUser />
         </ModalTemplate>
       </ResponsiveBlock>
+      <Header
+        isModal={isSearchModal}
+        openSearchModal={openSearchModal}
+        openUserModal={openUserModal}
+      />
       <Switch>
         <Route path="/figtable" exact component={HomeContainer} />
+        <Route path="/figtable/restaurants/:id" component={DetailContainer} />
         <Redirect from="*" to="/figtable" />
       </Switch>
     </>

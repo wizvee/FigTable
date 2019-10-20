@@ -6,12 +6,18 @@ import Responsive from './Responsive';
 
 // 모달 배경
 const Overlay = styled.div`
+  z-index: 30;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
+  ${props =>
+    props.tooltip &&
+    css`
+      z-index: 55;
+    `}
 `;
 
 const ModalTemplateBlock = styled.div`
@@ -29,14 +35,16 @@ const ModalTemplateBlock = styled.div`
   ${props =>
     props.tooltip &&
     css`
+      z-index: 60;
       position: absolute;
-      top: 4rem;
+      top: 5rem;
       right: 0.9rem;
       width: 320px;
-      border-radius: 1px;
+      border-radius: 3px;
       @media (max-width: 768px) {
         width: 100%;
         right: 0;
+        border-radius: 0;
       }
       &::before {
         content: '';
@@ -61,7 +69,7 @@ const NomalWrapper = styled.div`
 const ModalTemplate = ({ isModal, closeModal, children, ...rest }) => {
   return !isModal ? null : (
     <>
-      <Overlay onClick={closeModal} />
+      <Overlay {...rest} onClick={closeModal} />
       <ModalTemplateBlock {...rest}>
         {rest.fullwidth ? (
           <ResponsiveWrapper>{children}</ResponsiveWrapper>
