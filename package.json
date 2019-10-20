@@ -10,10 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "immer": "^4.0.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-icons": "^3.7.0",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {

@@ -46881,14 +46881,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_ModalHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+/* harmony import */ var _lib_styles_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(105);
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
+
+
+
+var ModalFooter = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject());
 
 var ModalUser = function ModalUser() {
   var menu = ['최근 본 맛집', '가고싶다'];
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_ModalHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
     menu: menu
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "\uBAA8\uB2EC \uB0B4\uC6A9"));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "\uBAA8\uB2EC \uB0B4\uC6A9"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalFooter, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lib_styles_Button__WEBPACK_IMPORTED_MODULE_3__["default"], null, "\uB85C\uADF8\uC778")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ModalUser);
@@ -52127,6 +52144,63 @@ var DetailPresenter = function DetailPresenter() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (DetailPresenter);
+
+/***/ }),
+/* 105 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* harmony import */ var _Palette__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(55);
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  padding: 0.25rem 1rem;\n  border: none;\n  border-radius: 4px;\n  background: ", ";\n  font-size: 1rem;\n  font-weight: 500;\n  font-family: 'Noto Sans KR', sans-serif;\n  color: white;\n  outline: none;\n  cursor: pointer;\n  &:hover {\n    /* background: #ff8787; */\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+var buttonStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(_templateObject(), _Palette__WEBPACK_IMPORTED_MODULE_3__["default"].primary);
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].button(_templateObject2(), buttonStyle);
+var StyledLink = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"])(_templateObject3(), buttonStyle);
+
+var Button = function Button(props) {
+  return props.to ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledLink, props) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledButton, props);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Button);
 
 /***/ })
 /******/ ]);
