@@ -95,7 +95,7 @@ const Header = ({
   useEffect(() => {
     setIsHome(false);
     if (pathname === '/figtable/' || pathname === '/figtable') {
-      setIsHome(true);
+      if (window.scrollY < 250) setIsHome(true);
       window.addEventListener('scroll', handleScroll);
     }
 

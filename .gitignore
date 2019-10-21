@@ -1,30 +1,30 @@
-# Directories #
-/build/
-/bin/
-target/
+# # Directories #
+# /build/
+# /bin/
+# target/
  
-# OS Files #
-.DS_Store
+# # OS Files #
+# .DS_Store
   
-*.class
+# *.class
  
-# Package Files #
-*.jar
-*.war
-*.ear
-*.db
+# # Package Files #
+# *.jar
+# *.war
+# *.ear
+# *.db
       
-# Eclipse #
-# .project
-.metadata
-.classpath
-.settings/
-.loadpath
+# # Eclipse #
+# # .project
+# .metadata
+# .classpath
+# .settings/
+# .loadpath
  
-bin/**
-tmp/**
-tmp/**/*
-*.tmp
-*.bak
-local.properties
-# /src/main/resources/rebel.xml
+# bin/**
+# tmp/**
+# tmp/**/*
+# *.tmp
+# *.bak
+# local.properties
+# # /src/main/resources/rebel.xml
