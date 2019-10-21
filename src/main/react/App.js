@@ -49,7 +49,7 @@ const App = () => {
           closeModal={closeUserModal}
           tooltip
         >
-          <ModalUser />
+          <ModalUser closeModal={closeUserModal} />
         </ModalTemplate>
       </Header>
       <Switch>

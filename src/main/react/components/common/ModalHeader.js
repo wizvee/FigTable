@@ -10,9 +10,8 @@ const ModalHeaderBlock = styled.div`
   padding: 0 2rem;
   width: 100%;
   height: 2rem;
-  border-bottom: 1px solid #ced4da;
-  color: #868e96;
-
+  border-bottom: 1px solid ${palette.borderGray};
+  color: ${palette.textGray};
   div {
     display: flex;
     align-items: center;

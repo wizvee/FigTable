@@ -44,10 +44,10 @@ const Rating = styled.span`
 `;
 
 const PosterSmall = props => {
-  const { id, title, location, rating } = props;
+  const { id, title, location, rating, closeModal } = props;
   return (
     <Link to={`/figtable/restaurants/${id}`}>
-      <Container>
+      <Container onClick={closeModal}>
         <Image url={id} />
         <TextWrapper>
           <Title>

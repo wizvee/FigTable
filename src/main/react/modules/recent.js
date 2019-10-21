@@ -5,6 +5,7 @@ import produce from 'immer';
 const INSERT_RECENT = 'recent/INSERT';
 const REMOVE_RECENT = 'recent/REMOVE';
 const INSERT_RECENT_ASYNC = 'recent/INSERT_ASYNC';
+const REMOVE_RECENT_ASYNC = 'recent/REMOVE_ASYNC';
 
 export const insertRecent = createAction(INSERT_RECENT, view => view);
 export const removeRecent = createAction(REMOVE_RECENT);
@@ -12,6 +13,10 @@ export const removeRecent = createAction(REMOVE_RECENT);
 export const insertRecentAsync = createAction(
   INSERT_RECENT_ASYNC,
   view => view,
+);
+export const removeRecentAsync = createAction(
+  REMOVE_RECENT_ASYNC,
+  () => undefined,
 );
 
 function* insertRecentSaga({ payload }) {
@@ -25,8 +30,17 @@ function* insertRecentSaga({ payload }) {
   yield localStorage.setItem('recent', JSON.stringify(last));
 }
 
+function* removeRecentSaga() {
+  yield put({ type: REMOVE_RECENT });
+  // 삭제 후 가장 최근의 맛집 리스트
+  const last = yield select(state => state.recent);
+  // localStorage에 등록
+  yield localStorage.setItem('recent', JSON.stringify(last));
+}
+
 export function* recentSaga() {
   yield takeLatest(INSERT_RECENT_ASYNC, insertRecentSaga);
+  yield takeLatest(REMOVE_RECENT_ASYNC, removeRecentSaga);
 }
 
 const initialState = [];

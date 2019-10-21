@@ -15,7 +15,7 @@ target/
 *.db
       
 # Eclipse #
-.project
+# .project
 .metadata
 .classpath
 .settings/
