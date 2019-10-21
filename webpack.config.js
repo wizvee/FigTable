@@ -2,14 +2,12 @@ const path = require('path');
 
 module.exports = {
   context: path.resolve(__dirname, 'src/main/react'),
-  entry: {
-    index: './index.js',
-  },
+  entry: ['@babel/polyfill', './index.js'],
   devtool: 'sourcemaps',
   cache: true,
   output: {
     path: __dirname,
-    filename: './src/main/webapp/resources/js/[name].bundle.js',
+    filename: './src/main/webapp/resources/js/index.bundle.js',
     publicPath: path.resolve(__dirname, 'src/main/webapp/resources'),
   },
   mode: 'none',

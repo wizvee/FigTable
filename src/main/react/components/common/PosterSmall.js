@@ -5,19 +5,43 @@ import path from '../Path';
 import palette from '../../lib/styles/Palette';
 import { FiStar } from 'react-icons/fi';
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  padding: 1rem;
+`;
 
-const Image = styled.div``;
+const Image = styled.div`
+  border-radius: 3px;
+  background: url(${props => `${path}/upload/thumbnail/${props.url}.jpg`});
+  background-size: cover;
+  background-position: center center;
+  width: 65px;
+  height: 65px;
+`;
 
-const Like = styled.span``;
+const Like = styled.span`
+  font-size: 1.5rem;
+  color: ${palette.textGray};
+`;
 
-const TextWrapper = styled.div``;
+const TextWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.7rem;
+`;
 
 const Title = styled.span``;
 
-const Location = styled.span``;
+const Location = styled.span`
+  color: ${palette.textGray};
+  font-size: 0.8rem;
+`;
 
-const Rating = styled.span``;
+const Rating = styled.span`
+  margin-left: 0.5rem;
+  color: ${palette.primary};
+`;
 
 const PosterSmall = props => {
   const { id, title, location, rating } = props;

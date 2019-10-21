@@ -4,8 +4,8 @@ import recent, { recentSaga } from './recent';
 
 const rootReducer = combineReducers({ recent });
 
-// export function* rootSaga() {
-//   yield all([recentSaga()]);
-// }
+export function* rootSaga() {
+  yield all([recentSaga()]);
+}
 
 export default rootReducer;

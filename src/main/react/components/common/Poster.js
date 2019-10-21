@@ -5,7 +5,7 @@ import path from '../Path';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
-import { insertRecent } from '../../modules/recent';
+import { insertRecentAsync } from '../../modules/recent';
 
 const Container = styled.div``;
 
@@ -44,12 +44,12 @@ const Rating = styled.span`
 
 const Location = styled.span`
   display: block;
-  color: #868e96;
+  color: ${palette.textGray};
   font-size: 0.9rem;
 `;
 
 const Views = styled.span`
-  color: #868e96;
+  color: ${palette.textGray};
   font-size: 0.85rem;
   margin-right: 0.85rem;
   svg {
@@ -58,7 +58,7 @@ const Views = styled.span`
 `;
 
 const Reviews = styled.span`
-  color: #868e96;
+  color: ${palette.textGray};
   font-size: 0.85rem;
   svg {
     margin-right: 3px;
@@ -69,7 +69,7 @@ const Poster = props => {
   const { id, title, location, views, reviews, rating } = props;
 
   const dispatch = useDispatch();
-  const onInsert = useCallback(view => dispatch(insertRecent(view)), [
+  const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
     dispatch,
   ]);
 
