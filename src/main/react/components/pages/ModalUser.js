@@ -11,7 +11,7 @@ const ModalFooter = styled.div`
 `;
 
 const ModalUser = () => {
-  const recent = useSelector(({ recent }) => recent.recent);
+  const recent = useSelector(({ recent }) => recent);
   const dispatch = useDispatch();
 
   const menu = ['최근 본 맛집', '가고싶다'];

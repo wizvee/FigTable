@@ -9,11 +9,6 @@ import ModalUser from './components/pages/ModalUser';
 import HomeContainer from './components/pages/HomeContainer';
 import DetailContainer from './components/pages/DetailContainer';
 
-// 반응형을 위한 block
-const ResponsiveBlock = styled(Responsive)`
-  position: relative;
-`;
-
 const App = () => {
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isUserModal, setIsUserModal] = useState(false);
