@@ -7,22 +7,33 @@ import palette from '../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
 import { insertRecentAsync } from '../../modules/recent';
 
-const Container = styled.div``;
-
 const Image = styled.div`
   border-radius: 3px;
   background: url(${props => `${path}/upload/thumbnail/${props.url}.jpg`});
   background-size: cover;
   background-position: center center;
   height: 12.5rem;
+  transition: all 0.2s linear;
 `;
 
-const Like = styled.span`
+const Like = styled.div`
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 5px;
   right: 5px;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1.5px solid white;
+  border-radius: 50%;
   font-size: 1.3rem;
   color: white;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    border: 1.5px solid ${palette.secondary};
+    background: ${palette.secondary};
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -62,6 +73,14 @@ const Reviews = styled.span`
   font-size: 0.85rem;
   svg {
     margin-right: 3px;
+  }
+`;
+
+const Container = styled.div`
+  &:hover {
+    ${Image} {
+      opacity: 0.5;
+    }
   }
 `;
 

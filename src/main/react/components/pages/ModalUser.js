@@ -55,7 +55,8 @@ const ModalFooter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 2rem;
+  padding: 0 0.5rem;
+  height: 3rem;
   border-top: 1px solid ${palette.borderGray};
 `;
 
@@ -69,18 +70,18 @@ const ModalUser = ({ closeModal }) => {
     <>
       <ModalHeader menu={menu} />
       <ModalBody>
-        {recent.length !== 0 ? (
-          <ClearAll>
-            <span onClick={onRemove}>clear all</span>
-            <FaTimes />
-          </ClearAll>
-        ) : (
+        {recent.length === 0 ? (
           <div className="nullText">
             <span className="big">거기가 어디였지?</span>
             <span className="small">
               내가 둘러 본 식당이 이 곳에 순서대로 기록됩니다.
             </span>
           </div>
+        ) : (
+          <ClearAll>
+            <span onClick={onRemove}>clear all</span>
+            <FaTimes />
+          </ClearAll>
         )}
         {recent.map(v => (
           <PosterSmall
@@ -94,7 +95,7 @@ const ModalUser = ({ closeModal }) => {
         ))}
       </ModalBody>
       <ModalFooter>
-        <Button>로그인</Button>
+        <Button fullwidth>로그인</Button>
       </ModalFooter>
     </>
   );
