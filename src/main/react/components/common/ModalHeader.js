@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
-import { className } from 'postcss-selector-parser';
 
-const ModalHeaderBlock = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -26,13 +25,13 @@ const ModalHeaderBlock = styled.div`
 
 const ModalHeader = ({ menu }) => {
   return (
-    <ModalHeaderBlock>
+    <Container>
       {menu.map((m, i) => (
         <div key={m} className={i === 0 ? 'selected' : undefined}>
           {m}
         </div>
       ))}
-    </ModalHeaderBlock>
+    </Container>
   );
 };
 

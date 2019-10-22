@@ -20,7 +20,7 @@ const Overlay = styled.div`
     `}
 `;
 
-const ModalTemplateBlock = styled.div`
+const Container = styled.div`
   z-index: 50;
   min-height: 4rem;
   background: white;
@@ -62,7 +62,7 @@ const ResponsiveWrapper = styled(Responsive)`
   padding: 1.3rem;
 `;
 
-const NomalWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0.5rem 0;
 `;
 
@@ -70,13 +70,13 @@ const ModalTemplate = ({ isModal, closeModal, children, ...rest }) => {
   return !isModal ? null : (
     <>
       <Overlay {...rest} onClick={closeModal} />
-      <ModalTemplateBlock {...rest}>
+      <Container {...rest}>
         {rest.fullwidth ? (
           <ResponsiveWrapper>{children}</ResponsiveWrapper>
         ) : (
-          <NomalWrapper>{children}</NomalWrapper>
+          <Wrapper>{children}</Wrapper>
         )}
-      </ModalTemplateBlock>
+      </Container>
     </>
   );
 };

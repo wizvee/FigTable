@@ -4,10 +4,9 @@ import Responsive from '../common/Responsive';
 import palette from '../../lib/styles/Palette';
 import { MdSearch } from 'react-icons/md';
 import HomePresenter from './HomePresenter';
-import Footer from '../common/Footer';
 import path from '../Path';
 
-const HomeHeaderBlock = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -89,6 +88,8 @@ const AdBlock = styled(Responsive)`
 const smaple = [
   {
     id: 1,
+    thumb:
+      'https://s3-ap-northeast-1.amazonaws.com/dcreviewsresized/20190623074633_photo1_a8KtahP0JSRT.jpg',
     title: '달콩카페',
     location: '성균관대역 118m',
     category: '카페',
@@ -98,6 +99,8 @@ const smaple = [
   },
   {
     id: 2,
+    thumb:
+      'https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/52193_1488438243054735.jpg',
     title: '아이엠바리스타',
     location: '율전동 483m',
     category: 'bar, 카페',
@@ -107,6 +110,8 @@ const smaple = [
   },
   {
     id: 3,
+    thumb:
+      'https://mp-seoul-image-production-s3.mangoplate.com/819837_1509504944362416.jpg',
     title: '나이트티',
     location: '수원 871m',
     category: '마카롱, 카페',
@@ -122,7 +127,7 @@ const HomeContainer = () => {
 
   return (
     <>
-      <HomeHeaderBlock>
+      <Container>
         <div className="title">
           <span>솔직한 리뷰, 믿을 수 있는 평점!</span>
           <span>피그테이블</span>
@@ -138,9 +143,8 @@ const HomeContainer = () => {
             </div>
           </AdBlock>
         </div>
-      </HomeHeaderBlock>
+      </Container>
       <HomePresenter popular={popular} loading={loading} />
-      <Footer />
     </>
   );
 };

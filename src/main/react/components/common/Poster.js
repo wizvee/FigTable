@@ -9,7 +9,7 @@ import { insertRecentAsync } from '../../modules/recent';
 
 const Image = styled.div`
   border-radius: 3px;
-  background: url(${props => `${path}/upload/thumbnail/${props.url}.jpg`});
+  background: url(${props => `${props.url}`});
   background-size: cover;
   background-position: center center;
   height: 12.5rem;
@@ -85,7 +85,7 @@ const Container = styled.div`
 `;
 
 const Poster = props => {
-  const { id, title, location, views, reviews, rating } = props;
+  const { id, thumb, title, location, views, reviews, rating } = props;
 
   const dispatch = useDispatch();
   const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
@@ -96,7 +96,7 @@ const Poster = props => {
     <Link to={`/figtable/restaurants/${id}`}>
       <Container onClick={() => onInsert(props)}>
         <ImageContainer>
-          <Image url={id} />
+          <Image url={thumb} />
           <Like>
             <FiStar />
           </Like>

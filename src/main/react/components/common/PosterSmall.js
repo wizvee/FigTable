@@ -7,12 +7,12 @@ import { FiStar } from 'react-icons/fi';
 
 const Container = styled.div`
   display: flex;
-  padding: 1rem;
+  padding: 0.8rem;
 `;
 
 const Image = styled.div`
   border-radius: 3px;
-  background: url(${props => `${path}/upload/thumbnail/${props.url}.jpg`});
+  background: url(${props => `${props.url}`});
   background-size: cover;
   background-position: center center;
   width: 65px;
@@ -44,11 +44,11 @@ const Rating = styled.span`
 `;
 
 const PosterSmall = props => {
-  const { id, title, location, rating, closeModal } = props;
+  const { id, thumb, title, location, rating, closeModal } = props;
   return (
     <Link to={`/figtable/restaurants/${id}`}>
       <Container onClick={closeModal}>
-        <Image url={id} />
+        <Image url={thumb} />
         <TextWrapper>
           <Title>
             {title}

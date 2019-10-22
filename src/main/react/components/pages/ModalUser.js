@@ -8,7 +8,7 @@ import PosterSmall from '../common/PosterSmall';
 import { FaTimes } from 'react-icons/fa';
 import { removeRecentAsync } from '../../modules/recent';
 
-const ModalBody = styled.div`
+const Container = styled.div`
   height: 320px;
   overflow-y: auto;
   .nullText {
@@ -69,7 +69,7 @@ const ModalUser = ({ closeModal }) => {
   return (
     <>
       <ModalHeader menu={menu} />
-      <ModalBody>
+      <Container>
         {recent.length === 0 ? (
           <div className="nullText">
             <span className="big">거기가 어디였지?</span>
@@ -87,13 +87,14 @@ const ModalUser = ({ closeModal }) => {
           <PosterSmall
             key={v.id}
             id={v.id}
+            thumb={v.thumb}
             title={v.title}
             location={v.location}
             rating={v.rating}
             closeModal={closeModal}
           />
         ))}
-      </ModalBody>
+      </Container>
       <ModalFooter>
         <Button fullwidth>로그인</Button>
       </ModalFooter>

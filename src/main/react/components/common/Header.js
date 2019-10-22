@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
-import { FiSmile } from 'react-icons/fi';
+import { FiStar, FiSmile } from 'react-icons/fi';
 import palette from '../../lib/styles/Palette';
 
 const HeaderBlock = styled.div`
@@ -42,14 +42,23 @@ const HeaderWrapper = styled(Responsive)`
     letter-spacing: 4px;
   }
   .right {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    font-size: 2rem;
-    cursor: pointer;
+    font-size: 1.8rem;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  & + & {
+    margin-left: 0.5rem;
   }
 `;
 
@@ -120,9 +129,14 @@ const Header = ({
               <button type="submit">검색</button>
             </form>
           )}
-          <div className="right" onClick={openUserModal}>
-            <Badge>{recent.length}</Badge>
-            <FiSmile />
+          <div className="right">
+            <IconWrapper>
+              <FiSmile />
+            </IconWrapper>
+            <IconWrapper onClick={openUserModal}>
+              <Badge>{recent.length}</Badge>
+              <FiStar />
+            </IconWrapper>
           </div>
           {children}
         </HeaderWrapper>

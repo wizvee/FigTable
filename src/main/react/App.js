@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import styled from 'styled-components';
 import Header from './components/common/Header';
-import Responsive from './components/common/Responsive';
+import Footer from './components/common/Footer';
 import ModalTemplate from './components/common/ModalTemplate';
 import ModalSearch from './components/pages/ModalSearch';
 import ModalUser from './components/pages/ModalUser';
@@ -57,6 +56,7 @@ const App = () => {
         <Route path="/figtable/restaurants/:id" component={DetailContainer} />
         <Redirect from="*" to="/figtable" />
       </Switch>
+      <Footer />
     </>
   );
 };
