@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import palette from '../../lib/styles/Palette';
@@ -10,7 +10,7 @@ const Container = styled(Responsive)`
 `;
 
 const ImageWrapper = styled.div`
-  background: blue;
+  background: yellow;
   width: 100%;
   height: 21.25rem;
 `;
@@ -104,16 +104,8 @@ const InfoData = styled.div`
 const InfoMap = styled.div`
   width: 400px;
   height: 300px;
-  overflow: hidden;
   @media (max-width: 768px) {
     width: 100%;
-  }
-  div {
-    width: 400px !important;
-    height: 300px !important;
-    @media (max-width: 768px) {
-      width: 100%;
-    }
   }
 `;
 
@@ -156,6 +148,8 @@ const sample = [
     views: 5449,
     rating: 4.3,
     likes: 1900,
+    mapData: { lat: 37.303, lng: 126.972 },
+
     reviews: [
       {
         userId: 'user1',
@@ -185,20 +179,54 @@ const DetailPresenter = () => {
   // DB구현 전 sample
   const {
     title,
-    rating,
     location,
-    views,
-    reviews,
-    likes,
     addr,
     tel,
+    views,
+    rating,
+    likes,
+    mapData,
+    reviews,
   } = sample[0];
 
   const [selectCtg, setSelectCtg] = useState(null);
 
+  // 리뷰 카테고리 별로 분류
   const goodReviews = reviews.filter(r => r.rating === 'good');
   const nomalReviews = reviews.filter(r => r.rating === 'nomal');
   const badReviews = reviews.filter(r => r.rating === 'bad');
+
+  // 구글 맵 참조
+  const googleMapRef = useRef(null);
+
+  // 구글 맵 생성
+  function createGoogleMap() {
+    return new google.maps.Map(googleMapRef.current, {
+      zoom: 16,
+      center: mapData,
+      disableDefaultUI: true,
+    });
+  }
+
+  // 맵 마커 생성
+  function createMarker() {
+    return new google.maps.Marker({
+      position: mapData,
+    });
+  }
+
+  useEffect(() => {
+    const googleScript = document.createElement('script');
+    googleScript.src =
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyCKi8T8JWKVOvFwgJGEf61hwpDcFSOBYyI';
+    window.document.body.appendChild(googleScript);
+
+    googleScript.addEventListener('load', () => {
+      let map = createGoogleMap();
+      let marker = createMarker();
+      marker.setMap(map);
+    });
+  }, []);
 
   return (
     <Container>
@@ -243,9 +271,7 @@ const DetailPresenter = () => {
             </div>
             <div>메뉴</div>
           </InfoData>
-          <InfoMap>
-            <div id=""/>
-          </InfoMap>
+          <InfoMap ref={googleMapRef} />
         </InfoBody>
         <ReviewsWrapper>
           <ReviewTitle>리뷰({reviews.length})</ReviewTitle>
