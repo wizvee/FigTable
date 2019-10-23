@@ -104,9 +104,16 @@ const InfoData = styled.div`
 const InfoMap = styled.div`
   width: 400px;
   height: 300px;
-  background: green;
+  overflow: hidden;
   @media (max-width: 768px) {
     width: 100%;
+  }
+  div {
+    width: 400px !important;
+    height: 300px !important;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 `;
 
@@ -236,7 +243,9 @@ const DetailPresenter = () => {
             </div>
             <div>메뉴</div>
           </InfoData>
-          <InfoMap>지도</InfoMap>
+          <InfoMap>
+            <div id=""/>
+          </InfoMap>
         </InfoBody>
         <ReviewsWrapper>
           <ReviewTitle>리뷰({reviews.length})</ReviewTitle>
