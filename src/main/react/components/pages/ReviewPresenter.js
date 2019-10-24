@@ -6,7 +6,7 @@ import ReviewItem from './ReviewItem';
 const Container = styled.div`
   display: flex;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 `;
 
 const Title = styled.div`
@@ -30,7 +30,7 @@ const Divider = styled.span`
   margin: 8px;
 `;
 
-const ReviewPresenter = ({ reviews }) => {
+const ReviewPresenter = ({ reviews, openInsta }) => {
   // category state
   const [selectCtg, setSelectCtg] = useState(null);
 
@@ -54,31 +54,39 @@ const ReviewPresenter = ({ reviews }) => {
           className={selectCtg === 'good' && 'selected'}
           onClick={() => setSelectCtg('good')}
         >
-          맛있({goodReviews.length})
+          맛있어({goodReviews.length})
         </CtgItem>
         <Divider>|</Divider>
         <CtgItem
           className={selectCtg === 'nomal' && 'selected'}
           onClick={() => setSelectCtg('nomal')}
         >
-          괜찮({nomalReviews.length})
+          괜찮아({nomalReviews.length})
         </CtgItem>
         <Divider>|</Divider>
         <CtgItem
           className={selectCtg === 'bad' && 'selected'}
           onClick={() => setSelectCtg('bad')}
         >
-          별로({badReviews.length})
+          별로야({badReviews.length})
         </CtgItem>
       </Container>
       {selectCtg === null &&
-        reviews.map(r => <ReviewItem key={r.userId} review={r} />)}
+        reviews.map(r => (
+          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+        ))}
       {selectCtg === 'good' &&
-        goodReviews.map(r => <ReviewItem key={r.userId} review={r} />)}
+        goodReviews.map(r => (
+          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+        ))}
       {selectCtg === 'nomal' &&
-        nomalReviews.map(r => <ReviewItem key={r.userId} review={r} />)}
+        nomalReviews.map(r => (
+          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+        ))}
       {selectCtg === 'bad' &&
-        badReviews.map(r => <ReviewItem key={r.userId} review={r} />)}
+        badReviews.map(r => (
+          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+        ))}
     </>
   );
 };

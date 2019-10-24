@@ -4,13 +4,26 @@ import palette from '../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3, FiMapPin, FiPhone } from 'react-icons/fi';
 
 const ImageWrapper = styled.div`
-  background: red;
+  display: flex;
   width: 100%;
   height: 21.25rem;
+  overflow-x: auto;
+  div + div {
+    margin-left: 10px;
+  }
+`;
+
+const ImgBlock = styled.div`
+  flex: 0 0 auto;
+  width: 300px;
+  height: 100%;
+  background: url(${props => props.url});
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
 `;
 
 const InfoWrapper = styled.div`
-  padding: 0 0.5rem;
   width: 100%;
 `;
 
@@ -102,8 +115,7 @@ const InfoMap = styled.div`
   }
 `;
 
-const DetailPresenter = ({ info, reviewCnt }) => {
-  console.log(info);
+const DetailPresenter = ({ info, imgReviews, totalReviews, openInsta }) => {
   const { title, location, addr, tel, views, rating, likes, mapData } = info;
 
   // 구글 맵 참조
@@ -140,7 +152,22 @@ const DetailPresenter = ({ info, reviewCnt }) => {
 
   return (
     <>
-      <ImageWrapper>이미지</ImageWrapper>
+      <ImageWrapper>
+        {imgReviews &&
+          imgReviews.reduce((acc, cur) => {
+            let key = 0;
+            acc.push(
+              cur.images.map(img => (
+                <ImgBlock
+                  key={key++}
+                  url={img}
+                  onClick={() => openInsta(img)}
+                />
+              )),
+            );
+            return acc;
+          }, [])}
+      </ImageWrapper>
       <InfoWrapper>
         <InfoHeader>
           <Title>{title}</Title>
@@ -162,7 +189,7 @@ const DetailPresenter = ({ info, reviewCnt }) => {
           </span>
           <span>
             <FiEdit3 />
-            {reviewCnt}
+            {totalReviews}
           </span>
           <span>
             <FiStar />

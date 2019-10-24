@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 
@@ -67,6 +67,12 @@ const Wrapper = styled.div`
 `;
 
 const ModalTemplate = ({ isModal, closeModal, children, ...rest }) => {
+  // 모달 시 스크롤 방지
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'unset');
+  }, []);
+
   return !isModal ? null : (
     <>
       <Overlay {...rest} onClick={closeModal} />

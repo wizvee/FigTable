@@ -1,14 +1,9 @@
 import React from 'react';
+import path from '../Path';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
-import {
-  MdModeEdit,
-  MdPeople,
-  MdSentimentSatisfied,
-  MdSentimentNeutral,
-  MdSentimentDissatisfied,
-} from 'react-icons/md';
-import path from '../Path';
+import { MdModeEdit, MdPeople } from 'react-icons/md';
+import RatingIcon from '../../lib/styles/RatingIcon';
 
 const Container = styled.div`
   display: flex;
@@ -71,22 +66,42 @@ const Content = styled.div`
   }
   .comment {
     flex: 1;
+    margin-bottom: 1rem;
+  }
+  .images {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 120px;
+    overflow-x: auto;
+    div + div {
+      margin-left: 10px;
+    }
   }
 `;
 
-const Icon = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90px;
-  color: ${palette.primary};
-  svg {
-    font-size: 3rem;
-  }
+const ImgBlock = styled.div`
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 3px;
+  background: url(${props => props.url});
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
 `;
 
-const ReviewItem = ({ review }) => {
-  const { profile, nickname, rvCnt, flCnt, date, comment, rating } = review;
+const ReviewItem = ({ review, openInsta }) => {
+  const {
+    profile,
+    nickname,
+    rvCnt,
+    flCnt,
+    date,
+    comment,
+    rating,
+    images,
+  } = review;
   return (
     <Container>
       <User>
@@ -106,25 +121,14 @@ const ReviewItem = ({ review }) => {
       <Content>
         <div className="date">{date}</div>
         <div className="comment">{comment}</div>
+        <div className="images">
+          {images &&
+            images.map((img, index) => (
+              <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
+            ))}
+        </div>
       </Content>
-      {rating === 'good' && (
-        <Icon>
-          <MdSentimentSatisfied />
-          <span>맛있</span>
-        </Icon>
-      )}
-      {rating === 'nomal' && (
-        <Icon>
-          <MdSentimentNeutral />
-          <span>괜찮</span>
-        </Icon>
-      )}
-      {rating === 'bad' && (
-        <Icon>
-          <MdSentimentDissatisfied />
-          <span>별로</span>
-        </Icon>
-      )}
+      <RatingIcon width="90px" fontSize="3rem" rating={rating} />
     </Container>
   );
 };
