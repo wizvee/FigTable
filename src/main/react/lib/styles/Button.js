@@ -10,12 +10,14 @@ const buttonStyle = css`
   background: ${palette.primary};
   font-size: 1rem;
   font-weight: 500;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'NanumSquareRound', sans-serif;
   color: white;
+  opacity: 0.8;
   outline: none;
   cursor: pointer;
   &:hover {
     /* background: #ff8787; */
+    opacity: 1;
   }
   ${props =>
     props.fullwidth &&

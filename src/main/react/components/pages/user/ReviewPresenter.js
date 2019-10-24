@@ -22,6 +22,9 @@ const CtgItem = styled.div`
   align-items: center;
   transition: color 0.2s linear;
   cursor: pointer;
+  &.disabled {
+    cursor: default;
+  }
   &.selected {
     color: ${palette.primary};
   }
@@ -31,7 +34,7 @@ const CtgItem = styled.div`
 `;
 
 const Divider = styled.span`
-  margin: 8px;
+  margin: 5px;
 `;
 
 const ReviewPresenter = ({ reviews, openInsta }) => {
@@ -53,24 +56,33 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         >
           전체({reviews.length})
         </CtgItem>
-        <Divider>|</Divider>
+        <Divider>·</Divider>
         <CtgItem
-          className={selectCtg === 'good' && 'selected'}
-          onClick={() => setSelectCtg('good')}
+          className={
+            (selectCtg === 'good' && 'selected',
+            goodReviews.length === 0 && 'disabled')
+          }
+          onClick={goodReviews.length !== 0 && (() => setSelectCtg('good'))}
         >
           맛있어({goodReviews.length})
         </CtgItem>
-        <Divider>|</Divider>
+        <Divider>·</Divider>
         <CtgItem
-          className={selectCtg === 'nomal' && 'selected'}
-          onClick={() => setSelectCtg('nomal')}
+          className={
+            (selectCtg === 'nomal' && 'selected',
+            nomalReviews.length === 0 && 'disabled')
+          }
+          onClick={nomalReviews.length !== 0 && (() => setSelectCtg('nomal'))}
         >
           괜찮아({nomalReviews.length})
         </CtgItem>
-        <Divider>|</Divider>
+        <Divider>·</Divider>
         <CtgItem
-          className={selectCtg === 'bad' && 'selected'}
-          onClick={() => setSelectCtg('bad')}
+          className={
+            (selectCtg === 'bad' && 'selected',
+            badReviews.length === 0 && 'disabled')
+          }
+          onClick={badReviews.length !== 0 && (() => setSelectCtg('bad'))}
         >
           별로야({badReviews.length})
         </CtgItem>

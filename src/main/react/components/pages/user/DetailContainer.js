@@ -17,6 +17,10 @@ const restaurantInfo = {
   rating: 4.3,
   likes: 1900,
   mapData: { lat: 37.302869, lng: 126.972336 },
+  waiting: true,
+  waitCnt: 3,
+  totalWaitCnt: 110,
+  totalRsvCnt: 12,
 };
 
 const restaurantReviews = [
