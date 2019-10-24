@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import path from '../Path';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
-import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
+import { FiEye, FiEdit3 } from 'react-icons/fi';
+import { TiStarFullOutline } from 'react-icons/ti';
 import { insertRecentAsync } from '../../modules/recent';
 
 const Image = styled.div`
-  border-radius: 3px;
   background: url(${props => `${props.url}`});
   background-size: cover;
   background-position: center center;
@@ -23,21 +23,33 @@ const Like = styled.div`
   justify-content: center;
   top: 5px;
   right: 5px;
-  width: 1.7rem;
-  height: 1.7rem;
-  border: 1.5px solid white;
-  border-radius: 50%;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: white;
   transition: all 0.3s ease-in-out;
   &:hover {
-    border: 1.5px solid ${palette.secondary};
-    background: ${palette.secondary};
+    color: #fab005;
   }
+`;
+
+const Waiting = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  padding: 0.2rem;
+  border-bottom-right-radius: 3px;
+  background: #212529;
+  color: white;
+  font-size: 0.9rem;
+  opacity: 0.8;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
+  border-radius: 3px;
+  overflow: hidden;
 `;
 
 const Title = styled.div`
@@ -84,8 +96,18 @@ const Container = styled.div`
   }
 `;
 
-const Poster = props => {
-  const { id, thumb, title, location, views, reviews, rating } = props;
+const Poster = ({ restaurant }) => {
+  const {
+    id,
+    thumb,
+    title,
+    location,
+    views,
+    reviews,
+    rating,
+    waiting,
+    waitCnt,
+  } = restaurant;
 
   const dispatch = useDispatch();
   const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
@@ -97,8 +119,9 @@ const Poster = props => {
       <Container onClick={() => onInsert(props)}>
         <ImageContainer>
           <Image url={thumb} />
+          {waiting && <Waiting>대기 {waitCnt}팀</Waiting>}
           <Like>
-            <FiStar />
+            <TiStarFullOutline />
           </Like>
         </ImageContainer>
         <Title>
