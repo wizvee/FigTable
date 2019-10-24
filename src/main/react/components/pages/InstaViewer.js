@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import {
@@ -177,12 +177,6 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
   const selectReview = reviews.filter(review =>
     review.images.includes(selectImage),
   )[0];
-
-  // 모달 시 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => (document.body.style.overflow = 'unset');
-  }, []);
 
   return (
     isView &&

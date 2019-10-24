@@ -15,17 +15,21 @@ const App = () => {
   // 가고싶다, 로그인 모달 열고 닫는 이벤트
   function openUserModal() {
     setIsUserModal(true);
+    document.body.style.overflow = 'hidden';
   }
   function closeUserModal() {
     setIsUserModal(false);
+    document.body.style.overflow = 'unset';
   }
 
   // 검색 모달 열고 닫는 이벤트
   function openSearchModal() {
     setIsSearchModal(true);
+    document.body.style.overflow = 'hidden';
   }
   function closeSearchModal() {
     setIsSearchModal(false);
+    document.body.style.overflow = 'unset';
   }
 
   return (

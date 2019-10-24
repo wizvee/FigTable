@@ -69,9 +69,11 @@ const DetailContainer = () => {
   // 인스타모드 열고 닫기
   function openInsta(selectImage) {
     setViewInsta({ selectImage, isView: true });
+    document.body.style.overflow = 'hidden';
   }
   function closeInsta() {
     setViewInsta({ ...viewInsta, isView: false });
+    document.body.style.overflow = 'unset';
   }
 
   return (
