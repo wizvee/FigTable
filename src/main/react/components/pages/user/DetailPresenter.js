@@ -148,7 +148,6 @@ const DetailPresenter = ({ info, imgReviews, totalReviews, openInsta }) => {
     likes,
     mapData,
     waiting,
-    waitCnt,
     totalWaitCnt,
     totalRsvCnt,
   } = info;
