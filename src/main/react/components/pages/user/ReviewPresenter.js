@@ -62,7 +62,9 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
             (selectCtg === 'good' && 'selected',
             goodReviews.length === 0 && 'disabled')
           }
-          onClick={goodReviews.length !== 0 && (() => setSelectCtg('good'))}
+          onClick={
+            goodReviews.length !== 0 ? () => setSelectCtg('good') : undefined
+          }
         >
           맛있어({goodReviews.length})
         </CtgItem>
@@ -72,7 +74,9 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
             (selectCtg === 'nomal' && 'selected',
             nomalReviews.length === 0 && 'disabled')
           }
-          onClick={nomalReviews.length !== 0 && (() => setSelectCtg('nomal'))}
+          onClick={
+            nomalReviews.length !== 0 ? () => setSelectCtg('nomal') : undefined
+          }
         >
           괜찮아({nomalReviews.length})
         </CtgItem>
@@ -82,7 +86,9 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
             (selectCtg === 'bad' && 'selected',
             badReviews.length === 0 && 'disabled')
           }
-          onClick={badReviews.length !== 0 && (() => setSelectCtg('bad'))}
+          onClick={
+            badReviews.length !== 0 ? () => setSelectCtg('bad') : undefined
+          }
         >
           별로야({badReviews.length})
         </CtgItem>

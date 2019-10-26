@@ -7,7 +7,6 @@ import {
   MdNavigateBefore,
   MdNavigateNext,
 } from 'react-icons/md';
-import path from '../../Path';
 import RatingIcon from './RatingIcon';
 
 const Overlay = styled.div`
@@ -114,6 +113,7 @@ const UserWrapper = styled.div`
   border-bottom: 1px solid ${palette.borderGray};
 `;
 
+const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.5rem;
   width: 40px;

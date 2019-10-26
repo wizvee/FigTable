@@ -96,7 +96,9 @@ const ModalUser = ({ closeModal }) => {
         ))}
       </Container>
       <ModalFooter>
-        <Button fullwidth>로그인</Button>
+        <Button to="/figtable/login" fullwidth>
+          로그인
+        </Button>
       </ModalFooter>
     </>
   );

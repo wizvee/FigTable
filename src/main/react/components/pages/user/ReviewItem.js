@@ -1,5 +1,4 @@
 import React from 'react';
-import path from '../../Path';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { MdModeEdit, MdPeople } from 'react-icons/md';
@@ -24,6 +23,7 @@ const User = styled.div`
   width: 110px;
 `;
 
+const path = process.env.PATH;
 const Profile = styled.div`
   width: 70px;
   height: 70px;

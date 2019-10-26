@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import HomePresenter from './HomePresenter';
-import path from '../../Path';
 import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
@@ -12,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   height: 31rem;
-  background: url(${path}/images/title.png);
+  background: url(${process.env.PATH}/images/title.png);
   background-size: cover;
   background-position: center center;
   .title {

@@ -14,6 +14,7 @@ const buttonStyle = css`
   color: white;
   opacity: 0.8;
   outline: none;
+  transition: opacity 0.2s linear;
   cursor: pointer;
   &:hover {
     /* background: #ff8787; */
@@ -24,6 +25,11 @@ const buttonStyle = css`
     css`
       width: 100%;
     `}
+  ${props =>
+    props.bgColor &&
+    css`
+      background: ${props.bgColor};
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -32,6 +38,7 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   ${buttonStyle}
+  text-align: center;
 `;
 
 const Button = props => {

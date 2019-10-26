@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import path from '../Path';
 import palette from '../../lib/styles/Palette';
 import { FiStar } from 'react-icons/fi';
 

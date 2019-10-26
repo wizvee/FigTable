@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
-import { FiStar, FiEye, FiEdit3, FiMapPin, FiPhone } from 'react-icons/fi';
 import Button from '../../../lib/styles/Button';
+import { FiStar, FiEye, FiEdit3, FiMapPin, FiPhone } from 'react-icons/fi';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -175,8 +175,7 @@ const DetailPresenter = ({ info, imgReviews, totalReviews, openInsta }) => {
 
   useEffect(() => {
     const googleScript = document.createElement('script');
-    googleScript.src =
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyCKi8T8JWKVOvFwgJGEf61hwpDcFSOBYyI';
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_APIKEY}`;
     window.document.body.appendChild(googleScript);
 
     googleScript.addEventListener('load', () => {

@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import path from '../Path';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { FiEye, FiEdit3 } from 'react-icons/fi';

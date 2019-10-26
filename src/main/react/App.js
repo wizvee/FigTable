@@ -6,6 +6,7 @@ import DetailContainer from './components/pages/user/DetailContainer';
 import AdminContainer from './components/pages/admin/AdminContainer';
 import OwnerContainer from './components/pages/owner/OwnerContainer';
 import RegisterContainer from './components/pages/user/RegisterContainer';
+import LoginContainer from './components/pages/user/LoginContainer';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/figtable" exact component={HomeContainer} />
         <Route path="/figtable/restaurants/:id" component={DetailContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
+        <Route path="/figtable/login" component={LoginContainer} />
         <Route path="/figtable/owner" component={OwnerContainer} />
         <Route path="/figtable/admin" component={AdminContainer} />
         <Redirect from="*" to="/figtable" />
