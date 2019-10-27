@@ -15,8 +15,9 @@
 		INSERT INTO FIG_MEMBER
 		VALUES(MEM_SEQ.NEXTVAL, #{memEmail},
 		#{memPassword}, #{memPhone},
-		#{memName}, 'M', DEFAULT)
+		#{memName}, #{memCode}, DEFAULT)
 	</insert>
+	
 	<select id="login" parameterType="member" resultType="member"
 		resultMap="memResult">
 		SELECT *
