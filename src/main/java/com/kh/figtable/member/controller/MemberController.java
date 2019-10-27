@@ -25,12 +25,13 @@ public class MemberController {
 	public ResponseEntity<Member> register(@RequestBody Member mem) {
 		// 외부에서 접근할 경우를 대비해 validate 방법을 REST API 내에서도 마련해야,
 		// 하지만 아직 귀찮.
-		
+
 		mem.setMemPassword(pwEncoder.encode(mem.getMemPassword()));
 		int result = service.register(mem);
 		if (result > 0) {
 			// 회원가입에 성공했을 경우 member 반환
 			Member m = service.login(mem);
+			m.setMemPassword(null);
 			return new ResponseEntity<Member>(m, HttpStatus.OK);
 		}
 		// 실패 시 409 에러 반환
@@ -39,20 +40,22 @@ public class MemberController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Member> login(@RequestBody Member mem) {
-		Member m = service.login(mem);
-		if(m != null) {
+		Member compare = service.login(mem);
+
+		if (pwEncoder.matches(mem.getMemPassword(), compare.getMemPassword())) {
 			// 로그인에 성공했을 경우 member 반환
-			return new ResponseEntity<Member>(m, HttpStatus.OK);
+			compare.setMemPassword(null);
+			return new ResponseEntity<Member>(compare, HttpStatus.OK);
 		}
 		// 실패 시 401 에러 반환
 		return new ResponseEntity<Member>(HttpStatus.UNAUTHORIZED);
 	}
-	
-	@RequestMapping(value ="/check", method = RequestMethod.GET)
-	public ResponseEntity<Member> check(@RequestBody Member mem) {
-		if(mem == null) {
-			return new ResponseEntity<Member>(HttpStatus.UNAUTHORIZED);
-		}
-		return new ResponseEntity<Member>(mem, HttpStatus.OK);
-	}
+
+//	@RequestMapping(value = "/check", method = RequestMethod.GET)
+//	public ResponseEntity<Member> check(@RequestBody Member mem) {
+//		if (mem == null) {
+//			return new ResponseEntity<Member>(HttpStatus.UNAUTHORIZED);
+//		}
+//		return new ResponseEntity<Member>(mem, HttpStatus.OK);
+//	}
 }

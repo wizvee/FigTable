@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Member {
 
-	private int memNo;
+	private String memNo;
 	private String memEmail;
 	private String memPassword;
 	private String memPhone;

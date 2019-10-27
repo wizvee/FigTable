@@ -1,24 +1,20 @@
 import client from './client';
 
 // register
-export const register = ({
-  memEmail,
-  memPassword,
-  memPhone,
-  memName,
-  memCode,
-}) =>
-  client.post('/api/auth/register', {
+export const register = ({ memEmail, memPassword, memPhone, memName }) =>
+  client.post('/figtable/api/auth/register', {
     memEmail,
     memPassword,
     memPhone,
     memName,
-    memCode,
   });
 
 // login
 export const login = ({ memEmail, memPassword }) =>
-  client.post('/api/auth/login', { memEmail, memPassword });
+  client.post('/figtable/api/auth/login', {
+    memEmail,
+    memPassword,
+  });
 
 // login check
-export const login = () => client.get('/api/auth/check');
+export const check = () => client.get('/figtable/api/auth/check');

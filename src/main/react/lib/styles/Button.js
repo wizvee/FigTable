@@ -42,7 +42,11 @@ const StyledLink = styled(Link)`
 `;
 
 const Button = props => {
-  return props.to ? <StyledLink {...props} /> : <StyledButton {...props} />;
+  return props.to ? (
+    <StyledLink {...props} fullwidth={props.fullwidth ? 1 : 0} />
+  ) : (
+    <StyledButton {...props} />
+  );
 };
 
 export default Button;

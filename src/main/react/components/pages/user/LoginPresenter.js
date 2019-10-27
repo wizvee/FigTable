@@ -5,7 +5,7 @@ import Responsive from '../../common/Responsive';
 import Button from '../../../lib/styles/Button';
 import palette from '../../../lib/styles/Palette';
 
-const loginWidth = '290px';
+const width = '290px';
 
 const Container = styled(Responsive)`
   display: flex;
@@ -14,20 +14,20 @@ const Container = styled(Responsive)`
   padding-top: 2rem;
   min-height: calc(100vh - 12rem);
   form {
-    width: ${loginWidth};
+    width: ${width};
   }
   .option {
     display: flex;
     justify-content: space-between;
     padding: 0.3rem;
-    width: ${loginWidth};
+    width: ${width};
     font-size: 0.9rem;
     color: ${palette.textGray};
   }
   .divider {
     position: relative;
     margin-bottom: 1rem;
-    width: ${loginWidth};
+    width: ${width};
     height: 1rem;
     border-bottom: 1px solid ${palette.borderGray};
     span {
@@ -42,7 +42,7 @@ const Container = styled(Responsive)`
     }
   }
   .other {
-    width: ${loginWidth};
+    width: ${width};
     margin-bottom: 1rem;
   }
   .register {
@@ -73,13 +73,26 @@ const ButtonWithMarginTop = styled(Button)`
   padding: 0.5rem;
 `;
 
-const LoginPresenter = () => {
+const LoginPresenter = ({ form, onChange, onSubmit }) => {
   return (
     <Container>
       <h3>로그인</h3>
-      <form>
-        <StyledInput />
-        <StyledInput type="password" />
+      <form onSubmit={onSubmit}>
+        <StyledInput
+          autoComplete="memEmail"
+          name="memEmail"
+          placeholder="이메일 입력"
+          vlaue={form.memEmail}
+          onChange={onChange}
+        />
+        <StyledInput
+          autoComplate="new-password"
+          name="memPassword"
+          placeholder="비밀번호 입력"
+          type="password"
+          value={form.memPassword}
+          onChange={onChange}
+        />
         <ButtonWithMarginTop fullwidth>로그인</ButtonWithMarginTop>
       </form>
       <div className="option">

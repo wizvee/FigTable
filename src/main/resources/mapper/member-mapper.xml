@@ -13,17 +13,15 @@
 
 	<insert id="register" parameterType="member">
 		INSERT INTO FIG_MEMBER
-		VALUES(MEM_SEQ.NEXTVAL, #{memEmail},
+		VALUES('m'||MEM_SEQ.NEXTVAL, #{memEmail},
 		#{memPassword}, #{memPhone},
-		#{memName}, #{memCode}, DEFAULT)
+		#{memName}, 'M', DEFAULT)
 	</insert>
-	
+
 	<select id="login" parameterType="member" resultType="member"
 		resultMap="memResult">
 		SELECT *
 		FROM
-		FIG_MEMBER WHERE MEM_EMAIL = #{memEmail} AND
-		MEM_PASSWORD =
-		#{memPassword}
+		FIG_MEMBER WHERE MEM_EMAIL = #{memEmail}
 	</select>
 </mapper>

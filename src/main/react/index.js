@@ -17,14 +17,16 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
-function loadRecent() {
+function loadData() {
   // localStorage에서 최근 본 맛집 불러오기
   const recent = localStorage.getItem('recent');
-  if (!recent) return;
-  store.dispatch(insertRecent(JSON.parse(recent)));
+  // sessionStorage에서 로그인 정보 가져오기
+  const member = sessionStorage.getItem('member');
+  if (!recent || !member) return;
+  if (recent) store.dispatch(insertRecent(JSON.parse(recent)));
 }
 
-loadRecent();
+loadData();
 
 ReactDOM.render(
   <Provider store={store}>
