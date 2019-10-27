@@ -9,6 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
 import { insertRecent } from './modules/recent';
+import { setMember } from './modules/member';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -22,8 +23,9 @@ function loadData() {
   const recent = localStorage.getItem('recent');
   // sessionStorage에서 로그인 정보 가져오기
   const member = sessionStorage.getItem('member');
-  if (!recent || !member) return;
+  if (!recent && !member) return;
   if (recent) store.dispatch(insertRecent(JSON.parse(recent)));
+  if (member) store.dispatch(setMember(JSON.parse(member)));
 }
 
 loadData();

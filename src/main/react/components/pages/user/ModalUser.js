@@ -60,7 +60,11 @@ const ModalFooter = styled.div`
   border-top: 1px solid ${palette.borderGray};
 `;
 
-const ModalUser = ({ closeModal }) => {
+const ButtonWithPadding = styled(Button)`
+  padding: 0.5rem;
+`;
+
+const ModalUser = ({ closeModal, member, onLogout }) => {
   const recent = useSelector(({ recent }) => recent);
   const dispatch = useDispatch();
   const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
@@ -95,11 +99,19 @@ const ModalUser = ({ closeModal }) => {
           />
         ))}
       </Container>
-      <ModalFooter>
-        <Button to="/figtable/login" fullwidth>
-          로그인
-        </Button>
-      </ModalFooter>
+      {member ? (
+        <ModalFooter>
+          <ButtonWithPadding onClick={onLogout} fullwidth>
+            로그아웃
+          </ButtonWithPadding>
+        </ModalFooter>
+      ) : (
+        <ModalFooter>
+          <ButtonWithPadding to="/figtable/login" fullwidth>
+            로그인
+          </ButtonWithPadding>
+        </ModalFooter>
+      )}
     </>
   );
 };

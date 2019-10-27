@@ -57,7 +57,15 @@ const ButtonWithMarginTop = styled(Button)`
   padding: 0.5rem;
 `;
 
-const RegisterPresenter = ({ form, onChange, onSubmit }) => {
+const ErrorMsg = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+`;
+
+const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
   return (
     <Container>
       <h3>회원가입</h3>
@@ -101,16 +109,27 @@ const RegisterPresenter = ({ form, onChange, onSubmit }) => {
         />
         <div className="check">
           <label>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="policies"
+              checked={form.policies}
+              onChange={onToggle}
+            />
             (필수) 회원가입 약관 동의
           </label>
         </div>
         <div className="check">
           <label>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="privacy"
+              checked={form.privacy}
+              onChange={onToggle}
+            />
             (필수) 개인정보 수집 및 이용 동의
           </label>
         </div>
+        {error && <ErrorMsg>{error}</ErrorMsg>}
         <ButtonWithMarginTop fullwidth>회원가입</ButtonWithMarginTop>
       </form>
       <div className="login">

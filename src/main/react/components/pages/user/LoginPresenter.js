@@ -73,7 +73,15 @@ const ButtonWithMarginTop = styled(Button)`
   padding: 0.5rem;
 `;
 
-const LoginPresenter = ({ form, onChange, onSubmit }) => {
+const ErrorMsg = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+`;
+
+const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
   return (
     <Container>
       <h3>로그인</h3>
@@ -93,6 +101,7 @@ const LoginPresenter = ({ form, onChange, onSubmit }) => {
           value={form.memPassword}
           onChange={onChange}
         />
+        {error && <ErrorMsg>{error}</ErrorMsg>}
         <ButtonWithMarginTop fullwidth>로그인</ButtonWithMarginTop>
       </form>
       <div className="option">

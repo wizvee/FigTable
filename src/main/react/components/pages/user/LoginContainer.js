@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { changeField, initializeForm, login } from '../../../modules/auth';
+import { setMember } from '../../../modules/member';
 import LoginPresenter from './LoginPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
 
@@ -9,10 +10,11 @@ const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
-  const { form, auth, authError } = useSelector(({ auth }) => ({
+  const { form, auth, authError, member } = useSelector(({ auth, member }) => ({
     form: auth.login,
     auth: auth.auth,
     authError: auth.authError,
+    member: member.member,
   }));
 
   // 인풋 변경 이벤트 핸들러
@@ -31,7 +33,7 @@ const LoginContainer = ({ history }) => {
   // 컴포넌트가 처음 렌더링 될 때 form을 초기화
   useEffect(() => {
     dispatch(initializeForm('login'));
-  }, [dispatch, form]);
+  }, [dispatch]);
 
   // 로그인 성공/실패 처리
   useEffect(() => {
@@ -40,14 +42,18 @@ const LoginContainer = ({ history }) => {
       return;
     }
     if (auth) {
-      if (auth) history.push('/');
-      try {
-        sessionStorage.setItem('member', JSON.stringify(auth));
-      } catch (e) {
-        console.log('sessionStorage is not working');
-      }
+      dispatch(setMember(auth));
     }
-  });
+  }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (member) history.push('/');
+    try {
+      sessionStorage.setItem('member', JSON.stringify(member));
+    } catch (e) {
+      console.log('sessionStorage is not working');
+    }
+  }, [history, member]);
 
   return (
     <>

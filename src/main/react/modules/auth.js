@@ -7,6 +7,7 @@ import createRequestSaga, {
 import * as authAPI from '../lib/api/auth';
 
 const CHANGE_FIELD = 'auth/CHANGE_FILED';
+const TOGGLE_FIELD = 'auth/TOGGLE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
@@ -24,7 +25,7 @@ export const changeField = createAction(
     value,
   }),
 );
-
+export const toggleField = createAction(TOGGLE_FIELD, key => key);
 export const initializeForm = createAction(INITIALIZE_FORM, form => form);
 
 export const register = createAction(
@@ -36,7 +37,6 @@ export const register = createAction(
     memName,
   }),
 );
-
 export const login = createAction(LOGIN, ({ memEmail, memPassword }) => ({
   memEmail,
   memPassword,
@@ -57,6 +57,8 @@ const initialState = {
     passwordConfirm: '',
     memPhone: '',
     memName: '',
+    policies: false,
+    privacy: false,
   },
   login: { memEmail: '', memPassword: '' },
   auth: null,
@@ -69,10 +71,15 @@ const auth = handleActions(
       produce(state, draft => {
         draft[form][key] = value;
       }),
+    [TOGGLE_FIELD]: (state, { payload: key }) =>
+      produce(state, draft => {
+        draft.register[key] = !draft.register[key];
+      }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
-      // form이 초기화 될 때 에러도 초기화
+      // 폼을 초기화 할 때 auth도 초기화
+      auth: null,
       authError: null,
     }),
     [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
