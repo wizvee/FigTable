@@ -106,7 +106,7 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
           </ButtonWithPadding>
         </ModalFooter>
       ) : (
-        <ModalFooter>
+        <ModalFooter onClick={closeModal}>
           <ButtonWithPadding to="/figtable/login" fullwidth>
             로그인
           </ButtonWithPadding>
