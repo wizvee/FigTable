@@ -52,7 +52,7 @@ const PosterSmall = props => {
     closeModal,
   } = props;
   return (
-    <Link to={`/figtable/restaurants/${resNo}`}>
+    <Link to={`/figtable/restaurant/${resNo}`}>
       <Container onClick={closeModal}>
         <Image url={resThumb} />
         <TextWrapper>

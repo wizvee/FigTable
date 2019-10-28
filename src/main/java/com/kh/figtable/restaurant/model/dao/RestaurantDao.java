@@ -13,5 +13,7 @@ public interface RestaurantDao {
 	List<Restaurant> getRestaurantsByLocal(SqlSession session, String local);
 	
 	Restaurant getRestaurantById(SqlSession session, String resNo);
+	
+	int increaseViews(SqlSession session, String resNo);
 
 }

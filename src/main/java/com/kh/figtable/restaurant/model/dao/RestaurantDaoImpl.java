@@ -20,4 +20,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return session.selectOne("restaurant.getById", resNo);
 	}
 
+	@Override
+	public int increaseViews(SqlSession session, String resNo) {
+		return session.update("restaurant.increaseViews", resNo);
+	}
+
 }

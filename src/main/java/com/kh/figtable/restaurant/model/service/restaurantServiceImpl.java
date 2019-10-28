@@ -27,4 +27,9 @@ public class restaurantServiceImpl implements RestaurantService {
 		return dao.getRestaurantById(session, resNo);
 	}
 
+	@Override
+	public int increaseViews(String resNo) {
+		return dao.increaseViews(session, resNo);
+	}
+
 }
