@@ -2,8 +2,7 @@
 .env
 
 # WEBPACK
-/src/main/webapp/js/
-
+/src/main/webapp/resources/js/
 
 # # Directories #
 # /build/
