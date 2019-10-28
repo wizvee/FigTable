@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import HomePresenter from './HomePresenter';
 import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
+import { listRes } from '../../../modules/restaurants';
 
 const Container = styled.div`
   display: flex;
@@ -85,50 +87,19 @@ const AdBlock = styled(Responsive)`
   }
 `;
 
-const smaple = [
-  {
-    id: 1,
-    thumb:
-      'https://s3-ap-northeast-1.amazonaws.com/dcreviewsresized/20190623074633_photo1_a8KtahP0JSRT.jpg',
-    title: '달콩카페',
-    location: '성균관대역 118m',
-    category: '카페',
-    views: 5449,
-    reviews: 13,
-    rating: 4.3,
-    waiting: false,
-  },
-  {
-    id: 2,
-    thumb:
-      'https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/52193_1488438243054735.jpg',
-    title: '아이엠바리스타',
-    location: '율전동 483m',
-    category: 'bar, 카페',
-    views: 3490,
-    reviews: 9,
-    rating: 3.9,
-    waiting: true,
-    waitCnt: 3,
-  },
-  {
-    id: 3,
-    thumb:
-      'https://mp-seoul-image-production-s3.mangoplate.com/819837_1509504944362416.jpg',
-    title: '나이트티',
-    location: '수원 871m',
-    category: '마카롱, 카페',
-    views: 3449,
-    reviews: 21,
-    rating: 3.1,
-    waiting: true,
-    waitCnt: 0,
-  },
-];
-
 const HomeContainer = () => {
-  const [popular, setPopular] = useState(smaple);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { restaurants, error, loading } = useSelector(
+    ({ restaurants, loading }) => ({
+      restaurants: restaurants.restaurants,
+      error: restaurants.error,
+      loading: loading['restaurant/LIST_RES'],
+    }),
+  );
+
+  useEffect(() => {
+    dispatch(listRes('수원시'));
+  }, [dispatch]);
 
   return (
     <>
@@ -150,7 +121,11 @@ const HomeContainer = () => {
           </AdBlock>
         </div>
       </Container>
-      <HomePresenter popular={popular} loading={loading} />
+      <HomePresenter
+        restaurants={restaurants}
+        error={error}
+        loading={loading}
+      />
     </>
   );
 };

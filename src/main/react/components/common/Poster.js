@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
-import { FiEye, FiEdit3 } from 'react-icons/fi';
+import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { insertRecentAsync } from '../../modules/recent';
 
@@ -57,7 +57,8 @@ const Title = styled.div`
   justify-content: space-between;
   margin-top: 5px;
   padding: 0 3px;
-  font-size: 1rem;
+  font-size: 1.23rem;
+  /* font-weight: 600; */
 `;
 
 const Rating = styled.span`
@@ -66,24 +67,20 @@ const Rating = styled.span`
 
 const Location = styled.span`
   display: block;
+  margin-top: 0.2rem;
+  padding: 0 3px;
   color: ${palette.textGray};
   font-size: 0.9rem;
 `;
 
-const Views = styled.span`
-  color: ${palette.textGray};
-  font-size: 0.85rem;
-  margin-right: 0.85rem;
-  svg {
-    margin-right: 3px;
-  }
-`;
-
-const Reviews = styled.span`
+const Icon = styled.span`
+  margin-top: 0.2rem;
+  padding: 0 5px;
   color: ${palette.textGray};
   font-size: 0.85rem;
   svg {
     margin-right: 3px;
+    transform: translateY(1px);
   }
 `;
 
@@ -97,15 +94,15 @@ const Container = styled.div`
 
 const Poster = ({ restaurant }) => {
   const {
-    id,
-    thumb,
-    title,
-    location,
-    views,
-    reviews,
-    rating,
-    waiting,
-    waitCnt,
+    resNo,
+    resThumb,
+    resName,
+    resLocationKeyword,
+    resViews,
+    resReviews,
+    resRating,
+    resWaiting,
+    resWaitCnt,
   } = restaurant;
 
   const dispatch = useDispatch();
@@ -114,28 +111,28 @@ const Poster = ({ restaurant }) => {
   ]);
 
   return (
-    <Link to={`/figtable/restaurants/${id}`}>
+    <Link to={`/figtable/restaurant/${resNo}`}>
       <Container onClick={() => onInsert(restaurant)}>
         <ImageContainer>
-          <Image url={thumb} />
-          {waiting && <Waiting>대기 {waitCnt}팀</Waiting>}
+          <Image url={resThumb} />
+          {resWaiting && <Waiting>대기 {resWaitCnt}팀</Waiting>}
           <Like>
             <TiStarFullOutline />
           </Like>
         </ImageContainer>
         <Title>
-          {title}
-          <Rating>{rating}</Rating>
+          {resName}
+          <Rating>{resRating.toFixed(1)}</Rating>
         </Title>
-        <Location>{location}</Location>
-        <Views>
-          <FiEye />
-          {views}
-        </Views>
-        <Reviews>
-          <FiEdit3 />
-          {reviews}
-        </Reviews>
+        <Location>{resLocationKeyword}</Location>
+        <Icon>
+          <MdRemoveRedEye />
+          {resViews}
+        </Icon>
+        <Icon>
+          <MdCreate />
+          {resReviews}
+        </Icon>
       </Container>
     </Link>
   );

@@ -5,16 +5,20 @@ import Section from '../../common/Section';
 import Poster from '../../common/Poster';
 
 const Container = styled(Responsive)`
-  padding-top: 2rem;
-  height: 1000px;
+  padding: 2rem 1rem;
+  height: 100%;
 `;
 
-const HomePresenter = ({ popular, error, loading }) => {
-  return loading ? null : (
+const HomePresenter = ({ restaurants, error, loading }) => {
+  if (error) {
+    return null;
+  }
+  if (loading || !restaurants) return null;
+  return (
     <Container>
       <Section title="내 주변 맛집">
-        {popular.map(p => (
-          <Poster key={p.id} restaurant={p} />
+        {restaurants.map(r => (
+          <Poster key={r.resNo} restaurant={r} />
         ))}
       </Section>
     </Container>

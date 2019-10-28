@@ -1,11 +1,8 @@
 package com.kh.figtable.restaurant.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Restaurant {
 
 	private String resNo;
@@ -23,10 +20,11 @@ public class Restaurant {
 	private double resLat;
 	private double resLong;
 	private int resViews;
+	private int resRating;
 	private int resReviews;
 	private int resLikes;
 	private String resReserve;
 	private String resWaiting;
-	private String resWaitCnt;
+	private int resWaitCnt;
 
 }

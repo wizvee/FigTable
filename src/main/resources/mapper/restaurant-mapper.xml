@@ -18,6 +18,7 @@
 		<result property="resLat" column="RES_LAT" />
 		<result property="resLong" column="RES_LONG" />
 		<result property="resViews" column="RES_VIEWS" />
+		<result property="resRating" column="RES_RATING" />
 		<result property="resReviews" column="RES_REVIEWS" />
 		<result property="resLikes" column="RES_LIKES" />
 		<result property="resReserve" column="RES_RESERVE" />
@@ -25,9 +26,20 @@
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 	</resultMap>
 
+	<select id="getByLocal" parameterType="string"
+		resultType="restaurant" resultMap="resResult">
+		SELECT * FROM FIG_RESTAURANT WHERE
+		RES_ADDRESS LIKE '%'|| #{local} || '%'
+	</select>
+
 	<select id="getById" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE
 		RES_NO = #{resNo}
 	</select>
+
+	<update id="increaseViews" parameterType="string">
+		UPDATE FIG_RESTAURANT
+		SET RES_VIEWS = RES_VIEWS + 1 WHERE RES_NO = #{resNo}
+	</update>
 </mapper>

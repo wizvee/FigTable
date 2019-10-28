@@ -43,17 +43,24 @@ const Rating = styled.span`
 `;
 
 const PosterSmall = props => {
-  const { id, thumb, title, location, rating, closeModal } = props;
+  const {
+    resNo,
+    resThumb,
+    resName,
+    resRating,
+    resLocationKeyword,
+    closeModal,
+  } = props;
   return (
-    <Link to={`/figtable/restaurants/${id}`}>
+    <Link to={`/figtable/restaurant/${resNo}`}>
       <Container onClick={closeModal}>
-        <Image url={thumb} />
+        <Image url={resThumb} />
         <TextWrapper>
           <Title>
-            {title}
-            <Rating>{rating}</Rating>
+            {resName}
+            <Rating>{resRating.toFixed(1)}</Rating>
           </Title>
-          <Location>{location}</Location>
+          <Location>{resLocationKeyword}</Location>
         </TextWrapper>
         <Like>
           <FiStar />

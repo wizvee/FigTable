@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
-import { FiStar, FiEye, FiEdit3, FiMapPin, FiPhone } from 'react-icons/fi';
+import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
 import GoogleMap from './GoogleMap';
 import WaitingPresenter from './WaitingPresenter';
+import RestaurantInfo from './RestaurantInfo';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -99,45 +100,22 @@ const InfoBody = styled.div`
   }
 `;
 
-const InfoData = styled.div`
-  padding: 1rem 0;
-  border-top: 1px solid ${palette.borderGray};
-  border-bottom: 1px solid ${palette.borderGray};
-  div {
-    display: flex;
-    align-items: center;
-    height: 1.9rem;
-    font-size: 0.95rem;
-    svg {
-      margin-right: 5px;
-      transform: translateY(1px);
-    }
-  }
-`;
-
-const DetailPresenter = ({
-  info,
-  error,
-  loading,
-  rating,
-  likes,
-  reviews,
-  openInsta,
-}) => {
+const DetailPresenter = ({ info, error, loading, openInsta }) => {
   if (error) {
     return null;
   }
   if (loading || !info) return null;
   const {
     resName,
-    resLocationKeyowrd,
-    resAddress,
-    resTel,
-    resViews,
+    resLocationKeyword,
     resLat,
     resLong,
-    resReserve,
+    resViews,
+    resRating,
+    resReviews,
+    resLikes,
     resWaiting,
+    resWaitCnt,
   } = info;
   // 리뷰의 이미지url만 따온 배열 생성
   // const images = imgReviews.flatMap(review => review.images).slice(-3);
@@ -152,7 +130,7 @@ const DetailPresenter = ({
       <InfoWrapper>
         <InfoHeader>
           <Title>{resName}</Title>
-          <Rating>{rating ? rating : '0.0'}</Rating>
+          <Rating>{resRating.toFixed(1)}</Rating>
           <Icon>
             <FiEdit3 />
             <span>리뷰쓰기</span>
@@ -162,7 +140,7 @@ const DetailPresenter = ({
             <span>가고싶다</span>
           </Icon>
         </InfoHeader>
-        <Location>{resLocationKeyowrd}</Location>
+        <Location>{resLocationKeyword}</Location>
         <InfoDetail>
           <span>
             <FiEye />
@@ -170,26 +148,16 @@ const DetailPresenter = ({
           </span>
           <span>
             <FiEdit3 />
-            {reviews ? reviews.length : 0}
+            {resReviews}
           </span>
           <span>
             <FiStar />
-            {likes ? likes : 0}
+            {resLikes}
           </span>
         </InfoDetail>
-        {resWaiting && <WaitingPresenter />}
+        {resWaiting && <WaitingPresenter resWaitCnt={resWaitCnt} />}
         <InfoBody>
-          <InfoData>
-            <div>
-              <FiMapPin />
-              {resAddress}
-            </div>
-            <div>
-              <FiPhone />
-              {resTel}
-            </div>
-            <div>메뉴</div>
-          </InfoData>
+          <RestaurantInfo info={info} />
           <GoogleMap lat={resLat} lng={resLong} />
         </InfoBody>
       </InfoWrapper>
