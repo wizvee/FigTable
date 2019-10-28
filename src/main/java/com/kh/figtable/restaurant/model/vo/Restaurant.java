@@ -23,6 +23,7 @@ public class Restaurant {
 	private double resLat;
 	private double resLong;
 	private int resViews;
+	private int resRating;
 	private int resReviews;
 	private int resLikes;
 	private String resReserve;

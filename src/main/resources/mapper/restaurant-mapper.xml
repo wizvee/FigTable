@@ -18,12 +18,18 @@
 		<result property="resLat" column="RES_LAT" />
 		<result property="resLong" column="RES_LONG" />
 		<result property="resViews" column="RES_VIEWS" />
+		<result property="resRating" column="RES_RATING" />
 		<result property="resReviews" column="RES_REVIEWS" />
 		<result property="resLikes" column="RES_LIKES" />
 		<result property="resReserve" column="RES_RESERVE" />
 		<result property="resWaiting" column="RES_WAITING" />
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 	</resultMap>
+
+	<select id="getByLocal" parameterType="string"
+		resultType="restaurant" resultMap="resResult">
+		SELECT * FROM FIG_RESTAURANT WHERE RES_ADDRESS LIKE '%'|| #{local} || '%'
+	</select>
 
 	<select id="getById" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
