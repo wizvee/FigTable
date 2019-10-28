@@ -10,7 +10,7 @@ const HeaderBlock = styled.div`
   z-index: 50;
   position: fixed;
   width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), transparent);
+  background: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
   ${props =>
     !props.isHome &&
     css`

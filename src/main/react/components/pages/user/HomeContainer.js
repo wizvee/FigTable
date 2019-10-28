@@ -50,7 +50,7 @@ const Container = styled.div`
   .ad {
     width: 100%;
     height: 6rem;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
     color: white;
   }
 `;
@@ -73,7 +73,7 @@ const AdBlock = styled(Responsive)`
         left: 0;
         width: 100%;
         height: 10px;
-        background: rgba(102, 217, 232, 0.5);
+        background: rgba(102, 217, 232, 0.9);
         @media (max-width: 768px) {
           background: transparent;
         }
