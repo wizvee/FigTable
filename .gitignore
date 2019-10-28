@@ -4,6 +4,9 @@
 # WEBPACK
 /src/main/webapp/resources/js/
 
+# Eclipse
+/target/
+
 # # Directories #
 # /build/
 # /bin/
@@ -12,7 +15,6 @@
 # # OS Files #
 # .DS_Store
   
-# *.class
  
 # # Package Files #
 # *.jar
