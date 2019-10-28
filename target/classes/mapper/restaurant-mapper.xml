@@ -8,6 +8,7 @@
 		<result property="resLocationKeyword"
 			column="RES_LOCATION_KEYWORD" />
 		<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
+		<result property="resThumb" column="RES_THUMB" />
 		<result property="resAddress" column="RES_ADDRESS" />
 		<result property="resOpenDay" column="RES_OPEN_DAY" />
 		<result property="resCloseTime" column="RES_CLOSE_TIME" />
@@ -17,12 +18,16 @@
 		<result property="resLat" column="RES_LAT" />
 		<result property="resLong" column="RES_LONG" />
 		<result property="resViews" column="RES_VIEWS" />
+		<result property="resReviews" column="RES_REVIEWS" />
+		<result property="resLikes" column="RES_LIKES" />
 		<result property="resReserve" column="RES_RESERVE" />
 		<result property="resWaiting" column="RES_WAITING" />
+		<result property="resWaitCnt" column="RES_WAITCNT" />
 	</resultMap>
 
 	<select id="getById" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE RES_NO = #{resNo}
+		SELECT * FROM FIG_RESTAURANT WHERE
+		RES_NO = #{resNo}
 	</select>
 </mapper>

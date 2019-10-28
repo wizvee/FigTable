@@ -13,6 +13,7 @@ public class Member {
 	private String memPassword;
 	private String memPhone;
 	private String memName;
+	private int memRvCnt;
 	private String memCode;
 	private String memStatus;
 

@@ -73,7 +73,7 @@ const AdBlock = styled(Responsive)`
         left: 0;
         width: 100%;
         height: 10px;
-        background: rgba(102, 217, 232, 0.9);
+        background: rgba(102, 217, 232, 0.5);
         @media (max-width: 768px) {
           background: transparent;
         }

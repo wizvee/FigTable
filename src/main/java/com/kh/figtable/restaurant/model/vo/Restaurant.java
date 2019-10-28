@@ -13,6 +13,7 @@ public class Restaurant {
 	private String resName;
 	private String resLocationKeyword;
 	private String resFoodKeyword;
+	private String resThumb;
 	private String resAddress;
 	private String resOpenDay;
 	private String resCloseTime;
@@ -22,7 +23,10 @@ public class Restaurant {
 	private double resLat;
 	private double resLong;
 	private int resViews;
+	private int resReviews;
+	private int resLikes;
 	private String resReserve;
 	private String resWaiting;
+	private String resWaitCnt;
 
 }

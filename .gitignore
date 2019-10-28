@@ -1,6 +1,9 @@
 # API KEY
 .env
 
+# WEBPACK
+src/main/webapp/js
+
 
 # # Directories #
 # /build/
