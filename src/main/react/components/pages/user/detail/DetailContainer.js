@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readRes, unloadRes } from '../../../../modules/restaurant';
+import { listReviews, unloadReviews } from '../../../../modules/reviews';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import DetailPresenter from './DetailPresenter';
@@ -18,19 +19,31 @@ const DetailContainer = ({ match }) => {
   const { resNo } = match.params;
 
   const dispatch = useDispatch();
-  const { restaurant, error, loading } = useSelector(
-    ({ restaurant, loading }) => ({
-      restaurant: restaurant.restaurant,
-      error: restaurant.error,
-      loading: loading['restaurant/READ_RES'],
-    }),
-  );
+  const {
+    restaurant,
+    resError,
+    reviews,
+    rvError,
+    resLoading,
+    rvLoading,
+  } = useSelector(({ restaurant, reviews, loading }) => ({
+    restaurant: restaurant.restaurant,
+    resError: restaurant.error,
+    reviews: reviews.reviews,
+    rvError: reviews.error,
+    resLoading: loading['restaurant/READ_RES'],
+    rvLoading: loading['reviews/LIST_RV'],
+  }));
 
   // 처음 마운트 될 때 레스토랑 가져오기 API요청
   useEffect(() => {
     dispatch(readRes(resNo));
+    dispatch(listReviews(resNo));
     // 언마운트 될 때 리덕스에서 레스토랑 데이터 없애기
-    return () => dispatch(unloadRes());
+    return () => {
+      dispatch(unloadRes());
+      dispatch(unloadReviews());
+    };
   }, [dispatch, resNo]);
 
   // 이미지 있는 리뷰 필터
@@ -65,13 +78,13 @@ const DetailContainer = ({ match }) => {
       <Container>
         <DetailPresenter
           info={restaurant}
-          error={error}
-          loading={loading}
+          error={resError}
+          loading={resLoading}
           // imgReviews={imgReviews}
           // totalReviews={restaurantReviews.length}
           // openInsta={openInsta}
         />
-        {/* <ReviewPresenter reviews={restaurantReviews} openInsta={openInsta} /> */}
+        <ReviewPresenter reviews={reviews} /*openInsta={openInsta}*/ />
       </Container>
     </>
   );

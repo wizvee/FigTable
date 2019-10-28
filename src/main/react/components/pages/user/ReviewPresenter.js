@@ -14,12 +14,16 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
+  span {
+    color: ${palette.textGray};
+  }
 `;
 
 const CtgItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: ${palette.textGray};
   transition: color 0.2s linear;
   cursor: pointer;
   &.disabled {
@@ -37,19 +41,35 @@ const Divider = styled.span`
   margin: 5px;
 `;
 
+const NoneMsg = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: ${palette.textGray};
+  div {
+    font-size: 1.25rem;
+  }
+`;
+
 const ReviewPresenter = ({ reviews, openInsta }) => {
+  if (!reviews) return null;
+
   // category state
   const [selectCtg, setSelectCtg] = useState(null);
 
   // 리뷰 카테고리 별로 분류
-  const goodReviews = reviews.filter(r => r.rating === 'good');
-  const nomalReviews = reviews.filter(r => r.rating === 'nomal');
-  const badReviews = reviews.filter(r => r.rating === 'bad');
+  const goodReviews = reviews.filter(r => r.rvRating === 5);
+  const nomalReviews = reviews.filter(r => r.rvRating === 3);
+  const badReviews = reviews.filter(r => r.rvRating === 1);
 
   return (
     <>
       <Container>
-        <Title>리뷰({reviews.length})</Title>
+        <Title>
+          리뷰<span>({reviews.length})</span>
+        </Title>
         <CtgItem
           className={selectCtg === null && 'selected'}
           onClick={() => setSelectCtg(null)}
@@ -93,6 +113,12 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
           별로야({badReviews.length})
         </CtgItem>
       </Container>
+      {reviews.length === 0 && (
+        <NoneMsg>
+          <div>아직 작성된 리뷰가 없네요.</div>
+          해당 식당의 첫 리뷰를 작성해주시겠어요?
+        </NoneMsg>
+      )}
       {selectCtg === null &&
         reviews.map(r => (
           <ReviewItem key={r.id} review={r} openInsta={openInsta} />

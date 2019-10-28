@@ -87,14 +87,14 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
             <FaTimes />
           </ClearAll>
         )}
-        {recent.map(v => (
+        {recent.map(r => (
           <PosterSmall
-            key={v.id}
-            id={v.id}
-            thumb={v.thumb}
-            title={v.title}
-            location={v.location}
-            rating={v.rating}
+            key={r.resNo}
+            resNo={r.resNo}
+            resThumb={r.resThumb}
+            resName={r.resName}
+            resRating={r.resRating}
+            resLocationKeyword={r.resLocationKeyword}
             closeModal={closeModal}
           />
         ))}
