@@ -48,7 +48,7 @@ const initialState = [];
 const recent = handleActions(
   {
     [INSERT_RECENT]: (state, { payload }) => state.concat(payload),
-    [REMOVE_RECENT]: (state, action) => initialState,
+    [REMOVE_RECENT]: () => initialState,
   },
   initialState,
 );

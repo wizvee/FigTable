@@ -4,7 +4,10 @@
 	<typeAliases>
 		<typeAlias type="com.kh.figtable.member.model.vo.Member"
 			alias="member" />
-		<typeAlias type="com.kh.figtable.restaurant.model.vo.Restaurant"
+		<typeAlias
+			type="com.kh.figtable.restaurant.model.vo.Restaurant"
 			alias="restaurant" />
+		<typeAlias type="com.kh.figtable.review.model.vo.Review"
+			alias="review" />
 	</typeAliases>
 </configuration>
