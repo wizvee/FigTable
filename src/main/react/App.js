@@ -18,6 +18,7 @@ const App = () => {
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
         <Route path="/figtable/eatdeal" component={EatdealContainer} />
+        <Route path="/figtable/eatdeal/:eatNo" component={} />
         <Route path="/figtable/owner" component={OwnerContainer} />
         <Route path="/figtable/admin" component={AdminContainer} />
         <Redirect from="*" to="/figtable" />
