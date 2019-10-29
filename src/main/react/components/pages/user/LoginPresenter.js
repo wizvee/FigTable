@@ -112,9 +112,6 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
         <span>또는</span>
       </div>
       <div className="other">
-        {/* <ButtonWithMarginTop fullwidth bgColor="#3b5bdb">
-          페이스북으로 로그인
-        </ButtonWithMarginTop> */}
         <ButtonWithMarginTop fullwidth bgColor="#fed330">
           카카오톡으로 로그인
         </ButtonWithMarginTop>

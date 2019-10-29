@@ -28,12 +28,16 @@ const Container = styled.div`
   background: white;
   transform: translate(-50%, -50%);
   .msg {
-    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
 const ButtonWithMarginTop = styled(Button)`
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   padding: 0.5rem;
   & + & {
     margin-top: 0.5rem;
@@ -50,7 +54,7 @@ const ModalLogin = ({ msg, closeModal }) => {
           {msg === 'review'
             ? '로그인하면 리뷰를 작성할 수 있어요.'
             : '로그인하면 가고싶은 식당을 저장할 수 있어요.'}
-          <ButtonWithMarginTop to="/" fullwidth>
+          <ButtonWithMarginTop to="/figtable/login" fullwidth>
             로그인
           </ButtonWithMarginTop>
           <ButtonWithMarginTop fullwidth bgColor="#fed330">
