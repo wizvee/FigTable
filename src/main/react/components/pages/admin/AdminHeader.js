@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
@@ -25,9 +25,15 @@ const HeaderWrapper = styled(Responsive)`
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 999;
 
+  ${props =>
+    !props.isAdmin &&
+    css`
+      background: white;
+    `}
+
   .logo,
   .right {
-    color: ${props => (props.isHome ? 'white' : palette.primary)};
+    color: ${palette.primary};
   }
 
   .logoMain {
@@ -44,7 +50,7 @@ const HeaderWrapper = styled(Responsive)`
     float: right;
     justify-content: center;
     font-size: 1.2rem;
-    color: white;
+    color: ${props => (props.isAdmin ? 'white' : '#474747')};
   }
   .right {
     display: flex;
@@ -57,7 +63,7 @@ const HeaderWrapper = styled(Responsive)`
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-    color: white;
+    color: ${props => (props.isAdmin ? 'white' : '#474747')};
   }
   .rightName b {
     margin-right: 5px;
@@ -77,22 +83,13 @@ const IconWrapper = styled.div`
   }
 `;
 
-const AdminHeader = () => {
-  const [isUserModal, setIsUserModal] = useState(false);
-  // 가고싶다, 로그인 모달 열고 닫는 이벤트
-  function openUserModal() {
-    setIsUserModal(true);
-    document.body.style.overflow = 'hidden';
-  }
-  function closeUserModal() {
-    setIsUserModal(false);
-    document.body.style.overflow = 'unset';
-  }
+const AdminHeader = ({ location: { pathname } }) => {
+  const isAdmin = pathname === '/figtable/admin';
 
   return (
     <>
       <HeaderBlock>
-        <HeaderWrapper>
+        <HeaderWrapper isAdmin={isAdmin}>
           <div className="logo">
             <div className="logoMain">
               <Link to="/figtable">FIGTABLE</Link>
@@ -104,7 +101,7 @@ const AdminHeader = () => {
             <div className="rightName">
               <b>어드민</b>관리자님
             </div>
-            <IconWrapper onClick={openUserModal}>
+            <IconWrapper>
               <MdPerson />
             </IconWrapper>
           </div>
@@ -114,4 +111,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default withRouter(AdminHeader);

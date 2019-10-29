@@ -80,7 +80,7 @@ const AdminContainer = () => {
         <MenuList>
           <ul className="ulList">
             <li className="li">
-              <Link className="menu" to="/figtable/admin/insertRestaurant">
+              <Link className="menu" to="/figtable/admin/enroll">
                 <IconWrapper>
                   <MdLocalDining />
                 </IconWrapper>
@@ -88,7 +88,7 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/Restaurant">
+              <Link className="menu" to="/figtable/admin/restaurant">
                 <IconWrapper>
                   <MdEdit />
                 </IconWrapper>

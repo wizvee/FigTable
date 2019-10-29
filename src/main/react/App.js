@@ -27,6 +27,7 @@ const App = () => {
         <Route path="/figtable/owner" exact component={OwnerContainer} />
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
+        <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
         <Redirect from="*" to="/figtable" />
       </Switch>
       <Footer />
