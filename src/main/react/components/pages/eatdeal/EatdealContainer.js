@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState} from 'react';
 
 import HeaderSimple from '../../common/HeaderSimple';
 import EatdealMainContainer from './EatdealMainContainer';
@@ -8,7 +7,7 @@ import EatdealMainContainer from './EatdealMainContainer';
 
 const sample = [
   {
-    id: 1,
+    eatNo: 1,
     thumb:
       'https://s3-ap-northeast-1.amazonaws.com/dcreviewsresized/20190623074633_photo1_a8KtahP0JSRT.jpg',
     title: '달콩카페',
@@ -20,7 +19,7 @@ const sample = [
     FoodName:'녹차케이크',
   },
   {
-    id: 2,
+    eatNo: 2,
     thumb:
       'https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/52193_1488438243054735.jpg',
     title: '아이엠바리스타',
@@ -32,7 +31,7 @@ const sample = [
     FoodName:'녹차케이크',
   },
   {
-    id: 3,
+    eatNo: 3,
     thumb:
       'https://mp-seoul-image-production-s3.mangoplate.com/819837_1509504944362416.jpg',
     title: '나이트티',
@@ -55,7 +54,7 @@ const EatdealContainer = () => {
       <HeaderSimple />
       <div>
         {eatDeals.map(eatDeal=>(
-          <EatdealMainContainer key={eatDeal.id} eatDeal={eatDeal}/>
+          <EatdealMainContainer key={eatDeal.eatNo} eatDeal={eatDeal}/>
         ))};
       </div>
       

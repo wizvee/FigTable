@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const EatdealCard =styled.div`
     display: flex;
@@ -111,7 +112,7 @@ const RemainFood=styled.span`
 const EatdealMainContainer = ({eatDeal}) => {
     
   const {
-    id,
+    eatNo,
     thumb,
     title,
     status,
@@ -124,13 +125,13 @@ const EatdealMainContainer = ({eatDeal}) => {
 
   
     return (
-      <>
+      <Link to={`/figtable/eatdeal/${eatNo}`}>
         <EatdealCard>
             <ImageContainer>
             <Image url={thumb}/>
                 <LeftArea>
                     {status==='N'?
-                        (<Status color="#e67e22">New</Status>)
+                        (<Status color="#f67280">New</Status>)
                         :(<Status color="#f1c40f">재입고</Status>)
                     }
                     <Status >{discount}</Status>
@@ -156,7 +157,7 @@ const EatdealMainContainer = ({eatDeal}) => {
             </TextContainer>
 
         </EatdealCard>
-      </>
+      </Link>
     );
   };
   
