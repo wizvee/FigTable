@@ -10,6 +10,7 @@ import LoginContainer from './components/pages/user/LoginContainer';
 import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
 import InsertRestaurant from './components/pages/admin/InsertRestaurant';
+import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 
 const App = () => {
   return (
