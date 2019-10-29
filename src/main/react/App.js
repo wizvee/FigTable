@@ -9,6 +9,7 @@ import RegisterContainer from './components/pages/user/RegisterContainer';
 import LoginContainer from './components/pages/user/LoginContainer';
 import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
+import InsertRestaurant from './components/pages/admin/InsertRestaurant';
 
 const App = () => {
   return (
@@ -19,9 +20,13 @@ const App = () => {
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
         <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
-        <Route path="/figtable/eatdeal/:eatNo" component={EatdealDetailContainer} />
-        <Route path="/figtable/owner" component={OwnerContainer} />
-        <Route path="/figtable/admin" component={AdminContainer} />
+        <Route
+          path="/figtable/eatdeal/:eatNo"
+          component={EatdealDetailContainer}
+        />
+        <Route path="/figtable/owner" exact component={OwnerContainer} />
+        <Route path="/figtable/admin" exact component={AdminContainer} />
+        <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Redirect from="*" to="/figtable" />
       </Switch>
       <Footer />
