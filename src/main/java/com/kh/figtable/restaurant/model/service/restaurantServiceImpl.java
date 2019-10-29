@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.figtable.restaurant.model.dao.RestaurantDao;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
@@ -23,8 +24,12 @@ public class restaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public Restaurant getRestaurantById(String resNo) {
-		return dao.getRestaurantById(session, resNo);
+	@Transactional(rollbackFor = Exception.class)
+	public Restaurant getRestaurantById(boolean validate, String resNo) {
+		if (validate)
+			dao.increaseViews(session, resNo);
+		Restaurant result = dao.getRestaurantById(session, resNo);
+		return result;
 	}
 
 	@Override

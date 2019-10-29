@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
 import GoogleMap from './GoogleMap';
 import WaitingPresenter from './WaitingPresenter';
 import RestaurantInfo from './RestaurantInfo';
+import ActionButtons from './ActionButtons';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -51,27 +52,6 @@ const Rating = styled.span`
   font-size: 1.5rem;
   color: ${palette.primary};
   transform: translateY(-5px);
-`;
-
-const Icon = styled.span`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 4rem;
-  color: ${palette.textGray};
-  transform: translateY(7px);
-  transition: color 0.5s linear;
-  cursor: pointer;
-  &:hover {
-    color: ${palette.primary};
-  }
-  svg {
-    font-size: 1.8rem;
-  }
-  span {
-    font-size: 0.8rem;
-  }
 `;
 
 const Location = styled.span`
@@ -131,14 +111,7 @@ const DetailPresenter = ({ info, error, loading, openInsta }) => {
         <InfoHeader>
           <Title>{resName}</Title>
           <Rating>{resRating.toFixed(1)}</Rating>
-          <Icon>
-            <FiEdit3 />
-            <span>리뷰쓰기</span>
-          </Icon>
-          <Icon>
-            <FiStar />
-            <span>가고싶다</span>
-          </Icon>
+          <ActionButtons />
         </InfoHeader>
         <Location>{resLocationKeyword}</Location>
         <InfoDetail>

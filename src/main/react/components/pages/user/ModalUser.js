@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalHeader from '../../common/ModalHeader';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import Button from '../../../lib/styles/Button';
 import PosterSmall from '../../common/PosterSmall';
 import { FaTimes } from 'react-icons/fa';
 import { removeRecentAsync } from '../../../modules/recent';
+import ModalLogin from './ModalLogin';
 
 const Container = styled.div`
   height: 320px;
@@ -65,39 +66,59 @@ const ButtonWithPadding = styled(Button)`
 `;
 
 const ModalUser = ({ closeModal, member, onLogout }) => {
+  const [select, setSelect] = useState('recent');
+
   const recent = useSelector(({ recent }) => recent);
   const dispatch = useDispatch();
   const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
 
-  const menu = ['최근 본 맛집', '가고싶다'];
+  const menu = [
+    { key: 'recent', text: '최근 본 맛집' },
+    { key: 'likes', text: '가고싶다' },
+  ];
+
   return (
     <>
-      <ModalHeader menu={menu} />
+      <ModalHeader menu={menu} select={select} setSelect={setSelect} />
       <Container>
-        {recent.length === 0 ? (
+        {select === 'recent' && recent.length === 0 && (
           <div className="nullText">
             <span className="big">거기가 어디였지?</span>
             <span className="small">
               내가 둘러 본 식당이 이 곳에 순서대로 기록됩니다.
             </span>
           </div>
-        ) : (
-          <ClearAll>
-            <span onClick={onRemove}>clear all</span>
-            <FaTimes />
-          </ClearAll>
         )}
-        {recent.map(r => (
-          <PosterSmall
-            key={r.resNo}
-            resNo={r.resNo}
-            resThumb={r.resThumb}
-            resName={r.resName}
-            resRating={r.resRating}
-            resLocationKeyword={r.resLocationKeyword}
-            closeModal={closeModal}
-          />
-        ))}
+        {select === 'recent' && recent.length !== 0 && (
+          <>
+            <ClearAll>
+              <span onClick={onRemove}>clear all</span>
+              <FaTimes />
+            </ClearAll>
+            {recent.map(r => (
+              <PosterSmall
+                key={r.resNo}
+                resNo={r.resNo}
+                resThumb={r.resThumb}
+                resName={r.resName}
+                resRating={r.resRating}
+                resLocationKeyword={r.resLocationKeyword}
+                closeModal={closeModal}
+              />
+            ))}
+          </>
+        )}
+        {select === 'likes' && member && (
+          <div className="nullText">
+            <span className="big">격하게 가고싶다..</span>
+            <span className="small">
+              식당의 ‘별’ 아이콘을 누르면 가고싶은 곳을 쉽게 저장할 수 있습니다.
+            </span>
+          </div>
+        )}
+        {select === 'likes' && !member && (
+          <ModalLogin msg="like" closeModal={() => setSelect('recent')} />
+        )}
       </Container>
       {member ? (
         <ModalFooter>

@@ -8,7 +8,7 @@ public interface RestaurantService {
 	
 	List<Restaurant> getRestaurantsByLocal(String local);
 	
-	Restaurant getRestaurantById(String resNo);
+	Restaurant getRestaurantById(boolean validate, String resNo);
 	
 	int increaseViews(String resNo);
 

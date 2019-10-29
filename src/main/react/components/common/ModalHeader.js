@@ -16,6 +16,7 @@ const Container = styled.div`
     align-items: center;
     padding: 0 1.3rem;
     height: 100%;
+    cursor: pointer;
     &.selected {
       border-bottom: 2.5px solid ${palette.primary};
       color: ${palette.primary};
@@ -23,12 +24,16 @@ const Container = styled.div`
   }
 `;
 
-const ModalHeader = ({ menu }) => {
+const ModalHeader = ({ menu, select, setSelect }) => {
   return (
     <Container>
-      {menu.map((m, i) => (
-        <div key={m} className={i === 0 ? 'selected' : undefined}>
-          {m}
+      {menu.map(({ key, text }) => (
+        <div
+          key={key}
+          className={select === key ? 'selected' : ''}
+          onClick={() => setSelect(key)}
+        >
+          {text}
         </div>
       ))}
     </Container>

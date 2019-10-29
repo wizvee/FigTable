@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
 import { TiStarFullOutline } from 'react-icons/ti';
 import { insertRecentAsync } from '../../modules/recent';
+import ModalLogin from '../pages/user/ModalLogin';
 
 const Image = styled.div`
   background: url(${props => `${props.url}`});
@@ -105,6 +106,7 @@ const Poster = ({ restaurant }) => {
     resWaitCnt,
   } = restaurant;
 
+  const { member } = useSelector(({ member }) => ({ member: member.member }));
   const dispatch = useDispatch();
   const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
     dispatch,
