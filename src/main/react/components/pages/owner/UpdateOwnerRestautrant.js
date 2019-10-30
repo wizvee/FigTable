@@ -5,10 +5,11 @@ import OwnerLeftMenu from './OwnerLeftMenu';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerDetailTitle from './OwnerDetailTitle';
+import OwnerShopForm from './OwnerShopForm';
 
 const Container = styled.div`
   padding-top: 80px;
-  height: 1300px;
+  height: 900px;
   background: #f1f3f5;
 `;
 
@@ -17,11 +18,10 @@ const ContainerWrapper = styled(Responsive)`
 `;
 
 const Right = styled.div`
-  display: inline-block;
   padding: 1rem;
   width: 65%;
   height: 100%;
-  /* float: right; */
+  float: right;
   border: 1px solid red;
 
   @media (max-width: 1024px) {
@@ -39,6 +39,7 @@ const store = {
   imgUrl:
     'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
   foodKeyword: '당근케이크,카페',
+  addr: '서울특별시 강동구 길동 247',
   locationKeyword: '길동',
   view: 3,
   reviewCount: 5,
@@ -56,6 +57,7 @@ const UpdateOwnerRestautrant = () => {
           <OwnerLeftMenu select="2" />
           <Right>
             <OwnerDetailTitle title="가게정보 수정" />
+            <OwnerShopForm store={store} />
           </Right>
         </ContainerWrapper>
       </Container>

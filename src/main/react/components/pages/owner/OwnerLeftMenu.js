@@ -11,6 +11,7 @@ const MenuContainer = styled.div`
   position: relative;
   top: 405px;
   left: 30px;
+  display: inline-block;
 `;
 const MenuItem = styled.div`
   width: 100%;
