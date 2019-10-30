@@ -49,6 +49,12 @@ const ButtonWrapper = styled.div`
     top: -61px;
     left: 238px;
   }
+
+  @media (max-width: 425px) {
+    grid-template-columns: repeat(1, 1fr);
+    top: -61px;
+    left: 300px;
+  }
   .reject {
     color: #fa5252;
     &:hover {

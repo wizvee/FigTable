@@ -15,12 +15,16 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled(Responsive)`
-  height: 100%;
+  height: auto;
   min-height: calc(100vh - 12rem);
+  overflow: hidden;
   &:after {
     content: '';
     display: block;
     clear: both;
+  }
+  @media (max-width: 425px) {
+    height: 1340px;
   }
 `;
 
@@ -37,6 +41,12 @@ const RightContent = styled.div`
   @media (max-width: 768px) {
     width: 45%;
   }
+  @media (max-width: 425px) {
+    width: 100%;
+    position: relative;
+    top: 430px;
+    padding-top: 2rem;
+  }
 `;
 
 const Button = styled.div`
@@ -46,6 +56,10 @@ const Button = styled.div`
   width: 250px;
   height: 60px;
   display: inline-block;
+
+  @media (max-width: 425px) {
+    left: 64px;
+  }
 `;
 
 const ButtonInput = styled.input.attrs({ type: 'checkbox' })`
@@ -67,6 +81,7 @@ const ButtonInput = styled.input.attrs({ type: 'checkbox' })`
 const ButtonLabel = styled.label`
   display: inline-block;
   background: white;
+  overflow: hidden;
   cursor: pointer;
   position: relative;
   box-shadow: inset 0 0 0px 1px #d5d5d5;
@@ -116,6 +131,22 @@ const ButtonSpan = styled.span`
   letter-spacing: 5px;
   color: ${palette.textGray};
   font-size: 20px;
+  height: 22px;
+  width: 110px;
+  &::before {
+    content: '영업종료';
+  }
+  ${ButtonInput}:checked + ${ButtonLabel} &::after {
+    display: inline-block;
+    overflow-y: hidden;
+    position: relative;
+    left: -107px;
+    width: 110px;
+    padding-bottom: 36px;
+    text-align: center;
+    content: '영업중';
+    color: white;
+  }
 `;
 
 ////////// 임시데이터//////////////////////////
@@ -170,7 +201,7 @@ const OwnerContainer = () => {
           <Button>
             <ButtonInput id="buttonInput" />
             <ButtonLabel for="buttonInput">
-              <ButtonSpan>영업종료</ButtonSpan>
+              <ButtonSpan></ButtonSpan>
             </ButtonLabel>
           </Button>
           <RightContent>

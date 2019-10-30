@@ -9,9 +9,17 @@ const MenuContainer = styled.div`
   background: white;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   position: relative;
-  top: 405px;
+  top: 433px;
   left: 30px;
   display: inline-block;
+
+  @media (max-height: 768px) {
+    top: 410px;
+  }
+
+  @media (max-width: 425px) {
+    margin-left: 6%;
+  }
 `;
 const MenuItem = styled.div`
   width: 100%;
@@ -32,10 +40,14 @@ const OwnerLeftMenu = ({ select }) => {
       <MenuItem select={select} style={{ paddingTop: '0.6rem' }}>
         <Link to="/figtable/owner">홈</Link>
       </MenuItem>
-      <MenuItem select={select}>가게정보 수정</MenuItem>
+      <MenuItem select={select}>
+        <Link to="/figtable/owner/restaurant">가게정보 수정</Link>
+      </MenuItem>
       <MenuItem select={select}>예약 관리</MenuItem>
       <MenuItem select={select}>Waiting</MenuItem>
-      <MenuItem select={select}>Eat Deal</MenuItem>
+      <MenuItem select={select}>
+        <Link to="/figtable/owner/eatdeal">Eat Deal</Link>
+      </MenuItem>
     </MenuContainer>
   );
 };

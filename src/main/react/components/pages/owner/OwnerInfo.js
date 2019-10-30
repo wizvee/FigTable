@@ -44,6 +44,10 @@ const Container = styled.div`
     @media (max-height: 768px) {
       margin-top: 85px;
     }
+
+    @media (max-width: 425px) {
+      margin-left: 19%;
+    }
   }
 `;
 

@@ -82,10 +82,12 @@ const OwnerMenu = () => {
           Waiting
         </MenuItem>
         <MenuItem>
-          <IconWrapper>
-            <MdRestaurantMenu />
-          </IconWrapper>
-          Eat Deal
+          <Link to="/figtable/owner/eatdeal">
+            <IconWrapper>
+              <MdRestaurantMenu />
+            </IconWrapper>
+            Eat Deal
+          </Link>
         </MenuItem>
       </MenuWrapper>
     </>

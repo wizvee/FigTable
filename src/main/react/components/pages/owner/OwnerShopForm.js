@@ -34,6 +34,19 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledButton = styled.input`
+  width: 140px;
+  height: 40px;
+  font-weight: 900;
+  font-size: 20px;
+  float: right;
+  margin-top: 19px;
+  margin-right: 23px;
+  border-radius: 5px;
+  background: #f67280;
+  color: white;
+`;
+
 const OwnerShopForm = ({ store }) => {
   const {
     shopName,
@@ -45,9 +58,7 @@ const OwnerShopForm = ({ store }) => {
     reviewCount,
     star,
   } = store;
-  {
-    console.log(store);
-  }
+
   return (
     <>
       <FormContainer>
@@ -91,6 +102,8 @@ const OwnerShopForm = ({ store }) => {
         <StyledInput type="text" name="resMenuTitle" placeholder="메뉴" />
         <StyledInput type="text" name="resMenuPrice" placeholder="메뉴 가격" />
       </FormContainer>
+
+      <StyledButton type="button" value="수정" />
     </>
   );
 };

@@ -13,8 +13,8 @@ const Title = styled.div`
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 `;
 
-const OwnerDetailTitle = () => {
-  return <Title>가게정보 수정</Title>;
+const OwnerDetailTitle = ({ title }) => {
+  return <Title>{title}</Title>;
 };
 
 export default OwnerDetailTitle;

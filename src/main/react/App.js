@@ -12,6 +12,7 @@ import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailCont
 import InsertRestaurant from './components/pages/admin/InsertRestaurant';
 import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
+import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 
 const App = () => {
   return (
@@ -30,6 +31,10 @@ const App = () => {
         <Route
           path="/figtable/owner/restaurant"
           component={UpdateOwnerRestaurant}
+        />
+        <Route
+          path="/figtable/owner/eatdeal"
+          component={OwnerEatDealContainer}
         />
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
