@@ -33,6 +33,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 `;
 
@@ -50,10 +51,10 @@ const ModalLogin = ({ msg, closeModal }) => {
       <Overlay onClick={closeModal} />
       <Container>
         <h3>로그인</h3>
-        <div className="msg">
+        <div className="msg" onClick={closeModal}>
           {msg === 'review'
-            ? '로그인하면 리뷰를 작성할 수 있어요.'
-            : '로그인하면 가고싶은 식당을 저장할 수 있어요.'}
+            ? '로그인하시면 리뷰를 작성할 수 있어요.'
+            : '로그인하시면 가고싶은 식당을 저장할 수 있어요.'}
           <ButtonWithMarginTop to="/figtable/login" fullwidth>
             로그인
           </ButtonWithMarginTop>

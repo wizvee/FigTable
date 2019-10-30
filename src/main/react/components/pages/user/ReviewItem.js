@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { MdModeEdit, MdPeople } from 'react-icons/md';
 import RatingIcon from './RatingIcon';
+import ReviewActionButtons from './ReviewActionButtons';
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const User = styled.div`
 
 const path = process.env.PATH;
 const Profile = styled.div`
+  margin-bottom: 0.5rem;
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -49,7 +51,7 @@ const Data = styled.div`
   svg {
     margin-right: 2px;
     font-size: 0.9rem;
-    transform: translateY(2px);
+    transform: translateY(3px);
   }
   span + span {
     margin-left: 5px;
@@ -132,6 +134,7 @@ const ReviewItem = ({ review, openInsta }) => {
               <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
             ))}
         </div>
+        <ReviewActionButtons />
       </Content>
       <RatingIcon width="90px" fontSize="3rem" rating={rvRating} />
     </Container>

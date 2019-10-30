@@ -8,6 +8,7 @@ import {
   MdNavigateNext,
 } from 'react-icons/md';
 import RatingIcon from './RatingIcon';
+import ReviewActionButtons from './ReviewActionButtons';
 
 const Overlay = styled.div`
   z-index: 55;
@@ -27,7 +28,7 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   width: 80%;
-  height: 90%;
+  height: 85%;
   border-radius: 5px;
   overflow: hidden;
   transform: translate(-50%, -50%);
@@ -136,7 +137,7 @@ const User = styled.div`
 const Nickname = styled.span`
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.94rem;
 `;
 
 const Data = styled.div`
@@ -147,7 +148,7 @@ const Data = styled.div`
   svg {
     margin-right: 2px;
     font-size: 0.9rem;
-    transform: translateY(2px);
+    transform: translateY(3px);
   }
   span + span {
     margin-left: 5px;
@@ -228,6 +229,7 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
             </UserWrapper>
             <div className="comment">{selectReview.rvContent}</div>
             <div className="date">{selectReview.rvDate}</div>
+            <ReviewActionButtons />
           </ReviewSection>
         </Container>
       </>
