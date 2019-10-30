@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaStore } from 'react-icons/fa';
 import { MdSchedule, MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
 import palette from '../../../lib/styles/Palette';
+import { Link } from 'react-router-dom';
 
 const MenuWrapper = styled.ul`
   text-align: center;
@@ -56,15 +57,17 @@ const MenuItem = styled.li`
     }
   }
 `;
-const OwnerMenu = ({ children }) => {
+const OwnerMenu = () => {
   return (
     <>
       <MenuWrapper>
         <MenuItem>
-          <IconWrapper>
-            <FaStore />
-          </IconWrapper>
-          가게정보 수정
+          <Link to="/figtable/owner/restaurant">
+            <IconWrapper>
+              <FaStore />
+            </IconWrapper>
+            가게정보 수정
+          </Link>
         </MenuItem>
         <MenuItem>
           <IconWrapper>
@@ -85,7 +88,6 @@ const OwnerMenu = ({ children }) => {
           Eat Deal
         </MenuItem>
       </MenuWrapper>
-      {children}
     </>
   );
 };
