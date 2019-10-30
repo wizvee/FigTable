@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AdminHeader from './AdminHeader';
 import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 class UpdateRestaurant extends Component {
   constructor(props) {
