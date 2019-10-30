@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Review {
-	
+
 	private String memNo;
 	private String resNo;
 	private String rvNo;
@@ -18,4 +18,7 @@ public class Review {
 	private String[] rvImages;
 	private Date rvDate;
 
+	// JOIN시 추가 정보
+	private String memName;
+	private int memRvCnt;
 }

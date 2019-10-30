@@ -208,11 +208,11 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
             <UserWrapper>
               <Profile url={selectReview.profile} />
               <User>
-                <Nickname>{selectReview.nickname}</Nickname>
+                <Nickname>{selectReview.memName}</Nickname>
                 <Data>
                   <span>
                     <MdModeEdit />
-                    {selectReview.rvCnt}
+                    {selectReview.memRvCnt}
                   </span>
                   <span>
                     <MdPeople />
@@ -223,11 +223,11 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
               <RatingIcon
                 width="50px"
                 fontSize="2rem"
-                rating={selectReview.rating}
+                rating={selectReview.rvRating}
               />
             </UserWrapper>
-            <div className="comment">{selectReview.comment}</div>
-            <div className="date">{selectReview.date}</div>
+            <div className="comment">{selectReview.rvContent}</div>
+            <div className="date">{selectReview.rvDate}</div>
           </ReviewSection>
         </Container>
       </>
