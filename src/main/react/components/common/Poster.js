@@ -76,12 +76,13 @@ const Location = styled.span`
 
 const Icon = styled.span`
   margin-top: 0.2rem;
-  padding: 0 5px;
+  margin-left: 1px;
+  padding: 0 3px;
   color: ${palette.textGray};
   font-size: 0.85rem;
   svg {
-    margin-right: 3px;
-    transform: translateY(1px);
+    margin-right: 2px;
+    transform: translateY(2px);
   }
 `;
 

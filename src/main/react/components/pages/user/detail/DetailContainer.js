@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readRes, unloadRes } from '../../../../modules/restaurant';
@@ -35,6 +35,12 @@ const DetailContainer = ({ match }) => {
     rvLoading: loading['reviews/LIST_RV'],
   }));
 
+  // 리뷰 인스타모드로 보기 state
+  const [viewInsta, setViewInsta] = useState({
+    selectImage: null,
+    isView: false,
+  });
+
   // 처음 마운트 될 때 레스토랑 가져오기 API요청
   useEffect(() => {
     dispatch(readRes(resNo));
@@ -46,45 +52,43 @@ const DetailContainer = ({ match }) => {
     };
   }, [dispatch, resNo]);
 
-  // 이미지 있는 리뷰 필터
-  // const imgReviews = restaurantReviews.filter(review => review.images);
+  // if (resError || rvError) {
+  //   return null;
+  // }
+  // if (resLoading || rvLoading || !restaurant || !reviews) return null;
 
-  // 리뷰 인스타모드로 보기 state
-  // const [viewInsta, setViewInsta] = useState({
-  //   selectImage: null,
-  //   isView: false,
-  // });
+  // 이미지 있는 리뷰 필터
+  const imgReviews = reviews ? reviews.filter(review => review.rvImages) : null;
 
   // 인스타모드 열고 닫기
-  // function openInsta(selectImage) {
-  //   setViewInsta({ selectImage, isView: true });
-  //   document.body.style.overflow = 'hidden';
-  // }
-  // function closeInsta() {
-  //   setViewInsta({ ...viewInsta, isView: false });
-  //   document.body.style.overflow = 'unset';
-  // }
+  const openInsta = useCallback(selectImage => {
+    setViewInsta({ selectImage, isView: true });
+    document.body.style.overflow = 'hidden';
+  }, []);
+  const closeInsta = useCallback(() => {
+    setViewInsta({ ...viewInsta, isView: false });
+    document.body.style.overflow = 'unset';
+  }, []);
 
   return (
     <>
       <HeaderContainer />
-      {/* <InstaViewer
-        title={restaurantInfo.title}
+      <InstaViewer
+        title={restaurant ? restaurant.resName : ''}
         reviews={imgReviews}
         viewInsta={viewInsta}
         openInsta={openInsta}
         closeInsta={closeInsta}
-      /> */}
+      />
       <Container>
         <DetailPresenter
           info={restaurant}
           error={resError}
           loading={resLoading}
-          // imgReviews={imgReviews}
-          // totalReviews={restaurantReviews.length}
-          // openInsta={openInsta}
+          imgReviews={imgReviews}
+          openInsta={openInsta}
         />
-        <ReviewPresenter reviews={reviews} /*openInsta={openInsta}*/ />
+        <ReviewPresenter reviews={reviews} openInsta={openInsta} />
       </Container>
     </>
   );

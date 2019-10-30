@@ -7,7 +7,8 @@
 		<result property="rvNo" column="RV_NO" />
 		<result property="rvRating" column="RV_RATING" />
 		<result property="rvContent" column="RV_CONTENT" />
-		<result property="rvImages" column="RV_IMAGES" />
+		<result property="rvImages" column="RV_IMAGES"
+			typeHandler="strArr" />
 		<result property="rvDate" column="RV_DATE" />
 	</resultMap>
 

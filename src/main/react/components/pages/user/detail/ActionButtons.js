@@ -69,6 +69,20 @@ const ActionButtons = () => {
       </>
     );
   }
+  if (member) {
+    return (
+      <>
+        <IconLk to="/">
+          <FiEdit3 />
+          <span>리뷰쓰기</span>
+        </IconLk>
+        <IconLk to="/">
+          <FiStar />
+          <span>가고싶다</span>
+        </IconLk>
+      </>
+    );
+  }
 };
 
 export default ActionButtons;

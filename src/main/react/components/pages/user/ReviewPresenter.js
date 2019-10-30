@@ -60,9 +60,9 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
   const [selectCtg, setSelectCtg] = useState(null);
 
   // 리뷰 카테고리 별로 분류
-  const goodReviews = reviews.filter(r => r.rvRating === 5);
-  const nomalReviews = reviews.filter(r => r.rvRating === 3);
-  const badReviews = reviews.filter(r => r.rvRating === 1);
+  const goodReviews = reviews.filter(r => r.rvRating == 5);
+  const nomalReviews = reviews.filter(r => r.rvRating == 3);
+  const badReviews = reviews.filter(r => r.rvRating == 1);
 
   return (
     <>
@@ -121,19 +121,19 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
       )}
       {selectCtg === null &&
         reviews.map(r => (
-          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+          <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
       {selectCtg === 'good' &&
         goodReviews.map(r => (
-          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+          <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
       {selectCtg === 'nomal' &&
         nomalReviews.map(r => (
-          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+          <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
       {selectCtg === 'bad' &&
         badReviews.map(r => (
-          <ReviewItem key={r.id} review={r} openInsta={openInsta} />
+          <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
     </>
   );

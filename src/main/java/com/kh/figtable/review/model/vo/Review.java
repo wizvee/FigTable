@@ -15,7 +15,7 @@ public class Review {
 	private String rvNo;
 	private String rvRating;
 	private String rvContent;
-	private String rvImages;
+	private String[] rvImages;
 	private Date rvDate;
 
 }

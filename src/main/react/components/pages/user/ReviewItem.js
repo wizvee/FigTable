@@ -85,7 +85,7 @@ const ImgBlock = styled.div`
   flex: 0 0 auto;
   width: 120px;
   height: 120px;
-  border-radius: 3px;
+  border-radius: 1px;
   background: url(${props => props.url});
   background-size: cover;
   background-position: center center;
@@ -102,10 +102,10 @@ const ReviewItem = ({ review, openInsta }) => {
     nickname,
     rvCnt,
     flCnt,
-    date,
-    comment,
-    rating,
-    images,
+    rvDate,
+    rvContent,
+    rvRating,
+    rvImages,
   } = review;
   return (
     <Container>
@@ -124,16 +124,16 @@ const ReviewItem = ({ review, openInsta }) => {
         </Data>
       </User>
       <Content>
-        <div className="date">{date}</div>
-        <div className="comment">{comment}</div>
+        <div className="date">{rvDate}</div>
+        <div className="comment">{rvContent}</div>
         <div className="images">
-          {images &&
-            images.map((img, index) => (
+          {rvImages &&
+            rvImages.map((img, index) => (
               <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
             ))}
         </div>
       </Content>
-      <RatingIcon width="90px" fontSize="3rem" rating={rating} />
+      <RatingIcon width="90px" fontSize="3rem" rating={rvRating} />
     </Container>
   );
 };

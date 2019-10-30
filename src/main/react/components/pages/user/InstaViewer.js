@@ -65,7 +65,7 @@ const ImageSection = styled.div`
   overflow: hidden;
   img {
     width: auto;
-    height: 94%;
+    height: 90%;
   }
   svg {
     font-size: 3rem;
@@ -157,8 +157,10 @@ const Data = styled.div`
 const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
   const { selectImage, isView } = viewInsta;
 
+  if (!reviews) return null;
+
   // 리뷰의 이미지url만 따온 배열 생성
-  const images = reviews.flatMap(review => review.images);
+  const images = reviews.flatMap(review => review.rvImages);
   // 이전 이미지와 다음 이미지
   const prev =
     images[
@@ -175,7 +177,7 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
 
   // 선택한 이미지의 리뷰
   const selectReview = reviews.filter(review =>
-    review.images.includes(selectImage),
+    review.rvImages.includes(selectImage),
   )[0];
 
   return (
@@ -233,4 +235,4 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
   );
 };
 
-export default InstaViewer;
+export default React.memo(InstaViewer);

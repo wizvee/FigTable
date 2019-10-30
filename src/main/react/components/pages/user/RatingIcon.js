@@ -24,19 +24,19 @@ const Icon = styled.div`
 const RatingIcon = props => {
   return (
     <Icon {...props}>
-      {props.rating === 'good' && (
+      {props.rating == 5 && (
         <>
           <MdSentimentVerySatisfied />
           <span>맛있어</span>
         </>
       )}
-      {props.rating === 'nomal' && (
+      {props.rating == 3 && (
         <>
           <MdSentimentSatisfied />
           <span>괜찮아</span>
         </>
       )}
-      {props.rating === 'bad' && (
+      {props.rating == 1 && (
         <>
           <MdSentimentNeutral />
           <span>별로야</span>

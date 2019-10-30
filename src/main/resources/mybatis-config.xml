@@ -9,5 +9,7 @@
 			alias="restaurant" />
 		<typeAlias type="com.kh.figtable.review.model.vo.Review"
 			alias="review" />
+		<typeAlias type="com.kh.figtable.common.StringArrayHandler"
+			alias="strArr" />
 	</typeAliases>
 </configuration>

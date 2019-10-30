@@ -80,11 +80,12 @@ const InfoBody = styled.div`
   }
 `;
 
-const DetailPresenter = ({ info, error, loading, openInsta }) => {
+const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   if (error) {
     return null;
   }
-  if (loading || !info) return null;
+  if (loading || !info || !imgReviews) return null;
+
   const {
     resName,
     resLocationKeyword,
@@ -98,14 +99,14 @@ const DetailPresenter = ({ info, error, loading, openInsta }) => {
     resWaitCnt,
   } = info;
   // 리뷰의 이미지url만 따온 배열 생성
-  // const images = imgReviews.flatMap(review => review.images).slice(-3);
+  const images = imgReviews.flatMap(review => review.rvImages).slice(-3);
 
   return (
     <>
       <ImageWrapper>
-        {/* {images.map((img, index) => (
+        {images.map((img, index) => (
           <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
-        ))} */}
+        ))}
       </ImageWrapper>
       <InfoWrapper>
         <InfoHeader>
