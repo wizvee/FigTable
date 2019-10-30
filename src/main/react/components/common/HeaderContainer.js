@@ -33,8 +33,8 @@ const HeaderContainer = () => {
   function closeSearchModal() {
     setIsSearchModal(false);
     document.body.style.overflow = 'unset';
+  
   }
-
   return (
     <>
       <ModalTemplate

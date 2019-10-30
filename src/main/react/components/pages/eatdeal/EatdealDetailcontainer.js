@@ -6,6 +6,7 @@ import EatDealImageContainer from './detail/EatDealImageContainer';
 import DisCountPrice from './detail/DisCountPrice';
 import EatDealIntroduce from './detail/EatDealIntroduce';
 import EatDealInfo from './detail/EatDealInfo';
+import palette from '../../../lib/styles/Palette';
 
 const sample = [
     {
@@ -69,6 +70,26 @@ const Separator = styled.div`
     margin:0.3rem 0.1rem;
     background-color:#E9E9E9;
 `;
+const Button= styled.div`
+    background-color:${palette.primary};
+    text-align:center; 
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    width: 50rem;
+    color: white;
+    border:none;
+    cursor: pointer;
+`;
+// const Spacer=styled.div`
+//     height:8rem;
+// `;
+// const [isSpace, setIsSpace] = useState(false);
+// useEffect(()=>{
+//     setIsSpace(false);
+//     if (window.scrollY < 250) setIsSpace(true);
+//     window.addEventListener('scroll', handleScroll);
+
+// })
 const EatdealDetailContainer=({match})=>{
     const { eatNo } = match.params;
     {console.log(eatNo)}
@@ -87,6 +108,9 @@ const EatdealDetailContainer=({match})=>{
                 <Separator/>
                 <EatDealIntroduce/>
             </TextContainer>
+            
+        <Button>구매하기</Button>
+      {/* {!isSpace && <Spacer />} */}
         </EatdealCard>
         </>
     )

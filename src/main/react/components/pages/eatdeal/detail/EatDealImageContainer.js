@@ -48,11 +48,6 @@ const IconContainer =styled.div`
     }
 `;
 
-const [show, setShow] = useState(false);
-
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
-
 const EatDealImageContainer=({eat})=>{
 
     const{
@@ -71,10 +66,10 @@ const EatDealImageContainer=({eat})=>{
         <ImageContainer>
         <Image url={thumb}/>
             <IconContainer>
-                <FiShare2 onClick={handleShow}/>
+                <FiShare2 />
             </IconContainer>
             
-            <ShareModal show={show} onHide={handleClose}/>
+            {/* <ShareModal /> */}
         <Status>{FoodName} {discount} 할인</Status> 
     </ImageContainer>
     )

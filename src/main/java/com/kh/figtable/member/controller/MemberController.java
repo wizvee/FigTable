@@ -29,6 +29,7 @@ public class MemberController {
 		mem.setMemPassword(pwEncoder.encode(mem.getMemPassword()));
 		int result = service.register(mem);
 		if (result > 0) {
+			
 			// 회원가입에 성공했을 경우 member 반환
 			Member m = service.login(mem);
 			m.setMemPassword(null);
