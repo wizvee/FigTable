@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+const DiscountContainer= styled.div`
+text-align: right;
+right:0;
+bottom:0;
+`;
 const OriginFoodPrice=styled.div`
     color: black;
     font-size: 1.0rem;
@@ -31,22 +37,20 @@ const Remaining = styled.span`
 const DiscountPrice=({eat})=>{
 
     const {
-        eatNo,
-        thumb,
-        title,
-        status,
         discount,
         originPrice,
         discountPrice,
         remainFood,
-        FoodName,
       } = eat;
     return(
         <>
+        <DiscountContainer>
             <OriginFoodPrice >\{originPrice} </OriginFoodPrice>
             <Remaining>{remainFood}개 남음</Remaining>
             <Percentage>  {discount}</Percentage>
             <FoodPrice> \{discountPrice} </FoodPrice>
+        </DiscountContainer>
+
         </>
 )
 }

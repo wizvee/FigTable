@@ -2,12 +2,10 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSimple from '../../common/HeaderSimple';
-import palette from '../../../lib/styles/Palette';
-import { FiShare2 } from 'react-icons/fi';
-import { FaInfoCircle,FaChevronRight } from 'react-icons/fa';
+import EatDealImageContainer from './detail/EatDealImageContainer';
 import DisCountPrice from './detail/DisCountPrice';
 import EatDealIntroduce from './detail/EatDealIntroduce';
-import { Link } from 'react-router-dom';
+import EatDealInfo from './detail/EatDealInfo';
 
 const sample = [
     {
@@ -59,90 +57,11 @@ const sample = [
   
   `;
   
-const ImageContainer = styled.div`
-  position: relative;
-  overflow: hidden;
-  height:40rem;
-`;
-const Image = styled.div`
-  background: url(${props => `${props.url}`});
-  background-size: cover;
-  background-position: center center;
-  height: 100%;
-  transition: all 0.2s linear;
-`;
-
-const Status = styled.div`
-    position:absolute;
-    left: 0.8rem;
-    bottom:0;
-    z-index:2;
-    text-align: right;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    padding: 0.2rem;
-    padding-left:0.7rem;
-    padding-right:0.4rem;
-    background: #212529;
-    background-color:${palette.textGray};
-    color: white;
-    margin-bottom:0.8rem;
-    border-radius:4px;
-    opacity: 0.9;
-`;
-const IconContainer =styled.div`
-    position:absolute;
-    padding:0.3rem;
-    right:0;
-    top:0;
-`;
 const TextContainer= styled.div`
     margin-top:0.3rem;
     padding: 0.7rem;
 `;
-const TextTitle=styled.div`
-    text-align:left;
-    font-size:1.2rem;
-    font-weight:bold;
-`;
-const Infowrap=styled.div`
-    margin:0.1rem;
-`;
-const RestauInfo=styled.div`
-    width: 6rem;
-    margin-top:0.3rem;
-    align-items: center;
-    justify-content: top;
-    padding:0.2rem;
-    text-align:left;
-    font-size:0.6rem;
-    background-color:#dfe6e9;
-    color:${palette.textGray};
-    border-radius:0.4rem;
-    svg {
-        transform: translateY(1px);
-    }
-`;
 
-const DiscountFoodName=styled.p`
-    text-align:left;
-    font-size:1rem;
-    color:${palette.textGray};
-    margin:0.5rem 0;
-`;
-
-    const Usedate = styled.div`
-    text-align:left;
-    font-size:0.8rem;
-    font-weight:bold;
-
-`;
-    const RightContainer= styled.div`
-    text-align: right;
-    right:0;
-    bottom:0;
-    `;
 const Separator = styled.div`
     position:relative;
     display: block;
@@ -161,32 +80,12 @@ const EatdealDetailContainer=({match})=>{
         <>
         <HeaderSimple />
         <EatdealCard>
-            <ImageContainer>
-                <Image url={eat.thumb}/>
-                    <IconContainer>
-                        <FiShare2 color="white" size="1.6rem"/>
-                    </IconContainer>
-                <Status>{eat.FoodName} {eat.discount} 할인</Status> 
-            </ImageContainer>
-
+            <EatDealImageContainer key={eat.eatNo} eat={eat}/>
             <TextContainer>
-                <TextTitle>{eat.title}</TextTitle>
-                <Infowrap>
-                    <RestauInfo>
-                        <Link to={`/figtable/restaurant/${eat.eatNo}` /*식당정보로 바꾸기*/}>
-                            <FaInfoCircle/> 식당정보보기 <FaChevronRight/> 
-                        </Link>
-                    </RestauInfo>
-                </Infowrap>
-                <DiscountFoodName>{eat.FoodName}</DiscountFoodName>
-                <Usedate>사용기간</Usedate>
-                <RightContainer>
-                    <DisCountPrice key={eat.eatNo} eat={eat}/>
-                </RightContainer>
-
+                <EatDealInfo key={eat.eatNo} eat={eat}/>
+                <DisCountPrice key={eat.eatNo} eat={eat}/>
                 <Separator/>
                 <EatDealIntroduce/>
-                
             </TextContainer>
         </EatdealCard>
         </>
