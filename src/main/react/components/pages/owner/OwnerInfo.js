@@ -8,7 +8,7 @@ const Container = styled.div`
   justify-content: space-between;
   display: inline;
   position: absolute;
-  top: 100px;
+  top: 85px;
   .profile {
     justify-items: center;
     display: inline-block;

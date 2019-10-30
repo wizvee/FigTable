@@ -50,6 +50,7 @@ const Content = styled.div`
     }
     ::-webkit-scrollbar-thumb {
       background: ${palette.textGray};
+      border-radius: 10px;
     }
   }
   @media (max-width: 1024px) {

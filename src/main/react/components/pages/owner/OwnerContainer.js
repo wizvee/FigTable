@@ -39,25 +39,83 @@ const RightContent = styled.div`
   }
 `;
 
-const Button = styled.button`
-  background: ${palette.primary};
+const Button = styled.div`
   position: relative;
-  outline-style: none;
-  top: 485px;
-  left: 30px;
-  width: 280px;
-  height: 50px;
-  border: none;
-  border-radius: 3px;
-  font-weight: 500;
-  font-size: 25px;
-  color: #f1f3f5;
-  font-family: 'Patua One', cursive;
-  letter-spacing: 10px;
+  top: 430px;
+  left: 42px;
+  width: 250px;
+  height: 60px;
+  display: inline-block;
+`;
 
-  @media (max-height: 768px) {
-    top: 450px;
+const ButtonInput = styled.input.attrs({ type: 'checkbox' })`
+  display: none;
+
+  &:checked + ${ButtonLabel}::before {
+    top: 0;
+    left: 0;
+    width: 250px;
+    background: ${palette.primary};
   }
+
+  &:checked + ${ButtonLabel}::after {
+    left: 190px;
+    box-shadow: inset 0 0 0 1px rgba(246, 114, 128, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+`;
+const ButtonLabel = styled.label`
+  display: inline-block;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0 0 0px 1px #d5d5d5;
+  width: 250px;
+  height: 60px;
+  border-radius: 50px;
+  top: 0;
+  left: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 60px;
+    width: 250px;
+    top: 0;
+    left: 0;
+    border-radius: 50px;
+
+    -moz-transition: 0.25s ease-in-out;
+    -webkit-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 50px;
+    width: 50px;
+    top: 5px;
+    left: 10px;
+    border-radius: 50px;
+    background: white;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.2);
+    -moz-transition: 0.25s ease-in-out;
+    -webkit-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+`;
+
+const ButtonSpan = styled.span`
+  position: relative;
+  top: 19px;
+  left: 85px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: ${palette.textGray};
+  font-size: 20px;
 `;
 
 ////////// 임시데이터//////////////////////////
@@ -92,6 +150,12 @@ const reservations = [
     time: 'AM 11:00',
     person: '성인 4인, 유아 2인',
   },
+  {
+    id: 4,
+    date: '2019-11-12',
+    time: 'PM 02:00',
+    person: '성인 6인',
+  },
 ];
 
 //////////////////////////////////////////////
@@ -103,11 +167,15 @@ const OwnerContainer = () => {
       <Container>
         <ContentWrapper>
           <OwnerInfo store={store} />
-          <Button>OPEN</Button>
+          <Button>
+            <ButtonInput id="buttonInput" />
+            <ButtonLabel for="buttonInput">
+              <ButtonSpan>영업종료</ButtonSpan>
+            </ButtonLabel>
+          </Button>
           <RightContent>
             <OwnerMenu />
             <ReservationList reservations={reservations} />
-            {/* </OwnerMenu> */}
           </RightContent>
         </ContentWrapper>
       </Container>
