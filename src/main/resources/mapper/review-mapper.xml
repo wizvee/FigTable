@@ -11,13 +11,17 @@
 			typeHandler="strArr" />
 		<result property="rvDate" column="RV_DATE" />
 		<result property="memName" column="MEM_NAME" />
+		<result property="memProfile" column="MEM_PROFILE" />
 		<result property="memRvCnt" column="MEM_RVCNT" />
+		<result property="memFollowing" column="MEM_FOLLOWING" />
 	</resultMap>
 
 	<select id="getReviewsById" parameterType="string"
 		resultType="review" resultMap="rvResult">
-		SELECT R.*, M.MEM_NAME, M.MEM_RVCNT FROM
-		FIG_REVIEW R JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO) WHERE RES_NO =
+		SELECT R.*, M.MEM_NAME, M.MEM_PROFILE,
+		M.MEM_RVCNT, M.MEM_FOLLOWING FROM
+		FIG_REVIEW R JOIN FIG_MEMBER M
+		ON(R.MEM_NO = M.MEM_NO) WHERE RES_NO =
 		#{resNo}
 	</select>
 </mapper>

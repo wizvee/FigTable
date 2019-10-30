@@ -7,7 +7,9 @@
 		<result property="memPassword" column="MEM_PASSWORD" />
 		<result property="memPhone" column="MEM_PHONE" />
 		<result property="memName" column="MEM_NAME" />
+		<result property="memProfile" column="MEM_PROFILE" />
 		<result property="memRvCnt" column="MEM_RVCNT" />
+		<result property="memFollowing" column="MEM_FOLLOWING" />
 		<result property="memCode" column="MEM_CODE" />
 		<result property="memStatus" column="MEM_STATUS" />
 	</resultMap>
@@ -16,7 +18,7 @@
 		INSERT INTO FIG_MEMBER
 		VALUES('m'||MEM_SEQ.NEXTVAL, #{memEmail},
 		#{memPassword}, #{memPhone},
-		#{memName}, DEFAULT, 'M', DEFAULT)
+		#{memName}, DEFAULT, DEFAULT, DEFAULT, 'M', DEFAULT)
 	</insert>
 
 	<select id="login" parameterType="member" resultType="member"

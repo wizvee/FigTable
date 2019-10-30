@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Member {
 
 	private String memNo;
@@ -13,7 +13,9 @@ public class Member {
 	private String memPassword;
 	private String memPhone;
 	private String memName;
+	private String memProfile;
 	private int memRvCnt;
+	private int memFollowing;
 	private String memCode;
 	private String memStatus;
 

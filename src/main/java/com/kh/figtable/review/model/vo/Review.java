@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Review {
 
 	private String memNo;
@@ -20,5 +20,7 @@ public class Review {
 
 	// JOIN시 추가 정보
 	private String memName;
+	private String memProfile;
 	private int memRvCnt;
+	private int memFollowing;
 }

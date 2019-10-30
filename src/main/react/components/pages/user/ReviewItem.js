@@ -98,10 +98,10 @@ const ImgBlock = styled.div`
 
 const ReviewItem = ({ review, openInsta }) => {
   const {
-    profile,
+    memProfile,
     memName,
     memRvCnt,
-    flCnt,
+    memFollowing,
     rvDate,
     rvContent,
     rvRating,
@@ -110,7 +110,7 @@ const ReviewItem = ({ review, openInsta }) => {
   return (
     <Container>
       <User>
-        <Profile url={profile} />
+        <Profile url={memProfile} />
         <Nickname>{memName}</Nickname>
         <Data>
           <span>
@@ -119,7 +119,7 @@ const ReviewItem = ({ review, openInsta }) => {
           </span>
           <span>
             <MdPeople />
-            {flCnt}
+            {memFollowing}
           </span>
         </Data>
       </User>
