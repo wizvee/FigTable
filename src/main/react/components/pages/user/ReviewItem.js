@@ -76,7 +76,7 @@ const Content = styled.div`
     height: 120px;
     overflow-x: auto;
     div + div {
-      margin-left: 10px;
+      margin-left: 7px;
     }
   }
 `;
@@ -85,7 +85,7 @@ const ImgBlock = styled.div`
   flex: 0 0 auto;
   width: 120px;
   height: 120px;
-  border-radius: 1px;
+  border-radius: 2px;
   background: url(${props => props.url});
   background-size: cover;
   background-position: center center;
@@ -101,7 +101,7 @@ const ReviewItem = ({ review, openInsta }) => {
     memProfile,
     memName,
     memRvCnt,
-    memFollowing,
+    memFwCnt,
     rvDate,
     rvContent,
     rvRating,
@@ -119,7 +119,7 @@ const ReviewItem = ({ review, openInsta }) => {
           </span>
           <span>
             <MdPeople />
-            {memFollowing}
+            {memFwCnt}
           </span>
         </Data>
       </User>

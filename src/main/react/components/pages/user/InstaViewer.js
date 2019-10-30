@@ -206,7 +206,7 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
           <ReviewSection>
             <Title>{title}</Title>
             <UserWrapper>
-              <Profile url={selectReview.profile} />
+              <Profile url={selectReview.memProfile} />
               <User>
                 <Nickname>{selectReview.memName}</Nickname>
                 <Data>
@@ -216,7 +216,7 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
                   </span>
                   <span>
                     <MdPeople />
-                    {selectReview.flCnt}
+                    {selectReview.memFwCnt}
                   </span>
                 </Data>
               </User>

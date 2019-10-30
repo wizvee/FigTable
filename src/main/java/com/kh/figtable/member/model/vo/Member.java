@@ -15,7 +15,7 @@ public class Member {
 	private String memName;
 	private String memProfile;
 	private int memRvCnt;
-	private int memFollowing;
+	private int memFwCnt;
 	private String memCode;
 	private String memStatus;
 

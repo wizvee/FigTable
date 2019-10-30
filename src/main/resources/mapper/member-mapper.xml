@@ -9,7 +9,7 @@
 		<result property="memName" column="MEM_NAME" />
 		<result property="memProfile" column="MEM_PROFILE" />
 		<result property="memRvCnt" column="MEM_RVCNT" />
-		<result property="memFollowing" column="MEM_FOLLOWING" />
+		<result property="memFwCnt" column="MEM_FWCNT" />
 		<result property="memCode" column="MEM_CODE" />
 		<result property="memStatus" column="MEM_STATUS" />
 	</resultMap>

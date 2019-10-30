@@ -22,5 +22,5 @@ public class Review {
 	private String memName;
 	private String memProfile;
 	private int memRvCnt;
-	private int memFollowing;
+	private int memFwCnt;
 }
