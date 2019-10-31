@@ -50,7 +50,7 @@ const sample = [
 
 
 
-  const EatdealCard =styled.div`
+  export const EatdealCard =styled.div`
   display: flex;
   text-align:center; 
   margin:0px auto;
@@ -64,7 +64,7 @@ const TextContainer= styled.div`
     padding: 0.7rem;
 `;
 
-const Separator = styled.div`
+export const Separator = styled.div`
     position:relative;
     display: block;
     height:1px;
@@ -85,7 +85,6 @@ const Button= styled.div`
 `;
 const EatdealDetailContainer=({match})=>{
     const { eatNo } = match.params;
-    {console.log(eatNo)}
     const eat = sample.find(s => s.eatNo == eatNo);
 
     const [modal, setIsModal] = useState(false);
