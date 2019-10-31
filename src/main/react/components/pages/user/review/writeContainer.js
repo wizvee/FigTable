@@ -1,11 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import HeaderContainer from '../../../common/HeaderContainer';
 
-const writeContainer = () => {
+const WriteContainer = ({ history }) => {
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
-  return <div></div>;
+
+  if (!member) history.push('/');
+
+  return (
+    <>
+      <HeaderContainer />
+      <div>로그인함</div>
+    </>
+  );
 };
 
-export default writeContainer;
+export default withRouter(WriteContainer);

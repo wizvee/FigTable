@@ -78,10 +78,7 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         </CtgItem>
         <Divider>·</Divider>
         <CtgItem
-          className={
-            (selectCtg === 'good' && 'selected',
-            goodReviews.length === 0 && 'disabled')
-          }
+          className={selectCtg === 'good' && 'selected'}
           onClick={
             goodReviews.length !== 0 ? () => setSelectCtg('good') : undefined
           }
@@ -90,10 +87,7 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         </CtgItem>
         <Divider>·</Divider>
         <CtgItem
-          className={
-            (selectCtg === 'nomal' && 'selected',
-            nomalReviews.length === 0 && 'disabled')
-          }
+          className={selectCtg === 'nomal' && 'selected'}
           onClick={
             nomalReviews.length !== 0 ? () => setSelectCtg('nomal') : undefined
           }
@@ -102,10 +96,7 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         </CtgItem>
         <Divider>·</Divider>
         <CtgItem
-          className={
-            (selectCtg === 'bad' && 'selected',
-            badReviews.length === 0 && 'disabled')
-          }
+          className={selectCtg === 'bad' && 'selected'}
           onClick={
             badReviews.length !== 0 ? () => setSelectCtg('bad') : undefined
           }

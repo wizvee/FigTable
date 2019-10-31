@@ -7,6 +7,7 @@ import AdminContainer from './components/pages/admin/AdminContainer';
 import OwnerContainer from './components/pages/owner/OwnerContainer';
 import RegisterContainer from './components/pages/user/RegisterContainer';
 import LoginContainer from './components/pages/user/LoginContainer';
+import WriteContainer from './components/pages/user/review/WriteContainer';
 import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
 import InsertRestaurant from './components/pages/admin/InsertRestaurant';
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/figtable/restaurant/:resNo" component={DetailContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
+        <Route path="/figtable/write" component={WriteContainer} />
         <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
         <Route
           path="/figtable/eatdeal/:eatNo"

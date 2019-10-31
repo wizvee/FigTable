@@ -72,7 +72,7 @@ const ActionButtons = () => {
   if (member) {
     return (
       <>
-        <IconLk to="/">
+        <IconLk to="/figtable/write">
           <FiEdit3 />
           <span>리뷰쓰기</span>
         </IconLk>
