@@ -59,6 +59,7 @@ const Location = styled.span`
 `;
 
 const InfoDetail = styled.div`
+  margin-top: 0.3rem;
   color: ${palette.textGray};
   font-size: 0.9rem;
   svg {
@@ -66,7 +67,7 @@ const InfoDetail = styled.div`
     transform: translateY(1px);
   }
   span + span {
-    margin-left: 0.85rem;
+    margin-left: 0.5rem;
   }
 `;
 
@@ -74,7 +75,7 @@ const InfoBody = styled.div`
   display: grid;
   grid-template-columns: 1fr 400px;
   grid-gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 1.3rem 0;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
