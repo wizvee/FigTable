@@ -52,8 +52,8 @@ const RightContent = styled.div`
 const Button = styled.div`
   position: relative;
   top: 430px;
-  left: 42px;
-  width: 250px;
+  left: 59px;
+  width: 210px;
   height: 60px;
   display: inline-block;
 
@@ -68,12 +68,12 @@ const ButtonInput = styled.input.attrs({ type: 'checkbox' })`
   &:checked + ${ButtonLabel}::before {
     top: 0;
     left: 0;
-    width: 250px;
+    width: 210px;
     background: ${palette.primary};
   }
 
   &:checked + ${ButtonLabel}::after {
-    left: 190px;
+    left: 150px;
     box-shadow: inset 0 0 0 1px rgba(246, 114, 128, 0.5),
       0 2px 4px rgba(0, 0, 0, 0.2);
   }
@@ -85,7 +85,7 @@ const ButtonLabel = styled.label`
   cursor: pointer;
   position: relative;
   box-shadow: inset 0 0 0px 1px #d5d5d5;
-  width: 250px;
+  width: 210px;
   height: 60px;
   border-radius: 50px;
   top: 0;
@@ -126,7 +126,7 @@ const ButtonLabel = styled.label`
 const ButtonSpan = styled.span`
   position: relative;
   top: 19px;
-  left: 85px;
+  left: 65px;
   font-weight: 500;
   letter-spacing: 5px;
   color: ${palette.textGray};

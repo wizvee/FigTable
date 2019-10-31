@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
@@ -29,27 +30,40 @@ const MenuItem = styled.div`
   font-size: 18px;
   text-align: center;
   cursor: pointer;
-  &:nth-child(${props => props.select}) {
+  &.selected {
     color: #f67280;
   }
 `;
-() => {};
-const OwnerLeftMenu = ({ select }) => {
+
+const OwnerLeftMenu = ({ location: { pathname } }) => {
   return (
     <MenuContainer>
-      <MenuItem select={select} style={{ paddingTop: '0.6rem' }}>
-        <Link to="/figtable/owner">홈</Link>
-      </MenuItem>
-      <MenuItem select={select}>
-        <Link to="/figtable/owner/restaurant">가게정보 수정</Link>
-      </MenuItem>
-      <MenuItem select={select}>예약 관리</MenuItem>
-      <MenuItem select={select}>Waiting</MenuItem>
-      <MenuItem select={select}>
-        <Link to="/figtable/owner/eatdeal">Eat Deal</Link>
-      </MenuItem>
+      <Link to="/figtable/owner">
+        <MenuItem
+          className={pathname == '/figtable/owner' && 'selected'}
+          style={{ paddingTop: '0.6rem' }}
+        >
+          홈
+        </MenuItem>
+      </Link>
+      <Link to="/figtable/owner/restaurant">
+        <MenuItem
+          className={pathname == '/figtable/owner/restaurant' && 'selected'}
+        >
+          가게정보 수정
+        </MenuItem>
+      </Link>
+      <MenuItem>예약 관리</MenuItem>
+      <MenuItem>Waiting</MenuItem>
+      <Link to="/figtable/owner/eatdeal">
+        <MenuItem
+          className={pathname == '/figtable/owner/eatdeal' && 'selected'}
+        >
+          Eat Deal
+        </MenuItem>
+      </Link>
     </MenuContainer>
   );
 };
 
-export default OwnerLeftMenu;
+export default withRouter(OwnerLeftMenu);

@@ -5,10 +5,10 @@ import Responsive from '../../common/Responsive';
 import OwnerInfo from './OwnerInfo';
 import OwnerLeftMenu from './OwnerLeftMenu';
 import OwnerDetailTitle from './OwnerDetailTitle';
+import OwnerEatdealForm from './OwnerEatdealForm';
 
 const Container = styled.div`
   padding-top: 80px;
-  min-height: calc(100vh - 12rem);
   height: auto;
   overflow-y: hidden;
   background: #f1f3f5;
@@ -19,7 +19,6 @@ const Container = styled.div`
 `;
 
 const ContainerWrapper = styled(Responsive)`
-  min-height: calc(100vh - 12rem);
   height: auto;
   overflow: hidden;
   &:after {
@@ -38,7 +37,6 @@ const Right = styled.div`
   width: 65%;
   height: 100%;
   float: right;
-  border: 1px solid red;
   @media (max-width: 1024px) {
     width: 55%;
   }
@@ -78,6 +76,7 @@ const OwnerEatDealContainer = () => {
           <OwnerLeftMenu select="5" />
           <Right>
             <OwnerDetailTitle title="Eat Deal" />
+            <OwnerEatdealForm />
           </Right>
         </ContainerWrapper>
       </Container>

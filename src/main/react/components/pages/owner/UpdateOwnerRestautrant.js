@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import HeaderOwner from './HeaderOwner';
 import OwnerInfo from './OwnerInfo';
 import OwnerLeftMenu from './OwnerLeftMenu';
@@ -64,10 +64,24 @@ const store = {
   view: 3,
   reviewCount: 5,
   star: 4.5,
+  tel: '02-1234-5678',
+  owner: '김사장',
+  openDay: ['매일', '일요일'],
+  closeTime: ['24시간 영업', '자정 12시 - 오후 10시 (월요일 10:30 오픈)'],
 };
 /////////////////////////////////////////////////////
 
 const UpdateOwnerRestautrant = () => {
+  const [openDay, setOpenDay] = useState(store.openDay);
+  const onInsert = () => {
+    const open = [];
+    setOpenDay(openDay.concat(open));
+  };
+
+  {
+    console.log(openDay);
+  }
+
   return (
     <>
       <HeaderOwner name={store.name} />
@@ -77,7 +91,7 @@ const UpdateOwnerRestautrant = () => {
           <OwnerLeftMenu select="2" />
           <Right>
             <OwnerDetailTitle title="가게정보 수정" />
-            <OwnerShopForm store={store} />
+            <OwnerShopForm store={store} onInsert />
           </Right>
         </ContainerWrapper>
       </Container>
