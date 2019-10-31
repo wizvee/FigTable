@@ -10,7 +10,7 @@ import LoginContainer from './components/pages/user/LoginContainer';
 import WriteContainer from './components/pages/user/review/WriteContainer';
 import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
-import EatdealpayContainer from './components/pages/eatdeal/EatdealPayContainer';
+import EatdealpayContainer from './components/pages/eatdeal/EatdealpayContainer';
 import InsertRestaurant from './components/pages/admin/InsertRestaurant';
 import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
@@ -31,7 +31,7 @@ const App = () => {
           component={EatdealDetailContainer}
         />
         
-        <Route path="/figtable/eatdeal/pay" component={EatdealpayContainer} />
+        <Route path="/figtable/payment" component={EatdealpayContainer} />
         <Route path="/figtable/owner" exact component={OwnerContainer} />
         <Route
           path="/figtable/owner/restaurant"
