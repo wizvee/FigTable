@@ -45,7 +45,6 @@ const StyledInput = styled.input`
   width: 100%;
   border-radius: 5px;
   border: 1px solid ${palette.borderGray};
-  outline: none;
   font-size: 1rem;
   & + & {
     margin-top: 0.5rem;

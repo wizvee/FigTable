@@ -15,7 +15,7 @@ const WriteContainer = ({ history, match }) => {
   return (
     <>
       <HeaderContainer />
-      <WritePresenter />
+      <WritePresenter member={member} />
     </>
   );
 };
