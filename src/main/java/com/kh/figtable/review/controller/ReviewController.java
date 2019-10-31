@@ -14,15 +14,16 @@ import com.kh.figtable.review.model.service.ReviewService;
 import com.kh.figtable.review.model.vo.Review;
 
 @RestController
+@RequestMapping(value="/api/reviews/*")
 public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
-	
-	@RequestMapping(value="/api/reviews/{resNo}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo) {
 		List<Review> result = service.getReviewsById(resNo);
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
-	
+
 }

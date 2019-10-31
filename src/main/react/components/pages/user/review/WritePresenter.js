@@ -17,7 +17,17 @@ const Title = styled.div`
 const WritePresenter = () => {
   return (
     <Container>
-      <Title>타이틀</Title>
+      <Title>
+        <div className="resInfo">
+          <span className="name">오스틴</span>
+          <span>에 대한 솔직한 리뷰를 써주세요.</span>
+        </div>
+        <div className="rating">
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+      </Title>
     </Container>
   );
 };
