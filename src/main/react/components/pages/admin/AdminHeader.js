@@ -16,7 +16,6 @@ const HeaderBlock = styled.div`
     `}
 `;
 
-/* Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 Header 컴포넌트 생성 */
 const HeaderWrapper = styled(Responsive)`
   display: flex;
   align-items: center;
@@ -84,8 +83,8 @@ const IconWrapper = styled.div`
 `;
 
 const AdminHeader = ({ location: { pathname } }) => {
-  const isAdmin = pathname === '/figtable/admin';
-
+  const isAdmin =
+    pathname === '/figtable/admin' || pathname === '/figtable/admin/';
   return (
     <>
       <HeaderBlock>
@@ -98,9 +97,7 @@ const AdminHeader = ({ location: { pathname } }) => {
           </div>
 
           <div className="right">
-            <div className="rightName">
-              <b>어드민</b>관리자님
-            </div>
+            <div className="rightName">관리자님</div>
             <IconWrapper>
               <MdPerson />
             </IconWrapper>
