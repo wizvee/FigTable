@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSimple from '../../common/HeaderSimple';
@@ -79,21 +79,22 @@ const Button= styled.div`
     color: white;
     border:none;
     cursor: pointer;
+    position:sticky;
+    bottom:0;
 `;
-// const Spacer=styled.div`
-//     height:8rem;
-// `;
-// const [isSpace, setIsSpace] = useState(false);
-// useEffect(()=>{
-//     setIsSpace(false);
-//     if (window.scrollY < 250) setIsSpace(true);
-//     window.addEventListener('scroll', handleScroll);
-
-// })
 const EatdealDetailContainer=({match})=>{
     const { eatNo } = match.params;
     {console.log(eatNo)}
     const eat = sample.find(s => s.eatNo == eatNo);
+
+    const [modal, setIsModal] = useState(false);
+    function openModal(){
+      setIsModal(true);
+    }
+    function closeModal(){
+      setIsModal(false);
+    }
+
     if(!eat) {
         return <div>존재하지 않습니다.</div>
     }
@@ -101,10 +102,10 @@ const EatdealDetailContainer=({match})=>{
         <>
         <HeaderSimple />
         <EatdealCard>
-            <EatDealImageContainer key={eat.eatNo} eat={eat}/>
+            <EatDealImageContainer eat={eat} modal={modal} openModal={openModal} closeModal={closeModal}/>
             <TextContainer>
-                <EatDealInfo key={eat.eatNo} eat={eat}/>
-                <DisCountPrice key={eat.eatNo} eat={eat}/>
+                <EatDealInfo eat={eat}/>
+                <DisCountPrice eat={eat}/>
                 <Separator/>
                 <EatDealIntroduce/>
             </TextContainer>

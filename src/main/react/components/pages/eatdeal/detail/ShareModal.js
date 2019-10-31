@@ -61,13 +61,13 @@ const ShareContent= styled.div`
         font-size: 1.5rem;
     }
 `;
-const ShareModal =()=>{
+const ShareModal =({closeModal})=>{
     return (
         <>
         <ModalWrap>
         <Modal>
             <ModalX>
-                <MdClose/>
+                <MdClose onClick={closeModal}/>
             </ModalX>
             <ModalTitle>친구에게 공유해보세요</ModalTitle>
             

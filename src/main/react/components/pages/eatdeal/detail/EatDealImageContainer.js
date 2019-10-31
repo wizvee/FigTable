@@ -38,6 +38,7 @@ const Status = styled.div`
     opacity: 0.9;
 `;
 const IconContainer =styled.div`
+    cursor: pointer;
     position:absolute;
     padding:0.3rem;
     right:0;
@@ -48,7 +49,7 @@ const IconContainer =styled.div`
     }
 `;
 
-const EatDealImageContainer=({eat})=>{
+const EatDealImageContainer=({eat, modal, openModal, closeModal})=>{
 
     const{
         eatNo,
@@ -66,10 +67,10 @@ const EatDealImageContainer=({eat})=>{
         <ImageContainer>
         <Image url={thumb}/>
             <IconContainer>
-                <FiShare2 />
+                <FiShare2 onClick={openModal} />
             </IconContainer>
             
-            {/* <ShareModal /> */}
+    { !modal? null:<ShareModal closeModal={closeModal} /> }
         <Status>{FoodName} {discount} 할인</Status> 
     </ImageContainer>
     )
