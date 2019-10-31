@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {withRouter} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSimple from '../../common/HeaderSimple';
 import EatDealImageContainer from './detail/EatDealImageContainer';
@@ -109,9 +110,9 @@ const EatdealDetailContainer=({match})=>{
                 <Separator/>
                 <EatDealIntroduce/>
             </TextContainer>
-            
-        <Button>구매하기</Button>
-      {/* {!isSpace && <Spacer />} */}
+            <Link to={`/figtable/payment/${eat.eatNo}`}>
+              <Button>구매하기</Button> 
+            </Link>
         </EatdealCard>
         </>
     )

@@ -31,7 +31,7 @@ const App = () => {
           component={EatdealDetailContainer}
         />
         
-        <Route path="/figtable/payment" component={EatdealpayContainer} />
+        <Route path="/figtable/payment/:eatNo" component={EatdealpayContainer} />
         <Route path="/figtable/owner" exact component={OwnerContainer} />
         <Route
           path="/figtable/owner/restaurant"

@@ -1,7 +1,14 @@
 import React from 'react';
+import HeaderSimple from '../../common/HeaderSimple';
+import EatDealImageContainer from './detail/EatDealImageContainer';
 
 const EatdealpayContainer = () => {
-    return <div>aaa</div>;
+    return (
+        <>
+        <HeaderSimple />
+        <div>라라</div>
+        </>
+    )
 }
 
 export default EatdealpayContainer;
