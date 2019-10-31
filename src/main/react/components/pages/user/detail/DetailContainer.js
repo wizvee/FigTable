@@ -52,11 +52,6 @@ const DetailContainer = ({ match }) => {
     };
   }, [dispatch, resNo]);
 
-  // if (resError || rvError) {
-  //   return null;
-  // }
-  // if (resLoading || rvLoading || !restaurant || !reviews) return null;
-
   // 이미지 있는 리뷰 필터
   const imgReviews = reviews ? reviews.filter(review => review.rvImages) : null;
 

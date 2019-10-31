@@ -88,6 +88,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   if (loading || !info || !imgReviews) return null;
 
   const {
+    resNo,
     resName,
     resLocationKeyword,
     resLat,
@@ -113,7 +114,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
         <InfoHeader>
           <Title>{resName}</Title>
           <Rating>{resRating.toFixed(1)}</Rating>
-          <ActionButtons />
+          <ActionButtons resNo={resNo} />
         </InfoHeader>
         <Location>{resLocationKeyword}</Location>
         <InfoDetail>

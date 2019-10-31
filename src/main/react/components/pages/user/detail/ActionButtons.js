@@ -35,7 +35,7 @@ const IconSn = styled.span`
   ${StyledIcon}
 `;
 
-const ActionButtons = () => {
+const ActionButtons = ({ resNo }) => {
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
@@ -72,7 +72,7 @@ const ActionButtons = () => {
   if (member) {
     return (
       <>
-        <IconLk to="/figtable/write">
+        <IconLk to={`/figtable/review/${resNo}`}>
           <FiEdit3 />
           <span>리뷰쓰기</span>
         </IconLk>

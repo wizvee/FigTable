@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/figtable/restaurant/:resNo" component={DetailContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
-        <Route path="/figtable/write" component={WriteContainer} />
+        <Route path="/figtable/review/:resNo" component={WriteContainer} />
         <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
         <Route
           path="/figtable/eatdeal/:eatNo"
