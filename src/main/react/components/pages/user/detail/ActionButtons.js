@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import { FiStar, FiEdit3 } from 'react-icons/fi';
 import ModalLogin from '../ModalLogin';
+import { setRes } from '../../../../modules/review';
 
 const Icon = styled.span`
   display: flex;
@@ -28,8 +29,10 @@ const Icon = styled.span`
 `;
 
 const ActionButtons = ({ history }) => {
-  const { member } = useSelector(({ member }) => ({
+  const disaptch = useDispatch();
+  const { member, restaurant } = useSelector(({ member, restaurant }) => ({
     member: member.member,
+    restaurant: restaurant.restaurant,
   }));
 
   const [isModal, setIsModal] = useState(false);
@@ -47,13 +50,14 @@ const ActionButtons = ({ history }) => {
   }
 
   function onWrite() {
+    disaptch(setRes({ restaurant, member }));
     history.push('/figtable/review');
   }
 
   return (
     <>
       {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
-      <Icon onClick={member ? onWrite() : () => openModal('review')}>
+      <Icon onClick={member ? onWrite : () => openModal('review')}>
         <FiEdit3 />
         <span>리뷰쓰기</span>
       </Icon>
@@ -65,4 +69,4 @@ const ActionButtons = ({ history }) => {
   );
 };
 
-export default ActionButtons;
+export default withRouter(ActionButtons);

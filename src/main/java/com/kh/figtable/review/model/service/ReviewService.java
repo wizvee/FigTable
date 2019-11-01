@@ -7,5 +7,7 @@ import com.kh.figtable.review.model.vo.Review;
 public interface ReviewService {
 	
 	List<Review> getReviewsById(String resNo);
+	
+	int writeReview(Review review);
 
 }

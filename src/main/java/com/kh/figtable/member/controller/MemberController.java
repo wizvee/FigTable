@@ -52,11 +52,4 @@ public class MemberController {
 		return new ResponseEntity<Member>(HttpStatus.UNAUTHORIZED);
 	}
 
-//	@RequestMapping(value = "/check", method = RequestMethod.GET)
-//	public ResponseEntity<Member> check(@RequestBody Member mem) {
-//		if (mem == null) {
-//			return new ResponseEntity<Member>(HttpStatus.UNAUTHORIZED);
-//		}
-//		return new ResponseEntity<Member>(mem, HttpStatus.OK);
-//	}
 }

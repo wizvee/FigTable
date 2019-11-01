@@ -85,6 +85,7 @@ const StyledTextarea = styled(TextareaAutosize)`
 `;
 
 const ImgUploadBlock = styled.div`
+  display: flex;
   width: 100%;
   margin-top: 0.7rem;
   padding: 0 1px;
@@ -95,7 +96,7 @@ const ImgUploadBlock = styled.div`
     user-select: none;
   }
   label {
-    display: block;
+    display: inline-block;
     width: 90px;
     height: 90px;
     border-radius: 2px;
@@ -113,26 +114,66 @@ const ImgUploadBlock = styled.div`
   }
 `;
 
-const WritePresenter = ({ member }) => {
+const Preview = styled.div`
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  margin-right: 5px;
+  border-radius: 2px;
+  background: url(${props => `${props.url}`});
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const WritePresenter = ({
+  member,
+  resName,
+  onChange,
+  onChangeFile,
+  imgUrls,
+  buttons,
+}) => {
   return (
     <Container>
       <Title>
         <div className="resInfo">
-          <span className="name">오스틴</span>
+          <span className="name">{resName}</span>
           <span>에 대한 솔직한 리뷰를 써주세요.</span>
         </div>
         <div className="rating">
-          <input type="radio" name="rating" value="5" id="good" />
+          <input
+            type="radio"
+            name="rvRating"
+            value="5"
+            id="good"
+            onChange={onChange}
+          />
           <label htmlFor="good">
             <MdSentimentVerySatisfied />
             맛있어
           </label>
-          <input type="radio" name="rating" value="3" id="nomal" />
+          <input
+            type="radio"
+            name="rvRating"
+            value="3"
+            id="nomal"
+            onChange={onChange}
+          />
           <label htmlFor="nomal">
             <MdSentimentSatisfied />
             괜찮아
           </label>
-          <input type="radio" name="rating" value="1" id="bad" />
+          <input
+            type="radio"
+            name="rvRating"
+            value="1"
+            id="bad"
+            onChange={onChange}
+          />
           <label htmlFor="bad">
             <MdSentimentNeutral />
             별로야
@@ -151,16 +192,26 @@ const WritePresenter = ({ member }) => {
         </div>
         <div className="review">
           <StyledTextarea
+            name="rvContent"
             minRows={4}
             placeholder={`${member.memName}님, 주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!`}
+            onChange={onChange}
           />
           <ImgUploadBlock>
+            {imgUrls.map((img, index) => (
+              <Preview key={index} url={img} />
+            ))}
             <label>
               <FiPlus />
-              <input type="file" onChange={e => ImgChange(e)} />
+              <input
+                type="file"
+                name="files"
+                multiple="multiple"
+                onChange={onChangeFile}
+              />
             </label>
-            <img src={img.imgUrl} />
           </ImgUploadBlock>
+          {buttons}
         </div>
       </Content>
     </Container>

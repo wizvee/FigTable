@@ -22,4 +22,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.getReviewsById(session, resNo);
 	}
 
+	@Override
+	public int writeReview(Review review) {
+		return dao.writeReview(session, review);
+	}
+
 }

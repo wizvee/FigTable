@@ -15,6 +15,3 @@ export const login = ({ memEmail, memPassword }) =>
     memEmail,
     memPassword,
   });
-
-// login check
-export const check = () => client.get('/figtable/api/auth/check');
