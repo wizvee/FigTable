@@ -66,22 +66,17 @@ const store = {
   star: 4.5,
   tel: '02-1234-5678',
   owner: '김사장',
-  openDay: ['매일', '일요일'],
-  closeTime: ['24시간 영업', '자정 12시 - 오후 10시 (월요일 10:30 오픈)'],
+  operation: [
+    { openDay: '매일', closeTime: '24시간 영업' },
+    {
+      openDay: '일요일',
+      closeTime: '자정 12시 - 오후 10시 (월요일 10:30 오픈)',
+    },
+  ],
 };
 /////////////////////////////////////////////////////
 
 const UpdateOwnerRestautrant = () => {
-  const [openDay, setOpenDay] = useState(store.openDay);
-  const onInsert = () => {
-    const open = [];
-    setOpenDay(openDay.concat(open));
-  };
-
-  {
-    console.log(openDay);
-  }
-
   return (
     <>
       <HeaderOwner name={store.name} />
@@ -91,7 +86,7 @@ const UpdateOwnerRestautrant = () => {
           <OwnerLeftMenu select="2" />
           <Right>
             <OwnerDetailTitle title="가게정보 수정" />
-            <OwnerShopForm store={store} onInsert />
+            <OwnerShopForm store={store} />
           </Right>
         </ContainerWrapper>
       </Container>

@@ -12,5 +12,7 @@ import com.kh.figtable.review.model.vo.Review;
 public interface ReviewDao {
 
 	List<Review> getReviewsById(SqlSession session, String resNo);
+	
+	int writeReview(SqlSession session, Review review);
 
 }

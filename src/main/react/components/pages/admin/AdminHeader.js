@@ -90,10 +90,10 @@ const AdminHeader = ({ location: { pathname } }) => {
       <HeaderBlock>
         <HeaderWrapper isAdmin={isAdmin}>
           <div className="logo">
-            <div className="logoMain">
-              <Link to="/figtable">FIGTABLE</Link>
-            </div>
-            <div className="logoAdmin"> 관리자</div>
+            <Link to="/figtable/admin">
+              <div className="logoMain">FIGTABLE</div>
+              <div className="logoAdmin">관리자</div>
+            </Link>
           </div>
 
           <div className="right">

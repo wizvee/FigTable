@@ -15,5 +15,10 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectList("review.getReviewsById", resNo);
 	}
 
+	@Override
+	public int writeReview(SqlSession session, Review review) {
+		return session.insert("review.writeReview", review);
+	}
+
 	
 }

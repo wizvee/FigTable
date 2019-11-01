@@ -55,7 +55,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   font-size: 1rem;
   font-family: 'NanumSquareRound';
   outline: none;
-
+  vertical-align: top;
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -108,6 +108,7 @@ const InputWrapper = styled.div`
   width: 100%;
   height: auto;
   overflow: hidden;
+  text-align: center;
 `;
 
 const InnerLeft = styled.div`
@@ -144,7 +145,7 @@ const RightMenu = styled.div`
   margin-right: 0px;
 `;
 
-const OwnerShopForm = ({ store, onInsert }) => {
+const OwnerShopForm = ({ store }) => {
   const {
     shopName,
     imgUrl,
@@ -156,19 +157,18 @@ const OwnerShopForm = ({ store, onInsert }) => {
     star,
     tel,
     owner,
-    openDay,
-    closeTime,
+    operation,
   } = store;
 
-  const [openday, setOpenday] = useState({ openDay });
-  {
-    console.log(openday);
-  }
-  const appendInput = () => {
-    const open = '';
-    setOpenday(openDay.concat(''));
-    console.log(openDay);
-  };
+  // const [openday, setOpenday] = useState({ openDay });
+  // {
+  //   console.log(openday);
+  // }
+  // const appendInput = (operation) => {
+  //   const open = '';
+  //   setOpenday(operation.concat(''));
+  //   console.log(openDay);
+  // };
 
   return (
     <>
@@ -215,28 +215,22 @@ const OwnerShopForm = ({ store, onInsert }) => {
       <FormContainer padding="5px">
         <SubTitle>영업시간</SubTitle>
         <InputWrapper>
-          <InnerLeft>
-            {openday.map(open => (
-              <StyledTextArea
-                type="textArea"
-                name="resOpenDay"
-                placeholder="영업일"
-                defaultValue={open}
-              />
-            ))}
-          </InnerLeft>
-          <InnerRight>
-            {closeTime.map(close => (
-              <StyledTextArea
-                type="textArea"
-                name="resCloseTime"
-                placeholder="운영시간"
-                defaultValue={close}
-              />
-            ))}
-          </InnerRight>
+          <StyledTextArea
+            style={{ width: '20%' }}
+            type="textArea"
+            name="resOpenDay"
+            placeholder="영업일"
+            defaultValue={open}
+          />
+          <StyledTextArea
+            style={{ width: '65%' }}
+            type="textArea"
+            name="resCloseTime"
+            placeholder="운영시간"
+            defaultValue={close}
+          />
         </InputWrapper>
-        <IconWrapper onClick={appendInput}>
+        <IconWrapper>
           <FiPlusCircle />
         </IconWrapper>
       </FormContainer>
