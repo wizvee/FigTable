@@ -20,3 +20,12 @@ td {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+
+.resTr:hover {
+  background-color: rgba(204, 204, 204, 0.4);
+  cursor: pointer;
+}
+
+.resNullTd {
+  text-align: center;
+}
