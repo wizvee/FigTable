@@ -48,6 +48,7 @@ const MenuItem = styled.li`
   background: white;
   list-style: none;
   font-size: 20px;
+  padding: 3px;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   &:hover {
     cursor: pointer;
@@ -61,34 +62,38 @@ const OwnerMenu = () => {
   return (
     <>
       <MenuWrapper>
-        <MenuItem>
-          <Link to="/figtable/owner/restaurant">
+        <Link to="/figtable/owner/restaurant">
+          <MenuItem>
             <IconWrapper>
               <FaStore />
             </IconWrapper>
             가게정보 수정
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <IconWrapper>
-            <MdSchedule />
-          </IconWrapper>
-          예약 관리
-        </MenuItem>
-        <MenuItem>
-          <IconWrapper style={{ marginBottom: '22px' }}>
-            <MdNaturePeople />
-          </IconWrapper>
-          Waiting
-        </MenuItem>
-        <MenuItem>
-          <Link to="/figtable/owner/eatdeal">
+          </MenuItem>
+        </Link>
+        <Link to="/figtable/owner/reservation">
+          <MenuItem>
+            <IconWrapper>
+              <MdSchedule />
+            </IconWrapper>
+            예약 관리
+          </MenuItem>
+        </Link>
+        <Link to="/figtable/owner/waiting">
+          <MenuItem>
+            <IconWrapper style={{ marginBottom: '22px' }}>
+              <MdNaturePeople />
+            </IconWrapper>
+            Waiting
+          </MenuItem>
+        </Link>
+        <Link to="/figtable/owner/eatdeal">
+          <MenuItem>
             <IconWrapper>
               <MdRestaurantMenu />
             </IconWrapper>
             Eat Deal
-          </Link>
-        </MenuItem>
+          </MenuItem>
+        </Link>
       </MenuWrapper>
     </>
   );

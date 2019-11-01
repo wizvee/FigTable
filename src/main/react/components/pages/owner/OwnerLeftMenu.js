@@ -53,8 +53,20 @@ const OwnerLeftMenu = ({ location: { pathname } }) => {
           가게정보 수정
         </MenuItem>
       </Link>
-      <MenuItem>예약 관리</MenuItem>
-      <MenuItem>Waiting</MenuItem>
+      <Link to="/figtable/owner/reservation">
+        <MenuItem
+          className={pathname == '/figtable/owner/reservation' && 'selected'}
+        >
+          예약 관리
+        </MenuItem>
+      </Link>
+      <Link to="/figtable/owner/waiting">
+        <MenuItem
+          className={pathname == '/figtable/owner/waiting' && 'selected'}
+        >
+          Waiting
+        </MenuItem>
+      </Link>
       <Link to="/figtable/owner/eatdeal">
         <MenuItem
           className={pathname == '/figtable/owner/eatdeal' && 'selected'}
