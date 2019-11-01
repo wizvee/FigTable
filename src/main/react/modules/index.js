@@ -7,6 +7,7 @@ import member, { memberSaga } from './member';
 import restaurant, { restaurantSaga } from './restaurant';
 import restaurants, { restaurantsSaga } from './restaurants';
 import reviews, { reviewsSaga } from './reviews';
+import review from './review';
 
 const rootReducer = combineReducers({
   recent,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   member,
   restaurant,
   restaurants,
+  review,
   reviews,
 });
 

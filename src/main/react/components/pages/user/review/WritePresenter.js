@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
@@ -7,13 +7,16 @@ import {
   MdSentimentSatisfied,
   MdSentimentNeutral,
 } from 'react-icons/md';
+import { FiPlus } from 'react-icons/fi';
 import TextareaAutosize from 'react-textarea-autosize';
+import MemberProfile from '../MemberProfile';
 
 const Container = styled(Responsive)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 800px;
   padding: 2rem;
 `;
 
@@ -60,13 +63,16 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  .member {
-    width: 100px;
+  .profile {
+    margin-top: 0.2rem;
+  }
+  .review {
+    width: 100%;
+    padding: 0 1rem;
   }
 `;
 
 const StyledTextarea = styled(TextareaAutosize)`
-  margin-right: 1rem;
   padding: 1rem;
   width: 100%;
   resize: none;
@@ -78,15 +84,33 @@ const StyledTextarea = styled(TextareaAutosize)`
   }
 `;
 
-const path = process.env.PATH;
-const Profile = styled.div`
-  margin-bottom: 0.5rem;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: url(${props => `${path}/upload/profiles/${props.url}`});
-  background-size: cover;
-  background-position: center center;
+const ImgUploadBlock = styled.div`
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0 1px;
+  input[type='file'] {
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  label {
+    display: block;
+    width: 90px;
+    height: 90px;
+    border-radius: 2px;
+    border: 1px dashed ${palette.borderGray};
+    color: ${palette.borderGray};
+    transition: all 0.2s linear;
+    cursor: pointer;
+    svg {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      font-size: 1.5rem;
+      transform: translate(-50%, -50%);
+    }
+  }
 `;
 
 const WritePresenter = ({ member }) => {
@@ -116,12 +140,28 @@ const WritePresenter = ({ member }) => {
         </div>
       </Title>
       <Content>
-        <div className="member">
-          <Profile url={member.memProfile} />
+        <div className="profile">
+          <MemberProfile
+            picSize="60px"
+            picUrl={member.memProfile}
+            name={member.memName}
+            rvCnt={member.memRvCnt}
+            fwCnt={member.memFwCnt}
+          />
         </div>
-        <StyledTextarea
-          placeholder={`${member.memName}님, 주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!`}
-        />
+        <div className="review">
+          <StyledTextarea
+            minRows={4}
+            placeholder={`${member.memName}님, 주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!`}
+          />
+          <ImgUploadBlock>
+            <label>
+              <FiPlus />
+              <input type="file" onChange={e => ImgChange(e)} />
+            </label>
+            <img src={img.imgUrl} />
+          </ImgUploadBlock>
+        </div>
       </Content>
     </Container>
   );

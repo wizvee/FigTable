@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import { FiStar, FiEdit3 } from 'react-icons/fi';
 import ModalLogin from '../ModalLogin';
 
-const StyledIcon = css`
+const Icon = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,21 +27,13 @@ const StyledIcon = css`
   }
 `;
 
-const IconLk = styled(Link)`
-  ${StyledIcon}
-`;
-
-const IconSn = styled.span`
-  ${StyledIcon}
-`;
-
-const ActionButtons = ({ resNo }) => {
+const ActionButtons = ({ history }) => {
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
 
   const [isModal, setIsModal] = useState(false);
-  const [msg, setMsg] = useState('review');
+  const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
 
   function openModal(type) {
     setMsg(type);
@@ -54,35 +46,23 @@ const ActionButtons = ({ resNo }) => {
     document.body.style.overflow = 'unset';
   }
 
-  if (!member) {
-    return (
-      <>
-        {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
-        <IconSn onClick={() => openModal('review')}>
-          <FiEdit3 />
-          <span>리뷰쓰기</span>
-        </IconSn>
-        <IconSn onClick={() => openModal('like')}>
-          <FiStar />
-          <span>가고싶다</span>
-        </IconSn>
-      </>
-    );
+  function onWrite() {
+    history.push('/figtable/review');
   }
-  if (member) {
-    return (
-      <>
-        <IconLk to={`/figtable/review/${resNo}`}>
-          <FiEdit3 />
-          <span>리뷰쓰기</span>
-        </IconLk>
-        <IconLk to="/">
-          <FiStar />
-          <span>가고싶다</span>
-        </IconLk>
-      </>
-    );
-  }
+
+  return (
+    <>
+      {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
+      <Icon onClick={member ? onWrite() : () => openModal('review')}>
+        <FiEdit3 />
+        <span>리뷰쓰기</span>
+      </Icon>
+      <Icon onClick={member ? undefined : () => openModal('like')}>
+        <FiStar />
+        <span>가고싶다</span>
+      </Icon>
+    </>
+  );
 };
 
 export default ActionButtons;
