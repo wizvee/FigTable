@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderOwner from './HeaderOwner';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
@@ -6,6 +6,8 @@ import OwnerInfo from './OwnerInfo';
 import OwnerLeftMenu from './OwnerLeftMenu';
 import ReservationList from './ReservationList';
 import OwnerDetailTitle from './OwnerDetailTitle';
+import moment from 'moment';
+import WeekCalendar from './WeekCalendar';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -21,6 +23,8 @@ const Container = styled.div`
 const ContainerWrapper = styled(Responsive)`
   height: auto;
   overflow: hidden;
+  padding-bottom: 50px;
+
   &:after {
     content: '';
     display: block;
@@ -32,24 +36,14 @@ const ContainerWrapper = styled(Responsive)`
   }
 `;
 
-const Right = styled.div`
-  padding: 1rem;
-  width: 65%;
+const CalendarWrapper = styled.div`
+  width: 100%;
   height: 100%;
-  float: right;
-
-  @media (max-width: 1024px) {
-    width: 55%;
-  }
-  @media (max-width: 768px) {
-    width: 45%;
-  }
-  @media (max-width: 425px) {
-    width: 100%;
-    position: relative;
-    top: 430px;
-    padding-top: 0.7rem;
-  }
+  background: white;
+  /* border-radius: 5px; */
+  box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
+  padding: 10px;
+  margin-top: 30px;
 `;
 
 ////////// 임시데이터//////////////////////////
@@ -91,21 +85,42 @@ const reservations = [
     person: '성인 6인',
   },
 ];
+
 ////////////////////////////////////////////////
+//  [
+//   moment()
+//   .add(i, 'days')
+//   .locale('ko')
+//   .format('YYYY-MM-DD ddd')]
+
+function makeWeek() {
+  const w = [];
+  for (let i = 0; i < 7; i++) {
+    w.push(
+      moment()
+        .add(i, 'days')
+        .locale('ko')
+        .format('YYYY-MM-DD ddd'),
+    );
+  }
+  return w;
+}
 
 const OwnerReservationContainer = () => {
+  const [week, setWeek] = useState(makeWeek);
+
   return (
     <>
       <HeaderOwner name={store.name} />
       <Container>
         <ContainerWrapper>
-          <OwnerInfo store={store} />
-          <OwnerLeftMenu select="2" />
-          <Right>
-            <OwnerDetailTitle title="예약 관리" />
-            <div style={{ height: '600px' }}>스케줄러 추가</div>
-            <ReservationList reservations={reservations} />
-          </Right>
+          {/* <OwnerLeftMenu select="2" /> */}
+
+          <OwnerDetailTitle title="예약 관리" />
+          <CalendarWrapper>
+            <WeekCalendar week={week} />
+          </CalendarWrapper>
+          <ReservationList reservations={reservations} />
         </ContainerWrapper>
       </Container>
     </>

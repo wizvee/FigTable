@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import ReservationItem from './ReservationItem';
+import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   margin-top: 40px;
@@ -11,7 +13,7 @@ const Container = styled.div`
 const Title = styled.div`
   margin: 0 auto;
   font-size: 20px;
-  width: 95%;
+
   height: 50px;
   padding-top: 15px;
   padding-left: 20px;
@@ -29,12 +31,16 @@ const Title = styled.div`
     margin: 0;
     width: 100%;
   }
+
+  &.main {
+    width: 95%;
+  }
+  &.reservation {
+    width: 100%;
+  }
 `;
 
 const Content = styled.div`
-  width: 95%;
-  height: 130px;
-  margin: 0 auto;
   background: white;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -53,21 +59,35 @@ const Content = styled.div`
       border-radius: 10px;
     }
   }
-  @media (max-width: 1024px) {
-    margin-left: 8px;
-    width: 100%;
-  }
   @media (max-width: 768px) {
     margin: 0;
     width: 100%;
   }
+
+  &.main {
+    margin: 0 auto;
+    width: 95%;
+    height: 130px;
+    @media (max-width: 1024px) {
+      margin-left: 8px;
+      width: 100%;
+    }
+  }
+  &.reservation {
+    width: 100%;
+    height: 300px;
+  }
 `;
 
-const ReservationList = ({ reservations }) => {
+const ReservationList = ({ reservations, location: { pathname } }) => {
   return (
     <Container>
-      <Title>예약대기목록</Title>
-      <Content>
+      <Title className={pathname == '/figtable/owner' ? 'main' : 'reservation'}>
+        예약대기목록
+      </Title>
+      <Content
+        className={pathname == '/figtable/owner' ? 'main' : 'reservation'}
+      >
         {reservations.map(reservation => (
           <ReservationItem reservation={reservation} key={reservation.id} />
         ))}
@@ -76,4 +96,4 @@ const ReservationList = ({ reservations }) => {
   );
 };
 
-export default ReservationList;
+export default withRouter(ReservationList);
