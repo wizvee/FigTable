@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import {withRouter} from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {withRouter,Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSimple from '../../common/HeaderSimple';
 import EatDealImageContainer from './detail/EatDealImageContainer';
 import DisCountPrice from './detail/DisCountPrice';
 import EatDealIntroduce from './detail/EatDealIntroduce';
 import EatDealInfo from './detail/EatDealInfo';
+import Separator from './detail/Separator';
 import palette from '../../../lib/styles/Palette';
 
 const sample = [
@@ -64,13 +64,6 @@ const TextContainer= styled.div`
     padding: 0.7rem;
 `;
 
-export const Separator = styled.div`
-    position:relative;
-    display: block;
-    height:1px;
-    margin:0.3rem 0.1rem;
-    background-color:#E9E9E9;
-`;
 const Button= styled.div`
     background-color:${palette.primary};
     text-align:center; 

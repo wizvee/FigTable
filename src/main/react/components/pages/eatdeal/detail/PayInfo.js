@@ -10,14 +10,16 @@ const PayImage = styled.div`
     float:left;
     background: url(${props => `${props.url}`});
     background-size: cover;
-    width : 10rem;
-    height : 10rem;
+    width : 8rem;
+    height : 8rem;
 `;
 const PayContent =styled.div`
     float:left;
-    height : 10rem;
-    background-color: red;
+    height : 8rem;
     padding: 1rem;
+    p{
+        margin-top:0;
+    }
 `;
 const PayInfo =({eat})=>{
     
