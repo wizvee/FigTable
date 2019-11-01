@@ -16,8 +16,7 @@ import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
-import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
-
+import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
 
 const App = () => {
   return (
@@ -27,21 +26,35 @@ const App = () => {
         <Route path="/figtable/restaurant/:resNo" component={DetailContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
-        <Route path="/figtable/review/:resNo" component={WriteContainer} />
+        <Route path="/figtable/review" component={WriteContainer} />
         <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
         <Route
           path="/figtable/eatdeal/:eatNo"
           component={EatdealDetailContainer}
         />
-        
-        <Route path="/figtable/payment/:eatNo" component={EatdealpayContainer} />
+
+        <Route
+          path="/figtable/payment/:eatNo"
+          component={EatdealpayContainer}
+        />
         <Route path="/figtable/owner" exact component={OwnerContainer} />
-        <Route path="/figtable/owner/restaurant" component={UpdateOwnerRestaurant} />
-        <Route path="/figtable/owner/eatdeal" component={OwnerEatDealContainer} />
-        <Route path="/figtable/owner/reservation"
-        	          component={OwnerReservationContainer} />
-        <Route path="/figtable/owner/waiting" component={OwnerWaitingContainer} />		
-        
+        <Route
+          path="/figtable/owner/restaurant"
+          component={UpdateOwnerRestaurant}
+        />
+        <Route
+          path="/figtable/owner/eatdeal"
+          component={OwnerEatDealContainer}
+        />
+        <Route
+          path="/figtable/owner/reservation"
+          component={OwnerReservationContainer}
+        />
+        <Route
+          path="/figtable/owner/waiting"
+          component={OwnerWaitingContainer}
+        />
+
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
