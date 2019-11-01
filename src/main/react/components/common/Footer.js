@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from './Responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   /* margin-top: auto; */
@@ -37,7 +38,9 @@ const Footer = () => {
     <>
       <Container>
         <Wrapper>
-          <div className="logo">FIGTABLE</div>
+          <Link to="/figtable">
+            <div className="logo">FIGTABLE</div>
+          </Link>
           <div className="compony">
             <span>(주) 피그테이블</span>
             <span>서울특별시 강남구 테헤란로14길 6, 4층 (남도빌딩)</span>
