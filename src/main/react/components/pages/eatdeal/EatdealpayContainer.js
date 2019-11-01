@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from '../../../lib/styles/Palette';
+import Button from '../../../lib/styles/Button';
+
 import HeaderSimple from '../../common/HeaderSimple';
 import PayInfo from './detail/PayInfo';
-import EatdealDetailcontainer, {EatdealCard, Separator} from './EatdealDetailcontainer';
+import Separator from './detail/Separator';
+import EatPayWay from './detail/EatPayWay';
+import TotalPay from './detail/TotalPay';
 
 
 const sample = [
@@ -45,12 +50,34 @@ const sample = [
   ];
 
   
-  const PayWay = styled.div`
+const EatdealCard =styled.div`
+  display: flex;
+  text-align:center; 
+  margin:0px auto;
+  flex-direction: column;
+  width: 50rem;
   
-  text-align:left;
-    margin-top: 2rem;
-    padding : 3rem;
-  `;
+`;
+
+const ButtonArea= styled.div`
+padding : 2rem 3rem;
+
+`;
+const EatdealButton= styled(Button)`
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width:10rem;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+`;
+
+
+const CancelButton= styled(Button)`
+
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width:10rem;
+`;
 
 const EatdealpayContainer = ({match}) => {
     const { eatNo } = match.params;
@@ -61,13 +88,17 @@ const EatdealpayContainer = ({match}) => {
         <EatdealCard>
             <PayInfo eat={eat}/>
             <Separator/>
-            
-            <div>총수량</div>
-                <div>총 결제금액</div>
-            <PayWay>
-                <div>결제방법</div>
-            </PayWay>
-            
+              <TotalPay eat={eat}/>
+            <Separator/>
+             <EatPayWay/>
+            <ButtonArea>
+              <CancelButton bgColor={palette.textGray}>
+                취소하기 
+              </CancelButton>
+              <EatdealButton>
+                결제하기
+              </EatdealButton>
+            </ButtonArea>
             
             
 

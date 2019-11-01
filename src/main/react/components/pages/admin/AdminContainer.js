@@ -84,7 +84,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdLocalDining />
                 </IconWrapper>
-                식당 신규 등록
+                매장 신규 등록
               </Link>
             </li>
             <li className="li">
@@ -92,7 +92,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdEdit />
                 </IconWrapper>
-                식당 정보 수정
+                매장 신청 내역
               </Link>
             </li>
             <li className="li">
@@ -100,7 +100,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdFace />
                 </IconWrapper>
-                회원 관리
+                사장님 관리
               </Link>
             </li>
             <li className="li">

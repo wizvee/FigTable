@@ -1,134 +1,108 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AdminHeader from './AdminHeader';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 import styled from 'styled-components';
+import './TableStyle.css';
+import RestaurantList from './RestaurantList';
 import Button from '../../../lib/styles/Button';
+import palette from '../../../lib/styles/Palette';
 
-const TableWrapper = styled.div`
+const TitleWrapper = styled.div`
   margin-top: 1rem;
   height: 3rem;
   text-align: center;
 `;
 
-const ButtonWrapper = styled.div``;
-const StyledButton = styled(Button)`
-  padding: 0.5rem;
+const Search = styled.div`
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
 `;
 
-const data = [
+const StyledInput = styled.input`
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  width: 30%;
+  border: 1px solid ${palette.borderGray};
+  font-size: 1rem;
+  outline: none;
+  & + & {
+    margin-top: 0.5rem;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width: 5rem;
+`;
+
+const TableWrapper = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const restaurants = [
   {
     id: 1,
     resName: '달콩커피',
     resAddr: '경기도 수원시',
     resTel: '031-000-0000',
-    adminName: '알콩달콩',
+    ownName: '알콩달콩',
   },
   {
     id: 2,
     resName: '달콩커피',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
-    adminName: '김사장',
+    ownName: '김사장',
   },
   {
     id: 3,
     resName: '스타벅스',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
-    adminName: '이사장',
+    ownName: '이사장',
   },
   {
     id: 4,
     resName: '스타벅스',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
-    adminName: '박사장',
+    ownName: '박사장',
   },
 ];
 
-const makeDefaultState = () => ({
-  sorted: [],
-  page: 0,
-  pageSize: 10,
-  expanded: {},
-  resized: [],
-  filtered: [],
-});
-class UpdateRestaurant extends Component {
-  constructor() {
-    super();
-    this.state = makeDefaultState();
-    this.resetState = this.resetState.bind(this);
-  }
-  resetState() {
-    this.setState(makeDefaultState());
-  }
+const UpdateRestaurant = () => {
+  return (
+    <>
+      <AdminHeader />
+      <TitleWrapper>
+        <h3>매장 신청 내역</h3>
+      </TitleWrapper>
 
-  render() {
-    return (
-      <>
-        <AdminHeader />
-        <div>
-          <TableWrapper>
-            <h3>매장 정보 수정</h3>
-          </TableWrapper>
-          <ButtonWrapper>
-            <StyledButton onClick={this.resetState}>검색 초기화</StyledButton>
-          </ButtonWrapper>
-        </div>
-
-        <div>
-          <ReactTable
-            data={data}
-            columns={[
-              {
-                Header: '매장명',
-                id: 'resName',
-                accessor: d => d.resName,
-              },
-              {
-                Header: '매장주소',
-                id: 'resAddr',
-                accessor: 'resAddr',
-              },
-              {
-                Header: '전화번호',
-                id: 'resTel',
-                accessor: 'resTel',
-              },
-              {
-                Header: '대표자',
-                id: 'adminName',
-                accessor: 'adminName',
-              },
-            ]}
-            pivotBy={['resName']}
-            filterable
-            defaultPageSize={10}
-            className="-striped -highlight"
-            //controll props
-            sorted={this.state.sorted}
-            page={this.state.page}
-            pageSize={this.state.pageSize}
-            expanded={this.state.expanded}
-            resized={this.state.resized}
-            filtered={this.state.filtered}
-            // Callbacks
-            onSortedChange={sorted => this.setState({ sorted })}
-            onPageChange={page => this.setState({ page })}
-            onPageSizeChange={(pageSize, page) =>
-              this.setState({ page, pageSize })
-            }
-            onExpandedChange={expanded => this.setState({ expanded })}
-            onResizedChange={resized => this.setState({ resized })}
-            onFilteredChange={filtered => this.setState({ filtered })}
-          />
-          <br />
-        </div>
-      </>
-    );
-  }
-}
+      <div>
+        <Search>
+          <StyledInput type="text" placeholder="검색어 입력" />
+          <StyledButton onClick="">검색</StyledButton>
+        </Search>
+        <TableWrapper>
+          <table>
+            <thead>
+              <tr>
+                <th>매장명</th>
+                <th>매장주소</th>
+                <th>전화번호</th>
+                <th>대표자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <RestaurantList restaurants={restaurants} />
+            </tbody>
+          </table>
+        </TableWrapper>
+      </div>
+    </>
+  );
+};
 
 export default UpdateRestaurant;

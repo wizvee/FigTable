@@ -4,6 +4,7 @@ import {
   IoIosCloseCircleOutline,
   IoIosCheckmarkCircleOutline,
 } from 'react-icons/io';
+import { withRouter } from 'react-router-dom';
 
 const Item = styled.div`
   height: 45px;
@@ -35,7 +36,6 @@ const ButtonWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   position: relative;
   top: -39px;
-  left: 485px;
   width: 60px;
 
   @media (max-width: 1024px) {
@@ -55,6 +55,19 @@ const ButtonWrapper = styled.div`
     top: -61px;
     left: 300px;
   }
+
+  &.main {
+    left: 485px;
+  }
+  &.reservation {
+    left: 880px;
+    @media (max-width: 1024px) {
+      left: 640px;
+      top: -47px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   .reject {
     color: #fa5252;
     &:hover {
@@ -80,7 +93,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const ReservationItem = ({ reservation }) => {
+const ReservationItem = ({ reservation, location: { pathname } }) => {
   const { id, date, time, person } = reservation;
 
   return (
@@ -88,7 +101,9 @@ const ReservationItem = ({ reservation }) => {
       <div className="content">
         {date} {time} {person}
       </div>
-      <ButtonWrapper>
+      <ButtonWrapper
+        className={pathname == '/figtable/owner' ? 'main' : 'reservation'}
+      >
         <div className="approve">
           <IoIosCheckmarkCircleOutline />
         </div>
@@ -100,4 +115,4 @@ const ReservationItem = ({ reservation }) => {
   );
 };
 
-export default ReservationItem;
+export default withRouter(ReservationItem);
