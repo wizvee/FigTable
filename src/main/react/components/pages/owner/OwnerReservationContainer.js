@@ -42,8 +42,9 @@ const CalendarWrapper = styled.div`
   background: white;
   /* border-radius: 5px; */
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
-  padding: 10px;
+  padding: 30px 35px 30px 10px;
   margin-top: 30px;
+  text-align: center;
 `;
 
 ////////// 임시데이터//////////////////////////

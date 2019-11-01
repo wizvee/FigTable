@@ -37,6 +37,10 @@ const Title = styled.div`
   }
   &.reservation {
     width: 100%;
+
+    @media screen {
+      margin-left: 0;
+    }
   }
 `;
 
