@@ -22,18 +22,27 @@ public class StringArrayHandler implements TypeHandler<String[]> {
 	@Override
 	public String[] getResult(ResultSet rs, String columnName) throws SQLException {
 		String temp = rs.getString(columnName);
+		if(temp == null) {
+			return null;
+		}
 		return temp.split(",");
 	}
 
 	@Override
 	public String[] getResult(ResultSet rs, int columnIndex) throws SQLException {
 		String temp = rs.getString(columnIndex);
+		if(temp == null) {
+			return null;
+		}
 		return temp.split(",");
 	}
 
 	@Override
 	public String[] getResult(CallableStatement cs, int columnIndex) throws SQLException {
 		String temp = cs.getString(columnIndex);
+		if(temp == null) {
+			return null;
+		}
 		return temp.split(",");
 	}
 

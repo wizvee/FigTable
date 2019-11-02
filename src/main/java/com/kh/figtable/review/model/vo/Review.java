@@ -13,7 +13,7 @@ public class Review {
 	private String memNo;
 	private String resNo;
 	private String rvNo;
-	private String rvRating;
+	private int rvRating;
 	private String rvContent;
 	private String[] rvImages;
 	private Date rvDate;

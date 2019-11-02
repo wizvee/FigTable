@@ -113,7 +113,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
       <InfoWrapper>
         <InfoHeader>
           <Title>{resName}</Title>
-          <Rating>{resRating.toFixed(1)}</Rating>
+          <Rating>{(resRating / resReviews).toFixed(1)}</Rating>
           <ActionButtons resNo={resNo} />
         </InfoHeader>
         <Location>{resLocationKeyword}</Location>

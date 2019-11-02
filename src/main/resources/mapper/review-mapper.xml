@@ -27,6 +27,6 @@
 	<insert id="writeReview" parameterType="review">
 		INSERT INTO FIG_REVIEW
 		VALUES(#{memNo}, #{resNo}, 'rv'||RV_SEQ.NEXTVAL, #{rvRating},
-		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT);
+		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT)
 	</insert>
 </mapper>

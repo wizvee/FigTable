@@ -70,7 +70,7 @@ const DetailContainer = ({ match }) => {
       <HeaderContainer />
       <InstaViewer
         title={restaurant ? restaurant.resName : ''}
-        reviews={imgReviews}
+        reviews={imgReviews ? imgReviews : []}
         viewInsta={viewInsta}
         openInsta={openInsta}
         closeInsta={closeInsta}
@@ -80,7 +80,7 @@ const DetailContainer = ({ match }) => {
           info={restaurant}
           error={resError}
           loading={resLoading}
-          imgReviews={imgReviews}
+          imgReviews={imgReviews ? imgReviews : []}
           openInsta={openInsta}
         />
         <ReviewPresenter reviews={reviews} openInsta={openInsta} />

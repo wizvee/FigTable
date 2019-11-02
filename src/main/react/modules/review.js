@@ -44,7 +44,6 @@ export function* reviewSaga() {
 }
 
 const initialState = {
-  files: null,
   resName: '',
   // axios
   memNo: '',
@@ -52,6 +51,7 @@ const initialState = {
   rvRating: '',
   rvContent: '',
   rvImages: [],
+  result: null,
   error: null,
 };
 
@@ -68,7 +68,11 @@ const review = handleActions(
         draft[key] = value;
       }),
     [INITIALIZE_FORM]: () => initialState,
-    [WRITE_REVIEW_FAILURE]: (state, { payload: { error } }) => ({
+    [WRITE_REVIEW_SUCCESS]: (state, { payload: result }) => ({
+      ...state,
+      result,
+    }),
+    [WRITE_REVIEW_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),
