@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerMenu from './OwnerMenu';
 import palette from '../../../lib/styles/Palette';
-import ReservationList from './ReservationList';
+import ListContainer from './ListContainer';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -206,7 +206,7 @@ const OwnerContainer = () => {
           </Button>
           <RightContent>
             <OwnerMenu />
-            <ReservationList reservations={reservations} />
+            <ListContainer list={reservations} />
           </RightContent>
         </ContentWrapper>
       </Container>

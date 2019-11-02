@@ -56,6 +56,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   font-family: 'NanumSquareRound';
   outline: none;
   vertical-align: top;
+  margin-left: 0.5rem;
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -71,9 +72,6 @@ const StyledTextArea = styled(TextareaAutosize)`
       background: ${palette.textGray};
       border-radius: 10px;
     }
-  }
-  & + & {
-    margin-top: 0.5rem;
   }
 
   @media (max-width) {
@@ -92,6 +90,10 @@ const StyledButton = styled.input`
   border-radius: 5px;
   background: #f67280;
   color: white;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -102,6 +104,9 @@ const IconWrapper = styled.div`
   text-align: center;
   font-size: 30px;
   color: ${palette.textGray};
+  svg:hover {
+    opacity: 0.7;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -109,40 +114,6 @@ const InputWrapper = styled.div`
   height: auto;
   overflow: hidden;
   text-align: center;
-`;
-
-const InnerLeft = styled.div`
-  width: 15%;
-  height: auto;
-  margin-left: 23px;
-  overflow: hidden;
-  float: left;
-  text-align: right;
-`;
-
-const InnerRight = styled.div`
-  width: 80%;
-  height: auto;
-  overflow: hidden;
-  text-align: left;
-  float: right;
-`;
-
-const LeftMenu = styled.div`
-  width: 48%;
-  height: auto;
-  overflow: hidden;
-  float: left;
-  text-align: center;
-  margin-left: 20px;
-`;
-const RightMenu = styled.div`
-  width: 48%;
-  height: auto;
-  overflow: hidden;
-  float: right;
-  text-align: left;
-  margin-right: 0px;
 `;
 
 const OwnerShopForm = ({ store }) => {
@@ -158,17 +129,19 @@ const OwnerShopForm = ({ store }) => {
     tel,
     owner,
     operation,
+    menu,
   } = store;
 
-  // const [openday, setOpenday] = useState({ openDay });
-  // {
-  //   console.log(openday);
-  // }
-  // const appendInput = (operation) => {
-  //   const open = '';
-  //   setOpenday(operation.concat(''));
-  //   console.log(openDay);
-  // };
+  const [addOp, setAddOp] = useState(operation);
+  const [addMn, setAddMn] = useState(menu);
+
+  const appendInput = e => {
+    console.log(e.target);
+    console.log(e.target.getAttribute('name'));
+    e.target.getAttribute('name') == 'oper'
+      ? setAddOp(addOp.concat({ openDay: '', closeTime: '' }))
+      : setAddMn(addMn.concat({ title: '', price: '' }));
+  };
 
   return (
     <>
@@ -214,48 +187,51 @@ const OwnerShopForm = ({ store }) => {
       </FormContainer>
       <FormContainer padding="5px">
         <SubTitle>영업시간</SubTitle>
-        <InputWrapper>
-          <StyledTextArea
-            style={{ width: '20%' }}
-            type="textArea"
-            name="resOpenDay"
-            placeholder="영업일"
-            defaultValue={open}
-          />
-          <StyledTextArea
-            style={{ width: '65%' }}
-            type="textArea"
-            name="resCloseTime"
-            placeholder="운영시간"
-            defaultValue={close}
-          />
-        </InputWrapper>
+        {addOp.map(op => (
+          <InputWrapper style={{ marginTop: '0.5rem' }}>
+            <StyledTextArea
+              style={{ width: '20%' }}
+              type="textArea"
+              name="resOpenDay"
+              placeholder="영업일"
+              defaultValue={op.openDay}
+            />
+            <StyledTextArea
+              style={{ width: '65%' }}
+              type="textArea"
+              name="resCloseTime"
+              placeholder="운영시간"
+              defaultValue={op.closeTime}
+            />
+          </InputWrapper>
+        ))}
         <IconWrapper>
-          <FiPlusCircle />
+          <FiPlusCircle name="oper" onClick={appendInput} />
         </IconWrapper>
       </FormContainer>
       <FormContainer padding="5px">
         <SubTitle>메뉴</SubTitle>
-        <InputWrapper>
-          <LeftMenu>
+        {addMn.map(m => (
+          <InputWrapper style={{ marginTop: '0.5rem' }}>
             <StyledTextArea
               type="textArea"
               name="resMenuTitle"
               placeholder="메뉴"
-              style={{ width: '85%' }}
+              style={{ width: '40%' }}
+              defaultValue={m.title}
             />
-          </LeftMenu>
-          <RightMenu>
+
             <StyledTextArea
               type="textArea"
               name="resMenuPrice"
-              placeholder="메뉴 가격"
-              style={{ width: '85%' }}
+              placeholder="가격"
+              style={{ width: '40%', marginRight: '10px' }}
+              defaultValue={m.price}
             />
-          </RightMenu>
-        </InputWrapper>
+          </InputWrapper>
+        ))}
         <IconWrapper>
-          <FiPlusCircle />
+          <FiPlusCircle onClick={appendInput} />
         </IconWrapper>
       </FormContainer>
 

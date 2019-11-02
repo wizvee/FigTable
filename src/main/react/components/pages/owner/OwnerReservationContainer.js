@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerInfo from './OwnerInfo';
 import OwnerLeftMenu from './OwnerLeftMenu';
-import ReservationList from './ReservationList';
+import ListContainer from './ListContainer';
 import OwnerDetailTitle from './OwnerDetailTitle';
 import moment from 'moment';
 import WeekCalendar from './WeekCalendar';
@@ -121,7 +121,7 @@ const OwnerReservationContainer = () => {
           <CalendarWrapper>
             <WeekCalendar week={week} />
           </CalendarWrapper>
-          <ReservationList reservations={reservations} />
+          <ListContainer list={reservations} />
         </ContainerWrapper>
       </Container>
     </>

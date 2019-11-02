@@ -58,6 +58,12 @@ const ButtonWrapper = styled.div`
 
   &.main {
     left: 485px;
+    @media (max-width: 1024px) {
+      left: 320px;
+    }
+    @media (max-width: 768px) {
+      left: 250px;
+    }
   }
   &.reservation {
     left: 880px;
