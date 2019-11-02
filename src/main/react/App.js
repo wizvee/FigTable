@@ -17,6 +17,7 @@ import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautra
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
 import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
+import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
 
 const App = () => {
   return (
@@ -58,7 +59,7 @@ const App = () => {
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
-        <Route path="/figtable/admin/owner" component={ApplyOwner} />
+        <Route path="/figtable/admin/owner" component={ApplyOwnerContainer} />
         <Redirect from="*" to="/figtable" />
       </Switch>
       <Footer />
