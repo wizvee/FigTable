@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminHeader from './AdminHeader';
 import styled from 'styled-components';
 import './TableStyle.css';
 import RestaurantList from './RestaurantList';
-import Button from '../../../lib/styles/Button';
-import palette from '../../../lib/styles/Palette';
+import SearchRes from './SearchRes';
 
 const TitleWrapper = styled.div`
   margin-top: 1rem;
   height: 3rem;
   text-align: center;
+`;
+
+const BodyHeight = styled.div`
+  height: 503px;
 `;
 
 const Search = styled.div`
@@ -18,57 +21,45 @@ const Search = styled.div`
   margin-bottom: 1rem;
 `;
 
-const StyledInput = styled.input`
-  padding: 0.5rem 0.8rem;
-  border-radius: 5px;
-  width: 30%;
-  border: 1px solid ${palette.borderGray};
-  font-size: 1rem;
-  outline: none;
-  & + & {
-    margin-top: 0.5rem;
-  }
-`;
-
-const StyledButton = styled(Button)`
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  width: 5rem;
-`;
-
 const TableWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
 const restaurants = [
   {
-    id: 1,
+    resNo: 1,
     resName: '달콩커피',
     resAddr: '경기도 수원시',
     resTel: '031-000-0000',
     ownName: '알콩달콩',
   },
   {
-    id: 2,
+    resNo: 2,
     resName: '달콩커피',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
     ownName: '김사장',
   },
   {
-    id: 3,
+    resNo: 3,
     resName: '스타벅스',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
     ownName: '이사장',
   },
   {
-    id: 4,
+    resNo: 4,
     resName: '스타벅스',
     resAddr: '서울시 강남구',
     resTel: '02-000-0000',
     ownName: '박사장',
+  },
+  {
+    resNo: 5,
+    resName: '매니멀스모크하우스',
+    resAddr: '서울시 용산구 이태원동 455-33',
+    resTel: '02-790-6788',
+    ownName: '',
   },
 ];
 
@@ -76,14 +67,12 @@ const UpdateRestaurant = () => {
   return (
     <>
       <AdminHeader />
-      <TitleWrapper>
-        <h3>매장 신청 내역</h3>
-      </TitleWrapper>
-
-      <div>
+      <BodyHeight>
+        <TitleWrapper>
+          <h3>매장 신청 내역</h3>
+        </TitleWrapper>
         <Search>
-          <StyledInput type="text" placeholder="검색어 입력" />
-          <StyledButton onClick="">검색</StyledButton>
+          <SearchRes restaurants={restaurants} />
         </Search>
         <TableWrapper>
           <table>
@@ -100,7 +89,7 @@ const UpdateRestaurant = () => {
             </tbody>
           </table>
         </TableWrapper>
-      </div>
+      </BodyHeight>
     </>
   );
 };
