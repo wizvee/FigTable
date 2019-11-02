@@ -24,28 +24,37 @@ const StyledButton = styled(Button)`
 
 const SearchRes = ({ restaurants }) => {
   const [value, setValue] = useState('');
-  const onChange = useCallback(text => {
-    setValue(text.target.value);
-  }, []);
 
-  const onSubmit = useCallback(e => {
-    onChange(value);
+  const onChange = e => {
+    setValue(e.target.value);
+    {
+      console.log(e.target.value);
+    }
+  };
+
+  const onClickSearch = value => {
+    {
+      console.log(value);
+    }
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    onClickSearch(value);
     setValue('');
-  });
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={onSubmit}>
         <StyledInput
           type="text"
           placeholder="검색어 입력"
-          id="searchRes"
+          name="searchRes"
           value={value}
           onChange={onChange}
         />
-        <StyledButton type="submit" onSubmit={onSubmit}>
-          검색
-        </StyledButton>
+        <StyledButton>검색</StyledButton>
       </form>
     </>
   );

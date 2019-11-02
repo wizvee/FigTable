@@ -42,7 +42,7 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const ModalTemplate = ({ restaurant, onClickCloseModal }) => {
+const ModalTemplate = ({ restaurant, closeModal, changePage }) => {
   const { resNo, resName, resAddr, ownName } = restaurant;
   return (
     <>
@@ -52,10 +52,8 @@ const ModalTemplate = ({ restaurant, onClickCloseModal }) => {
             <b>{resName}</b> 매장을 등록하시겠습니까?
           </Content>
           <ButtonWrapper>
-            <StyledButton onClick={() => onClickCloseModal()}>네</StyledButton>
-            <StyledButton onClick={() => onClickCloseModal()}>
-              아니오
-            </StyledButton>
+            <StyledButton onClick={changePage}>네</StyledButton>
+            <StyledButton onClick={closeModal}>아니오</StyledButton>
           </ButtonWrapper>
         </Modal>
       </ModalWrap>
