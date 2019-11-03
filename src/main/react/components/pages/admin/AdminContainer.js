@@ -96,7 +96,7 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/member">
+              <Link className="menu" to="/figtable/admin/owner">
                 <IconWrapper>
                   <MdFace />
                 </IconWrapper>
