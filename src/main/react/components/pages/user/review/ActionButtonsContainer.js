@@ -6,16 +6,23 @@ import { writeReview } from '../../../../modules/review';
 
 const ActionButtonsContainer = ({ history }) => {
   const dispatch = useDispatch();
-  const { memNo, resNo, rvRating, rvContent, rvImages, error } = useSelector(
-    ({ review }) => ({
-      memNo: review.memNo,
-      resNo: review.resNo,
-      rvRating: review.rvRating,
-      rvContent: review.rvContent,
-      rvImages: review.rvImages,
-      error: review.error,
-    }),
-  );
+  const {
+    memNo,
+    resNo,
+    rvRating,
+    rvContent,
+    rvImages,
+    result,
+    error,
+  } = useSelector(({ review }) => ({
+    memNo: review.memNo,
+    resNo: review.resNo,
+    rvRating: review.rvRating,
+    rvContent: review.rvContent,
+    rvImages: review.rvImages,
+    result: review.result,
+    error: review.error,
+  }));
 
   // 리뷰 등록
   const onSubmit = () => {
@@ -29,9 +36,11 @@ const ActionButtonsContainer = ({ history }) => {
 
   // 성공 혹은 실패 시 할 작업
   useEffect(() => {
-    // if (success) history.push(`/figtable/restaurant/${resNo}`);
+    if (result && result > 0) {
+      history.push(`/figtable/restaurant/${resNo}`);
+    }
     if (error) console.log(error);
-  }, [history, error]);
+  }, [history, result, error]);
 
   return <ActionButtons onCancel={onCancel} onSubmit={onSubmit} />;
 };

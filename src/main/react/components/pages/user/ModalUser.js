@@ -101,6 +101,7 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
                 resNo={r.resNo}
                 resThumb={r.resThumb}
                 resName={r.resName}
+                resReviews={r.resReviews}
                 resRating={r.resRating}
                 resLocationKeyword={r.resLocationKeyword}
                 closeModal={closeModal}

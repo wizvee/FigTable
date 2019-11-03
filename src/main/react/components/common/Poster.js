@@ -125,7 +125,7 @@ const Poster = ({ restaurant }) => {
         </ImageContainer>
         <Title>
           {resName}
-          <Rating>{resRating.toFixed(1)}</Rating>
+          <Rating>{(resRating / resReviews).toFixed(1)}</Rating>
         </Title>
         <Location>{resLocationKeyword}</Location>
         <Icon>

@@ -134,7 +134,7 @@ const WritePresenter = ({
   resName,
   onChange,
   onChangeFile,
-  imgUrls,
+  rvImages,
   buttons,
 }) => {
   return (
@@ -198,14 +198,13 @@ const WritePresenter = ({
             onChange={onChange}
           />
           <ImgUploadBlock>
-            {imgUrls.map((img, index) => (
-              <Preview key={index} url={img} />
-            ))}
+            {rvImages.length != 0 &&
+              rvImages.map((img, i) => <Preview key={i} url={img} />)}
             <label>
               <FiPlus />
               <input
                 type="file"
-                name="files"
+                name="rvImages"
                 multiple="multiple"
                 onChange={onChangeFile}
               />

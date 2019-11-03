@@ -47,6 +47,7 @@ const PosterSmall = props => {
     resNo,
     resThumb,
     resName,
+    resReviews,
     resRating,
     resLocationKeyword,
     closeModal,
@@ -58,7 +59,7 @@ const PosterSmall = props => {
         <TextWrapper>
           <Title>
             {resName}
-            <Rating>{resRating.toFixed(1)}</Rating>
+            <Rating>{(resRating / resReviews).toFixed(1)}</Rating>
           </Title>
           <Location>{resLocationKeyword}</Location>
         </TextWrapper>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ModalTemplate from './ModalTemplate';
 import './TableStyle.css';
 
@@ -8,15 +8,22 @@ const RestaurantList = ({ restaurants, match }) => {
   const restaurant = restaurants.find(r => r.id === resNo);
 
   const [modal, setIsModal] = useState(false);
+  const [res, setRes] = useState(null);
 
-  const onClickOpenModal = () => {
+  //모달 키는 function
+  const onClickOpenModal = res => {
+    setRes(res);
     setIsModal(true);
   };
 
+  //모달 닫는 function
   const onClickCloseModal = () => {
     setIsModal(false);
   };
 
+  const onClcikChangePage = () => {
+    setIsModal(false);
+  };
   if (!restaurant) {
     return (
       <tr>
@@ -28,19 +35,24 @@ const RestaurantList = ({ restaurants, match }) => {
   }
   return (
     <>
+      {modal && (
+        <ModalTemplate
+          restaurant={res}
+          closeModal={onClickCloseModal}
+          changePage={onClcikChangePage}
+        />
+      )}
       {restaurants.map((row, index) => {
         return (
-          <tr key={index} onClick={() => onClickOpenModal()} className="resTr">
+          <tr
+            key={index}
+            onClick={() => onClickOpenModal(row)}
+            className="resTr"
+          >
             <td key={`${index}+name`}>{row.resName}</td>
             <td key={`${index}+addr`}>{row.resAddr}</td>
             <td key={`${index}+tel`}>{row.resTel}</td>
             <td key={`${index}+own`}>{row.ownName}</td>
-            {!modal ? null : (
-              <ModalTemplate
-                restaurant={restaurant}
-                onClickCloseModal={onClickCloseModal}
-              />
-            )}
           </tr>
         );
       })}
