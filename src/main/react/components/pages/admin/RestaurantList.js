@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import ModalTemplate from './ModalTemplate';
+import ResModal from './ResModal';
 import './TableStyle.css';
 
 const RestaurantList = ({ restaurants, match }) => {
@@ -36,7 +36,7 @@ const RestaurantList = ({ restaurants, match }) => {
   return (
     <>
       {modal && (
-        <ModalTemplate
+        <ResModal
           restaurant={res}
           closeModal={onClickCloseModal}
           changePage={onClcikChangePage}

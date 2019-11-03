@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../../lib/styles/Button';
 import palette from '../../../lib/styles/Palette';
@@ -22,7 +22,7 @@ const StyledButton = styled(Button)`
   width: 5rem;
 `;
 
-const SearchRes = ({ restaurants }) => {
+const SearchTemplate = ({ restaurants, owners }) => {
   const [value, setValue] = useState('');
 
   const onChange = e => {
@@ -60,4 +60,4 @@ const SearchRes = ({ restaurants }) => {
   );
 };
 
-export default SearchRes;
+export default SearchTemplate;

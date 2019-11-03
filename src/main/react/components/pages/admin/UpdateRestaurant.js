@@ -3,7 +3,7 @@ import AdminHeader from './AdminHeader';
 import styled from 'styled-components';
 import './TableStyle.css';
 import RestaurantList from './RestaurantList';
-import SearchRes from './SearchRes';
+import SearchTemplate from './SearchTemplate';
 
 const TitleWrapper = styled.div`
   margin-top: 1rem;
@@ -72,7 +72,7 @@ const UpdateRestaurant = () => {
           <h3>매장 신청 내역</h3>
         </TitleWrapper>
         <Search>
-          <SearchRes restaurants={restaurants} />
+          <SearchTemplate restaurants={restaurants} />
         </Search>
         <TableWrapper>
           <table>

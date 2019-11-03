@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Responsive from '../../common/Responsive';
 import Button from '../../../lib/styles/Button';
 import palette from '../../../lib/styles/Palette';
+import Responsive from '../../common/Responsive';
 
 const FormBlock = styled(Responsive)`
   display: flex;
@@ -14,7 +14,8 @@ const FormBlock = styled(Responsive)`
   bottom: 0;
   right: 0;
   position: relative;
-  height: 42rem;
+  height: 35rem;
+  margin-top: -1rem;
   form {
     width: 290px;
   }
@@ -45,11 +46,10 @@ const ErrorMsg = styled.div`
   font-size: 1rem;
 `;
 
-const InsertResForm = ({ form, onSubmit, onChange, error }) => {
+const InsertResForm = ({ form, res, onSubmit, onChange, error }) => {
   return (
     <>
       <FormBlock>
-        <h3>식당 신규 등록</h3>
         <form onSubmit={onSubmit}>
           <StyledInput
             type="text"

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import AdminHeader from './AdminHeader';
-import InsertResForm from './InsertResForm';
+import InsertFormContainer from './InsertFormContainer';
+import InsetresForm from './InsertResForm';
 
 const onChange = e => {
   const { value, name } = e.target;
@@ -18,7 +19,8 @@ const InsertRestaurant = () => {
   return (
     <>
       <AdminHeader />
-      <InsertResForm onSubmit={onSubmit} onChange={onChange} />
+      <InsertFormContainer type="매장" />
+      <InsetresForm onSubmit={onSubmit} onChange={onChange} />
     </>
   );
 };
