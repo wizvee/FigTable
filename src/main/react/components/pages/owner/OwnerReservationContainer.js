@@ -14,7 +14,6 @@ const Container = styled.div`
   height: auto;
   overflow-y: hidden;
   background: #f1f3f5;
-
   @media (max-width: 425px) {
     height: 1500px;
   }
@@ -115,8 +114,6 @@ const OwnerReservationContainer = () => {
       <HeaderOwner name={store.name} />
       <Container>
         <ContainerWrapper>
-          {/* <OwnerLeftMenu select="2" /> */}
-
           <OwnerDetailTitle title="예약 관리" />
           <CalendarWrapper>
             <WeekCalendar week={week} />

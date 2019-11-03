@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { FiPlusCircle } from 'react-icons/Fi';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import TextareaAutosize from 'react-textarea-autosize';
 
 const FormContainer = styled.div`
@@ -106,6 +107,7 @@ const IconWrapper = styled.div`
   color: ${palette.textGray};
   svg:hover {
     opacity: 0.7;
+    cursor: pointer;
   }
 `;
 
@@ -114,6 +116,18 @@ const InputWrapper = styled.div`
   height: auto;
   overflow: hidden;
   text-align: center;
+
+  svg {
+    font-size: 25px;
+    margin-top: 8px;
+    margin-left: 8px;
+    color: #fa5252;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
 `;
 
 const OwnerShopForm = ({ store }) => {
@@ -131,16 +145,22 @@ const OwnerShopForm = ({ store }) => {
     operation,
     menu,
   } = store;
-
   const [addOp, setAddOp] = useState(operation);
   const [addMn, setAddMn] = useState(menu);
 
   const appendInput = e => {
-    console.log(e.target);
-    console.log(e.target.getAttribute('name'));
     e.target.getAttribute('name') == 'oper'
       ? setAddOp(addOp.concat({ openDay: '', closeTime: '' }))
       : setAddMn(addMn.concat({ title: '', price: '' }));
+  };
+
+  const onRemove = e => {
+    e.target.getAttribute('name') == 'op'
+      ? setAddOp(addOp.splice(e.target.getAttribute('index'), 1))
+      : setAddMn(addMn.splice(e.target.getAttribute('index'), 1));
+
+    console.log(addOp);
+    console.log(addMn);
   };
 
   return (
@@ -151,44 +171,44 @@ const OwnerShopForm = ({ store }) => {
           type="text"
           name="resName"
           placeholder="매장명"
-          value={shopName}
+          defaultValue={shopName}
         />
         <StyledInput
           type="text"
           name="resAddr"
           placeholder="매장 주소"
-          value={addr}
+          defaultValue={addr}
         />
         <StyledInput
           type="tel"
           name="resTel"
           placeholder="매장 전화번호"
-          value={tel}
+          defaultValue={tel}
         />
         <StyledInput
           type="text"
           name="resAdminName"
           placeholder="대표자명"
-          value={owner}
+          defaultValue={owner}
         />
         <StyledInput
           type="text"
           name="resLocationKeyword"
           placeholder="위치 키워드"
-          value={locationKeyword}
+          defaultValue={locationKeyword}
         />
         <StyledInput
           type="text"
           name="resFoodKeyword"
           placeholder="음식 키워드"
-          value={foodKeyword}
+          defaultValue={foodKeyword}
         />
         <br />
       </FormContainer>
       <FormContainer padding="5px">
         <SubTitle>영업시간</SubTitle>
-        {addOp.map(op => (
-          <InputWrapper style={{ marginTop: '0.5rem' }}>
+        {addOp.map((op, index) => (
+          <InputWrapper key={index} style={{ marginTop: '0.5rem' }}>
             <StyledTextArea
               style={{ width: '20%' }}
               type="textArea"
@@ -203,6 +223,11 @@ const OwnerShopForm = ({ store }) => {
               placeholder="운영시간"
               defaultValue={op.closeTime}
             />
+            <IoIosCloseCircleOutline
+              name="op"
+              index={index}
+              onClick={onRemove}
+            />
           </InputWrapper>
         ))}
         <IconWrapper>
@@ -211,8 +236,8 @@ const OwnerShopForm = ({ store }) => {
       </FormContainer>
       <FormContainer padding="5px">
         <SubTitle>메뉴</SubTitle>
-        {addMn.map(m => (
-          <InputWrapper style={{ marginTop: '0.5rem' }}>
+        {addMn.map((m, index) => (
+          <InputWrapper key={index} style={{ marginTop: '0.5rem' }}>
             <StyledTextArea
               type="textArea"
               name="resMenuTitle"
@@ -227,6 +252,11 @@ const OwnerShopForm = ({ store }) => {
               placeholder="가격"
               style={{ width: '40%', marginRight: '10px' }}
               defaultValue={m.price}
+            />
+            <IoIosCloseCircleOutline
+              name="m"
+              index={index}
+              onClick={onRemove}
             />
           </InputWrapper>
         ))}

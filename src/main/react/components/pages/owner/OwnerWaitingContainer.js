@@ -48,25 +48,27 @@ const Right = styled.div`
   }
 `;
 const CountContainer = styled.div`
+  margin: 0 auto;
   margin-top: 30px;
   height: 60px;
-  width: 100%;
-  float: left;
-  font-weight: 900;
-  font-size: 35px;
+  width: 45%;
+  font-weight: 500;
+  font-size: 30px;
   text-align: center;
-  letter-spacing: 5px;
+  padding-top: 7px;
+  letter-spacing: 7px;
+  border-radius: 5px;
   z-index: 10;
+  background: rgba(246, 114, 128, 0.7);
+  color: white;
 
   .count {
-    z-index: 1;
-    display: inline-block;
-    position: relative;
-    width: 20px;
-    top: 3px;
-    height: 5px;
-    border-radius: 5px;
-    background-color: ${palette.primary};
+    color: ${palette.textGray};
+    font-weight: 900;
+  }
+
+  @media (max-width: 1024px) {
+    letter-spacing: 2px;
   }
 `;
 
@@ -89,8 +91,9 @@ const OwnerWaitingContainer = () => {
       <Container>
         <ContainerWrapper>
           <OwnerDetailTitle title="Waiting" />
-          <CountContainer>현재 {waiting.length} 팀 대기 중</CountContainer>
-          <div className="count" />
+          <CountContainer>
+            현재 <span className="count">{waiting.length}</span> 팀 대기 중
+          </CountContainer>
           <Right>
             <ListContainer list={waiting} />
           </Right>

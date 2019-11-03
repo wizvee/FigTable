@@ -12,7 +12,7 @@ const Container = styled.div`
   width: 100%;
 
   &.waiting {
-    margin-top: 0;
+    margin-top: 12px;
     margin-bottom: 20px;
   }
 `;

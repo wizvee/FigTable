@@ -60,6 +60,19 @@ const Image = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50px;
+  z-index: 1;
+
+  &:hover {
+    opacity: 0.7;
+    padding-top: 28px;
+    &::before {
+      content: '+';
+    }
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+  }
 `;
 
 const Name = styled.div`

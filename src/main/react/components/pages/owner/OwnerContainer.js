@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderOwner from './HeaderOwner';
 import OwnerInfo from './OwnerInfo';
 import styled from 'styled-components';
@@ -192,6 +192,14 @@ const reservations = [
 //////////////////////////////////////////////
 
 const OwnerContainer = () => {
+  const [modal, setIsModal] = useState(false);
+  const openModal = () => {
+    setIsModal(true);
+  };
+  const closeModal = () => {
+    setIsModal(false);
+  };
+
   return (
     <>
       <HeaderOwner name={store.name} />
@@ -200,7 +208,7 @@ const OwnerContainer = () => {
           <OwnerInfo store={store} />
           <Button>
             <ButtonInput id="buttonInput" />
-            <ButtonLabel for="buttonInput">
+            <ButtonLabel for="buttonInput" onClick={openModal} modal={modal}>
               <ButtonSpan></ButtonSpan>
             </ButtonLabel>
           </Button>
