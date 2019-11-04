@@ -10,10 +10,9 @@ const Container = styled(Responsive)`
 `;
 
 const HomePresenter = ({ restaurants, error, loading }) => {
-  if (error) {
-    return null;
-  }
+  if (error) return null;
   if (loading || !restaurants) return null;
+
   return (
     <Container>
       <Section title="내 주변 맛집">

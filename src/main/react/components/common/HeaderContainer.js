@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { logout } from '../../modules/member';
 import HeaderPresenter from './HeaderPresenter';
 import ModalTemplate from './ModalTemplate';
 import ModalSearch from '../pages/user/ModalSearch';
 import ModalUser from '../pages/user/ModalUser';
 
-const HeaderContainer = () => {
+const HeaderContainer = ({ history }) => {
   const { member } = useSelector(({ member }) => ({ member: member.member }));
   const dispatch = useDispatch();
   const onLogout = () => {
@@ -15,7 +16,6 @@ const HeaderContainer = () => {
 
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isUserModal, setIsUserModal] = useState(false);
-
   // 가고싶다, 로그인 모달 열고 닫는 이벤트
   const openUserModal = useCallback(() => {
     setIsUserModal(true);
@@ -42,9 +42,15 @@ const HeaderContainer = () => {
     setKeyword(value);
   }, []);
   // 검색 submit event handler
-  const onSubmit = useCallback(e => {
-    e.preventDefault();
-  }, []);
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      setIsSearchModal(false);
+      document.body.style.overflow = 'unset';
+      history.push(`/figtable/search/${keyword}`);
+    },
+    [keyword],
+  );
 
   return (
     <>
@@ -61,6 +67,7 @@ const HeaderContainer = () => {
         openUserModal={openUserModal}
         keyword={keyword}
         onChange={onChange}
+        onSubmit={onSubmit}
       >
         <ModalTemplate
           isModal={isUserModal}
@@ -78,4 +85,4 @@ const HeaderContainer = () => {
   );
 };
 
-export default React.memo(HeaderContainer);
+export default withRouter(HeaderContainer);

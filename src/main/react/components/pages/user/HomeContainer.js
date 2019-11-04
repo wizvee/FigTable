@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import HomePresenter from './HomePresenter';
@@ -87,7 +88,7 @@ const AdBlock = styled(Responsive)`
   }
 `;
 
-const HomeContainer = () => {
+const HomeContainer = ({ history }) => {
   const dispatch = useDispatch();
   const { restaurants, error, loading } = useSelector(
     ({ restaurants, loading }) => ({
@@ -95,6 +96,21 @@ const HomeContainer = () => {
       error: restaurants.error,
       loading: loading['restaurant/LIST_RES'],
     }),
+  );
+
+  const [keyword, setKeyword] = useState('');
+  // search input event handler
+  const onChange = useCallback(({ target: { value } }) => {
+    setKeyword(value);
+  }, []);
+  // 검색 submit event handler
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      document.body.style.overflow = 'unset';
+      history.push(`/figtable/search/${keyword}`);
+    },
+    [keyword],
   );
 
   useEffect(() => {
@@ -108,8 +124,13 @@ const HomeContainer = () => {
         <div className="title">
           <span>솔직한 리뷰, 믿을 수 있는 평점!</span>
           <span>피그테이블</span>
-          <form>
-            <input type="text" placeholder="키워드로 검색해 보세요." />
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              value={keyword}
+              onChange={onChange}
+              placeholder="키워드로 검색해 보세요."
+            />
             <MdSearch />
           </form>
         </div>
@@ -130,4 +151,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default withRouter(HomeContainer);

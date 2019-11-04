@@ -92,6 +92,7 @@ const HeaderPresenter = ({
   openUserModal,
   keyword,
   onChange,
+  onSubmit,
   children,
 }) => {
   const { recent } = useSelector(({ guest }) => ({ recent: guest.recent }));
@@ -122,7 +123,7 @@ const HeaderPresenter = ({
             <Link to="/figtable">FIGTABLE</Link>
           </div>
           {!isHome && (
-            <form>
+            <form onSubmit={onSubmit}>
               <input
                 type="text"
                 value={keyword}
