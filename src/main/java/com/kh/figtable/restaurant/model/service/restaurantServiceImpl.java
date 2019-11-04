@@ -1,5 +1,6 @@
 package com.kh.figtable.restaurant.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,6 +22,16 @@ public class restaurantServiceImpl implements RestaurantService {
 	@Override
 	public List<Restaurant> getRestaurantsByLocal(String local) {
 		return dao.getRestaurantsByLocal(session, local);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public List<Restaurant> getRestaurantsByList(List<Restaurant> old) {
+		List<Restaurant> list = new ArrayList<>();
+		for (Restaurant r : old) {
+			list.add(dao.getRestaurantById(session, r.getResNo()));
+		}
+		return list;
 	}
 
 	@Override

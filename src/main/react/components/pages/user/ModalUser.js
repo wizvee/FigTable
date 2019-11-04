@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalHeader from '../../common/ModalHeader';
 import styled from 'styled-components';
@@ -6,8 +6,9 @@ import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
 import PosterSmall from '../../common/PosterSmall';
 import { FaTimes } from 'react-icons/fa';
-import { removeRecentAsync } from '../../../modules/recent';
+import { removeRecentAsync } from '../../../modules/guest';
 import ModalLogin from './ModalLogin';
+import { getRes } from '../../../modules/guest';
 
 const Container = styled.div`
   height: 320px;
@@ -68,7 +69,11 @@ const ButtonWithPadding = styled(Button)`
 const ModalUser = ({ closeModal, member, onLogout }) => {
   const [select, setSelect] = useState('recent');
 
-  const recent = useSelector(({ recent }) => recent);
+  const { recent, loading, error } = useSelector(({ guest, loading }) => ({
+    recent: guest.recent,
+    loading: loading['recent/GET_RES'],
+    error: guest.recentError,
+  }));
   const dispatch = useDispatch();
   const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
 
@@ -76,6 +81,14 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
     { key: 'recent', text: '최근 본 맛집' },
     { key: 'likes', text: '가고싶다' },
   ];
+
+  // 처음 마운트 될 때 레스토랑 정보 갱신
+  useEffect(() => {
+    dispatch(getRes(Array.from(recent)));
+  }, [dispatch]);
+
+  if (error) return null;
+  if (loading) return null;
 
   return (
     <>

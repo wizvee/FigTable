@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import recent, { recentSaga } from './recent';
+import guest, { guestSaga } from './guest';
 import auth, { authSaga } from './auth';
 import loading from './loading';
 import member, { memberSaga } from './member';
@@ -10,7 +10,7 @@ import reviews, { reviewsSaga } from './reviews';
 import review, { reviewSaga } from './review';
 
 const rootReducer = combineReducers({
-  recent,
+  guest,
   auth,
   loading,
   member,
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([
-    recentSaga(),
+    guestSaga(),
     authSaga(),
     memberSaga(),
     restaurantSaga(),

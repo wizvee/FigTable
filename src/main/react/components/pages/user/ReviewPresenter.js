@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import ReviewItem from './ReviewItem';
+import { FiChevronsDown } from 'react-icons/fi';
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Divider = styled.span`
   margin: 5px;
 `;
 
-const NoneMsg = styled.div`
+const Message = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,6 +51,19 @@ const NoneMsg = styled.div`
   color: ${palette.textGray};
   div {
     font-size: 1.25rem;
+  }
+`;
+
+const Paging = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  font-size: 1.4rem;
+  color: ${palette.primary};
+  svg {
+    margin: 0 0.5rem;
+    transform: translateY(-1px);
   }
 `;
 
@@ -105,10 +119,10 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         </CtgItem>
       </Container>
       {reviews.length === 0 && (
-        <NoneMsg>
+        <Message>
           <div>아직 작성된 리뷰가 없네요.</div>
           해당 식당의 첫 리뷰를 작성해주시겠어요?
-        </NoneMsg>
+        </Message>
       )}
       {selectCtg === null &&
         reviews.map(r => (
@@ -126,6 +140,10 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
         badReviews.map(r => (
           <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
+      <Paging>
+        더보기
+        <FiChevronsDown />
+      </Paging>
     </>
   );
 };

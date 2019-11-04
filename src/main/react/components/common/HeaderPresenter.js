@@ -92,7 +92,7 @@ const HeaderPresenter = ({
   openUserModal,
   children,
 }) => {
-  const recent = useSelector(({ recent }) => recent);
+  const { recent } = useSelector(({ guest }) => ({ recent: guest.recent }));
   const [isHome, setIsHome] = useState(false);
 
   // url이 '/'일 때 header를 숨기고 보여주는 이벤트

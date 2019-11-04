@@ -8,7 +8,7 @@ import rootReducer, { rootSaga } from './modules';
 import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
-import { insertRecent } from './modules/recent';
+import { insertRecent } from './modules/guest';
 import { setMember } from './modules/member';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,7 +27,6 @@ function loadData() {
   if (recent) store.dispatch(insertRecent(JSON.parse(recent)));
   if (member) store.dispatch(setMember(JSON.parse(member)));
 }
-
 loadData();
 
 ReactDOM.render(

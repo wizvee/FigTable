@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
 import { TiStarFullOutline } from 'react-icons/ti';
-import { insertRecentAsync } from '../../modules/recent';
+import { insertRecentAsync } from '../../modules/guest';
 import ModalLogin from '../pages/user/ModalLogin';
 
 const Image = styled.div`

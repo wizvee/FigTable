@@ -7,8 +7,11 @@ import com.kh.figtable.restaurant.model.vo.Restaurant;
 public interface RestaurantService {
 	
 	List<Restaurant> getRestaurantsByLocal(String local);
+
+	List<Restaurant> getRestaurantsByList(List<Restaurant> old);
 	
 	Restaurant getRestaurantById(boolean validate, String resNo);
+	
 	
 	int increaseViews(String resNo);
 

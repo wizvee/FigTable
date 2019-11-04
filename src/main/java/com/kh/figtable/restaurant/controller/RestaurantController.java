@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,19 +23,24 @@ import com.kh.figtable.restaurant.model.service.RestaurantService;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @RestController
-@RequestMapping(value = "/api/restaurants/*")
 public class RestaurantController {
 
 	@Autowired
 	private RestaurantService service;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/restaurants", method = RequestMethod.GET)
 	private ResponseEntity<List<Restaurant>> getRestaurantsByLocal(@RequestParam String local) {
 		List<Restaurant> list = service.getRestaurantsByLocal(local);
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{resNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/restaurant-list", method = RequestMethod.POST)
+	private ResponseEntity<List<Restaurant>> getRestaurantsByList(@RequestBody List<Restaurant> resList) {
+		List<Restaurant> list = service.getRestaurantsByList(resList);
+		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/restaurants/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<Restaurant> getRestaurantById(@PathVariable("resNo") String resNo, HttpServletRequest req,
 			HttpServletResponse res) {
 		boolean validate = false;
