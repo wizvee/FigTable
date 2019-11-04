@@ -92,7 +92,9 @@ const AdminHeader = ({ location: { pathname } }) => {
           <div className="logo">
             <Link to="/figtable/admin">
               <div className="logoMain">FIGTABLE</div>
-              <div className="logoAdmin">관리자</div>
+              <div className="logoAdmin">
+                <b>관리자</b>
+              </div>
             </Link>
           </div>
 

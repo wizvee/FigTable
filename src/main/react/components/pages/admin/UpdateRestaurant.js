@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import AdminHeader from './AdminHeader';
+import MenuNavi from './MenuNavi';
 import styled from 'styled-components';
 import './TableStyle.css';
 import RestaurantList from './RestaurantList';
 import SearchTemplate from './SearchTemplate';
 
-const TitleWrapper = styled.div`
-  margin-top: 1rem;
-  height: 3rem;
-  text-align: center;
-`;
-
 const BodyHeight = styled.div`
-  height: 503px;
+  height: ${props => (props.bodyHeight > 6 ? 'auto' : '500px')};
 `;
 
 const Search = styled.div`
   align-items: center;
   text-align: center;
+  margin-top: 5rem;
   margin-bottom: 1rem;
 `;
 
 const TableWrapper = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const restaurants = [
@@ -56,21 +52,97 @@ const restaurants = [
   },
   {
     resNo: 5,
-    resName: '매니멀스모크하우스',
-    resAddr: '서울시 용산구 이태원동 455-33',
+    resName: '바버32',
+    resAddr: '인천시 연수구 송도동 22-22',
     resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 6,
+    resName: '이치류',
+    resAddr: '서울시 마포구 서교동 395-124',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 7,
+    resName: '뭄알로이',
+    resAddr: '서울시 마포구 상수동 313-6',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 8,
+    resName: '폴콘',
+    resAddr: '경기도 파주시 월롱면 위전리 435-8',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 9,
+    resName: '카페람베리',
+    resAddr: '서울시 서초구 방배동 751-1',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 10,
+    resName: '야마토텐동',
+    resAddr: '서울시 성북구 안암동5가 93-15',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 11,
+    resName: '돈까스살롱',
+    resAddr: '서울시 종로구 통인동 153',
+    resTel: '02-790-6788',
+    ownName: '',
+  },
+  {
+    resNo: 12,
+    resName: '더티드링크',
+    resAddr: '경기도 파주시 문발동 75-6',
+    resTel: '031-000-0000',
+    ownName: '',
+  },
+  {
+    resNo: 13,
+    resName: '레스쁘아뒤이브',
+    resAddr: '서울시 강남구 청담동 90-25',
+    resTel: '02-517-6034',
+    ownName: '',
+  },
+  {
+    resNo: 14,
+    resName: '고운님',
+    resAddr: '서울시 강남구 대치동 894-5',
+    resTel: '02-562-0000',
+    ownName: '',
+  },
+  {
+    resNo: 15,
+    resName: '정인면옥',
+    resAddr: '서울시 영등포구 여의도동 13-1',
+    resTel: '02-000-0000',
+    ownName: '',
+  },
+  {
+    resNo: 16,
+    resName: '붓처스컷',
+    resAddr: '서울시 중구 태평로1가 84',
+    resTel: '02-318-0000',
     ownName: '',
   },
 ];
 
 const UpdateRestaurant = () => {
+  const bodyHeight = restaurants.length;
   return (
     <>
       <AdminHeader />
-      <BodyHeight>
-        <TitleWrapper>
-          <h3>매장 신청 내역</h3>
-        </TitleWrapper>
+      <BodyHeight bodyHeight={bodyHeight}>
+        <MenuNavi subTitle="매장 신청 내역" />
         <Search>
           <SearchTemplate restaurants={restaurants} />
         </Search>

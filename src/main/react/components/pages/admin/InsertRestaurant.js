@@ -1,7 +1,12 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import AdminHeader from './AdminHeader';
-import InsertFormContainer from './InsertFormContainer';
+import MenuNavi from './MenuNavi';
 import InsetresForm from './InsertResForm';
+import styled from 'styled-components';
+
+const FormWrapper = styled.div`
+  margin-top: 4rem;
+`;
 
 const onChange = e => {
   const { value, name } = e.target;
@@ -19,8 +24,10 @@ const InsertRestaurant = () => {
   return (
     <>
       <AdminHeader />
-      <InsertFormContainer type="매장" />
-      <InsetresForm onSubmit={onSubmit} onChange={onChange} />
+      <MenuNavi subTitle="매장 신규 등록" />
+      <FormWrapper>
+        <InsetresForm onSubmit={onSubmit} onChange={onChange} />
+      </FormWrapper>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import AdminHeader from './AdminHeader';
-import InsertRestaurant from './InsertRestaurant';
 import { MdLocalDining, MdEdit, MdFace, MdSpeakerNotes } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 

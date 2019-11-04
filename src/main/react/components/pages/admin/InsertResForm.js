@@ -17,7 +17,7 @@ const FormBlock = styled(Responsive)`
   height: 35rem;
   margin-top: -1rem;
   form {
-    width: 290px;
+    width: 350px;
   }
 `;
 
