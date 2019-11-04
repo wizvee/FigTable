@@ -29,4 +29,4 @@ const ModalSearch = () => {
   );
 };
 
-export default ModalSearch;
+export default React.memo(ModalSearch);

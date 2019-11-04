@@ -151,4 +151,4 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
   );
 };
 
-export default ModalUser;
+export default React.memo(ModalUser);

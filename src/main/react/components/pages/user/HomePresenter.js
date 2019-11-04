@@ -25,4 +25,4 @@ const HomePresenter = ({ restaurants, error, loading }) => {
   );
 };
 
-export default HomePresenter;
+export default React.memo(HomePresenter);

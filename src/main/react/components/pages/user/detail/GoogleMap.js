@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
 const InfoMap = styled.div`
@@ -15,20 +15,20 @@ const GoogleMap = ({ lat, lng }) => {
   const googleMapRef = useRef(null);
 
   // 구글 맵 생성
-  function createGoogleMap() {
+  const createGoogleMap = useCallback(() => {
     return new google.maps.Map(googleMapRef.current, {
       zoom: 16,
       center: { lat, lng },
       disableDefaultUI: true,
     });
-  }
+  }, []);
 
   // 맵 마커 생성
-  function createMarker() {
+  const createMarker = useCallback(() => {
     return new google.maps.Marker({
       position: { lat, lng },
     });
-  }
+  }, []);
 
   useEffect(() => {
     const googleScript = document.createElement('script');

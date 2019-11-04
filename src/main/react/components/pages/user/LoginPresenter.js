@@ -122,4 +122,4 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
   );
 };
 
-export default LoginPresenter;
+export default React.memo(LoginPresenter);

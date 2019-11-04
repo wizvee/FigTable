@@ -138,4 +138,4 @@ const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
   );
 };
 
-export default RegisterPresenter;
+export default React.memo(RegisterPresenter);

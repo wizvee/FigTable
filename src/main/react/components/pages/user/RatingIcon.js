@@ -46,4 +46,4 @@ const RatingIcon = props => {
   );
 };
 
-export default RatingIcon;
+export default React.memo(RatingIcon);

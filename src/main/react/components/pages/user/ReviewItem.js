@@ -92,4 +92,4 @@ const ReviewItem = ({ review, openInsta }) => {
   );
 };
 
-export default ReviewItem;
+export default React.memo(ReviewItem);

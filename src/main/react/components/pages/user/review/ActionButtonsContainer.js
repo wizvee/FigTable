@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import ActionButtons from './ActionButtons';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -25,14 +25,14 @@ const ActionButtonsContainer = ({ history }) => {
   }));
 
   // 리뷰 등록
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     dispatch(writeReview({ memNo, resNo, rvRating, rvContent, rvImages }));
-  };
+  }, [dispatch]);
 
   // 취소
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     history.goBack();
-  };
+  }, [history]);
 
   // 성공 혹은 실패 시 할 작업
   useEffect(() => {

@@ -67,4 +67,4 @@ const ModalLogin = ({ msg, closeModal }) => {
   );
 };
 
-export default ModalLogin;
+export default React.memo(ModalLogin);

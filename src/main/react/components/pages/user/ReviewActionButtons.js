@@ -39,4 +39,4 @@ const ReviewActionButtons = () => {
   );
 };
 
-export default ReviewActionButtons;
+export default React.memo(ReviewActionButtons);

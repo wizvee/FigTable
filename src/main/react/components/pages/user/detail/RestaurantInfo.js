@@ -47,4 +47,4 @@ const RestaurantInfo = ({ info }) => {
   );
 };
 
-export default RestaurantInfo;
+export default React.memo(RestaurantInfo);

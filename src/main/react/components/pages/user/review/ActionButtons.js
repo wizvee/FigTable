@@ -25,4 +25,4 @@ const ActionButtons = ({ onCancel, onSubmit }) => {
   );
 };
 
-export default ActionButtons;
+export default React.memo(ActionButtons);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
@@ -38,21 +38,21 @@ const ActionButtons = ({ history }) => {
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
 
-  function openModal(type) {
+  const openModal = useCallback(type => {
     setMsg(type);
     setIsModal(true);
     document.body.style.overflow = 'hidden';
-  }
+  }, []);
 
-  function closeModal() {
+  const closeModal = useCallback(() => {
     setIsModal(false);
     document.body.style.overflow = 'unset';
-  }
+  }, []);
 
-  function onWrite() {
+  const onWrite = useCallback(() => {
     disaptch(setRes({ restaurant, member }));
     history.push('/figtable/review');
-  }
+  }, [disaptch]);
 
   return (
     <>

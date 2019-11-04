@@ -217,4 +217,4 @@ const WritePresenter = ({
   );
 };
 
-export default WritePresenter;
+export default React.memo(WritePresenter);

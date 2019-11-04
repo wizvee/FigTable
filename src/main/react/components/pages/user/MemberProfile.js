@@ -69,4 +69,4 @@ const MemberProfile = ({ picSize, picUrl, name, rvCnt, fwCnt }) => {
   );
 };
 
-export default MemberProfile;
+export default React.memo(MemberProfile);

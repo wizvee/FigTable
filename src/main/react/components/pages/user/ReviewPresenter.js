@@ -148,4 +148,4 @@ const ReviewPresenter = ({ reviews, openInsta }) => {
   );
 };
 
-export default ReviewPresenter;
+export default React.memo(ReviewPresenter);
