@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
-import EatdealMainContainer from '../eatdeal/EatdealMainContainer';
+import EatdealManageDetail from './EatdealManageDetail';
 
 const Manage= styled.div`
   width:100%;
@@ -30,7 +30,7 @@ const sample = [
       originPrice:25000,
       discountPrice:20000,
       remainFood:50,
-      FoodName:'녹차케이크',
+      FoodName:'아메리카노',
     },
     {
       eatNo: 3,
@@ -42,7 +42,7 @@ const sample = [
       originPrice:25000,
       discountPrice:20000,
       remainFood:5,
-      FoodName:'녹차케이크',
+      FoodName:'초코라떼',
     },
   ];
   
@@ -53,8 +53,8 @@ const EatdealManage =()=>{
         <>
         <Manage>
         {eatDeals.map(eatDeal=>(
-          <EatdealMainContainer key={eatDeal.eatNo} eatDeal={eatDeal}/>
-        ))};
+          <EatdealManageDetail key={eatDeal.eatNo} eatDeal={eatDeal}/>
+        ))}
 
         </Manage>
         
