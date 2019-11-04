@@ -40,7 +40,6 @@ const PayInfo =({eat})=>{
         <h3>주문목록</h3>  
             <PayImage url={thumb}/>
             <PayContent>
-
             <p>{title}</p>
             <h3>{FoodName}</h3>
             <p>\{discountPrice}</p>

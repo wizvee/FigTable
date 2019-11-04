@@ -1,23 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminHeader from './AdminHeader';
+import MenuNavi from './MenuNavi';
 import styled from 'styled-components';
 import SearchTemplate from './SearchTemplate';
 import OwnersList from './OwnersList';
 import './TableStyle.css';
 
-const TitleWrapper = styled.div`
-  margin-top: 1rem;
-  height: 3rem;
-  text-align: center;
-`;
-
 const BodyHeight = styled.div`
-  height: 503px;
+  height: ${props => (props.bodyHeight > 6 ? 'auto' : '500px')};
 `;
 
 const Search = styled.div`
   align-items: center;
   text-align: center;
+  margin-top: 5rem;
   margin-bottom: 1rem;
 `;
 
@@ -62,16 +58,34 @@ const owners = [
     ownResAddress: '서울시 강남구 논현동',
     ownResTel: '02-0000-0000',
   },
+  {
+    ownNo: 5,
+    ownName: '홍길동',
+    ownEmail: 'hong@naver.com',
+    ownPassword: '1234',
+    ownResName: '투썸플레이스',
+    ownResAddress: '서울시 강남구 논현동',
+    ownResTel: '02-0000-0000',
+  },
+  {
+    ownNo: 6,
+    ownName: '홍길동',
+    ownEmail: 'hong@naver.com',
+    ownPassword: '1234',
+    ownResName: '역삼갈비',
+    ownResAddress: '서울시 강남구 역삼동',
+    ownResTel: '02-0000-0000',
+  },
 ];
 
 const ApplyOwnerContainer = () => {
+  const bodyHeight = owners.length;
+
   return (
     <>
       <AdminHeader />
-      <BodyHeight>
-        <TitleWrapper>
-          <h3>사장님 신청 내역</h3>
-        </TitleWrapper>
+      <BodyHeight bodyHeight={bodyHeight}>
+        <MenuNavi subTitle="사장님 신청 내역" />
         <Search>
           <SearchTemplate owners={owners} />
         </Search>
