@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
+import EatdealModal from './EatdealModal';
 
 const EatdealCard =styled.div`
 display:flex;
@@ -66,8 +67,14 @@ const EatdealManageDetail=({eatDeal})=>{
       remainFood,
       FoodName,
     } = eatDeal;
-  
     
+    const [modal, setIsModal] = useState(false);
+    function openModal(){
+      setIsModal(true);
+    }
+    function closeModal(){
+      setIsModal(false);
+    }
     return (
         <>
         <EatdealCard>
@@ -89,10 +96,13 @@ const EatdealManageDetail=({eatDeal})=>{
               <EatdealButton bgColor={palette.textGray}>
                 삭제
               </EatdealButton>
-              <EatdealButton>
+              <EatdealButton onClick={openModal}>
                 기간연장
               </EatdealButton>
             </ButtonArea>
+             {
+                !modal?null:<EatdealModal closeModal={closeModal}/>
+             }    
         
         </>
     )
