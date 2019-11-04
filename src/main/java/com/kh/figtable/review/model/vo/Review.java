@@ -2,6 +2,7 @@ package com.kh.figtable.review.model.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
@@ -16,6 +17,7 @@ public class Review {
 	private int rvRating;
 	private String rvContent;
 	private String[] rvImages;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date rvDate;
 
 	// JOIN시 추가 정보

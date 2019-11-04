@@ -18,6 +18,7 @@ import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContaine
 import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
 import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
 import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
+import SearchContainer from './components/pages/user/search/SearchContainer';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
       <Switch>
         <Route path="/figtable" exact component={HomeContainer} />
         <Route path="/figtable/restaurant/:resNo" component={DetailContainer} />
+        <Route path="/figtable/search/:keyword" component={SearchContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
         <Route path="/figtable/review" component={WriteContainer} />

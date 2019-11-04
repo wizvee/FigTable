@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
-import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
+import { TiStarFullOutline } from 'react-icons/ti';
+import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
 import GoogleMap from './GoogleMap';
 import WaitingPresenter from './WaitingPresenter';
 import RestaurantInfo from './RestaurantInfo';
@@ -63,11 +64,11 @@ const InfoDetail = styled.div`
   color: ${palette.textGray};
   font-size: 0.9rem;
   svg {
-    margin-right: 4px;
-    transform: translateY(1px);
+    margin-right: 2px;
+    transform: translateY(2px);
   }
   span + span {
-    margin-left: 0.5rem;
+    margin-left: 0.4rem;
   }
 `;
 
@@ -119,15 +120,15 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
         <Location>{resLocationKeyword}</Location>
         <InfoDetail>
           <span>
-            <FiEye />
+            <MdRemoveRedEye />
             {resViews}
           </span>
           <span>
-            <FiEdit3 />
+            <MdCreate />
             {resReviews}
           </span>
           <span>
-            <FiStar />
+            <TiStarFullOutline />
             {resLikes}
           </span>
         </InfoDetail>

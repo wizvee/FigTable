@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -90,16 +90,18 @@ const HeaderPresenter = ({
   isModal,
   openSearchModal,
   openUserModal,
+  keyword,
+  onChange,
   children,
 }) => {
   const { recent } = useSelector(({ guest }) => ({ recent: guest.recent }));
   const [isHome, setIsHome] = useState(false);
 
   // url이 '/'일 때 header를 숨기고 보여주는 이벤트
-  function handleScroll() {
+  const handleScroll = useCallback(() => {
     if (window.scrollY > 250) setIsHome(false);
     else setIsHome(true);
-  }
+  }, []);
 
   useEffect(() => {
     setIsHome(false);
@@ -123,7 +125,9 @@ const HeaderPresenter = ({
             <form>
               <input
                 type="text"
+                value={keyword}
                 onClick={openSearchModal}
+                onChange={onChange}
                 placeholder="지역, 식당 또는 음식"
               />
               <button type="submit">검색</button>

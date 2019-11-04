@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../modules/member';
 import HeaderPresenter from './HeaderPresenter';
@@ -15,26 +15,37 @@ const HeaderContainer = () => {
 
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isUserModal, setIsUserModal] = useState(false);
+
   // 가고싶다, 로그인 모달 열고 닫는 이벤트
-  function openUserModal() {
+  const openUserModal = useCallback(() => {
     setIsUserModal(true);
     document.body.style.overflow = 'hidden';
-  }
-  function closeUserModal() {
+  }, []);
+  const closeUserModal = useCallback(() => {
     setIsUserModal(false);
     document.body.style.overflow = 'unset';
-  }
+  }, []);
 
   // 검색 모달 열고 닫는 이벤트
-  function openSearchModal() {
+  const openSearchModal = useCallback(() => {
     setIsSearchModal(true);
     document.body.style.overflow = 'hidden';
-  }
-  function closeSearchModal() {
+  }, []);
+  const closeSearchModal = useCallback(() => {
     setIsSearchModal(false);
     document.body.style.overflow = 'unset';
-  
-  }
+  });
+
+  const [keyword, setKeyword] = useState('');
+  // search input event handler
+  const onChange = useCallback(({ target: { value } }) => {
+    setKeyword(value);
+  }, []);
+  // 검색 submit event handler
+  const onSubmit = useCallback(e => {
+    e.preventDefault();
+  }, []);
+
   return (
     <>
       <ModalTemplate
@@ -48,6 +59,8 @@ const HeaderContainer = () => {
         isModal={isSearchModal}
         openSearchModal={openSearchModal}
         openUserModal={openUserModal}
+        keyword={keyword}
+        onChange={onChange}
       >
         <ModalTemplate
           isModal={isUserModal}
@@ -65,4 +78,4 @@ const HeaderContainer = () => {
   );
 };
 
-export default HeaderContainer;
+export default React.memo(HeaderContainer);

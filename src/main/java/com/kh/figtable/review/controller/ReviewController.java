@@ -32,6 +32,7 @@ public class ReviewController {
 	@RequestMapping(value = "/api/reviews/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo) {
 		List<Review> result = service.getReviewsById(resNo);
+		System.out.println(result.get(0).getRvDate());
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
 
