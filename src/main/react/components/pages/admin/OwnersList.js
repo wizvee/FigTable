@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import OwnerModal from './OwnerModal';
 import './TableStyle.css';
 
-const OwnersList = ({ owners, match }) => {
-  const { ownNo } = match.params;
-  const owner = owners.find(o => o.ownNo === ownNo);
+const OwnersList = ({ owners, keyword }) => {
+  const owner =
+    keyword != '' ? owners.filter(o => o.ownResName.includes(keyword)) : owners;
 
   const [modal, setIsModal] = useState(false);
   const [own, setOwn] = useState(null);
@@ -30,12 +29,17 @@ const OwnersList = ({ owners, match }) => {
     e.prevenDefault();
   };
 
-  if (!owner) {
-    <tr>
-      <td colSpan="4" className="resNullTd">
-        신청내역이 존재하지 않습니다.
-      </td>
-    </tr>;
+  if (owner.length <= 0) {
+    return (
+      <>
+        <tr style={{ height: 100 }}>
+          <td colSpan="4" className="resNullTd">
+            신청내역이 존재하지 않습니다.
+          </td>
+        </tr>
+        <tr style={{ height: 335 }}></tr>
+      </>
+    );
   }
 
   return (
@@ -48,7 +52,7 @@ const OwnersList = ({ owners, match }) => {
           onSubmit={onSubmit}
         />
       )}
-      {owners.map((row, index) => {
+      {owner.map((row, index) => {
         return (
           <tr
             key={index}
@@ -66,4 +70,4 @@ const OwnersList = ({ owners, match }) => {
   );
 };
 
-export default withRouter(OwnersList);
+export default OwnersList;

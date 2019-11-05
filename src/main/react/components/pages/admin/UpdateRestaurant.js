@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import styled from 'styled-components';
 import './TableStyle.css';
 import RestaurantList from './RestaurantList';
-import SearchTemplate from './SearchTemplate';
 
 const BodyHeight = styled.div`
   height: ${props => (props.bodyHeight > 6 ? 'auto' : '500px')};
 `;
 
-const Search = styled.div`
-  align-items: center;
-  text-align: center;
-  margin-top: 5rem;
-  margin-bottom: 1rem;
-`;
-
 const TableWrapper = styled.div`
+  margin-top: 5rem;
   margin-bottom: 2rem;
 `;
 
@@ -137,15 +130,33 @@ const restaurants = [
 ];
 
 const UpdateRestaurant = () => {
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const input = useRef(null);
+
+  const onSubmit = e => {
+    e.preventDefault();
+    setSearchKeyword(input.current.value);
+  };
+
+  const onReset = e => {
+    e.preventDefault();
+    setSearchKeyword('');
+    input.current.value = '';
+  };
+
   const bodyHeight = restaurants.length;
   return (
     <>
       <AdminHeader />
       <BodyHeight bodyHeight={bodyHeight}>
-        <MenuNavi subTitle="매장 신청 내역" />
-        <Search>
-          <SearchTemplate restaurants={restaurants} />
-        </Search>
+        <MenuNavi
+          subTitle="매장 신청 내역"
+          onSubmit={onSubmit}
+          input={input}
+          onReset={onReset}
+        />
+
         <TableWrapper>
           <table>
             <thead>
@@ -157,7 +168,10 @@ const UpdateRestaurant = () => {
               </tr>
             </thead>
             <tbody>
-              <RestaurantList restaurants={restaurants} />
+              <RestaurantList
+                keyword={searchKeyword}
+                restaurants={restaurants}
+              />
             </tbody>
           </table>
         </TableWrapper>

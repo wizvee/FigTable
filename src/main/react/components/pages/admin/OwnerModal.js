@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../../lib/styles/Button';
 import ApplyOwner from './ApplyOwner';
 
 const ModalWrap = styled.div`
@@ -10,7 +9,7 @@ const ModalWrap = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 30;
+  z-index: 50;
 `;
 
 const Modal = styled.div`

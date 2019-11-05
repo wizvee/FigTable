@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { MdLocalDining, MdEdit, MdFace, MdSpeakerNotes } from 'react-icons/md';
 import { Link, withRouter } from 'react-router-dom';
 import Responsive from '../../common/Responsive';
+import SearchTemplate from './SearchTemplate';
 
 const MenuBlock = styled.div`
   width: 100%;
@@ -34,10 +35,10 @@ const HeaderWrapper = styled(Responsive)`
 
 const TitleWrapper = styled.div`
   display: flex;
-  width: 60%;
+  width: 30%;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: 20;
   height: 4rem;
 `;
 
@@ -70,6 +71,10 @@ const MenuList = styled.div`
     color: #f67280;
     cursor: pointer;
   }
+`;
+
+const SearchWrapper = styled.div`
+  width: 70%;
 `;
 
 const IconWrapper1 = styled.div`
@@ -107,7 +112,13 @@ const IconWrapper4 = styled.div`
   font-size: 1.8rem;
 `;
 
-const MenuNavi = ({ location: { pathname }, subTitle }) => {
+const MenuNavi = ({
+  location: { pathname },
+  subTitle,
+  onSubmit,
+  input,
+  onReset,
+}) => {
   //주소값 비교 후 css 바꾸기
   const isInsertRes =
     pathname === '/figtable/admin/enroll' ||
@@ -122,19 +133,17 @@ const MenuNavi = ({ location: { pathname }, subTitle }) => {
   const [isHome, setIsHome] = useState(false);
 
   function handleScroll() {
-    if (window.scrollY > 64) setIsHome(false);
+    if (window.scrollY > 60) setIsHome(false);
     else setIsHome(true);
   }
 
   useEffect(() => {
     setIsHome(false);
-    if (window.scrollY < 64) setIsHome(true);
+    if (window.scrollY < 60) setIsHome(true);
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
-
-  //
 
   return (
     <>
@@ -143,7 +152,22 @@ const MenuNavi = ({ location: { pathname }, subTitle }) => {
           <TitleWrapper>
             <h3>{subTitle}</h3>
           </TitleWrapper>
-
+          <SearchWrapper>
+            {isResList && (
+              <SearchTemplate
+                onSubmit={onSubmit}
+                input={input}
+                onReset={onReset}
+              />
+            )}
+            {isOwnList && (
+              <SearchTemplate
+                onSubmit={onSubmit}
+                input={input}
+                onReset={onReset}
+              />
+            )}
+          </SearchWrapper>
           <MenuList>
             <div>
               <ul className="ulList">

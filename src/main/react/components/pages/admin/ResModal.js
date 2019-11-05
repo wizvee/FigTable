@@ -9,7 +9,7 @@ const ModalWrap = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 50;
+  z-index: 90;
 `;
 
 const Modal = styled.div`

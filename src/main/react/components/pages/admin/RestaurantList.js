@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import ResModal from './ResModal';
 import './TableStyle.css';
+import styled from 'styled-components';
 
-const RestaurantList = ({ restaurants, match }) => {
-  const { resNo } = match.params;
-  const restaurant = restaurants.find(r => r.id === resNo);
+const RestaurantList = ({ restaurants, keyword }) => {
+  const restaurant =
+    keyword != ''
+      ? restaurants.filter(s => s.resName.includes(keyword))
+      : restaurants;
 
   const [modal, setIsModal] = useState(false);
   const [res, setRes] = useState(null);
@@ -24,13 +26,17 @@ const RestaurantList = ({ restaurants, match }) => {
   const onClcikChangePage = () => {
     setIsModal(false);
   };
-  if (!restaurant) {
+
+  if (restaurant.length <= 0) {
     return (
-      <tr>
-        <td colSpan="4" className="resNullTd">
-          신청내역이 존재하지 않습니다.
-        </td>
-      </tr>
+      <>
+        <tr style={{ height: 100 }}>
+          <td colSpan="4" className="resNullTd">
+            신청내역이 존재하지 않습니다.
+          </td>
+        </tr>
+        <tr style={{ height: 335 }}></tr>
+      </>
     );
   }
   return (
@@ -42,7 +48,8 @@ const RestaurantList = ({ restaurants, match }) => {
           changePage={onClcikChangePage}
         />
       )}
-      {restaurants.map((row, index) => {
+
+      {restaurant.map((row, index) => {
         return (
           <tr
             key={index}
@@ -60,4 +67,4 @@ const RestaurantList = ({ restaurants, match }) => {
   );
 };
 
-export default withRouter(RestaurantList);
+export default RestaurantList;

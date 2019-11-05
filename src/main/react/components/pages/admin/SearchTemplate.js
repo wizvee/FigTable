@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '../../../lib/styles/Button';
 import palette from '../../../lib/styles/Palette';
@@ -6,7 +6,7 @@ import palette from '../../../lib/styles/Palette';
 const StyledInput = styled.input`
   padding: 0.5rem 0.8rem;
   border-radius: 5px;
-  width: 30%;
+  width: 50%;
   border: 1px solid ${palette.borderGray};
   font-size: 1rem;
   outline: none;
@@ -22,39 +22,25 @@ const StyledButton = styled(Button)`
   width: 5rem;
 `;
 
-const SearchTemplate = ({ restaurants, owners }) => {
-  const [value, setValue] = useState('');
+const ButtonWrapper = styled.div`
+  display: inline;
+`;
 
-  const onChange = e => {
-    setValue(e.target.value);
-    {
-      console.log(e.target.value);
-    }
-  };
-
-  const onClickSearch = value => {
-    {
-      console.log(value);
-    }
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    onClickSearch(value);
-    setValue('');
-  };
-
+const SearchTemplate = ({ onSubmit, input, onReset, searchKeyword }) => {
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form>
         <StyledInput
           type="text"
           placeholder="검색어 입력"
           name="searchRes"
-          value={value}
-          onChange={onChange}
+          value={searchKeyword}
+          ref={input}
         />
-        <StyledButton>검색</StyledButton>
+        <ButtonWrapper>
+          <StyledButton onClick={onSubmit}>검색</StyledButton>
+          <StyledButton onClick={onReset}>초기화</StyledButton>
+        </ButtonWrapper>
       </form>
     </>
   );
