@@ -21,6 +21,7 @@ import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
 import SearchContainer from './components/pages/user/search/SearchContainer';
 import WaitingPublicContainer from './components/pages/owner/waiting/WaitingPublicContainer';
 import ReviewContainer from './components/pages/admin/ReviewContainer';
+import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 
 const App = () => {
   return (
@@ -63,6 +64,7 @@ const App = () => {
           path="/figtable/owner/public"
           component={WaitingPublicContainer}
         />
+        <Route path="/figtable/owner/enroll" component={OwnerEnroll} />
 
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />

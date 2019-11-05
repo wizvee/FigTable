@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import WaitingForm from './WaitingForm';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vmax;
@@ -65,6 +66,32 @@ const Count = styled.div`
   letter-spacing: 15px;
 `;
 
+const Logo = styled.div`
+  width: 100%;
+  height: auto;
+  text-align: center;
+  padding-top: 6%;
+  .logoMain,
+  .logoSide {
+    display: inline-block;
+  }
+  .logoMain {
+    color: ${palette.primary};
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    font-family: 'Patua One', cursive;
+  }
+  .logoSide {
+    color: ${palette.textGray};
+    position: relative;
+    top: -1px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: 'NanumSquareRound';
+  }
+`;
+
 const WaitingPublicContainer = () => {
   const [pNumber, setPNumber] = useState();
   useEffect(() => {
@@ -94,7 +121,15 @@ const WaitingPublicContainer = () => {
           </Back>
         </Left>
         <Right>
-          {/* <Logo></Logo> */}
+          <Link to="/figtable/owner">
+            <Logo>
+              <div className="logoMain">FIGTABLE</div>
+              &nbsp;&nbsp;
+              <div className="logoSide">
+                <b>파트너</b>
+              </div>
+            </Logo>
+          </Link>
           <WaitingForm />
         </Right>
       </Container>

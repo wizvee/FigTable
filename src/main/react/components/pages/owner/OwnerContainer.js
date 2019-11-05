@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
@@ -196,6 +196,9 @@ const reservations = [
 //////////////////////////////////////////////
 
 const OwnerContainer = () => {
+  useEffect(() => {
+    document.body.style.overflow = 'scroll';
+  });
   const [shopModal, setIsShopModal] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [modeSelModal, setModeSelModal] = useState(false);
