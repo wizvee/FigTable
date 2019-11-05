@@ -6,6 +6,7 @@ import Responsive from '../../common/Responsive';
 import OwnerMenu from './OwnerMenu';
 import palette from '../../../lib/styles/Palette';
 import ListContainer from './ListContainer';
+import ShopOpenModal from './ShopOpenModal';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -77,6 +78,10 @@ const ButtonInput = styled.input.attrs({ type: 'checkbox' })`
     box-shadow: inset 0 0 0 1px rgba(246, 114, 128, 0.5),
       0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+  &:checked + ${ButtonSpan} {
+    background: red;
+  }
 `;
 const ButtonLabel = styled.label`
   display: inline-block;
@@ -100,7 +105,6 @@ const ButtonLabel = styled.label`
     top: 0;
     left: 0;
     border-radius: 50px;
-
     -moz-transition: 0.25s ease-in-out;
     -webkit-transition: 0.25s ease-in-out;
     transition: 0.25s ease-in-out;
@@ -192,12 +196,29 @@ const reservations = [
 //////////////////////////////////////////////
 
 const OwnerContainer = () => {
-  const [modal, setIsModal] = useState(false);
-  const openModal = () => {
-    setIsModal(true);
+  const [shopModal, setIsShopModal] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const [modeSelModal, setModeSelModal] = useState(false);
+
+  const shopOpenM = () => {
+    setIsShopModal(true);
+    document.getElementsByTagName('label')[0].click();
   };
-  const closeModal = () => {
-    setIsModal(false);
+  const shopCloseM = open => {
+    {
+      open == true
+        ? (document.getElementsByTagName('label')[0].click(),
+          setShopOpen(!shopOpen))
+        : '';
+    }
+    setIsShopModal(false);
+  };
+  const modeSelOpenM = () => {
+    setModeSelModal(true);
+    console.log(medeSelModal);
+  };
+  const modeSelCloseM = () => {
+    setModeSelModal(false);
   };
 
   return (
@@ -208,16 +229,24 @@ const OwnerContainer = () => {
           <OwnerInfo store={store} />
           <Button>
             <ButtonInput id="buttonInput" />
-            <ButtonLabel for="buttonInput" onClick={openModal} modal={modal}>
+            <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>
               <ButtonSpan></ButtonSpan>
             </ButtonLabel>
           </Button>
           <RightContent>
-            <OwnerMenu />
+            <OwnerMenu
+              modeSelModal={modeSelModal}
+              modeSelOpenM={modeSelOpenM}
+              modeSelCloseM={modeSelCloseM}
+            />
             <ListContainer list={reservations} />
           </RightContent>
         </ContentWrapper>
       </Container>
+
+      {!shopModal ? null : (
+        <ShopOpenModal shopOpen={shopOpen} shopCloseM={shopCloseM} />
+      )}
     </>
   );
 };

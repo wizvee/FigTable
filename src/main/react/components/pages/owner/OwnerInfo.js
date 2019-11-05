@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import { FiStar, FiEye, FiEdit3 } from 'react-icons/fi';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
   justify-content: space-between;
@@ -62,16 +63,18 @@ const Image = styled.div`
   border-radius: 50px;
   z-index: 1;
 
-  &:hover {
-    opacity: 0.7;
-    padding-top: 28px;
-    &::before {
-      content: '+';
+  &.main {
+    &:hover {
+      opacity: 0.7;
+      padding-top: 28px;
+      &::before {
+        content: '+';
+      }
+      color: white;
+      text-align: center;
+      font-weight: 500;
+      font-size: 40px;
     }
-    color: white;
-    text-align: center;
-    font-weight: 500;
-    font-size: 40px;
   }
 `;
 
@@ -109,7 +112,7 @@ const Statics = styled.div`
   }
 `;
 
-const OwnerInfo = ({ store }) => {
+const OwnerInfo = ({ store, location: { pathname } }) => {
   const {
     shopName,
     imgUrl,
@@ -124,7 +127,10 @@ const OwnerInfo = ({ store }) => {
       <div className="profile">
         <div className="background1">
           <div className="background2">
-            <Image imgUrl={imgUrl} />
+            <Image
+              imgUrl={imgUrl}
+              className={pathname == '/figtable/owner' && 'main'}
+            />
           </div>
         </div>
         <Name>{shopName}</Name>
@@ -151,4 +157,4 @@ const OwnerInfo = ({ store }) => {
   );
 };
 
-export default OwnerInfo;
+export default withRouter(OwnerInfo);

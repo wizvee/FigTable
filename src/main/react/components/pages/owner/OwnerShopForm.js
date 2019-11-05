@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { FiPlusCircle } from 'react-icons/Fi';
@@ -154,13 +154,38 @@ const OwnerShopForm = ({ store }) => {
       : setAddMn(addMn.concat({ title: '', price: '' }));
   };
 
-  const onRemove = e => {
-    e.target.getAttribute('name') == 'op'
-      ? setAddOp(addOp.splice(e.target.getAttribute('index'), 1))
-      : setAddMn(addMn.splice(e.target.getAttribute('index'), 1));
+  const operationChange = ({ target }, index) => {
+    setAddOp(
+      addOp.map((op, i) => {
+        if (i === index) {
+          return { ...op, [target.name]: target.value };
+        }
+        return op;
+      }),
+    );
+  };
 
-    console.log(addOp);
-    console.log(addMn);
+  const menuChange = ({ target }, index) => {
+    setAddMn(
+      addMn.map((m, i) => {
+        if (i === index) {
+          return { ...m, [target.name]: target.value };
+        }
+        return m;
+      }),
+    );
+  };
+
+  const onChange = e => {
+    const { value, name } = e.target;
+  };
+
+  const opRemove = index => {
+    setAddOp(addOp.filter((o, i) => i !== index));
+  };
+
+  const mnRemove = index => {
+    setAddMn(addMn.filter((o, i) => i !== index));
   };
 
   return (
@@ -171,36 +196,42 @@ const OwnerShopForm = ({ store }) => {
           type="text"
           name="resName"
           placeholder="매장명"
+          onChange={onChange}
           defaultValue={shopName}
         />
         <StyledInput
           type="text"
           name="resAddr"
           placeholder="매장 주소"
+          onChange={onChange}
           defaultValue={addr}
         />
         <StyledInput
           type="tel"
           name="resTel"
           placeholder="매장 전화번호"
+          onChange={onChange}
           defaultValue={tel}
         />
         <StyledInput
           type="text"
           name="resAdminName"
           placeholder="대표자명"
+          onChange={onChange}
           defaultValue={owner}
         />
         <StyledInput
           type="text"
           name="resLocationKeyword"
           placeholder="위치 키워드"
+          onChange={onChange}
           defaultValue={locationKeyword}
         />
         <StyledInput
           type="text"
           name="resFoodKeyword"
           placeholder="음식 키워드"
+          onChange={onChange}
           defaultValue={foodKeyword}
         />
         <br />
@@ -212,21 +243,22 @@ const OwnerShopForm = ({ store }) => {
             <StyledTextArea
               style={{ width: '20%' }}
               type="textArea"
-              name="resOpenDay"
+              name="openDay"
               placeholder="영업일"
-              defaultValue={op.openDay}
+              value={addOp[index].openDay}
+              onChange={() => operationChange(event, index)}
             />
             <StyledTextArea
               style={{ width: '65%' }}
               type="textArea"
-              name="resCloseTime"
+              name="closeTime"
               placeholder="운영시간"
-              defaultValue={op.closeTime}
+              value={addOp[index].closeTime}
+              onChange={() => operationChange(event, index)}
             />
             <IoIosCloseCircleOutline
               name="op"
-              index={index}
-              onClick={onRemove}
+              onClick={() => opRemove(index)}
             />
           </InputWrapper>
         ))}
@@ -240,28 +272,29 @@ const OwnerShopForm = ({ store }) => {
           <InputWrapper key={index} style={{ marginTop: '0.5rem' }}>
             <StyledTextArea
               type="textArea"
-              name="resMenuTitle"
+              name="title"
               placeholder="메뉴"
               style={{ width: '40%' }}
-              defaultValue={m.title}
+              onChange={() => menuChange(event, index)}
+              value={addMn[index].title}
             />
-
             <StyledTextArea
               type="textArea"
-              name="resMenuPrice"
+              name="price"
               placeholder="가격"
               style={{ width: '40%', marginRight: '10px' }}
-              defaultValue={m.price}
+              onChange={() => menuChange(event, index)}
+              value={addMn[index].price}
             />
             <IoIosCloseCircleOutline
               name="m"
               index={index}
-              onClick={onRemove}
+              onClick={() => mnRemove(index)}
             />
           </InputWrapper>
         ))}
         <IconWrapper>
-          <FiPlusCircle onClick={appendInput} />
+          <FiPlusCircle name="m" onClick={appendInput} />
         </IconWrapper>
       </FormContainer>
 
