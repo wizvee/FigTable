@@ -4,6 +4,7 @@ import { FaStore } from 'react-icons/fa';
 import { MdSchedule, MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
+import ModeSelectModal from './ModeSelectModal';
 
 const MenuWrapper = styled.ul`
   text-align: center;
@@ -58,7 +59,7 @@ const MenuItem = styled.li`
     }
   }
 `;
-const OwnerMenu = () => {
+const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM }) => {
   return (
     <>
       <MenuWrapper>
@@ -78,7 +79,7 @@ const OwnerMenu = () => {
             예약 관리
           </MenuItem>
         </Link>
-        <Link to="/figtable/owner/waiting">
+        <Link to="/figtable/owner/waiting" onClick={modeSelOpenM}>
           <MenuItem>
             <IconWrapper style={{ marginBottom: '22px' }}>
               <MdNaturePeople />
@@ -95,6 +96,7 @@ const OwnerMenu = () => {
           </MenuItem>
         </Link>
       </MenuWrapper>
+      {!modeSelModal ? null : <ModeSelectModal modeSelCloseM={modeSelCloseM} />}
     </>
   );
 };

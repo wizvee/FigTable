@@ -11,7 +11,6 @@ const Container = styled.div`
   height: auto;
   overflow-y: hidden;
   background: #f1f3f5;
-
   @media (max-width: 425px) {
     height: 1500px;
   }
@@ -25,7 +24,6 @@ const ContainerWrapper = styled(Responsive)`
     display: block;
     clear: both;
   }
-
   @media (max-width: 425px) {
     height: 1500px;
   }
@@ -36,7 +34,6 @@ const Right = styled.div`
   width: 100%;
   height: 100%;
   float: right;
-
   /* @media (max-width: 768px) {
     width: 45%;
   } */
@@ -61,12 +58,10 @@ const CountContainer = styled.div`
   z-index: 10;
   background: rgba(246, 114, 128, 0.7);
   color: white;
-
   .count {
     color: ${palette.textGray};
     font-weight: 900;
   }
-
   @media (max-width: 1024px) {
     letter-spacing: 2px;
   }

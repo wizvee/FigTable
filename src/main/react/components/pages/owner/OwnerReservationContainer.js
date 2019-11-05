@@ -23,13 +23,11 @@ const ContainerWrapper = styled(Responsive)`
   height: auto;
   overflow: hidden;
   padding-bottom: 50px;
-
   &:after {
     content: '';
     display: block;
     clear: both;
   }
-
   @media (max-width: 425px) {
     height: 1500px;
   }
