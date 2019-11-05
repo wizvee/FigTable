@@ -69,11 +69,13 @@ const ButtonWithPadding = styled(Button)`
 const ModalUser = ({ closeModal, member, onLogout }) => {
   const [select, setSelect] = useState('recent');
 
-  const { recent, loading, error } = useSelector(({ guest, loading }) => ({
-    recent: guest.recent,
-    loading: loading['recent/GET_RES'],
-    error: guest.recentError,
-  }));
+  const { recent, likes, recentLoading } = useSelector(
+    ({ guest, member, loading }) => ({
+      recent: guest.recent,
+      likes: member.likes,
+      recentLoading: loading['recent/GET_RES'],
+    }),
+  );
   const dispatch = useDispatch();
   const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
 
@@ -87,8 +89,7 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
     dispatch(getRes(Array.from(recent)));
   }, [dispatch]);
 
-  if (error) return null;
-  if (loading) return null;
+  if (recentLoading) return null;
 
   return (
     <>

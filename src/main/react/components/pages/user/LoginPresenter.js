@@ -89,7 +89,7 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
           autoComplete="memEmail"
           name="memEmail"
           placeholder="이메일 입력"
-          vlaue={form.memEmail}
+          value={form.memEmail}
           onChange={onChange}
         />
         <StyledInput

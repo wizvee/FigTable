@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
-import { FiStar, FiEdit3 } from 'react-icons/fi';
+import { FiEdit3 } from 'react-icons/fi';
+import { TiStarOutline, TiStarFullOutline } from 'react-icons/ti';
 import ModalLogin from '../ModalLogin';
 import { setRes } from '../../../../modules/review';
+import { getLikes, likesRes, unlikesRes } from '../../../../modules/member';
 
 const Icon = styled.span`
   display: flex;
@@ -20,6 +22,9 @@ const Icon = styled.span`
   &:hover {
     color: ${palette.primary};
   }
+  &.include {
+    color: ${palette.primary};
+  }
   svg {
     font-size: 1.8rem;
   }
@@ -30,10 +35,13 @@ const Icon = styled.span`
 
 const ActionButtons = ({ history }) => {
   const disaptch = useDispatch();
-  const { member, restaurant } = useSelector(({ member, restaurant }) => ({
-    member: member.member,
-    restaurant: restaurant.restaurant,
-  }));
+  const { member, likes, restaurant } = useSelector(
+    ({ member, restaurant }) => ({
+      member: member.member,
+      likes: member.likes,
+      restaurant: restaurant.restaurant,
+    }),
+  );
 
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
@@ -54,6 +62,18 @@ const ActionButtons = ({ history }) => {
     history.push('/figtable/review');
   }, [disaptch]);
 
+  const onLike = useCallback(() => disaptch(likesRes({ member, restaurant })), [
+    disaptch,
+  ]);
+  const onUnlike = useCallback(
+    () => disaptch(unlikesRes({ member, restaurant })),
+    [disaptch],
+  );
+
+  useEffect(() => {
+    disaptch(getLikes(member.memNo));
+  }, []);
+
   return (
     <>
       {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
@@ -61,10 +81,17 @@ const ActionButtons = ({ history }) => {
         <FiEdit3 />
         <span>리뷰쓰기</span>
       </Icon>
-      <Icon onClick={member ? undefined : () => openModal('like')}>
-        <FiStar />
-        <span>가고싶다</span>
-      </Icon>
+      {likes.includes(restaurant.resNo) ? (
+        <Icon className="include" onClick={onUnlike}>
+          <TiStarFullOutline />
+          <span>가고싶다</span>
+        </Icon>
+      ) : (
+        <Icon onClick={member ? onLike : () => openModal('like')}>
+          <TiStarOutline />
+          <span>가고싶다</span>
+        </Icon>
+      )}
     </>
   );
 };

@@ -1,5 +1,8 @@
 package com.kh.figtable.member.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member mem) {
 		return dao.login(session, mem);
+	}
+
+	@Override
+	public int likesRes(Map<String, String> data) {
+		return dao.likesRes(session, data);
+	}
+
+	@Override
+	public int unlikesRes(Map<String, String> data) {
+		return dao.unlikesRes(session, data);
+	}
+
+	@Override
+	public List<String> getLikes(String memNo) {
+		return dao.getLikes(session, memNo);
 	}
 
 }

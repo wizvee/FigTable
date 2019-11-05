@@ -27,4 +27,20 @@
 		FROM
 		FIG_MEMBER WHERE MEM_EMAIL = #{memEmail}
 	</select>
+
+	<insert id="likesRes" parameterType="map">
+		INSERT INTO FIG_RES_LIKES
+		VALUES(#{memNo}, #{resNo})
+	</insert>
+
+	<delete id="unlikesRes" parameterType="map">
+		DELETE FIG_RES_LIKES WHERE
+		MEM_NO = #{memNo} AND RES_NO = #{resNo}
+	</delete>
+
+	<select id="getLikes" parameterType="string" resultType="string">
+		SELECT
+		RES_NO FROM
+		FIG_RES_LIKES WHERE MEM_NO = #{memNo}
+	</select>
 </mapper>

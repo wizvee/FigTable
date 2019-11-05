@@ -73,21 +73,21 @@ const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
           autoComplete="memEmail"
           name="memEmail"
           placeholder="이메일 입력"
-          vlaue={form.memEmail}
+          value={form.memEmail}
           onChange={onChange}
         />
         <StyledInput
           autoComplete="memPhone"
           name="memPhone"
           placeholder="휴대전화 입력"
-          vlaue={form.memPhone}
+          value={form.memPhone}
           onChange={onChange}
         />
         <StyledInput
           autoComplete="memName"
           name="memName"
           placeholder="이름 입력"
-          vlaue={form.memName}
+          value={form.memName}
           onChange={onChange}
         />
         <StyledInput
@@ -95,7 +95,7 @@ const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
           name="memPassword"
           placeholder="비밀번호 (8자 이상)"
           type="password"
-          vlaue={form.memPassword}
+          value={form.memPassword}
           onChange={onChange}
         />
         <StyledInput
@@ -103,7 +103,7 @@ const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
           name="passwordConfirm"
           placeholder="비밀번호 확인 (8자 이상)"
           type="password"
-          vlaue={form.passwordConfirm}
+          value={form.passwordConfirm}
           onChange={onChange}
         />
         <div className="check">
