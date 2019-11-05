@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
+
+//데이트피커
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import { DateRangePicker } from 'react-dates';
+
+//데이트피커
 
     const StyledButton = styled.button`
     width: 140px;
@@ -19,7 +26,7 @@ import Button from '../../../lib/styles/Button';
     margin:0.5rem 0;
     padding:0 3rem;
   
-    div{
+    .title{
       display:inline-block;
       width:8rem;
       text-align:right;
@@ -42,6 +49,7 @@ import Button from '../../../lib/styles/Button';
     
   `;
   const Image= styled.div`
+      display:inline-block;
       background: url(${props => `${props.url}`});
       position: relative;
       overflow: hidden;
@@ -66,36 +74,57 @@ import Button from '../../../lib/styles/Button';
       font-size: 0.8rem;
   `;
   
-const EatdealEnroll =()=>{
+class EatdealEnroll extends Component{
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: null,
+      endDate: null,
+      focusedInput: null,
+    };
+  }
+  render(){
     return(
         <>
         
+       
         <EatdealInput>
-            <div>eatdeal 제목</div><input type="text" name="resName" placeholder="예)피그테이블 역삼점"/>
+            <div className="title">eatdeal 제목</div><input type="text" name="resName" placeholder="예)피그테이블 역삼점"/>
           </EatdealInput>
           <EatdealInput>
-            <div>대표사진<br/>
+            <div className="title">대표사진<br/>
             <PointButton bgColor="gray">추가</PointButton></div>
             <Image url='https://mamadips.com/wp-content/uploads/2016/11/defimage.gif'/>
           </EatdealInput>
           <EatdealInput>
-            <div>메뉴이름</div><input type="text" name="eatMenu" placeholder="예)소금구이 2인"/>
+            <div className="title">메뉴이름</div><input type="text" name="eatMenu" placeholder="예)소금구이 2인"/>
           </EatdealInput>
           <EatdealInput>
-            <div>할인 전 가격</div><input type="text" name="eatCost" placeholder="예)25000원"/>
+            <div className="title">할인 전 가격</div><input type="text" name="eatCost" placeholder="예)25000원"/>
           </EatdealInput>
           <EatdealInput>
-            <div>할인율</div><input type="text" name="eatDiscount" placeholder="예)25"/>
+            <div className="title">할인율</div><input type="text" name="eatDiscount" placeholder="예)25"/>
           </EatdealInput>
           <EatdealInput>
-            <div>날짜</div><input type="text" name="resName" placeholder="변경"/>
+            <div className="title">날짜</div>
+          <DateRangePicker
+          startDateId="startDate"
+          endDateId="endDate"
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
+          focusedInput={this.state.focusedInput}
+          onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+        />
+          </EatdealInput>
+          
+          
+          <EatdealInput>
+            <div className="title">상세내용</div><textarea  rows="10" placeholder="예)피그테이블은 240시간 침지숙성 그리고 3일간의 드라이에이징으로 교차숙성을 진행하여 고객분들에게 극강의 숙성육을 제공합니다."></textarea>
           </EatdealInput>
           <EatdealInput>
-            <div>상세내용</div><textarea  rows="10" placeholder="예)피그테이블은 240시간 침지숙성 그리고 3일간의 드라이에이징으로 교차숙성을 진행하여 고객분들에게 극강의 숙성육을 제공합니다."></textarea>
-          </EatdealInput>
-          <EatdealInput>
-            <div></div>
+            <div className="title"></div>
             <ButtonArea>
 
 
@@ -105,6 +134,7 @@ const EatdealEnroll =()=>{
         </>
 
     )
+  }
 }
 
 export default EatdealEnroll;
