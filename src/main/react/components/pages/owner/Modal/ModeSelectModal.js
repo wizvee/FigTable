@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
-import palette from '../../../lib/styles/Palette';
+import palette from '../../../../lib/styles/Palette';
+import { Link } from 'react-router-dom';
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -83,8 +84,12 @@ const ModeSelectModal = ({ modeSelCloseM }) => {
           <MdClose onClick={modeSelCloseM} />
         </ModalTitle>
         <ButtonWrapper>
-          <Button>사장님</Button>
-          <Button>매장</Button>
+          <Link to="/figtable/owner/waiting">
+            <Button>사장님</Button>
+          </Link>
+          <Link to="/figtable/owner/public">
+            <Button>매장</Button>
+          </Link>
         </ButtonWrapper>
       </Modal>
     </ModalWrapper>

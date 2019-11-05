@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Responsive from '../../common/Responsive';
-import palette from '../../../lib/styles/Palette';
-import WaitingForm from './waiting/WaitingForm';
+import Responsive from '../../../common/Responsive';
+import palette from '../../../../lib/styles/Palette';
+import WaitingForm from './WaitingForm';
 
 const Container = styled.div`
   height: 100vmax;
@@ -94,7 +94,7 @@ const WaitingPublicContainer = () => {
           </Back>
         </Left>
         <Right>
-          <Logo></Logo>
+          {/* <Logo></Logo> */}
           <WaitingForm />
         </Right>
       </Container>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import HeaderOwner from './HeaderOwner';
+import HeaderOwner from './common/HeaderOwner';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
-import OwnerInfo from './OwnerInfo';
-import OwnerLeftMenu from './OwnerLeftMenu';
+import OwnerInfo from './common/OwnerInfo';
+import OwnerLeftMenu from './common/OwnerLeftMenu';
 import ListContainer from './ListContainer';
-import OwnerDetailTitle from './OwnerDetailTitle';
+import OwnerDetailTitle from './common/OwnerDetailTitle';
 import moment from 'moment';
 import WeekCalendar from './WeekCalendar';
 

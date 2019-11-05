@@ -4,7 +4,7 @@ import { FaStore } from 'react-icons/fa';
 import { MdSchedule, MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
-import ModeSelectModal from './ModeSelectModal';
+import ModeSelectModal from './Modal/ModeSelectModal';
 
 const MenuWrapper = styled.ul`
   text-align: center;

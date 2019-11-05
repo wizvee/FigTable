@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
+import palette from '../../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
 
 const ModalWrapper = styled.div`

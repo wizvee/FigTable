@@ -16,10 +16,10 @@ import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
-import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
+import OwnerWaitingContainer from './components/pages/owner/waiting/OwnerWaitingContainer';
 import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
 import SearchContainer from './components/pages/user/search/SearchContainer';
-import WaitingPublicContainer from './components/pages/owner/WaitingPublicContainer';
+import WaitingPublicContainer from './components/pages/owner/waiting/WaitingPublicContainer';
 import ReviewContainer from './components/pages/admin/ReviewContainer';
 
 const App = () => {

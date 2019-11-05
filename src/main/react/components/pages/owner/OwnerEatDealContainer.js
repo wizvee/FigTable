@@ -1,10 +1,10 @@
 import React from 'react';
-import HeaderOwner from './HeaderOwner';
+import HeaderOwner from './common/HeaderOwner';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
-import OwnerInfo from './OwnerInfo';
-import OwnerLeftMenu from './OwnerLeftMenu';
-import OwnerDetailTitle from './OwnerDetailTitle';
+import OwnerInfo from './common/OwnerInfo';
+import OwnerLeftMenu from './common/OwnerLeftMenu';
+import OwnerDetailTitle from './common/OwnerDetailTitle';
 import OwnerEatdealForm from './OwnerEatdealForm';
 
 const Container = styled.div`
