@@ -19,7 +19,7 @@ export function* reviewsSaga() {
 }
 
 const initialState = {
-  reviews: null,
+  reviews: [],
   error: null,
 };
 

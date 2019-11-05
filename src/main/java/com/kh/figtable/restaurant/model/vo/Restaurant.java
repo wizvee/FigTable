@@ -9,7 +9,7 @@ import lombok.Data;
 public class Restaurant {
 
 	private String resNo;
-	private String memNo;
+	private String ownNo;
 	private String resName;
 	private String resLocationKeyword;
 	private String resFoodKeyword;
@@ -29,5 +29,6 @@ public class Restaurant {
 	private String resReserve;
 	private String resWaiting;
 	private int resWaitCnt;
+	private String resApply;
 
 }

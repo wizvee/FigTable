@@ -25,9 +25,9 @@ const ActionButtonsContainer = ({ history }) => {
   }));
 
   // 리뷰 등록
-  const onSubmit = useCallback(() => {
+  const onSubmit = () => {
     dispatch(writeReview({ memNo, resNo, rvRating, rvContent, rvImages }));
-  }, [dispatch]);
+  };
 
   // 취소
   const onCancel = useCallback(() => {

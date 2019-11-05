@@ -125,7 +125,11 @@ const Poster = ({ restaurant }) => {
         </ImageContainer>
         <Title>
           {resName}
-          <Rating>{(resRating / resReviews).toFixed(1)}</Rating>
+          <Rating>
+            {isNaN(resRating / resReviews)
+              ? '0.0'
+              : (resRating / resReviews).toFixed(1)}
+          </Rating>
         </Title>
         <Location>{resLocationKeyword}</Location>
         <Icon>

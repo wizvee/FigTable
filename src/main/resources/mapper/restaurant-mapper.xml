@@ -3,7 +3,7 @@
 <mapper namespace="restaurant">
 	<resultMap type="restaurant" id="resResult">
 		<result property="resNo" column="RES_NO" />
-		<result property="memNo" column="MEM_NO" />
+		<result property="ownNo" column="OWN_NO" />
 		<result property="resName" column="RES_NAME" />
 		<result property="resLocationKeyword"
 			column="RES_LOCATION_KEYWORD" />
@@ -24,6 +24,7 @@
 		<result property="resReserve" column="RES_RESERVE" />
 		<result property="resWaiting" column="RES_WAITING" />
 		<result property="resWaitCnt" column="RES_WAITCNT" />
+		<result property="resApply" column="RES_APPLY" />
 	</resultMap>
 
 	<select id="getByLocal" parameterType="string"
