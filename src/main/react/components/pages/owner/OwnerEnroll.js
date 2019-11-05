@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderOwner from './common/HeaderOwner';
 import styled from 'styled-components';
+import Responsive from '../../common/Responsive';
 
 const Container = styled.div`
   padding-top: 80px;
