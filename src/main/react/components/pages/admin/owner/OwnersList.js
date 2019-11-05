@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import OwnerModal from './OwnerModal';
-import './TableStyle.css';
+import '../TableStyle.css';
 
 const OwnersList = ({ owners, keyword }) => {
   const owner =

@@ -3,7 +3,7 @@ import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import styled from 'styled-components';
 import './TableStyle.css';
-import RestaurantList from './RestaurantList';
+import RestaurantList from './restaurant/RestaurantList';
 
 const BodyHeight = styled.div`
   height: ${props => (props.bodyHeight > 6 ? 'auto' : '500px')};
@@ -12,6 +12,7 @@ const BodyHeight = styled.div`
 const TableWrapper = styled.div`
   margin-top: 5rem;
   margin-bottom: 2rem;
+  min-height: 420px;
 `;
 
 const restaurants = [

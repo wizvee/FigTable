@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../../lib/styles/Button';
-import palette from '../../../lib/styles/Palette';
-import Responsive from '../../common/Responsive';
+import Button from '../../../../lib/styles/Button';
+import palette from '../../../../lib/styles/Palette';
+import Responsive from '../../../common/Responsive';
 
 const FormBlock = styled(Responsive)`
   display: flex;
