@@ -7,8 +7,11 @@
 		<result property="rvNo" column="RV_NO" />
 		<result property="rvRating" column="RV_RATING" />
 		<result property="rvContent" column="RV_CONTENT" />
-		<result property="rvImages" column="RV_IMAGES" typeHandler="strArr" />
+		<result property="rvImages" column="RV_IMAGES"
+			typeHandler="strArr" />
 		<result property="rvDate" column="RV_DATE" />
+		<result property="rvWarn" column="RV_WARN" />
+		<result property="rvLove" column="RV_LOVE" />
 		<result property="memName" column="MEM_NAME" />
 		<result property="memProfile" column="MEM_PROFILE" />
 		<result property="memRvCnt" column="MEM_RVCNT" />
@@ -26,7 +29,7 @@
 
 	<insert id="writeReview" parameterType="review">
 		INSERT INTO FIG_REVIEW
-		VALUES(#{memNo}, #{resNo}, 'rv'||RV_SEQ.NEXTVAL, #{rvRating},
-		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT)
+		VALUES('rv'||RV_SEQ.NEXTVAL, #{memNo}, #{resNo}, #{rvRating},
+		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT, NULL, DEFAULT)
 	</insert>
 </mapper>

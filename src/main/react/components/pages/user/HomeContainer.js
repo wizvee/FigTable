@@ -114,7 +114,7 @@ const HomeContainer = ({ history }) => {
   );
 
   useEffect(() => {
-    dispatch(listRes('수원시'));
+    dispatch(listRes('강남'));
   }, [dispatch]);
 
   return (

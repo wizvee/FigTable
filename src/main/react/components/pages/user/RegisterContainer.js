@@ -45,11 +45,17 @@ const RegisterContainer = ({ history }) => {
       policies,
       privacy,
     } = form;
+    const reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
     if (
       [memEmail, memPassword, passwordConfirm, memPhone, memName].includes('')
     ) {
       // 하나라도 비어있다면
       setError('빈 칸을 모두 입력하세요');
+      return;
+    }
+    if (!reg.test(memPassword)) {
+      // 비밀번호가 유효하지 않는다면
+      setError('비밀번호가 유효하지 않습니다');
       return;
     }
     if (memPassword !== passwordConfirm) {

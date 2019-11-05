@@ -13,9 +13,9 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="scott" />
-		<property name="password" value="tiger" />
+			value="jdbc:oracle:thin:@rclass.iptime.org:1521:xe" />
+		<property name="username" value="figtable" />
+		<property name="password" value="figfig" />
 	</bean>
 
 	<bean id="sessionFactoryBean"

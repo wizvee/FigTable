@@ -16,7 +16,7 @@ public class Member {
 	private String memProfile;
 	private int memRvCnt;
 	private int memFwCnt;
-	private String memCode;
+	private int memWrCnt;
 	private String memStatus;
 
 }

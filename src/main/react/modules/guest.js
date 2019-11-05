@@ -30,9 +30,12 @@ export const getRes = createAction(GET_RES, resList => resList);
 
 function* insertRecentSaga({ payload }) {
   // 현재 최근 본 맛집에 등록된 맛집들의 id값
-  const before = yield select(({ guest }) => guest.recent.map(view => view.id));
+  const before = yield select(({ guest }) =>
+    guest.recent.map(view => view.resNo),
+  );
   //  등록되어 있지 않은 맛집만 등록
-  if (!before.includes(payload.id)) yield put({ type: INSERT_RECENT, payload });
+  if (!before.includes(payload.resNo))
+    yield put({ type: INSERT_RECENT, payload });
   // 등록 후 가장 최근의 맛집 리스트
   const last = yield select(({ guest }) => guest.recent);
   // localStorage에 등록

@@ -11,14 +11,16 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Review {
 
+	private String rvNo;
 	private String memNo;
 	private String resNo;
-	private String rvNo;
 	private int rvRating;
 	private String rvContent;
 	private String[] rvImages;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date rvDate;
+	private String rvWarn;
+	private int rvLove;
 
 	// JOIN시 추가 정보
 	private String memName;
