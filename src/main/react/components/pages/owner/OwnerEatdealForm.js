@@ -74,7 +74,7 @@ const OwnerEatdealForm = () => {
           </Span>
           </SubMenu>
         </SubTitle>
-        {!manage?  <EatdealManage/>: <EatdealEnroll/>}
+        {!manage?  <EatdealEnroll/>:<EatdealManage/> }
          
          
         </FormContainer>
