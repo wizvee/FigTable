@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import EatdealEnroll from './EatdealEnroll';
 import EatdealManage from './EatdealManage';
+import EatdealBuy from './EatdealBuy';
 import palette from '../../../lib/styles/Palette';
 
 const FormContainer = styled.div`
@@ -75,6 +76,7 @@ const OwnerEatdealForm = () => {
           </SubMenu>
         </SubTitle>
         {!manage?  <EatdealEnroll/>:<EatdealManage/> }
+        <EatdealBuy/>
          
          
         </FormContainer>
