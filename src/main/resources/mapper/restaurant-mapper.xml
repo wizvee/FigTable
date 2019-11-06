@@ -43,4 +43,10 @@
 		UPDATE FIG_RESTAURANT
 		SET RES_VIEWS = RES_VIEWS + 1 WHERE RES_NO = #{resNo}
 	</update>
+
+	<select id="getLikes" parameterType="string"
+		resultType="restaurant" resultMap="resResult">
+		SELECT R.* FROM FIG_RES_LIKES L JOIN
+		FIG_RESTAURANT R ON(L.RES_NO = R.RES_NO) WHERE MEM_NO = #{memNo}
+	</select>
 </mapper>

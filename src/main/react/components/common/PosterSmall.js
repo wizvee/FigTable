@@ -2,11 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
-import { FiStar } from 'react-icons/fi';
+import LikeButton from './LikeButton';
 
 const Container = styled.div`
   display: flex;
   padding: 0.8rem;
+  width: 100%;
+`;
+
+const FlexLink = styled(Link)`
+  flex: 1;
+  display: flex;
 `;
 
 const Image = styled.div`
@@ -18,19 +24,12 @@ const Image = styled.div`
   height: 65px;
 `;
 
-const Like = styled.span`
-  font-size: 1.5rem;
-  color: ${palette.textGray};
-`;
-
 const TextWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   padding-left: 0.7rem;
 `;
-
-const Title = styled.span``;
 
 const Location = styled.span`
   color: ${palette.textGray};
@@ -53,25 +52,25 @@ const PosterSmall = props => {
     closeModal,
   } = props;
   return (
-    <Link to={`/figtable/restaurant/${resNo}`}>
-      <Container onClick={closeModal}>
-        <Image url={resThumb} />
-        <TextWrapper>
-          <Title>
+    <Container>
+      <FlexLink to={`/figtable/restaurant/${resNo}`}>
+        <Image url={resThumb} onClick={closeModal} />
+        <TextWrapper onClick={closeModal}>
+          <span>
             {resName}
             <Rating>
               {isNaN(resRating / resReviews)
                 ? '0.0'
                 : (resRating / resReviews).toFixed(1)}
             </Rating>
-          </Title>
+          </span>
           <Location>{resLocationKeyword}</Location>
         </TextWrapper>
-        <Like>
-          <FiStar />
-        </Like>
-      </Container>
-    </Link>
+      </FlexLink>
+      <span>
+        <LikeButton restaurant={props} />
+      </span>
+    </Container>
   );
 };
 

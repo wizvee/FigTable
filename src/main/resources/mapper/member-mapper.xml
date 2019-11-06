@@ -38,9 +38,4 @@
 		MEM_NO = #{memNo} AND RES_NO = #{resNo}
 	</delete>
 
-	<select id="getLikes" parameterType="string" resultType="string">
-		SELECT
-		RES_NO FROM
-		FIG_RES_LIKES WHERE MEM_NO = #{memNo}
-	</select>
 </mapper>

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.member.model.vo.Member;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
 public interface MemberDao {
@@ -19,6 +20,6 @@ public interface MemberDao {
 	
 	int unlikesRes(SqlSession session, Map<String, String> data);
 	
-	List<String> getLikes(SqlSession session, String memNo);
+	List<Restaurant> getLikes(SqlSession session, String memNo);
 
 }

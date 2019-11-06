@@ -8,6 +8,7 @@ import { increaseLikes, decreaseLikes } from './restaurant';
 import * as memberAPI from '../lib/api/member';
 
 const SET_MEMBER = 'member/SET_MEMBER';
+const SET_MEMBER_INSERT = 'member/SET_MEMBER_INSERT';
 const LOGOUT = 'member/LOGOUT';
 
 const [LIKES_RES, LIKES_RES_SUCCESS] = createRequestActionTypes(
@@ -21,6 +22,7 @@ const [GET_LIKES, GET_LIKES_SUCCESS] = createRequestActionTypes(
 );
 
 export const setMember = createAction(SET_MEMBER, member => member);
+export const getLikes = createAction(GET_LIKES, memNo => memNo);
 export const logout = createAction(LOGOUT);
 
 export const likesRes = createAction(LIKES_RES, ({ member, restaurant }) => ({
@@ -34,16 +36,19 @@ export const unlikesRes = createAction(
     resNo: restaurant.resNo,
   }),
 );
-export const getLikes = createAction(GET_LIKES, memNo => memNo);
 
 // 사가 생성
+function* setMemberSaga({ payload }) {
+  yield put({ type: SET_MEMBER_INSERT, payload });
+  yield put({ type: GET_LIKES, payload: payload.memNo });
+}
 function* likesResSaga({ payload }) {
   try {
     const resp = yield call(memberAPI.likesRes, payload);
     yield put({ type: LIKES_RES_SUCCESS, payload: resp.data });
     yield put(increaseLikes());
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
 function* unlikesResSaga({ payload }) {
@@ -52,7 +57,7 @@ function* unlikesResSaga({ payload }) {
     yield put({ type: UNLIKES_RES_SUCCESS, payload: resp.data });
     yield put(decreaseLikes());
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 }
 const getLikesSaga = createRequestSaga(GET_LIKES, memberAPI.getLikes);
@@ -66,6 +71,7 @@ function* logoutSaga() {
 }
 
 export function* memberSaga() {
+  yield takeLatest(SET_MEMBER, setMemberSaga);
   yield takeLatest(LOGOUT, logoutSaga);
   yield takeLatest(LIKES_RES, likesResSaga);
   yield takeLatest(UNLIKES_RES, unlikesResSaga);
@@ -79,7 +85,7 @@ const initialState = {
 
 export default handleActions(
   {
-    [SET_MEMBER]: (state, { payload: member }) => ({
+    [SET_MEMBER_INSERT]: (state, { payload: member }) => ({
       ...state,
       member,
     }),

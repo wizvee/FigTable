@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.member.model.vo.Member;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -32,8 +33,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<String> getLikes(SqlSession session, String memNo) {
-		return session.selectList("member.getLikes", memNo);
+	public List<Restaurant> getLikes(SqlSession session, String memNo) {
+		return session.selectList("restaurant.getLikes", memNo);
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.figtable.member.model.dao.MemberDao;
 import com.kh.figtable.member.model.vo.Member;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -39,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<String> getLikes(String memNo) {
+	public List<Restaurant> getLikes(String memNo) {
 		return dao.getLikes(session, memNo);
 	}
 

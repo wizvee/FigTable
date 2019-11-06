@@ -123,7 +123,7 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
             ))}
           </>
         )}
-        {select === 'likes' && member && (
+        {select === 'likes' && member && likes.length === 0 && (
           <div className="nullText">
             <span className="big">격하게 가고싶다..</span>
             <span className="small">
@@ -131,6 +131,21 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
             </span>
           </div>
         )}
+        {select === 'likes' &&
+          member &&
+          likes.length !== 0 &&
+          likes.map(r => (
+            <PosterSmall
+              key={r.resNo}
+              resNo={r.resNo}
+              resThumb={r.resThumb}
+              resName={r.resName}
+              resReviews={r.resReviews}
+              resRating={r.resRating}
+              resLocationKeyword={r.resLocationKeyword}
+              closeModal={closeModal}
+            />
+          ))}
         {select === 'likes' && !member && (
           <ModalLogin msg="like" closeModal={() => setSelect('recent')} />
         )}

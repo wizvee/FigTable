@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.figtable.member.model.vo.Member;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface MemberService {
 
@@ -15,6 +16,6 @@ public interface MemberService {
 	
 	int unlikesRes(Map<String, String> data);
 	
-	List<String> getLikes(String memNo);
+	List<Restaurant> getLikes(String memNo);
 
 }

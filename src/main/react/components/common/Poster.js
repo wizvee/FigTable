@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
-import { TiStarFullOutline } from 'react-icons/ti';
 import { insertRecentAsync } from '../../modules/guest';
-import ModalLogin from '../pages/user/ModalLogin';
 
 const Image = styled.div`
   background: url(${props => `${props.url}`});
@@ -14,21 +12,6 @@ const Image = styled.div`
   background-position: center center;
   height: 12.5rem;
   transition: all 0.2s linear;
-`;
-
-const Like = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 5px;
-  right: 5px;
-  font-size: 1.5rem;
-  color: white;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    color: #fcc419;
-  }
 `;
 
 const Waiting = styled.div`
@@ -59,7 +42,6 @@ const Title = styled.div`
   margin-top: 5px;
   padding: 0 3px;
   font-size: 1.23rem;
-  /* font-weight: 600; */
 `;
 
 const Rating = styled.span`
@@ -106,8 +88,6 @@ const Poster = ({ restaurant }) => {
     resWaiting,
     resWaitCnt,
   } = restaurant;
-
-  const { member } = useSelector(({ member }) => ({ member: member.member }));
   const dispatch = useDispatch();
   const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
     dispatch,
@@ -119,9 +99,6 @@ const Poster = ({ restaurant }) => {
         <ImageContainer>
           <Image url={resThumb} />
           {resWaiting && <Waiting>대기 {resWaitCnt}팀</Waiting>}
-          <Like>
-            <TiStarFullOutline />
-          </Like>
         </ImageContainer>
         <Title>
           {resName}
