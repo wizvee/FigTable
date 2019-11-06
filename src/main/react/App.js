@@ -16,10 +16,12 @@ import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
-import OwnerWaitingContainer from './components/pages/owner/OwnerWaitingContainer';
+import OwnerWaitingContainer from './components/pages/owner/waiting/OwnerWaitingContainer';
 import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
 import SearchContainer from './components/pages/user/search/SearchContainer';
-import WaitingPublicContainer from './components/pages/owner/WaitingPublicContainer';
+import WaitingPublicContainer from './components/pages/owner/waiting/WaitingPublicContainer';
+import ReviewContainer from './components/pages/admin/ReviewContainer';
+import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 
 const App = () => {
   return (
@@ -58,12 +60,17 @@ const App = () => {
           path="/figtable/owner/waiting"
           component={OwnerWaitingContainer}
         />
-        <Route path="/figtable/owner/public" component={WaitingPublicContainer}/>
-        
+        <Route
+          path="/figtable/owner/public"
+          component={WaitingPublicContainer}
+        />
+        <Route path="/figtable/owner/enroll" component={OwnerEnroll} />
+
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
         <Route path="/figtable/admin/owner" component={ApplyOwnerContainer} />
+        <Route path="/figtable/admin/review" component={ReviewContainer} />
         <Redirect from="*" to="/figtable" />
       </Switch>
       <Footer />

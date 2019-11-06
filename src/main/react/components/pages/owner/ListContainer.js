@@ -4,7 +4,7 @@ import palette from '../../../lib/styles/Palette';
 import ReservationItem from './ReservationItem';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import WaitingItem from './WaitingItem';
+import WaitingItem from './waiting/WaitingItem';
 
 const Container = styled.div`
   margin-top: 40px;

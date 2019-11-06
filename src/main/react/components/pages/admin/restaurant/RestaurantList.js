@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ResModal from './ResModal';
-import './TableStyle.css';
-import styled from 'styled-components';
+import '../TableStyle.css';
 
 const RestaurantList = ({ restaurants, keyword }) => {
   const restaurant =

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../../lib/styles/Button';
+import Button from '../../../../lib/styles/Button';
 
 const ModalWrap = styled.div`
   position: fixed;
@@ -9,7 +9,7 @@ const ModalWrap = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 50;
+  z-index: 90;
 `;
 
 const Modal = styled.div`
@@ -42,14 +42,17 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const ModalTemplate = ({ restaurant, closeModal, changePage }) => {
+const ResModal = ({ restaurant, closeModal, changePage }) => {
   const { resNo, resName, resAddr, ownName } = restaurant;
+
   return (
     <>
       <ModalWrap>
         <Modal>
           <Content>
-            <b>{resName}</b> 매장을 등록하시겠습니까?
+            <div>
+              <b>{resName}</b> 매장을 등록하시겠습니까?
+            </div>
           </Content>
           <ButtonWrapper>
             <StyledButton onClick={changePage}>네</StyledButton>
@@ -61,4 +64,4 @@ const ModalTemplate = ({ restaurant, closeModal, changePage }) => {
   );
 };
 
-export default ModalTemplate;
+export default ResModal;

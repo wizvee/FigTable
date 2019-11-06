@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import HeaderOwner from './HeaderOwner';
-import OwnerInfo from './OwnerInfo';
-import OwnerLeftMenu from './OwnerLeftMenu';
+import HeaderOwner from './common/HeaderOwner';
+import OwnerInfo from './common/OwnerInfo';
+import OwnerLeftMenu from './common/OwnerLeftMenu';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
-import OwnerDetailTitle from './OwnerDetailTitle';
+import OwnerDetailTitle from './common/OwnerDetailTitle';
 import OwnerShopForm from './OwnerShopForm';
 
 const Container = styled.div`

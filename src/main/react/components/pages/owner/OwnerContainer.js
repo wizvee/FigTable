@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import HeaderOwner from './HeaderOwner';
-import OwnerInfo from './OwnerInfo';
+import React, { useState, useEffect } from 'react';
+import HeaderOwner from './common/HeaderOwner';
+import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerMenu from './OwnerMenu';
 import palette from '../../../lib/styles/Palette';
 import ListContainer from './ListContainer';
-import ShopOpenModal from './ShopOpenModal';
+import ShopOpenModal from './Modal/ShopOpenModal';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -196,6 +196,9 @@ const reservations = [
 //////////////////////////////////////////////
 
 const OwnerContainer = () => {
+  useEffect(() => {
+    document.body.style.overflow = 'scroll';
+  });
   const [shopModal, setIsShopModal] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [modeSelModal, setModeSelModal] = useState(false);
