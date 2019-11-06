@@ -13,7 +13,7 @@ const Header = styled.div`
 `;
 
 const Section = styled.section`
-  height: 11.6rem;
+  height: 12.5rem;
 `;
 
 const MenuList = styled.div`
@@ -22,7 +22,7 @@ const MenuList = styled.div`
   align-items: center;
   position: relative;
   width: 100%;
-  margin-top: 5rem;
+  margin-top: 8rem;
 
   ul: after {
     right: -21px;

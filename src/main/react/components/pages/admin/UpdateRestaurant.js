@@ -12,7 +12,7 @@ const BodyHeight = styled.div`
 const TableWrapper = styled.div`
   margin-top: 5rem;
   margin-bottom: 2rem;
-  min-height: 420px;
+  min-height: 465px;
 `;
 
 const restaurants = [

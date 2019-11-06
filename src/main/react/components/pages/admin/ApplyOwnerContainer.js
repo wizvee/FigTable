@@ -13,7 +13,7 @@ const BodyHeight = styled.div`
 const TableWrapper = styled.div`
   margin-top: 5rem;
   margin-bottom: 2rem;
-  min-height: 420px;
+  min-height: 465px;
 `;
 
 const owners = [
@@ -134,7 +134,7 @@ const ApplyOwnerContainer = () => {
     input.current.value = '';
   };
 
-  const [bodyHeight, setBodyHeight] = useState(owners.length);
+  const bodyHeight = owners.length;
 
   return (
     <>
@@ -158,11 +158,7 @@ const ApplyOwnerContainer = () => {
               </tr>
             </thead>
             <tbody>
-              <OwnersList
-                owners={owners}
-                keyword={searchKeyword}
-                setBodyHeight={setBodyHeight}
-              />
+              <OwnersList owners={owners} keyword={searchKeyword} />
             </tbody>
           </table>
         </TableWrapper>

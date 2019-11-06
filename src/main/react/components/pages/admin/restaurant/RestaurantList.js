@@ -34,7 +34,7 @@ const RestaurantList = ({ restaurants, keyword }) => {
             신청내역이 존재하지 않습니다.
           </td>
         </tr>
-        <tr style={{ height: 335 }}></tr>
+        <tr style={{ height: 330 }}></tr>
       </>
     );
   }
