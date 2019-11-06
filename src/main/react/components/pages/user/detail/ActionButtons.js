@@ -71,7 +71,7 @@ const ActionButtons = ({ history }) => {
   );
 
   useEffect(() => {
-    disaptch(getLikes(member.memNo));
+    if (member) disaptch(getLikes(member.memNo));
   }, []);
 
   return (
