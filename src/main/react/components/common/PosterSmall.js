@@ -74,4 +74,4 @@ const PosterSmall = props => {
   );
 };
 
-export default PosterSmall;
+export default React.memo(PosterSmall);

@@ -22,6 +22,7 @@ import SearchContainer from './components/pages/user/search/SearchContainer';
 import WaitingPublicContainer from './components/pages/owner/waiting/WaitingPublicContainer';
 import ReviewContainer from './components/pages/admin/ReviewContainer';
 import OwnerEnroll from './components/pages/owner/OwnerEnroll';
+import MypageContainer from './components/pages/user/mypage/MypageContainer';
 
 const App = () => {
   return (
@@ -32,13 +33,13 @@ const App = () => {
         <Route path="/figtable/search/:keyword" component={SearchContainer} />
         <Route path="/figtable/register" component={RegisterContainer} />
         <Route path="/figtable/login" component={LoginContainer} />
+        <Route path="/figtable/@:memName" component={MypageContainer} />
         <Route path="/figtable/review" component={WriteContainer} />
         <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
         <Route
           path="/figtable/eatdeal/:eatNo"
           component={EatdealDetailContainer}
         />
-
         <Route
           path="/figtable/payment/:eatNo"
           component={EatdealpayContainer}
@@ -65,7 +66,6 @@ const App = () => {
           component={WaitingPublicContainer}
         />
         <Route path="/figtable/owner/enroll" component={OwnerEnroll} />
-
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />

@@ -122,4 +122,4 @@ const Poster = ({ restaurant }) => {
   );
 };
 
-export default Poster;
+export default React.memo(Poster);

@@ -87,6 +87,7 @@ const Spacer = styled.div`
 
 const HeaderPresenter = ({
   location: { pathname },
+  history,
   isModal,
   openSearchModal,
   openUserModal,
@@ -95,7 +96,10 @@ const HeaderPresenter = ({
   onSubmit,
   children,
 }) => {
-  const { recent } = useSelector(({ guest }) => ({ recent: guest.recent }));
+  const { recent, member } = useSelector(({ guest, member }) => ({
+    recent: guest.recent,
+    member: member.member,
+  }));
   const [isHome, setIsHome] = useState(false);
 
   // url이 '/'일 때 header를 숨기고 보여주는 이벤트
@@ -103,6 +107,11 @@ const HeaderPresenter = ({
     if (window.scrollY > 250) setIsHome(false);
     else setIsHome(true);
   }, []);
+
+  // 마이페이지 전환 함수
+  const toMypage = useCallback(() => {
+    history.push(`/figtable/@${member.memName}`);
+  }, [history, member]);
 
   useEffect(() => {
     setIsHome(false);
@@ -135,9 +144,11 @@ const HeaderPresenter = ({
             </form>
           )}
           <div className="right">
-            <IconWrapper>
-              <FiSmile />
-            </IconWrapper>
+            {member && (
+              <IconWrapper onClick={toMypage}>
+                <FiSmile />
+              </IconWrapper>
+            )}
             <IconWrapper onClick={openUserModal}>
               <Badge>{recent.length}</Badge>
               <FiStar />
