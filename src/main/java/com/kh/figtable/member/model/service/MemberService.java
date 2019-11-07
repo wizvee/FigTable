@@ -17,5 +17,17 @@ public interface MemberService {
 	int unlikesRes(Map<String, String> data);
 	
 	List<Restaurant> getLikes(String memNo);
+	
+	List<String> getLoves(String memNo);
+	
+	int lovesRv(Map<String, String> data);
+	
+	int unlovesRv(Map<String, String> data);
+	
+	Member check(String memNo);
+	
+	int update(Member m);
+	
+	String getOldProfile(String memNo);
 
 }

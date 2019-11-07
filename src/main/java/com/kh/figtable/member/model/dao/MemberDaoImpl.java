@@ -36,5 +36,35 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Restaurant> getLikes(SqlSession session, String memNo) {
 		return session.selectList("restaurant.getLikes", memNo);
 	}
+	
+	@Override
+	public Member check(SqlSession session, String memNo) {
+		return session.selectOne("member.check", memNo);
+	}
+
+	@Override
+	public int update(SqlSession session, Member m) {
+		return session.update("member.update", m);
+	}
+
+	@Override
+	public String getOldProfile(SqlSession session, String memNo) {
+		return session.selectOne("member.getOldProfile", memNo);
+	}
+
+	@Override
+	public List<String> getLoves(SqlSession session, String memNo) {
+		return session.selectList("member.getLoves", memNo);
+	}
+
+	@Override
+	public int lovesRv(SqlSession session, Map<String, String> data) {
+		return session.insert("member.lovesRv", data);
+	}
+
+	@Override
+	public int unlovesRv(SqlSession session, Map<String, String> data) {
+		return session.delete("member.unlovesRv", data);
+	}
 
 }

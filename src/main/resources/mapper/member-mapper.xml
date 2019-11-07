@@ -38,4 +38,53 @@
 		MEM_NO = #{memNo} AND RES_NO = #{resNo}
 	</delete>
 
+	<select id="getLoves" parameterType="string" resultType="string">
+		SELECT
+		RV_NO FROM FIG_RV_LOVES WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<insert id="lovesRv" parameterType="map">
+		INSERT INTO FIG_RV_LOVES
+		VALUES(#{memNo}, #{rvNo})
+	</insert>
+	
+	<delete id="unlovesRv" parameterType="map">
+		DELETE FIG_RV_LOVES WHERE
+		MEM_NO = #{memNo} AND RV_NO = #{rvNo}
+	</delete>
+
+	<select id="check" parameterType="string" resultType="member"
+		resultMap="memResult">
+		SELECT *
+		FROM
+		FIG_MEMBER WHERE MEM_NO = #{memNo}
+	</select>
+
+	<update id="update" parameterType="member">
+		UPDATE FIG_MEMBER
+		<set>
+			<if test="memEmail != null">
+				MEM_EMAIL = #{memEmail},
+			</if>
+			<if test="memPassword != null">
+				MEM_PASSWORD = #{memPassword},
+			</if>
+			<if test="memPhone != null">
+				MEM_PHONE = #{memPhone},
+			</if>
+			<if test="memName != null">
+				MEM_NAME = #{memName},
+			</if>
+			<if test="memProfile != null">
+				MEM_PROFILE = #{memProfile},
+			</if>
+		</set>
+		WHERE MEM_NO = #{memNo}
+	</update>
+
+	<select id="getOldProfile" parameterType="string"
+		resultType="string">
+		SELECT MEM_PROFILE FROM FIG_MEMBER WHERE MEM_NO = #{memNo}
+	</select>
+
 </mapper>

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 import com.kh.figtable.review.model.service.ReviewService;
 import com.kh.figtable.review.model.vo.Review;
 
@@ -83,4 +85,5 @@ public class ReviewController {
 		int r = service.writeReview(review);
 		return new ResponseEntity<Integer>(r, HttpStatus.OK);
 	}
+
 }

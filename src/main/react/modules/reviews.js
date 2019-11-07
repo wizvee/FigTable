@@ -9,9 +9,13 @@ const [LIST_RV, LIST_RV_SUCCESS, LIST_RV_FAILURE] = createRequestActionTypes(
   'reviews/LIST_RV',
 );
 const UNLOAD_RV = 'reviews/UNLOAD_RV';
+const INCREASE_LOVES = 'reviews/INCREASE_LOVES';
+const DECREASE_LOVES = 'reviews/DECREASE_LOVES';
 
 export const listReviews = createAction(LIST_RV, resNo => resNo);
 export const unloadReviews = createAction(UNLOAD_RV);
+export const increaseLoves = createAction(INCREASE_LOVES, rvNo => rvNo);
+export const decreaseLoves = createAction(DECREASE_LOVES, rvNo => rvNo);
 
 const listReviewsSaga = createRequestSaga(LIST_RV, reviewAPI.getByResNo);
 export function* reviewsSaga() {

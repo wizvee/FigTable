@@ -15,11 +15,23 @@ public interface MemberDao {
 	int register(SqlSession session, Member mem);
 
 	Member login(SqlSession session, Member mem);
-	
+
 	int likesRes(SqlSession session, Map<String, String> data);
-	
+
 	int unlikesRes(SqlSession session, Map<String, String> data);
-	
+
 	List<Restaurant> getLikes(SqlSession session, String memNo);
+
+	List<String> getLoves(SqlSession session, String memNo);
+
+	int lovesRv(SqlSession session, Map<String, String> data);
+	
+	int unlovesRv(SqlSession session, Map<String, String> data);
+
+	Member check(SqlSession session, String memNo);
+
+	int update(SqlSession session, Member m);
+
+	String getOldProfile(SqlSession session, String memNo);
 
 }

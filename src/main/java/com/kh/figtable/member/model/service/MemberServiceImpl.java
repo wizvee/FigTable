@@ -44,4 +44,34 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getLikes(session, memNo);
 	}
 
+	@Override
+	public Member check(String memNo) {
+		return dao.check(session, memNo);
+	}
+
+	@Override
+	public int update(Member m) {
+		return dao.update(session, m);
+	}
+
+	@Override
+	public String getOldProfile(String memNo) {
+		return dao.getOldProfile(session, memNo);
+	}
+
+	@Override
+	public List<String> getLoves(String memNo) {
+		return dao.getLoves(session, memNo);
+	}
+
+	@Override
+	public int lovesRv(Map<String, String> data) {
+		return dao.lovesRv(session, data);
+	}
+
+	@Override
+	public int unlovesRv(Map<String, String> data) {
+		return dao.unlovesRv(session, data);
+	}
+
 }

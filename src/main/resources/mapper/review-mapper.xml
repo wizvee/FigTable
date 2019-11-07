@@ -12,6 +12,7 @@
 		<result property="rvDate" column="RV_DATE" />
 		<result property="rvWarn" column="RV_WARN" />
 		<result property="rvLove" column="RV_LOVE" />
+		
 		<result property="memName" column="MEM_NAME" />
 		<result property="memProfile" column="MEM_PROFILE" />
 		<result property="memRvCnt" column="MEM_RVCNT" />
