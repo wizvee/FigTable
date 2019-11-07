@@ -1,5 +1,6 @@
-import React,{useState} from 'react';
+import React,{useState, useCallback} from 'react';
 import styled from 'styled-components';
+import EatdealCategory from './EatdealCategory';
 import EatdealEnroll from './EatdealEnroll';
 import EatdealManage from './EatdealManage';
 import EatdealBuy from './EatdealBuy';
@@ -37,18 +38,14 @@ const SubMenu =styled.div`
    
 
 `;
-const Span=styled.span`
- margin: 0 1.2rem;
- cursor: pointer;
- color: ${props => props.color||palette.textGray};
- :hover{
-    color: black;
-  }     
-`;
+
 
 const OwnerEatdealForm = () => {
 
   const [manage,setManage]=useState(false);
+  const [category, setCategory]=useState('manage');
+  const onSelect=useCallback(category=>setCategory(category),[]);
+
   const [fontColor1,setFontColor1]=useState('black');
   const [fontColor2,setFontColor2]=useState('');
   const openManageDiv=()=>{
@@ -62,21 +59,19 @@ const OwnerEatdealForm = () => {
     setFontColor1('');
     setFontColor2('black');
   }
+  
   return (
     <>
       <FormContainer>
         <SubTitle>Eat Deal
           <SubMenu>
-          <Span onClick={openManageDiv} color={fontColor1}>
-            관리
-          </Span>|
-          <Span onClick={openEnrollDiv} color={fontColor2}>
-            등록
-          </Span>
+            <EatdealCategory category={category} onSelect={onSelect}/>
           </SubMenu>
         </SubTitle>
-        {!manage?  <EatdealEnroll/>:<EatdealManage/> }
-        <EatdealBuy/>
+        {/* 카테고리별로 컴포넌트 불러옴 */}
+        {category==='enroll'&& <EatdealEnroll/>||
+         category==='manage'&&<EatdealManage/>||
+         category==='buy'&&<EatdealBuy/> }
          
          
         </FormContainer>
