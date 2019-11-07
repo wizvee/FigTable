@@ -4,7 +4,6 @@ import HeaderSimple from '../../common/HeaderSimple';
 import EatdealMainContainer from './EatdealMainContainer';
 
 
-
 const sample = [
   {
     eatNo: 1,
@@ -47,7 +46,7 @@ const sample = [
 
 const EatdealContainer = () => {
   const [eatDeals, setEatDeals] = useState(sample);
-
+  
   
   return (
     <>
