@@ -34,7 +34,7 @@ const Icon = styled.span`
 `;
 
 const ActionButtons = ({ history }) => {
-  const disaptch = useDispatch();
+  const dispatch = useDispatch();
   const { member, likes, restaurant } = useSelector(
     ({ member, restaurant }) => ({
       member: member.member,
@@ -59,17 +59,17 @@ const ActionButtons = ({ history }) => {
 
   // 리뷰 쓰기 이벤트 핸들러
   const onWrite = useCallback(() => {
-    disaptch(setRes({ restaurant, member }));
+    dispatch(setRes({ restaurant, member }));
     history.push('/figtable/review');
-  }, [disaptch]);
+  }, [dispatch]);
 
   // 가고 싶다 제어 이벤트 핸들러
-  const onLike = useCallback(() => disaptch(likesRes({ member, restaurant })), [
-    disaptch,
+  const onLike = useCallback(() => dispatch(likesRes({ member, restaurant })), [
+    dispatch,
   ]);
   const onUnlike = useCallback(
-    () => disaptch(unlikesRes({ member, restaurant })),
-    [disaptch],
+    () => dispatch(unlikesRes({ member, restaurant })),
+    [dispatch],
   );
 
   return (

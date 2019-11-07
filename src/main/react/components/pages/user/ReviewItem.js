@@ -85,7 +85,7 @@ const ReviewItem = ({ review, openInsta }) => {
               <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
             ))}
         </div>
-        <ReviewActionButtons />
+        <ReviewActionButtons review={review} />
       </Content>
       <RatingIcon width="90px" fontSize="3rem" rating={rvRating} />
     </Container>
