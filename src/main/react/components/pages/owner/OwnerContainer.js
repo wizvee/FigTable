@@ -166,31 +166,10 @@ const store = {
   star: 4.5,
 };
 
-const reservations = [
-  {
-    id: 1,
-    date: '2019-10-29',
-    time: 'PM 10:00',
-    person: '성인 2인',
-  },
-  {
-    id: 2,
-    date: '2019-10-30',
-    time: 'PM 03:00',
-    person: '성인 2인, 유아 1인',
-  },
-  {
-    id: 3,
-    date: '2019-11-02',
-    time: 'AM 11:00',
-    person: '성인 4인, 유아 2인',
-  },
-  {
-    id: 4,
-    date: '2019-11-12',
-    time: 'PM 02:00',
-    person: '성인 6인',
-  },
+const waiting = [
+  { name: '김손님', count: '2' },
+  { name: '이손님', count: '1' },
+  { name: '박손님', count: '5' },
 ];
 
 //////////////////////////////////////////////
@@ -242,7 +221,7 @@ const OwnerContainer = () => {
               modeSelOpenM={modeSelOpenM}
               modeSelCloseM={modeSelCloseM}
             />
-            <ListContainer list={reservations} />
+            <ListContainer list={waiting} />
           </RightContent>
         </ContentWrapper>
       </Container>

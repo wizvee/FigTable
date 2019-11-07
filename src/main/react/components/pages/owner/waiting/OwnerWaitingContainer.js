@@ -34,9 +34,7 @@ const Right = styled.div`
   width: 100%;
   height: 100%;
   float: right;
-  /* @media (max-width: 768px) {
-    width: 45%;
-  } */
+
   @media (max-width: 425px) {
     width: 100%;
     position: relative;

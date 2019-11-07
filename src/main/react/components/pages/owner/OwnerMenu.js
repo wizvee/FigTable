@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaStore } from 'react-icons/fa';
-import { MdSchedule, MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
+import { FaStore, FaRegChartBar } from 'react-icons/fa';
+import { MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
 import ModeSelectModal from './Modal/ModeSelectModal';
@@ -71,14 +71,6 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM }) => {
             가게정보 수정
           </MenuItem>
         </Link>
-        <Link to="/figtable/owner/reservation">
-          <MenuItem>
-            <IconWrapper>
-              <MdSchedule />
-            </IconWrapper>
-            예약 관리
-          </MenuItem>
-        </Link>
         <Link to="/figtable/owner/waiting" onClick={modeSelOpenM}>
           <MenuItem>
             <IconWrapper style={{ marginBottom: '22px' }}>
@@ -93,6 +85,14 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM }) => {
               <MdRestaurantMenu />
             </IconWrapper>
             Eat Deal
+          </MenuItem>
+        </Link>
+        <Link to="/figtable/owner/statics">
+          <MenuItem>
+            <IconWrapper>
+              <FaRegChartBar />
+            </IconWrapper>
+            통계
           </MenuItem>
         </Link>
       </MenuWrapper>

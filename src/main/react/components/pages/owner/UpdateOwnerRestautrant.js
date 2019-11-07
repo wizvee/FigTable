@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import OwnerLeftMenu from './common/OwnerLeftMenu';
@@ -27,6 +27,17 @@ const ContainerWrapper = styled(Responsive)`
     clear: both;
   }
 
+  .left {
+    width: auto;
+    height: auto;
+    display: inline-block;
+  }
+
+  @media (max-width: 1024px) {
+    .left {
+      display: none;
+    }
+  }
   @media (max-width: 425px) {
     height: 1500px;
   }
@@ -39,11 +50,9 @@ const Right = styled.div`
   float: right;
 
   @media (max-width: 1024px) {
-    width: 55%;
+    width: 100%;
   }
-  @media (max-width: 768px) {
-    width: 45%;
-  }
+
   @media (max-width: 425px) {
     width: 100%;
     position: relative;
@@ -82,15 +91,27 @@ const store = {
 /////////////////////////////////////////////////////
 
 const UpdateOwnerRestautrant = () => {
+  const [topMenu, setTopMenu] = useState('false');
+  const width = screen.width;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setTopMenu(window.innerWidth <= 1024 ? true : false);
+    };
+    window.addEventListener('resize', handleResize);
+  });
+
   return (
     <>
       <HeaderOwner name={store.name} />
       <Container>
         <ContainerWrapper>
-          <OwnerInfo store={store} />
-          <OwnerLeftMenu select="2" />
+          <div className="left">
+            <OwnerInfo store={store} />
+            <OwnerLeftMenu select="2" />
+          </div>
           <Right>
-            <OwnerDetailTitle title="가게정보 수정" />
+            <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
             <OwnerShopForm store={store} />
           </Right>
         </ContainerWrapper>

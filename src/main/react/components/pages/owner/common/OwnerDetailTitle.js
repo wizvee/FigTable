@@ -68,17 +68,19 @@ const MenuItem = styled.div`
   }
 `;
 
-const OwnerDetailTitle = ({ title, location: { pathname } }) => {
+const OwnerDetailTitle = ({ title, location: { pathname }, topMenu }) => {
   const [visible, setVisible] = useState(false);
   const showMenu = () => {
     setVisible(!visible);
   };
+
   return (
     <>
       <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
         {title}
         {pathname == '/figtable/owner/reservation' ||
-        pathname == '/figtable/owner/waiting' ? (
+        pathname == '/figtable/owner/waiting' ||
+        topMenu == true ? (
           <MenuButton
             className={pathname == '/figtable/owner/waiting' && 'waiting'}
             onClick={showMenu}
@@ -112,15 +114,6 @@ const OwnerDetailTitle = ({ title, location: { pathname } }) => {
                 수정
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/reservation">
-              <MenuItem
-                className={
-                  pathname == '/figtable/owner/reservation' && 'selected'
-                }
-              >
-                예약 관리
-              </MenuItem>
-            </Link>
             <Link to="/figtable/owner/waiting">
               <MenuItem
                 className={pathname == '/figtable/owner/waiting' && 'selected'}
@@ -134,6 +127,13 @@ const OwnerDetailTitle = ({ title, location: { pathname } }) => {
                 className={pathname == '/figtable/owner/eatdeal' && 'selected'}
               >
                 Eat Deal
+              </MenuItem>
+            </Link>
+            <Link to="/figtable/owner/statics">
+              <MenuItem
+                className={pathname == '/figtable/owner/statics' && 'selected'}
+              >
+                예약 관리
               </MenuItem>
             </Link>
           </DropDownMenu>

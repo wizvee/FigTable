@@ -14,6 +14,41 @@ const FormContainer = styled.div`
   margin-top: 20px;
   background: white;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
+
+  .label {
+    display: inline-block;
+    width: 100%;
+    padding-top: 0.5rem;
+    text-align: right;
+    line-height: 2;
+  }
+  .imgLabel {
+    text-align: left;
+    margin-left: 4rem;
+    @media (max-width: 1024px) {
+      margin-left: 5.5rem;
+    }
+  }
+  .thumbButton {
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
+    background: ${palette.primary};
+    opacity: 0.8;
+    color: white;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    margin-left: 3rem;
+  }
+
+  input[type='file'] {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 `;
 
 const SubTitle = styled.div`
@@ -23,6 +58,10 @@ const SubTitle = styled.div`
   padding-bottom: 20px;
   font-weight: 900;
   font-size: 20px;
+`;
+
+const StyledLabel = styled.label`
+  width: 200px;
 `;
 
 const StyledInput = styled.input`
@@ -130,6 +169,17 @@ const InputWrapper = styled.div`
   }
 `;
 
+const Preview = styled.div`
+  display: block;
+  width: 250px;
+  height: 250px;
+  background: url(${props => props.url});
+  background-size: 250px 250px;
+  border-radius: 5px;
+  margin-left: 5.8rem;
+  margin-top: 0.5rem;
+`;
+
 const OwnerShopForm = ({ store }) => {
   const {
     shopName,
@@ -192,48 +242,87 @@ const OwnerShopForm = ({ store }) => {
     <>
       <FormContainer padding="20px">
         <SubTitle>가게정보</SubTitle>
-        <StyledInput
-          type="text"
-          name="resName"
-          placeholder="매장명"
-          onChange={onChange}
-          defaultValue={shopName}
-        />
-        <StyledInput
-          type="text"
-          name="resAddr"
-          placeholder="매장 주소"
-          onChange={onChange}
-          defaultValue={addr}
-        />
-        <StyledInput
-          type="tel"
-          name="resTel"
-          placeholder="매장 전화번호"
-          onChange={onChange}
-          defaultValue={tel}
-        />
-        <StyledInput
-          type="text"
-          name="resAdminName"
-          placeholder="대표자명"
-          onChange={onChange}
-          defaultValue={owner}
-        />
-        <StyledInput
-          type="text"
-          name="resLocationKeyword"
-          placeholder="위치 키워드"
-          onChange={onChange}
-          defaultValue={locationKeyword}
-        />
-        <StyledInput
-          type="text"
-          name="resFoodKeyword"
-          placeholder="음식 키워드"
-          onChange={onChange}
-          defaultValue={foodKeyword}
-        />
+        <div className="label">
+          매장명
+          <StyledInput
+            style={{ marginLeft: '45px' }}
+            type="text"
+            name="resName"
+            placeholder="매장명"
+            onChange={onChange}
+            defaultValue={shopName}
+          />
+        </div>
+        <div className="label">
+          매장 주소
+          <StyledInput
+            style={{ marginLeft: '34px' }}
+            type="text"
+            name="resAddr"
+            placeholder="매장 주소"
+            onChange={onChange}
+            defaultValue={addr}
+          />
+        </div>
+        <div className="label">
+          전화번호
+          <StyledInput
+            style={{ marginLeft: '36px' }}
+            type="tel"
+            name="resTel"
+            placeholder="매장 전화번호"
+            onChange={onChange}
+            defaultValue={tel}
+          />
+        </div>
+        <div className="label">
+          대표자 명
+          <StyledInput
+            style={{ marginLeft: '34px' }}
+            type="text"
+            name="resAdminName"
+            placeholder="대표자명"
+            onChange={onChange}
+            defaultValue={owner}
+          />
+        </div>
+        <div className="label">
+          위치 키워드
+          <StyledInput
+            style={{ marginLeft: '27px' }}
+            type="text"
+            name="resLocationKeyword"
+            placeholder="위치 키워드"
+            onChange={onChange}
+            defaultValue={locationKeyword}
+          />
+        </div>
+        <div className="label">
+          음식 키워드
+          <StyledInput
+            style={{ marginLeft: '27px' }}
+            type="text"
+            name="resFoodKeyword"
+            placeholder="음식 키워드"
+            onChange={onChange}
+            defaultValue={foodKeyword}
+          />
+        </div>
+        <div className="label imgLabel">
+          썸네일
+          <label htmlFor="thumbUpload" className="thumbButton">
+            변경
+          </label>
+          <input
+            id="thumbUpload"
+            style={{ marginLeft: '76px' }}
+            type="file"
+            name="rvImages"
+            multiple="multiple"
+            /* onChange={onChangeFile} */
+          />
+          <Preview url={imgUrl} />
+        </div>
         <br />
       </FormContainer>
       <FormContainer padding="5px">

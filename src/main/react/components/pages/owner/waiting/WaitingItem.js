@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdNotifications, MdClose } from 'react-icons/md';
 import { FaChair } from 'react-icons/fa';
+import { withRouter } from 'react-router-dom';
 
 const Item = styled.div`
   height: 45px;
@@ -23,10 +24,6 @@ const Item = styled.div`
       padding-top: 13px;
     }
   }
-
-  /* @media (max-width: 1024px) {
-    height: 65px;
-  } */
 `;
 
 const InnerContent = styled.div`
@@ -35,6 +32,15 @@ const InnerContent = styled.div`
   width: 120px;
   text-align: center;
   position: relative;
+
+  &.main {
+    @media (max-width: 1024px) {
+      width: 90px;
+    }
+    @media (max-width: 768px) {
+      width: 60px;
+    }
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -55,6 +61,15 @@ const ButtonWrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
     top: -45px;
     left: 530px;
+  }
+  &.main {
+    left: 410px;
+    @media (max-width: 1024px) {
+      left: 205px;
+    }
+    @media (max-width: 768px) {
+      left: 133px;
+    }
   }
 
   .noti,
@@ -82,24 +97,22 @@ const ButtonWrapper = styled.div`
     border: 2px solid #fa5252;
     color: #fa5252;
   }
-
-  /* .noti:hover,
-  .seat:hover,
-  .cancel:hover {
-    opacity: 1;
-  } */
 `;
 
-const WaitingItem = ({ waiting }) => {
+const WaitingItem = ({ waiting, location: { pathname } }) => {
   const { name, count } = waiting;
 
   return (
     <Item>
       <div className="content">
-        <InnerContent>{name}</InnerContent>
-        <InnerContent>{count}명</InnerContent>
+        <InnerContent className={pathname == '/figtable/owner' && 'main'}>
+          {name}
+        </InnerContent>
+        <InnerContent className={pathname == '/figtable/owner' && 'main'}>
+          {count}명
+        </InnerContent>
       </div>
-      <ButtonWrapper>
+      <ButtonWrapper className={pathname == '/figtable/owner' && 'main'}>
         <MdNotifications className="noti" />
         <FaChair className="seat" />
         <MdClose className="cancel" />
@@ -108,4 +121,4 @@ const WaitingItem = ({ waiting }) => {
   );
 };
 
-export default WaitingItem;
+export default withRouter(WaitingItem);
