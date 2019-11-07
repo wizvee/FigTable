@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
+import DatePicker from './DatePicker';
 
-//데이트피커
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DateRangePicker } from 'react-dates';
-
-//데이트피커
 
     const StyledButton = styled.button`
     width: 140px;
@@ -74,17 +69,8 @@ import { DateRangePicker } from 'react-dates';
       font-size: 0.8rem;
   `;
   
-class EatdealEnroll extends Component{
+const EatdealEnroll =()=>{
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      startDate: null,
-      endDate: null,
-      focusedInput: null,
-    };
-  }
-  render(){
     return(
         <>
         
@@ -108,15 +94,8 @@ class EatdealEnroll extends Component{
           </EatdealInput>
           <EatdealInput>
             <div className="title">날짜</div>
-          <DateRangePicker
-          startDateId="startDate"
-          endDateId="endDate"
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
-        />
+            
+          <DatePicker/>
           </EatdealInput>
           
           
@@ -135,6 +114,6 @@ class EatdealEnroll extends Component{
 
     )
   }
-}
+
 
 export default EatdealEnroll;
