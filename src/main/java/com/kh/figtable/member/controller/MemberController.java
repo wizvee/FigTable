@@ -1,5 +1,8 @@
 package com.kh.figtable.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -7,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.member.model.service.MemberService;
 import com.kh.figtable.member.model.vo.Member;
@@ -84,6 +90,84 @@ public class MemberController {
 		}
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value = "/api/member/loves", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> getLoves(@RequestParam String memNo) {
+		List<String> list = service.getLoves(memNo);
+		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/member/love", method = RequestMethod.POST)
+	public ResponseEntity<List<String>> lovesRv(@RequestBody Map<String, String> data) {
+		int r = service.lovesRv(data);
+		if (r > 0) {
+			// loves table에 insert성공하면, 해당 멤버의 loves목록을 업데이트하여 반환
+			List<String> list = service.getLoves(data.get("memNo"));
+			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+		}
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value = "/api/member/love", method = RequestMethod.PATCH)
+	public ResponseEntity<List<String>> unlovesRv(@RequestBody Map<String, String> data) {
+		int r = service.unlovesRv(data);
+		if (r > 0) {
+			// loves table에 delete성공하면, 해당 멤버의 loves목록을 업데이트하여 반환
+			List<String> list = service.getLoves(data.get("memNo"));
+			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+		}
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping(value = "/api/member/{memNo}", method = RequestMethod.POST)
+	public ResponseEntity<Member> checkMember(@PathVariable("memNo") String memNo) {
+		Member m = service.check(memNo);
+		m.setMemPassword(null);
+		return new ResponseEntity<Member>(m, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/profile", method = RequestMethod.POST)
+	public ResponseEntity<String> changeProfile(@RequestParam("memNo") String memNo, MultipartHttpServletRequest req) {
+		// 파일저장경로
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/profiles");
+		// 저장경로가 없으면 생성
+		File dir = new File(saveDir);
+		if (!dir.exists())
+			dir.mkdirs();
+
+		String oldname = service.getOldProfile(memNo);
+
+		// multipart request에서 filename가져오기
+		MultipartFile f = req.getFile("profile");
+		String original = f.getOriginalFilename();
+		String ext = original.substring(original.lastIndexOf("."));
+		// rename 규칙 설정
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
+		String rename = "profile_" + sdf.format(System.currentTimeMillis()) + "_" + memNo + ext;
+		// rename으로 파일 저장
+		try {
+			f.transferTo(new File(saveDir + "/" + rename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Member m = new Member();
+		m.setMemNo(memNo);
+		m.setMemProfile(rename);
+		int r = service.update(m);
+
+		// update profile이 성공하면 예전 프로필 파일 삭제
+		if (r > 0) {
+			if (!oldname.equals("default.png")) {
+				File d = new File(saveDir + "/" + oldname);
+				d.delete();
+			}
+		}
+
+		return new ResponseEntity<String>(rename, HttpStatus.OK);
 	}
 
 }

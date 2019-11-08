@@ -91,7 +91,7 @@ const ImgUploadBlock = styled.div`
   padding: 0 1px;
   input[type='file'] {
     outline: none;
-    opacity: 0;
+    display: none;
     pointer-events: none;
     user-select: none;
   }

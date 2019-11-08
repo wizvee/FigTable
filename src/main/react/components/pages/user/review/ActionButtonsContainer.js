@@ -3,6 +3,7 @@ import ActionButtons from './ActionButtons';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { writeReview } from '../../../../modules/review';
+import { check } from '../../../../modules/member';
 
 const ActionButtonsContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -40,6 +41,8 @@ const ActionButtonsContainer = ({ history }) => {
       history.push(`/figtable/restaurant/${resNo}`);
     }
     if (error) console.log(error);
+    // unmount 시 멤버 정보 check
+    return dispatch(check(memNo));
   }, [history, result, error]);
 
   return <ActionButtons onCancel={onCancel} onSubmit={onSubmit} />;

@@ -50,7 +50,7 @@ const DetailContainer = ({ match }) => {
       dispatch(unloadRes());
       dispatch(unloadReviews());
     };
-  }, [dispatch, resNo]);
+  }, []);
 
   // 이미지 있는 리뷰 필터
   const imgReviews = reviews ? reviews.filter(review => review.rvImages) : null;
