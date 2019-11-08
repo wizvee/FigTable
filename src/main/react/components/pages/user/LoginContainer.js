@@ -47,7 +47,7 @@ const LoginContainer = ({ history }) => {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
-    if (member) history.push('/');
+    if (member) history.goBack();
     try {
       sessionStorage.setItem('member', JSON.stringify(member));
     } catch (e) {
