@@ -44,6 +44,21 @@ const Title = styled.div`
       margin-left: 0;
     }
   }
+
+  .detail {
+    display: block;
+    float: right;
+    color: ${palette.textGray};
+    font-size: 13px;
+    margin-top: 7px;
+    margin-right: 15px;
+
+    &:hover {
+      cursor: pointer;
+      border-bottom: 1px solid ${palette.primary};
+      color: ${palette.primary};
+    }
+  }
 `;
 
 const Content = styled.div`
@@ -91,6 +106,11 @@ const ListContainer = ({ list, location: { pathname } }) => {
     <Container className={pathname == '/figtable/owner/waiting' && 'waiting'}>
       <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
         Waiting List
+        {pathname == '/figtable/owner' && (
+          <Link to="/figtable/owner/waiting">
+            <div className="detail">자세히보기</div>
+          </Link>
+        )}
       </Title>
       <Content className={pathname == '/figtable/owner' ? 'main' : 'waiting'}>
         {list.map((l, index) => (

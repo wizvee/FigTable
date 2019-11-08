@@ -167,9 +167,9 @@ const store = {
 };
 
 const waiting = [
-  { name: '김손님', count: '2' },
-  { name: '이손님', count: '1' },
-  { name: '박손님', count: '5' },
+  { name: '김손님', count: '2', phone: '010-1111-1111' },
+  { name: '이손님', count: '1', phone: '010-2222-2222' },
+  { name: '박손님', count: '5', phone: '010-3333-3333' },
 ];
 
 //////////////////////////////////////////////

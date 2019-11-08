@@ -29,13 +29,22 @@ const Item = styled.div`
 const InnerContent = styled.div`
   display: inline-block;
   height: 100%;
-  width: 120px;
+  width: 100px;
   text-align: center;
   position: relative;
 
+  &.phone {
+    width: 170px;
+
+    &.main {
+      width: 150px;
+    }
+  }
+
   &.main {
+    width: 80px;
     @media (max-width: 1024px) {
-      width: 90px;
+      width: 77px;
     }
     @media (max-width: 768px) {
       width: 60px;
@@ -100,7 +109,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const WaitingItem = ({ waiting, location: { pathname } }) => {
-  const { name, count } = waiting;
+  const { name, count, phone } = waiting;
 
   return (
     <Item>
@@ -111,6 +120,10 @@ const WaitingItem = ({ waiting, location: { pathname } }) => {
         <InnerContent className={pathname == '/figtable/owner' && 'main'}>
           {count}명
         </InnerContent>
+
+        {pathname == '/figtable/owner/waiting' && (
+          <InnerContent className="phone">{phone}</InnerContent>
+        )}
       </div>
       <ButtonWrapper className={pathname == '/figtable/owner' && 'main'}>
         <MdNotifications className="noti" />

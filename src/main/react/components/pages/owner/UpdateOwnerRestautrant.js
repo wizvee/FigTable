@@ -92,9 +92,9 @@ const store = {
 
 const UpdateOwnerRestautrant = () => {
   const [topMenu, setTopMenu] = useState('false');
-  const width = screen.width;
 
   useEffect(() => {
+    setTopMenu(window.innerWidth <= 1024 ? true : false);
     const handleResize = () => {
       setTopMenu(window.innerWidth <= 1024 ? true : false);
     };
