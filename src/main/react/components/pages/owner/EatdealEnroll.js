@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
-import DatePicker from './DatePicker';
+import DatePicker from './EatdealDetail/DatePicker';
 
 
     const StyledButton = styled.button`
@@ -34,12 +34,20 @@ import DatePicker from './DatePicker';
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
       outline: none;
+      :focus{
+        border: 1px solid ${palette.primary};
+        transition-duration:0.5s;
+      }
     }
     textarea{
       width:60%;
       border-radius: 5px;
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
+      :focus{
+        border: 1px solid ${palette.primary};
+        transition-duration:0.5s;
+      }
     }
     
   `;

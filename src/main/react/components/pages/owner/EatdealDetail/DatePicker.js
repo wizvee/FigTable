@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
+import palette from '../../../../lib/styles/Palette';
 
 
 //데이트피커
