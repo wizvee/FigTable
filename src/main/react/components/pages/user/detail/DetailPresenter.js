@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import { TiStarFullOutline } from 'react-icons/ti';
@@ -101,6 +101,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
     resWaiting,
     resWaitCnt,
   } = info;
+  const [likesCount, setLikesCount] = useState(resLikes);
   // 리뷰의 이미지url만 따온 배열 생성
   const images = imgReviews.flatMap(review => review.rvImages).slice(-3);
 
@@ -119,7 +120,11 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
               ? '0.0'
               : (resRating / resReviews).toFixed(1)}
           </Rating>
-          <ActionButtons resNo={resNo} />
+          <ActionButtons
+            resNo={resNo}
+            likesCount={likesCount}
+            setLikesCount={setLikesCount}
+          />
         </InfoHeader>
         <Location>{resLocationKeyword}</Location>
         <InfoDetail>
@@ -133,7 +138,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
           </span>
           <span>
             <TiStarFullOutline />
-            {resLikes}
+            {likesCount}
           </span>
         </InfoDetail>
         {resWaiting && <WaitingPresenter resWaitCnt={resWaitCnt} />}

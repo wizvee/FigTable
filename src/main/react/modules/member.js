@@ -82,24 +82,8 @@ function* logoutSaga() {
 const checkSaga = createRequestSaga(CHECK, memberAPI.check);
 
 const getLikesSaga = createRequestSaga(GET_LIKES, memberAPI.getLikes);
-function* likesResSaga({ payload }) {
-  try {
-    const resp = yield call(memberAPI.likesRes, payload);
-    yield put({ type: LIKES_RES_SUCCESS, payload: resp.data });
-    yield put(readRes(payload.resNo));
-  } catch (e) {
-    console.log(e);
-  }
-}
-function* unlikesResSaga({ payload }) {
-  try {
-    const resp = yield call(memberAPI.unlikesRes, payload);
-    yield put({ type: UNLIKES_RES_SUCCESS, payload: resp.data });
-    yield put(readRes(payload.resNo));
-  } catch (e) {
-    console.log(e);
-  }
-}
+const likesResSaga = createRequestSaga(LIKES_RES, memberAPI.likesRes);
+const unlikesResSaga = createRequestSaga(UNLIKES_RES, memberAPI.unlikesRes);
 
 const getLovesSaga = createRequestSaga(GET_LOVES, memberAPI.getLoves);
 const lovesRvSaga = createRequestSaga(LOVES_RV, memberAPI.lovesRv);

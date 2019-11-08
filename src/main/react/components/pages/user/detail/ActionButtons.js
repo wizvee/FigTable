@@ -33,7 +33,7 @@ const Icon = styled.span`
   }
 `;
 
-const ActionButtons = ({ history }) => {
+const ActionButtons = ({ history, likesCount, setLikesCount }) => {
   const dispatch = useDispatch();
   const { member, likes, restaurant } = useSelector(
     ({ member, restaurant }) => ({
@@ -64,13 +64,14 @@ const ActionButtons = ({ history }) => {
   }, [dispatch]);
 
   // 가고 싶다 제어 이벤트 핸들러
-  const onLike = useCallback(() => dispatch(likesRes({ member, restaurant })), [
-    dispatch,
-  ]);
-  const onUnlike = useCallback(
-    () => dispatch(unlikesRes({ member, restaurant })),
-    [dispatch],
-  );
+  const onLike = useCallback(() => {
+    setLikesCount(likesCount + 1);
+    dispatch(likesRes({ member, restaurant }));
+  }, [dispatch, likesCount, setLikesCount]);
+  const onUnlike = useCallback(() => {
+    setLikesCount(likesCount - 1);
+    dispatch(unlikesRes({ member, restaurant }));
+  }, [dispatch, likesCount, setLikesCount]);
 
   return (
     <>
