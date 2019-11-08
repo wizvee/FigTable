@@ -1,14 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ModalHeader from '../../common/ModalHeader';
 import styled from 'styled-components';
+import { FaTimes } from 'react-icons/fa';
+import ModalHeader from '../../common/ModalHeader';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
 import PosterSmall from '../../common/PosterSmall';
-import { FaTimes } from 'react-icons/fa';
 import { removeRecentAsync } from '../../../modules/guest';
+import { getLikes, initializeItem } from '../../../modules/member';
 import ModalLogin from './ModalLogin';
-import { getRes } from '../../../modules/guest';
 
 const Container = styled.div`
   height: 320px;
@@ -84,10 +84,12 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
     { key: 'likes', text: '가고싶다' },
   ];
 
-  // 처음 마운트 될 때 레스토랑 정보 갱신
+  // 처음 마운트 될 때 '가고싶다' 목록 가져오기
   useEffect(() => {
-    dispatch(getRes(Array.from(recent)));
-  }, [dispatch]);
+    if (member) dispatch(getLikes(member.memNo));
+    // remove likes array when unmount
+    return dispatch(initializeItem(likes));
+  }, [dispatch, likes]);
 
   if (recentLoading) return null;
 

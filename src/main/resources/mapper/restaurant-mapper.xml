@@ -49,4 +49,10 @@
 		SELECT R.* FROM FIG_RES_LIKES L JOIN
 		FIG_RESTAURANT R ON(L.RES_NO = R.RES_NO) WHERE MEM_NO = #{memNo}
 	</select>
+
+	<select id="isLiked" parameterType="map" resultType="string">
+		SELECT
+		MEM_NO FROM FIG_RES_LIKES WHERE MEM_NO = #{memNo} AND RES_NO =
+		#{resNo}
+	</select>
 </mapper>

@@ -9,8 +9,8 @@ const Container = styled(Responsive)`
   padding: 2rem 1rem;
   height: 100%;
   min-height: 100vh - 39rem;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
 `;
 
 const HomePresenter = ({ restaurants, error, loading }) => {

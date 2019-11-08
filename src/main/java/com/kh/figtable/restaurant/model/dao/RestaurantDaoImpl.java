@@ -1,6 +1,7 @@
 package com.kh.figtable.restaurant.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,11 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	@Override
 	public int increaseViews(SqlSession session, String resNo) {
 		return session.update("restaurant.increaseViews", resNo);
+	}
+
+	@Override
+	public String isLiked(SqlSession session, Map<String, String> info) {
+		return session.selectOne("restaurant.isLiked", info);
 	}
 
 }

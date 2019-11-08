@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.restaurant.model.service.RestaurantService;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -31,12 +32,6 @@ public class RestaurantController {
 	@RequestMapping(value = "/api/restaurants", method = RequestMethod.GET)
 	private ResponseEntity<List<Restaurant>> getRestaurantsByLocal(@RequestParam String local) {
 		List<Restaurant> list = service.getRestaurantsByLocal(local);
-		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/api/restaurant-list", method = RequestMethod.POST)
-	private ResponseEntity<List<Restaurant>> getRestaurantsByList(@RequestBody List<Restaurant> resList) {
-		List<Restaurant> list = service.getRestaurantsByList(resList);
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 
@@ -68,6 +63,20 @@ public class RestaurantController {
 		Restaurant result = service.getRestaurantById(validate, resNo);
 		if (result == null)
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+		// 로그인 되어 있다면 likes 여부를 판별
+		Member m = (Member) req.getSession().getAttribute("login");
+		if (m != null) {
+			Map<String, String> info = new HashMap<>();
+			info.put("memNo", m.getMemNo());
+			info.put("resNo", result.getResNo());
+			String isLiked = service.isLiked(info);
+			if (isLiked != null)
+				result.setLiked(true);
+			else
+				result.setLiked(false);
+		}
+
 		return new ResponseEntity<Restaurant>(result, HttpStatus.OK);
 	}
 

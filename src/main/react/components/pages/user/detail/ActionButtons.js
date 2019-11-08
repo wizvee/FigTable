@@ -35,16 +35,15 @@ const Icon = styled.span`
 
 const ActionButtons = ({ history, likesCount, setLikesCount }) => {
   const dispatch = useDispatch();
-  const { member, likes, restaurant } = useSelector(
-    ({ member, restaurant }) => ({
-      member: member.member,
-      likes: member.likes,
-      restaurant: restaurant.restaurant,
-    }),
-  );
+  const { member, restaurant } = useSelector(({ member, restaurant }) => ({
+    member: member.member,
+    restaurant: restaurant.restaurant,
+  }));
 
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
+
+  const [isLiked, setLiked] = useState(restaurant.liked);
 
   // 모달을 열고 닫는 이벤트 핸들링
   const openModal = useCallback(type => {
@@ -66,12 +65,14 @@ const ActionButtons = ({ history, likesCount, setLikesCount }) => {
   // 가고 싶다 제어 이벤트 핸들러
   const onLike = useCallback(() => {
     setLikesCount(likesCount + 1);
+    setLiked(true);
     dispatch(likesRes({ member, restaurant }));
-  }, [dispatch, likesCount, setLikesCount]);
+  }, [dispatch, likesCount, setLikesCount, isLiked, setLiked]);
   const onUnlike = useCallback(() => {
     setLikesCount(likesCount - 1);
+    setLiked(false);
     dispatch(unlikesRes({ member, restaurant }));
-  }, [dispatch, likesCount, setLikesCount]);
+  }, [dispatch, likesCount, setLikesCount, isLiked, setLiked]);
 
   return (
     <>
@@ -80,7 +81,7 @@ const ActionButtons = ({ history, likesCount, setLikesCount }) => {
         <FiEdit3 />
         <span>리뷰쓰기</span>
       </Icon>
-      {likes.some(r => r.resNo == restaurant.resNo) ? (
+      {isLiked ? (
         <Icon className="include" onClick={onUnlike}>
           <TiStarFullOutline />
           <span>가고싶다</span>

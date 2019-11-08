@@ -2,6 +2,7 @@ package com.kh.figtable.restaurant.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,6 @@ public class restaurantServiceImpl implements RestaurantService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public List<Restaurant> getRestaurantsByList(List<Restaurant> old) {
-		List<Restaurant> list = new ArrayList<>();
-		for (Restaurant r : old) {
-			list.add(dao.getRestaurantById(session, r.getResNo()));
-		}
-		return list;
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
 	public Restaurant getRestaurantById(boolean validate, String resNo) {
 		if (validate)
 			dao.increaseViews(session, resNo);
@@ -46,6 +37,11 @@ public class restaurantServiceImpl implements RestaurantService {
 	@Override
 	public int increaseViews(String resNo) {
 		return dao.increaseViews(session, resNo);
+	}
+
+	@Override
+	public String isLiked(Map<String, String> info) {
+		return dao.isLiked(session, info);
 	}
 
 }

@@ -4,23 +4,18 @@ import createRequestSaga, {
 } from '../lib/createRequestSaga';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { initializeForm } from './auth';
-import { readRes } from './restaurant';
 import * as memberAPI from '../lib/api/member';
 
 const SET_MEMBER = 'member/SET_MEMBER';
-const SET_MEMBER_INSERT = 'member/SET_MEMBER_INSERT';
 const LOGOUT = 'member/LOGOUT';
+const INITIALIZE_ITEM = 'member/INITIALIZE_ITEM';
 
 const [CHECK, CHECK_SUCCESS] = createRequestActionTypes('member/CHECK');
 const [GET_LIKES, GET_LIKES_SUCCESS] = createRequestActionTypes(
   'member/GET_LIKES',
 );
-const [LIKES_RES, LIKES_RES_SUCCESS] = createRequestActionTypes(
-  'member/LIKES_RES',
-);
-const [UNLIKES_RES, UNLIKES_RES_SUCCESS] = createRequestActionTypes(
-  'member/UNLIKES_RES',
-);
+const [LIKES_RES] = createRequestActionTypes('member/LIKES_RES');
+const [UNLIKES_RES] = createRequestActionTypes('member/UNLIKES_RES');
 const [GET_LOVES, GET_LOVES_SUCCESS] = createRequestActionTypes(
   'member/GET_LOVES',
 );
@@ -31,10 +26,10 @@ const [UNLOVES_RV, UNLOVES_RV_SUCCESS] = createRequestActionTypes(
   'member/UNLOVES_RV',
 );
 
-const CHANGE_FIELD = 'member/CHANGE_FIELD';
-
 export const setMember = createAction(SET_MEMBER, member => member);
 export const logout = createAction(LOGOUT);
+export const initializeItem = createAction(INITIALIZE_ITEM, key => key);
+
 export const check = createAction(CHECK, memNo => memNo);
 
 export const getLikes = createAction(GET_LIKES, memNo => memNo);
@@ -60,17 +55,7 @@ export const unlovesRv = createAction(UNLOVES_RV, ({ member, review }) => ({
   rvNo: review.rvNo,
 }));
 
-export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
-  key,
-  value,
-}));
-
 // 사가 생성
-function* setMemberSaga({ payload }) {
-  yield put({ type: SET_MEMBER_INSERT, payload });
-  yield put({ type: GET_LIKES, payload: payload.memNo });
-  yield put({ type: GET_LOVES, payload: payload.memNo });
-}
 function* logoutSaga() {
   try {
     yield put(initializeForm());
@@ -90,7 +75,6 @@ const lovesRvSaga = createRequestSaga(LOVES_RV, memberAPI.lovesRv);
 const unlovesRvSaga = createRequestSaga(UNLOVES_RV, memberAPI.unlovesRv);
 
 export function* memberSaga() {
-  yield takeLatest(SET_MEMBER, setMemberSaga);
   yield takeLatest(LOGOUT, logoutSaga);
   yield takeLatest(CHECK, checkSaga);
 
@@ -111,24 +95,20 @@ const initialState = {
 
 export default handleActions(
   {
-    [SET_MEMBER_INSERT]: (state, { payload: member }) => ({
+    [SET_MEMBER]: (state, { payload: member }) => ({
       ...state,
       member,
     }),
     [LOGOUT]: () => initialState,
+    [INITIALIZE_ITEM]: (state, { payload: key }) => ({
+      ...state,
+      [key]: initialState[key],
+    }),
     [CHECK_SUCCESS]: (state, { payload: member }) => ({
       ...state,
       member,
     }),
     [GET_LIKES_SUCCESS]: (state, { payload: likes }) => ({
-      ...state,
-      likes,
-    }),
-    [LIKES_RES_SUCCESS]: (state, { payload: likes }) => ({
-      ...state,
-      likes,
-    }),
-    [UNLIKES_RES_SUCCESS]: (state, { payload: likes }) => ({
       ...state,
       likes,
     }),
@@ -143,13 +123,6 @@ export default handleActions(
     [UNLOVES_RV_SUCCESS]: (state, { payload: loves }) => ({
       ...state,
       loves,
-    }),
-    [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
-      ...state,
-      member: {
-        ...state.member,
-        [key]: value,
-      },
     }),
   },
   initialState,
