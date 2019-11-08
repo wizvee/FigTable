@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import palette from '../../../lib/styles/Palette';
-import Button from '../../../lib/styles/Button';
+import palette from '../../../../lib/styles/Palette';
+import Button from '../../../../lib/styles/Button';
 import { MdClose } from 'react-icons/md';
 
 const ModalWrap= styled.div`

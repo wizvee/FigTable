@@ -1,6 +1,6 @@
 import React,{useState, useCallback} from 'react';
 import styled from 'styled-components';
-import EatdealCategory from './EatdealCategory';
+import EatdealCategory from './EatdealDetail/EatdealCategory';
 import EatdealEnroll from './EatdealEnroll';
 import EatdealManage from './EatdealManage';
 import EatdealBuy from './EatdealBuy';
@@ -27,18 +27,6 @@ const SubTitle = styled.div`
   font-weight:normal;
 
 `;
-const SubMenu =styled.div`
-    display: inline-block;
-    font-size:1rem;
-    font-weight:0;
-    margin: 0 0.5rem;
-    padding: 0.2rem 1rem;
-    background-color:rgba(206,212,218,0.5);
-    color: ${palette.textGray};
-   
-
-`;
-
 
 const OwnerEatdealForm = () => {
 
@@ -50,9 +38,7 @@ const OwnerEatdealForm = () => {
     <>
       <FormContainer>
         <SubTitle>Eat Deal
-          <SubMenu>
             <EatdealCategory category={category} onSelect={onSelect}/>
-          </SubMenu>
         </SubTitle>
         {/* 카테고리별로 컴포넌트 불러옴 */}
         {category==='enroll'&& <EatdealEnroll/>||

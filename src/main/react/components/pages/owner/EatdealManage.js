@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
-import EatdealManageDetail from './EatdealManageDetail';
+import EatdealManageDetail from './EatdealDetail/EatdealManageDetail';
 
 const Manage= styled.div`
   width:100%;

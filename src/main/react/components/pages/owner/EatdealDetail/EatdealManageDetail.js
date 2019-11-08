@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
-import Button from '../../../lib/styles/Button';
+import palette from '../../../../lib/styles/Palette';
+import Button from '../../../../lib/styles/Button';
 import EatdealModal from './EatdealModal';
 
 const EatdealCard =styled.div`
