@@ -16,7 +16,8 @@ const Title = styled.div`
   font-weight: 900;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 
-  &.waiting {
+  &.waiting,
+  &.statics {
     padding-top: 13px;
   }
 `;
@@ -68,17 +69,27 @@ const MenuItem = styled.div`
   }
 `;
 
-const OwnerDetailTitle = ({ title, location: { pathname } }) => {
+const OwnerDetailTitle = ({ title, location: { pathname }, topMenu }) => {
   const [visible, setVisible] = useState(false);
   const showMenu = () => {
     setVisible(!visible);
   };
+
   return (
     <>
-      <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
+      <Title
+        className={
+          pathname == '/figtable/owner/waiting'
+            ? 'waiting'
+            : pathname == '/figtable/owner/statics'
+            ? 'statics'
+            : ''
+        }
+      >
         {title}
         {pathname == '/figtable/owner/reservation' ||
-        pathname == '/figtable/owner/waiting' ? (
+        pathname == '/figtable/owner/waiting' ||
+        topMenu == true ? (
           <MenuButton
             className={pathname == '/figtable/owner/waiting' && 'waiting'}
             onClick={showMenu}
@@ -95,7 +106,7 @@ const OwnerDetailTitle = ({ title, location: { pathname } }) => {
             <Link to="/figtable/owner">
               <MenuItem
                 className={pathname == '/figtable/owner' && 'selected'}
-                style={{ paddingTop: '14px' }}
+                style={{ paddingTop: '14px', width: '80px' }}
               >
                 홈
               </MenuItem>
@@ -112,15 +123,6 @@ const OwnerDetailTitle = ({ title, location: { pathname } }) => {
                 수정
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/reservation">
-              <MenuItem
-                className={
-                  pathname == '/figtable/owner/reservation' && 'selected'
-                }
-              >
-                예약 관리
-              </MenuItem>
-            </Link>
             <Link to="/figtable/owner/waiting">
               <MenuItem
                 className={pathname == '/figtable/owner/waiting' && 'selected'}
@@ -132,8 +134,17 @@ const OwnerDetailTitle = ({ title, location: { pathname } }) => {
             <Link to="/figtable/owner/eatdeal">
               <MenuItem
                 className={pathname == '/figtable/owner/eatdeal' && 'selected'}
+                style={{ paddingTop: '12px' }}
               >
                 Eat Deal
+              </MenuItem>
+            </Link>
+            <Link to="/figtable/owner/statics">
+              <MenuItem
+                className={pathname == '/figtable/owner/statics' && 'selected'}
+                style={{ paddingTop: '15px', width: '85px' }}
+              >
+                통계
               </MenuItem>
             </Link>
           </DropDownMenu>

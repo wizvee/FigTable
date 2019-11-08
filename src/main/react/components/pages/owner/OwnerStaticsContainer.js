@@ -1,25 +1,21 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import HeaderOwner from './common/HeaderOwner';
-import OwnerInfo from './common/OwnerInfo';
-import OwnerLeftMenu from './common/OwnerLeftMenu';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import HeaderOwner from './common/HeaderOwner';
+import OwnerLeftMenu from './common/OwnerLeftMenu';
+import OwnerInfo from './common/OwnerInfo';
 import Responsive from '../../common/Responsive';
 import OwnerDetailTitle from './common/OwnerDetailTitle';
-import OwnerShopForm from './OwnerShopForm';
 
 const Container = styled.div`
   padding-top: 80px;
-  height: auto;
-  overflow-y: hidden;
+  height: 100%;
+  min-height: calc(100vh - 12rem);
   background: #f1f3f5;
-
-  @media (max-width: 425px) {
-    height: 1500px;
-  }
 `;
 
-const ContainerWrapper = styled(Responsive)`
+const ContentWrapper = styled(Responsive)`
   height: auto;
+  min-height: calc(100vh - 12rem);
   overflow: hidden;
   &:after {
     content: '';
@@ -39,7 +35,7 @@ const ContainerWrapper = styled(Responsive)`
     }
   }
   @media (max-width: 425px) {
-    height: 1500px;
+    height: 1340px;
   }
 `;
 
@@ -68,29 +64,15 @@ const store = {
   imgUrl:
     'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
   foodKeyword: '당근케이크,카페',
-  addr: '서울특별시 강동구 길동 247',
   locationKeyword: '길동',
   view: 3,
   reviewCount: 5,
   star: 4.5,
-  tel: '02-1234-5678',
-  owner: '김사장',
-  operation: [
-    { openDay: '매일', closeTime: '24시간 영업' },
-    {
-      openDay: '일요일',
-      closeTime: '자정 12시 - 오후 10시 (월요일 10:30 오픈)',
-    },
-  ],
-  menu: [
-    { title: '필터커피', price: '4,500원' },
-    { title: '필터 스페셜', price: '5,500원' },
-    { title: '프로마쥬', price: '6,100원' },
-  ],
 };
-/////////////////////////////////////////////////////
 
-const UpdateOwnerRestautrant = () => {
+//////////////////////////////////////////////
+
+const OwnerStaticsContainer = () => {
   const [topMenu, setTopMenu] = useState('false');
 
   useEffect(() => {
@@ -100,24 +82,54 @@ const UpdateOwnerRestautrant = () => {
     };
     window.addEventListener('resize', handleResize);
   });
-
   return (
     <>
       <HeaderOwner name={store.name} />
       <Container>
-        <ContainerWrapper>
+        <ContentWrapper>
           <div className="left">
             <OwnerInfo store={store} />
-            <OwnerLeftMenu select="2" />
+            <OwnerLeftMenu />
           </div>
           <Right>
-            <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
-            <OwnerShopForm store={store} />
+            <OwnerDetailTitle title="통계" topMenu={topMenu} />
+            <div
+              style={{
+                width: '100%',
+                height: '300px',
+                background: 'white',
+                marginTop: '20px',
+              }}
+            >
+              시간대별 통계
+            </div>
+            <div
+              style={{
+                float: 'left',
+                width: '48%',
+                height: '300px',
+                background: 'white',
+                marginTop: '20px',
+              }}
+            >
+              연령별 통계
+            </div>
+            <div
+              style={{
+                float: 'right',
+                width: '48%',
+                height: '300px',
+                background: 'white',
+                marginTop: '20px',
+              }}
+            >
+              성별 통계
+            </div>
           </Right>
-        </ContainerWrapper>
+        </ContentWrapper>
       </Container>
     </>
   );
 };
 
-export default UpdateOwnerRestautrant;
+export default OwnerStaticsContainer;

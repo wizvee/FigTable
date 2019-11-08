@@ -34,9 +34,7 @@ const Right = styled.div`
   width: 100%;
   height: 100%;
   float: right;
-  /* @media (max-width: 768px) {
-    width: 45%;
-  } */
+
   @media (max-width: 425px) {
     width: 100%;
     position: relative;
@@ -73,9 +71,9 @@ const store = {
 };
 
 const waiting = [
-  { name: '김손님', count: '2' },
-  { name: '이손님', count: '1' },
-  { name: '박손님', count: '5' },
+  { name: '김손님', count: '2', phone: '010-1111-1111' },
+  { name: '이손님', count: '1', phone: '010-2222-2222' },
+  { name: '박손님', count: '5', phone: '010-3333-3333' },
 ];
 ////////////////////////////////////
 

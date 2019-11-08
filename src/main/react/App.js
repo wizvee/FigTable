@@ -15,7 +15,7 @@ import InsertRestaurant from './components/pages/admin/InsertRestaurant';
 import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
-import OwnerReservationContainer from './components/pages/owner/OwnerReservationContainer';
+import OwnerStaticsContainer from './components/pages/owner/OwnerStaticsContainer';
 import OwnerWaitingContainer from './components/pages/owner/waiting/OwnerWaitingContainer';
 import ApplyOwnerContainer from './components/pages/admin/ApplyOwnerContainer';
 import SearchContainer from './components/pages/user/search/SearchContainer';
@@ -54,8 +54,8 @@ const App = () => {
           component={OwnerEatDealContainer}
         />
         <Route
-          path="/figtable/owner/reservation"
-          component={OwnerReservationContainer}
+          path="/figtable/owner/statics"
+          component={OwnerStaticsContainer}
         />
         <Route
           path="/figtable/owner/waiting"

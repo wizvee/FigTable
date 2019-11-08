@@ -21,7 +21,7 @@ const Title = styled.div`
   font-size: 20px;
   width: 95%;
   height: 50px;
-  padding-top: 15px;
+  padding-top: 0.7rem;
   padding-left: 20px;
   background: white;
   border-top-left-radius: 5px;
@@ -38,23 +38,25 @@ const Title = styled.div`
     width: 100%;
   }
 
-  &.main {
-    @media (max-width: 1024px) {
-      width: 100%;
-    }
-  }
-  &.reservation {
-    width: 100%;
-
-    @media (max-width: 1024px) {
-      margin-left: 0;
-    }
-  }
   &.waiting {
     width: 100%;
-    padding-top: 0.7rem;
     @media (max-width: 1024px) {
       margin-left: 0;
+    }
+  }
+
+  .detail {
+    display: block;
+    float: right;
+    color: ${palette.textGray};
+    font-size: 13px;
+    margin-top: 7px;
+    margin-right: 15px;
+
+    &:hover {
+      cursor: pointer;
+      border-bottom: 1px solid ${palette.primary};
+      color: ${palette.primary};
     }
   }
 `;
@@ -82,7 +84,7 @@ const Content = styled.div`
   &.main {
     margin: 0 auto;
     width: 95%;
-    height: 130px;
+    height: 135px;
     @media (max-width: 1024px) {
       margin-left: 8px;
       width: 100%;
@@ -92,49 +94,29 @@ const Content = styled.div`
       width: 100%;
     }
   }
-  &.reservation {
-    width: 100%;
-    height: 300px;
-  }
+
   &.waiting {
     width: 100%;
     height: 550px;
-    /* margin-left: 8px; */
   }
 `;
 
 const ListContainer = ({ list, location: { pathname } }) => {
   return (
     <Container className={pathname == '/figtable/owner/waiting' && 'waiting'}>
-      <Title
-        className={
-          pathname == '/figtable/owner/reservation'
-            ? 'reservation'
-            : pathname == '/figtable/owner'
-            ? 'main'
-            : 'waiting'
-        }
-      >
-        {pathname == '/figtable/owner/waiting'
-          ? 'Waiting List'
-          : '예약대기목록'}
+      <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
+        Waiting List
+        {pathname == '/figtable/owner' && (
+          <Link to="/figtable/owner/waiting">
+            <div className="detail">자세히보기</div>
+          </Link>
+        )}
       </Title>
-      {pathname == '/figtable/owner' ||
-      pathname == '/figtable/owner/reservation' ? (
-        <Content
-          className={pathname == '/figtable/owner' ? 'main' : 'reservation'}
-        >
-          {list.map((l, index) => (
-            <ReservationItem reservation={l} key={index} />
-          ))}
-        </Content>
-      ) : (
-        <Content className="waiting">
-          {list.map((l, index) => (
-            <WaitingItem waiting={l} key={index} />
-          ))}
-        </Content>
-      )}
+      <Content className={pathname == '/figtable/owner' ? 'main' : 'waiting'}>
+        {list.map((l, index) => (
+          <WaitingItem waiting={l} key={index} />
+        ))}
+      </Content>
     </Container>
   );
 };

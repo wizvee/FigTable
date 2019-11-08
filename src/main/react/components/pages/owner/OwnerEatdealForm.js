@@ -42,23 +42,9 @@ const SubMenu =styled.div`
 
 const OwnerEatdealForm = () => {
 
-  const [manage,setManage]=useState(false);
   const [category, setCategory]=useState('manage');
   const onSelect=useCallback(category=>setCategory(category),[]);
 
-  const [fontColor1,setFontColor1]=useState('black');
-  const [fontColor2,setFontColor2]=useState('');
-  const openManageDiv=()=>{
-    setManage(false);
-    setFontColor1('black');
-    setFontColor2('');
-    
-  }
-  const openEnrollDiv=()=>{
-    setManage(true);
-    setFontColor1('');
-    setFontColor2('black');
-  }
   
   return (
     <>
