@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="eatdeal">
+	<resultMap type="eatdeal" id="eatResult">
+		<result property="eatNo" column="EAT_NO" />
+		<result property="resNo" column="RES_NO" />
+		<result property="thumb" column="THUMB" />
+		<result property="eatFoodName" column="EAT_FOOD_NAME" />
+		<result property="eatStatus" column="EAT_STATUS" />
+		<result property="eatStartDate" column="EAT_STARTDATE" />
+		<result property="eatEndDate" column="EAT_ENDDATE" />
+		<result property="eatContent" column="EAT_CONTENT" />
+	</resultMap>
+
+	<select id="getEatdeals" parameterType="string"
+		resultType="restaurant" resultMap="eatResult">
+		SELECT * FROM FIG_EATDEAL
+	</select>
+
+</mapper>

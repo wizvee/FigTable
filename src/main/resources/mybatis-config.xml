@@ -11,5 +11,8 @@
 			alias="review" />
 		<typeAlias type="com.kh.figtable.common.StringArrayHandler"
 			alias="strArr" />
+		<typeAlias
+			type="com.kh.figtable.eatdeal.model.vo.Eatdeal"
+			alias="eatdeal" />
 	</typeAliases>
 </configuration>

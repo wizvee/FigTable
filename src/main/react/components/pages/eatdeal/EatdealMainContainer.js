@@ -113,47 +113,49 @@ const EatdealMainContainer = ({eatDeal}) => {
     
   const {
     eatNo,
+    resNo,
     thumb,
-    title,
-    status,
-    discount,
-    originPrice,
-    discountPrice,
-    remainFood,
-    FoodName,
+    eatFoodName,
+    eatStatus,
+    eatCount,
+    eatOriginPrice,
+    eatDiscount,
+    eatStartDate,
+    eatEndDate,
+    eatContent
   } = eatDeal;
 
   
     return (
-      <Link to={`/figtable/eatdeal/${eatNo}`}>
+      <Link to={`/figtable/eatdeal/${resNo}`}>
         <EatdealCard>
             <ImageContainer>
             <Image url={thumb}/>
                 <LeftArea>
-                    {status==='N'?
+                    {eatStatus==='P'?
                         (<Status color="#f67280">New</Status>)
-                        :(<Status color="#f1c40f">재입고</Status>)
+                        :(<Status color="#f1c40f">Sold Out</Status>)
                     }
-                    <Status >{discount}</Status>
+                    <Status >{eatDiscount}</Status>
                 </LeftArea>
                 <RightArea>
-                    <OriginFoodPrice >\{originPrice} </OriginFoodPrice>
-                    <FoodPrice> \{discountPrice} </FoodPrice>
+                    <OriginFoodPrice >\{eatOriginPrice} </OriginFoodPrice>
+                    <FoodPrice> \{eatOriginPrice} </FoodPrice>
 
                 </RightArea>
             </ImageContainer>
             <TextContainer>
                 <RestauName>
                     <RestauNameTitle>
-                    {title}
+                    {eatFoodName}
                     </RestauNameTitle> 
-                    {remainFood<=3&& //3개 이하면 표시해줌
+                    {eatCount<=3&& //3개 이하면 표시해줌
                     <RemainFood>
-                        {remainFood}개 남음
+                        {eatCount}개 남음
                     </RemainFood>
                     }
                     </RestauName>
-                <DiscountFoodName>{FoodName}</DiscountFoodName>
+                <DiscountFoodName>{eatFoodName}</DiscountFoodName>
             </TextContainer>
 
         </EatdealCard>

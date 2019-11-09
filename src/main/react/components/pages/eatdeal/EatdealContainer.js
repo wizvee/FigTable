@@ -1,52 +1,28 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HeaderSimple from '../../common/HeaderSimple';
 import EatdealMainContainer from './EatdealMainContainer';
-
-
-const sample = [
-  {
-    eatNo: 1,
-    thumb:
-      'https://s3-ap-northeast-1.amazonaws.com/dcreviewsresized/20190623074633_photo1_a8KtahP0JSRT.jpg',
-    title: '달콩카페',
-    status:'N',//new
-    discount:'20%',
-    originPrice:25000,
-    discountPrice:20000,
-    remainFood:3,
-    FoodName:'녹차케이크',
-  },
-  {
-    eatNo: 2,
-    thumb:
-      'https://mp-seoul-image-production-s3.mangoplate.com/added_restaurants/52193_1488438243054735.jpg',
-    title: '아이엠바리스타',
-    status:'Y',//재입고
-    discount:'40%',
-    originPrice:25000,
-    discountPrice:20000,
-    remainFood:50,
-    FoodName:'녹차케이크',
-  },
-  {
-    eatNo: 3,
-    thumb:
-      'https://mp-seoul-image-production-s3.mangoplate.com/819837_1509504944362416.jpg',
-    title: '나이트티',
-    status:'N',
-    discount:'20%',
-    originPrice:25000,
-    discountPrice:20000,
-    remainFood:5,
-    FoodName:'녹차케이크',
-  },
-];
-
+import { listEat } from '../../../modules/eatdeals';
 
 const EatdealContainer = () => {
-  const [eatDeals, setEatDeals] = useState(sample);
   
+const dispatch = useDispatch();
+
+
+// const { eatdeals, error, loading } = useSelector(
+//   ({ eatdeals, loading }) => ({
+//     eatdeals: eatdeals.eatdeals,
+//     error: eatdeals.error,
+//     loading: loading['eatdeal/LIST_EAT'],
+//   }),
+// );
+
+console.log( ['eatdeals/LIST_EAT']);
+useEffect(() => {
+  dispatch(listEat());
+}, [dispatch]);
+
   
   return (
     <>
@@ -56,6 +32,7 @@ const EatdealContainer = () => {
           <EatdealMainContainer key={eatDeal.eatNo} eatDeal={eatDeal}/>
         ))};
       </div>
+      
       
     </>
   );
