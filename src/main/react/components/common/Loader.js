@@ -4,8 +4,11 @@ import { ScaleLoader } from 'react-spinners';
 import palette from '../../lib/styles/Palette';
 
 const override = css`
-  display: block;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
 `;
 
 const Loader = () => {

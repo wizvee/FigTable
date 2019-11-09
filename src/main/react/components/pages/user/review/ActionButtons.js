@@ -16,12 +16,23 @@ const Container = styled.div`
   }
 `;
 
-const ActionButtons = ({ onCancel, onSubmit }) => {
+const ErrorMsg = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+`;
+
+const ActionButtons = ({ onCancel, onSubmit, error }) => {
   return (
-    <Container>
-      <Button onClick={onCancel}>취소</Button>
-      <Button onClick={onSubmit}>등록</Button>
-    </Container>
+    <>
+      {error && <ErrorMsg>{error}</ErrorMsg>}
+      <Container>
+        <Button onClick={onCancel}>취소</Button>
+        <Button onClick={onSubmit}>등록</Button>
+      </Container>
+    </>
   );
 };
 

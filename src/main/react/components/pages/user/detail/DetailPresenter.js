@@ -7,6 +7,7 @@ import GoogleMap from './GoogleMap';
 import WaitingPresenter from './WaitingPresenter';
 import RestaurantInfo from './RestaurantInfo';
 import ActionButtons from './ActionButtons';
+import Loader from '../../../common/Loader';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -86,7 +87,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   if (error) {
     return null;
   }
-  if (loading || !info || !imgReviews) return null;
+  if (loading || !info || !imgReviews) return <Loader />;
 
   const {
     resNo,
