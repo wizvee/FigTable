@@ -34,12 +34,12 @@ const Icon = styled.span`
 
 const ReviewActionButtons = ({ review }) => {
   const dispatch = useDispatch();
-  const { member, loves } = useSelector(({ member }) => ({
+  const { member } = useSelector(({ member }) => ({
     member: member.member,
-    loves: member.loves,
   }));
 
   const [lovesCount, setLovesCount] = useState(review.rvLove);
+  const [isLoved, setLoved] = useState(review.loved);
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
 
@@ -56,19 +56,21 @@ const ReviewActionButtons = ({ review }) => {
 
   // 좋아요 제어 이벤트 핸들러
   const onLove = useCallback(() => {
+    setLoved(true);
     setLovesCount(lovesCount + 1);
     dispatch(lovesRv({ member, review }));
-  }, [dispatch, lovesCount, setLovesCount]);
+  }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
   const onUnlove = useCallback(() => {
+    setLoved(false);
     setLovesCount(lovesCount - 1);
     dispatch(unlovesRv({ member, review }));
-  }, [dispatch, lovesCount, setLovesCount]);
+  }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
 
   return (
     <>
       {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
       <Container>
-        {loves.includes(review.rvNo) ? (
+        {isLoved ? (
           <Icon onClick={onUnlove}>
             <TiHeartFullOutline className="loves" />
             {lovesCount}

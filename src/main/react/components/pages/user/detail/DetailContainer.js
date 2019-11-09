@@ -50,7 +50,7 @@ const DetailContainer = ({ match }) => {
       dispatch(unloadRes());
       dispatch(unloadReviews());
     };
-  }, []);
+  }, [resNo]);
 
   // 이미지 있는 리뷰 필터
   const imgReviews = reviews ? reviews.filter(review => review.rvImages) : null;
@@ -83,7 +83,7 @@ const DetailContainer = ({ match }) => {
           imgReviews={imgReviews ? imgReviews : []}
           openInsta={openInsta}
         />
-        {/* <ReviewPresenter reviews={reviews} openInsta={openInsta} /> */}
+        <ReviewPresenter reviews={reviews} openInsta={openInsta} />
       </Container>
     </>
   );

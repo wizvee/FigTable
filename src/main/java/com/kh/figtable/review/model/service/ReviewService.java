@@ -8,6 +8,8 @@ public interface ReviewService {
 	
 	List<Review> getReviewsById(String resNo);
 	
+	List<Review> isLoved(String memNo, List<Review> result);
+	
 	int writeReview(Review review);
 
 }

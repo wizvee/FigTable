@@ -67,8 +67,7 @@ const ButtonWithPadding = styled(Button)`
 `;
 
 const ModalUser = ({ closeModal, member, onLogout }) => {
-  const [select, setSelect] = useState('recent');
-
+  const dispatch = useDispatch();
   const { recent, likes, recentLoading } = useSelector(
     ({ guest, member, loading }) => ({
       recent: guest.recent,
@@ -76,20 +75,26 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
       recentLoading: loading['recent/GET_RES'],
     }),
   );
-  const dispatch = useDispatch();
-  const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
 
+  const [select, setSelect] = useState('recent');
+  const [likesArr, setLikesArr] = useState([]);
   const menu = [
     { key: 'recent', text: '최근 본 맛집' },
     { key: 'likes', text: '가고싶다' },
   ];
 
-  // 처음 마운트 될 때 '가고싶다' 목록 가져오기
   useEffect(() => {
+    // Get like restaurants array of login member when did mount
     if (member) dispatch(getLikes(member.memNo));
-    // remove likes array when unmount
-    return dispatch(initializeItem(likes));
-  }, [dispatch, likes]);
+    // remove like restaurants array when unmount
+    return () => dispatch(initializeItem('likes'));
+  }, []);
+
+  useEffect(() => {
+    setLikesArr(likes);
+  }, [likes]);
+
+  const onRemove = useCallback(() => dispatch(removeRecentAsync()), [dispatch]);
 
   if (recentLoading) return null;
 
@@ -120,12 +125,14 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
                 resReviews={r.resReviews}
                 resRating={r.resRating}
                 resLocationKeyword={r.resLocationKeyword}
+                likesArr={likesArr}
+                setLikesArr={setLikesArr}
                 closeModal={closeModal}
               />
             ))}
           </>
         )}
-        {select === 'likes' && member && likes.length === 0 && (
+        {select === 'likes' && member && likesArr.length === 0 && (
           <div className="nullText">
             <span className="big">격하게 가고싶다..</span>
             <span className="small">
@@ -135,8 +142,8 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
         )}
         {select === 'likes' &&
           member &&
-          likes.length !== 0 &&
-          likes.map(r => (
+          likesArr.length !== 0 &&
+          likesArr.map(r => (
             <PosterSmall
               key={r.resNo}
               resNo={r.resNo}
@@ -145,6 +152,8 @@ const ModalUser = ({ closeModal, member, onLogout }) => {
               resReviews={r.resReviews}
               resRating={r.resRating}
               resLocationKeyword={r.resLocationKeyword}
+              likesArr={likesArr}
+              setLikesArr={setLikesArr}
               closeModal={closeModal}
             />
           ))}

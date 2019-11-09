@@ -68,6 +68,7 @@ const ReviewItem = ({ review, openInsta }) => {
     rvRating,
     rvImages,
   } = review;
+
   return (
     <Container>
       <MemberProfile

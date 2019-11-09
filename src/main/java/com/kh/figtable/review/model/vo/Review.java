@@ -28,4 +28,5 @@ public class Review {
 	private int memRvCnt;
 	private int memFwCnt;
 	private int loveCnt;
+	private boolean isLoved;
 }

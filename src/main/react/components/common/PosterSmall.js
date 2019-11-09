@@ -49,6 +49,8 @@ const PosterSmall = props => {
     resReviews,
     resRating,
     resLocationKeyword,
+    likesArr,
+    setLikesArr,
     closeModal,
   } = props;
   return (
@@ -68,7 +70,11 @@ const PosterSmall = props => {
         </TextWrapper>
       </FlexLink>
       <span>
-        <LikeButton restaurant={props} />
+        <LikeButton
+          restaurant={props}
+          likesArr={likesArr}
+          setLikesArr={setLikesArr}
+        />
       </span>
     </Container>
   );

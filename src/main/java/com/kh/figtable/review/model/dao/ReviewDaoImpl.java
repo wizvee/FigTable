@@ -1,6 +1,7 @@
 package com.kh.figtable.review.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -16,9 +17,13 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
+	public String isLoved(SqlSession session, Map<String, String> info) {
+		return session.selectOne("review.isLoved", info);
+	}
+
+	@Override
 	public int writeReview(SqlSession session, Review review) {
 		return session.insert("review.writeReview", review);
 	}
 
-	
 }

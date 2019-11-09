@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.kh.figtable.restaurant.model.vo.Restaurant;
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.service.ReviewService;
 import com.kh.figtable.review.model.vo.Review;
 
@@ -32,8 +31,14 @@ public class ReviewController {
 	private ReviewService service;
 
 	@RequestMapping(value = "/api/reviews/{resNo}", method = RequestMethod.GET)
-	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo) {
+	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo, HttpServletRequest req) {
 		List<Review> result = service.getReviewsById(resNo);
+
+		// 로그인 되어 있다면 loved 여부를 판별
+		Member m = (Member) req.getSession().getAttribute("login");
+		if (m != null)
+			result = service.isLoved(m.getMemNo(), result);
+
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
 

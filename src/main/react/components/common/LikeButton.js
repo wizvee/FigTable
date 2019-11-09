@@ -15,11 +15,10 @@ const Icon = styled.span`
   }
 `;
 
-const LikeButton = ({ restaurant }) => {
+const LikeButton = ({ restaurant, likesArr, setLikesArr }) => {
   const disaptch = useDispatch();
-  const { member, likes } = useSelector(({ member }) => ({
+  const { member } = useSelector(({ member }) => ({
     member: member.member,
-    likes: member.likes,
   }));
 
   const [isModal, setIsModal] = useState(false);
@@ -35,18 +34,19 @@ const LikeButton = ({ restaurant }) => {
   }, []);
 
   // 가고 싶다 제어 이벤트 핸들러
-  const onLike = useCallback(() => disaptch(likesRes({ member, restaurant })), [
-    disaptch,
-  ]);
-  const onUnlike = useCallback(
-    () => disaptch(unlikesRes({ member, restaurant })),
-    [disaptch],
-  );
+  const onLike = useCallback(() => {
+    setLikesArr(likesArr.concat(restaurant));
+    disaptch(likesRes({ member, restaurant }));
+  }, [disaptch, likesArr, setLikesArr]);
+  const onUnlike = useCallback(() => {
+    setLikesArr(likesArr.filter(like => like.resNo != restaurant.resNo));
+    disaptch(unlikesRes({ member, restaurant }));
+  }, [disaptch, likesArr, setLikesArr]);
 
   return (
     <>
       {isModal && <ModalLogin msg="like" closeModal={closeModal} />}
-      {likes.some(r => r.resNo == restaurant.resNo) ? (
+      {likesArr.some(r => r.resNo == restaurant.resNo) ? (
         <Icon className="include" onClick={onUnlike}>
           <TiStarFullOutline />
         </Icon>
