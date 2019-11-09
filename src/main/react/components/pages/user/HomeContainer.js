@@ -13,7 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  height: 31rem;
+  height: 29rem;
   background: url(${process.env.PATH}/images/title.png);
   background-size: cover;
   background-position: center center;

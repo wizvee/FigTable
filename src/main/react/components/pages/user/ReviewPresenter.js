@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import ReviewItem from './ReviewItem';
 import { FiChevronsDown } from 'react-icons/fi';
+import Loader from '../../common/Loader';
 
 const Container = styled.div`
   display: flex;
@@ -67,8 +68,8 @@ const Paging = styled.div`
   }
 `;
 
-const ReviewPresenter = ({ reviews, openInsta }) => {
-  if (!reviews) return null;
+const ReviewPresenter = ({ reviews, loading, openInsta }) => {
+  if (loading || !reviews) return <Loader />;
 
   // category state
   const [selectCtg, setSelectCtg] = useState(null);

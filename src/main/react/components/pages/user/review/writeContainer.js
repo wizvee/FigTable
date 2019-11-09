@@ -37,7 +37,7 @@ const WriteContainer = ({ history }) => {
       let form = new FormData();
 
       imgFiles.forEach((img, i) => {
-        form.append(i, img);
+        if (i < 4) form.append(i, img);
       });
 
       await client

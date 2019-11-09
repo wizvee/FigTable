@@ -83,7 +83,11 @@ const DetailContainer = ({ match }) => {
           imgReviews={imgReviews ? imgReviews : []}
           openInsta={openInsta}
         />
-        <ReviewPresenter reviews={reviews} openInsta={openInsta} />
+        <ReviewPresenter
+          reviews={reviews}
+          loading={rvLoading}
+          openInsta={openInsta}
+        />
       </Container>
     </>
   );

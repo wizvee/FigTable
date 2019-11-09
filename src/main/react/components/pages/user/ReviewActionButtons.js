@@ -73,12 +73,12 @@ const ReviewActionButtons = ({ review }) => {
         {isLoved ? (
           <Icon onClick={onUnlove}>
             <TiHeartFullOutline className="loves" />
-            {lovesCount}
+            좋아요 {lovesCount}개
           </Icon>
         ) : (
           <Icon onClick={member ? onLove : () => openModal('like')}>
             <TiHeartOutline />
-            {lovesCount}
+            좋아요 {lovesCount}개
           </Icon>
         )}
         <Icon>
