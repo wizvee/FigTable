@@ -101,18 +101,22 @@ const Content = styled.div`
   }
 `;
 
-const ListContainer = ({ list, location: { pathname } }) => {
+const ListContainer = ({ list, location: { pathname }, match }) => {
+  const { resNo } = match.params;
+
   return (
     <Container className={pathname == '/figtable/owner/waiting' && 'waiting'}>
       <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
         Waiting List
-        {pathname == '/figtable/owner' && (
+        {pathname == `/figtable/owner/${resNo}` && (
           <Link to="/figtable/owner/waiting">
             <div className="detail">자세히보기</div>
           </Link>
         )}
       </Title>
-      <Content className={pathname == '/figtable/owner' ? 'main' : 'waiting'}>
+      <Content
+        className={pathname == `/figtable/owner/${resNo}` ? 'main' : 'waiting'}
+      >
         {list.map((l, index) => (
           <WaitingItem waiting={l} key={index} />
         ))}

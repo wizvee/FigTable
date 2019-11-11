@@ -108,16 +108,21 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const WaitingItem = ({ waiting, location: { pathname } }) => {
+const WaitingItem = ({ waiting, location: { pathname }, match }) => {
+  const { resNo } = match.params;
   const { name, count, phone } = waiting;
 
   return (
     <Item>
       <div className="content">
-        <InnerContent className={pathname == '/figtable/owner' && 'main'}>
+        <InnerContent
+          className={pathname == `/figtable/owner/${resNo}` && 'main'}
+        >
           {name}
         </InnerContent>
-        <InnerContent className={pathname == '/figtable/owner' && 'main'}>
+        <InnerContent
+          className={pathname == `/figtable/owner/${resNo}` && 'main'}
+        >
           {count}명
         </InnerContent>
 
@@ -125,7 +130,9 @@ const WaitingItem = ({ waiting, location: { pathname } }) => {
           <InnerContent className="phone">{phone}</InnerContent>
         )}
       </div>
-      <ButtonWrapper className={pathname == '/figtable/owner' && 'main'}>
+      <ButtonWrapper
+        className={pathname == `/figtable/owner/${resNo}` && 'main'}
+      >
         <MdNotifications className="noti" />
         <FaChair className="seat" />
         <MdClose className="cancel" />

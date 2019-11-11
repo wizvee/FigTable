@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ownerMain } from '../../../modules/owner';
+import { withRouter } from 'react-router-dom';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
@@ -154,17 +157,17 @@ const ButtonSpan = styled.span`
 `;
 
 ////////// 임시데이터//////////////////////////
-const store = {
-  name: '김사장',
-  shopName: '페더커피 ',
-  imgUrl:
-    'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
-  foodKeyword: '당근케이크,카페',
-  locationKeyword: '길동',
-  view: 3,
-  reviewCount: 5,
-  star: 4.5,
-};
+// const store = {
+//   name: '김사장',
+//   shopName: '페더커피 ',
+//   imgUrl:
+//     'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
+//   foodKeyword: '당근케이크,카페',
+//   locationKeyword: '길동',
+//   view: 3,
+//   reviewCount: 5,
+//   star: 4.5,
+// };
 
 const waiting = [
   { name: '김손님', count: '2', phone: '010-1111-1111' },
@@ -174,12 +177,26 @@ const waiting = [
 
 //////////////////////////////////////////////
 
-const OwnerContainer = () => {
+const OwnerContainer = ({ match }) => {
+  const { resNo } = match.params;
+
+  const dispatch = useDispatch();
+  const { info, error, loading } = useSelector(({ ownerMain, loading }) => ({
+    info: ownerMain.info,
+    error: ownerMain.error,
+    loading: loading['owner/OWNER_MAIN'],
+  }));
+
   useEffect(() => {
     document.body.style.overflow = 'scroll';
-  });
+    dispatch(ownerMain(resNo));
+  }, [resNo]);
+
   const [shopModal, setIsShopModal] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(
+    // info.resWating === 'null' ? false : true,
+    false,
+  );
   const [modeSelModal, setModeSelModal] = useState(false);
 
   const shopOpenM = () => {
@@ -197,7 +214,6 @@ const OwnerContainer = () => {
   };
   const modeSelOpenM = () => {
     setModeSelModal(true);
-    console.log(medeSelModal);
   };
   const modeSelCloseM = () => {
     setModeSelModal(false);
@@ -205,26 +221,31 @@ const OwnerContainer = () => {
 
   return (
     <>
-      <HeaderOwner name={store.name} />
-      <Container>
-        <ContentWrapper>
-          <OwnerInfo store={store} />
-          <Button>
-            <ButtonInput id="buttonInput" />
-            <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>
-              <ButtonSpan></ButtonSpan>
-            </ButtonLabel>
-          </Button>
-          <RightContent>
-            <OwnerMenu
-              modeSelModal={modeSelModal}
-              modeSelOpenM={modeSelOpenM}
-              modeSelCloseM={modeSelCloseM}
-            />
-            <ListContainer list={waiting} />
-          </RightContent>
-        </ContentWrapper>
-      </Container>
+      {!loading && info && (
+        <>
+          <HeaderOwner name={info.ownName} />
+
+          <Container>
+            <ContentWrapper>
+              <OwnerInfo store={info} />
+              <Button>
+                <ButtonInput id="buttonInput" />
+                <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>
+                  <ButtonSpan></ButtonSpan>
+                </ButtonLabel>
+              </Button>
+              <RightContent>
+                <OwnerMenu
+                  modeSelModal={modeSelModal}
+                  modeSelOpenM={modeSelOpenM}
+                  modeSelCloseM={modeSelCloseM}
+                />
+                <ListContainer list={waiting} />
+              </RightContent>
+            </ContentWrapper>
+          </Container>
+        </>
+      )}
 
       {!shopModal ? null : (
         <ShopOpenModal shopOpen={shopOpen} shopCloseM={shopCloseM} />
@@ -233,4 +254,4 @@ const OwnerContainer = () => {
   );
 };
 
-export default OwnerContainer;
+export default withRouter(OwnerContainer);

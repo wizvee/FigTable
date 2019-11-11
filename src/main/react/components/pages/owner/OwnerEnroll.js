@@ -34,3 +34,5 @@ const OwnerEnroll = () => {
     </>
   );
 };
+
+export default OwnerEnroll;

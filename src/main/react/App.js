@@ -46,7 +46,7 @@ const App = () => {
         />
         <Route path="/figtable/owner/:resNo" exact component={OwnerContainer} />
         <Route
-          path="/figtable/owner/restaurant"
+          path="/figtable/owner/restaurant/:resNo"
           component={UpdateOwnerRestaurant}
         />
         <Route

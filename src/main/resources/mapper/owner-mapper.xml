@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="owner">
+	<resultMap type="mainInfo" id="info">
+		<result property="resNo" column="RES_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resLocationKeyword"
+			column="RES_LOCATION_KEYWORD" />
+		<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
+		<result property="resThumb" column="RES_THUMB" />
+		<result property="resViews" column="RES_VIEWS" />
+		<result property="resRating" column="RES_RATING" />
+		<result property="resReviews" column="RES_REVIEWS" />
+		<result property="ownNo" column="OWN_NO" />
+		<result property="ownName" column="OWN_NAME" />
+		<result property="resWaiting" column="RES_WAITING" />
+	</resultMap>
+
+	<select id="mainInfo" parameterType="string" resultType="mainInfo" resultMap="info">
+		SELECT RES_NO, RES_NAME, RES_LOCATION_KEYWORD, RES_FOOD_KEYWORD, RES_THUMB,
+		RES_VIEWS, RES_RATING, RES_REVIEWS, OWN_NO, OWN_NAME, RES_WAITING
+		FROM FIG_RESTAURANT
+		JOIN FIG_OWNER USING(OWN_NO)
+		WHERE RES_NO=#{resNo}
+	</select>
+</mapper>

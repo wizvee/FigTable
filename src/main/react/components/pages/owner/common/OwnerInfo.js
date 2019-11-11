@@ -114,13 +114,14 @@ const Statics = styled.div`
 
 const OwnerInfo = ({ store, location: { pathname } }) => {
   const {
-    shopName,
-    imgUrl,
-    foodKeyword,
-    locationKeyword,
-    view,
-    reviewCount,
-    star,
+    resNo,
+    resName,
+    resLocationKeyword,
+    resFoodKeyword,
+    resThumb,
+    resViews,
+    resRating,
+    resReviews,
   } = store;
   return (
     <Container>
@@ -128,27 +129,27 @@ const OwnerInfo = ({ store, location: { pathname } }) => {
         <div className="background1">
           <div className="background2">
             <Image
-              imgUrl={imgUrl}
-              className={pathname == '/figtable/owner' && 'main'}
+              imgUrl={resThumb}
+              className={pathname == `/figtable/owner/{resNo}` && 'main'}
             />
           </div>
         </div>
-        <Name>{shopName}</Name>
+        <Name>{resName}</Name>
         <Keyword>
-          {locationKeyword} | {foodKeyword}
+          {resLocationKeyword} | {resFoodKeyword}
         </Keyword>
         <Statics>
           <div className="detail">
             <span>
-              <FiEye /> {view}
+              <FiEye /> {resViews}
             </span>{' '}
             |
             <span>
-              <FiEdit3 /> {reviewCount}
+              <FiEdit3 /> {resReviews}
             </span>{' '}
             |
             <span>
-              <FiStar /> {star}
+              <FiStar /> {resRating}
             </span>
           </div>
         </Statics>
