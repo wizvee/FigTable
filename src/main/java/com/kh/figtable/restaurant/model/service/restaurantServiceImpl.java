@@ -43,5 +43,8 @@ public class restaurantServiceImpl implements RestaurantService {
 	public String isLiked(Map<String, String> info) {
 		return dao.isLiked(session, info);
 	}
+	
+	
+	
 
 }

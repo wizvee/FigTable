@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="restaurant">
-	<resultMap type="restaurant" id="resResult">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+  <resultMap type="owner" id="ownResult">
+  	<result property="ownNo" column="OWN_NO" />
+  	<result property="ownEmail" column="OWN_EMAIL" />
+  	<result property="ownPassword" column="OWN_PASSWORD" />
+  	<result property="ownPhone" column="OWN_PHONE" />
+  	<result property="ownName" column="OWN_NAME" />
+  	<result property="ownStatus" column="OWN_STATUS" />
+  	<result property="ownStatics" column="OWN_STATICS" />
+  </resultMap>
+  
+  <resultMap type="restaurant" id="resResult">
 		<result property="resNo" column="RES_NO" />
 		<result property="ownNo" column="OWN_NO" />
 		<result property="resName" column="RES_NAME" />
@@ -26,35 +36,13 @@
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 		<result property="resApply" column="RES_APPLY" />
 	</resultMap>
-
-	<select id="getByLocal" parameterType="string"
-		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_ADDRESS LIKE '%'|| #{local} || '%'
-	</select>
-
-	<select id="getById" parameterType="string"
-		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_NO = #{resNo}
-	</select>
-
-	<update id="increaseViews" parameterType="string">
-		UPDATE FIG_RESTAURANT
-		SET RES_VIEWS = RES_VIEWS + 1 WHERE RES_NO = #{resNo}
-	</update>
-
-	<select id="getLikes" parameterType="string"
-		resultType="restaurant" resultMap="resResult">
-		SELECT R.* FROM FIG_RES_LIKES L JOIN
-		FIG_RESTAURANT R ON(L.RES_NO = R.RES_NO) WHERE MEM_NO = #{memNo}
-	</select>
-
-	<select id="isLiked" parameterType="map" resultType="string">
-		SELECT
-		MEM_NO FROM FIG_RES_LIKES WHERE MEM_NO = #{memNo} AND RES_NO =
-		#{resNo}
+  
+  
+	<select id="getByResApply" resultType="restaurant" resultMap="resResult">
+		SELECT * FROM FIG_RESTAURANT WHERE RES_APPLY = 'S'
 	</select>
 	
-	
+	 <select id="getByOwnApply" resultType="owner" resultMap="ownResult">
+  	SELECT * FROM FIG_OWNER WHERE OWN_APPLY = 'S'
+  </select>
 </mapper>

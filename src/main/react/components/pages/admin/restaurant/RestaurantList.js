@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ResModal from './ResModal';
 import '../TableStyle.css';
+import { MdRestaurant } from 'react-icons/md';
 
-const RestaurantList = ({ restaurants, keyword }) => {
+const RestaurantList = ({ restaurants, loading, error, keyword }) => {
+  //에러 발생시
+  if (error) {
+    return (
+      <>
+        <tr style={{ height: 100 }}>
+          <td colSpan="4" className="resNullTd">
+            에러가 발생했습니다.
+          </td>
+        </tr>
+        <tr style={{ height: 330 }}></tr>
+      </>
+    );
+  }
   const restaurant =
     keyword != ''
       ? restaurants.filter(s => s.resName.includes(keyword))
@@ -26,7 +41,7 @@ const RestaurantList = ({ restaurants, keyword }) => {
     setIsModal(false);
   };
 
-  if (restaurant.length <= 0) {
+  if (restaurant === '' && MdRestaurant === null) {
     return (
       <>
         <tr style={{ height: 100 }}>
@@ -48,20 +63,22 @@ const RestaurantList = ({ restaurants, keyword }) => {
         />
       )}
 
-      {restaurant.map((row, index) => {
-        return (
-          <tr
-            key={index}
-            onClick={() => onClickOpenModal(row)}
-            className="resTr"
-          >
-            <td key={`${index}+name`}>{row.resName}</td>
-            <td key={`${index}+addr`}>{row.resAddr}</td>
-            <td key={`${index}+tel`}>{row.resTel}</td>
-            <td key={`${index}+own`}>{row.ownName}</td>
-          </tr>
-        );
-      })}
+      {!loading &&
+        restaurants &&
+        restaurant.map((row, index) => {
+          return (
+            <tr
+              key={index}
+              onClick={() => onClickOpenModal(row)}
+              className="resTr"
+            >
+              <td key={`${index}+name`}>{row.resName}</td>
+              <td key={`${index}+addr`}>{row.resAddress}</td>
+              <td key={`${index}+tel`}>{row.resTel}</td>
+              <td key={`${index}+own`}>{row.resLocationKeyword}</td>
+            </tr>
+          );
+        })}
     </>
   );
 };

@@ -14,5 +14,7 @@ public interface RestaurantService {
 	int increaseViews(String resNo);
 
 	String isLiked(Map<String, String> info);
+	
+	
 
 }

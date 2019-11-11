@@ -15,5 +15,8 @@
 			alias="eatdeal" />
 		<typeAlias type="com.kh.figtable.owner.model.vo.MainInfo"
 			alias="mainInfo" />
+		<typeAlias
+			type="com.kh.figtable.owner.model.vo.Owner"
+			alias="owner" />
 	</typeAliases>
 </configuration>

@@ -18,5 +18,7 @@ public interface RestaurantDao {
 	int increaseViews(SqlSession session, String resNo);
 
 	String isLiked(SqlSession session, Map<String, String> info);
+	
+	
 
 }

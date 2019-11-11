@@ -30,5 +30,8 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	public String isLiked(SqlSession session, Map<String, String> info) {
 		return session.selectOne("restaurant.isLiked", info);
 	}
+	
+	
+	
 
 }

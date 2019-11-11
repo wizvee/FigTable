@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import OwnerModal from './OwnerModal';
 import '../TableStyle.css';
 
-const OwnersList = ({ owners, keyword }) => {
+const OwnersList = ({ owners, keyword, error, loading }) => {
   const owner =
-    keyword != '' ? owners.filter(o => o.ownResName.includes(keyword)) : owners;
+    keyword != '' ? owners.filter(o => o.ownName.includes(keyword)) : owners;
 
   const [modal, setIsModal] = useState(false);
   const [own, setOwn] = useState(null);
@@ -29,7 +29,7 @@ const OwnersList = ({ owners, keyword }) => {
     e.prevenDefault();
   };
 
-  if (owner.length <= 0) {
+  if (owner === '') {
     return (
       <>
         <tr style={{ height: 100 }}>
@@ -53,20 +53,22 @@ const OwnersList = ({ owners, keyword }) => {
         />
       )}
 
-      {owner.map((row, index) => {
-        return (
-          <tr
-            key={index}
-            onClick={() => onClickOpenModal(row)}
-            className="resTr"
-          >
-            <td key={`${index}+ownResName`}>{row.ownResName}</td>
-            <td key={`${index}+ownResAddr`}>{row.ownResAddress}</td>
-            <td key={`${index}+ownerName`}>{row.ownName}</td>
-            <td key={`${index}+ownerEmail`}>{row.ownEmail}</td>
-          </tr>
-        );
-      })}
+      {!loading &&
+        owners &&
+        owner.map((row, index) => {
+          return (
+            <tr
+              key={index}
+              onClick={() => onClickOpenModal(row)}
+              className="resTr"
+            >
+              <td key={`${index}+ownResName`}>{row.ownName}</td>
+              <td key={`${index}+ownResAddr`}>{row.ownName}</td>
+              <td key={`${index}+ownerName`}>{row.ownEmail}</td>
+              <td key={`${index}+ownerEmail`}>{row.ownPhone}</td>
+            </tr>
+          );
+        })}
     </>
   );
 };
