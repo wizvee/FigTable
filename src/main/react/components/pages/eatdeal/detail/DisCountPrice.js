@@ -35,20 +35,26 @@ const Remaining = styled.span`
     justify-content:center;
 `;
 const DiscountPrice=({eat})=>{
-
     const {
-        discount,
-        originPrice,
-        discountPrice,
-        remainFood,
-      } = eat;
+      eatNo,
+      resNo,
+      thumb,
+      eatFoodName,
+      eatStatus,
+      eatCount,
+      eatOriginPrice,
+      eatDiscount,
+      eatStartDate,
+      eatEndDate,
+      eatContent
+    } = eat;
     return(
         <>
         <DiscountContainer>
-            <OriginFoodPrice >\{originPrice} </OriginFoodPrice>
-            <Remaining>{remainFood}개 남음</Remaining>
-            <Percentage>  {discount}</Percentage>
-            <FoodPrice> \{discountPrice} </FoodPrice>
+            <OriginFoodPrice >\{eatOriginPrice} </OriginFoodPrice>
+            <Remaining>{eatCount}개 남음</Remaining>
+            <Percentage>  {Number(eatDiscount)*100}%</Percentage>
+            <FoodPrice> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </FoodPrice>
         </DiscountContainer>
 
         </>

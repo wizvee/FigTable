@@ -4,17 +4,27 @@
 	<resultMap type="eatdeal" id="eatResult">
 		<result property="eatNo" column="EAT_NO" />
 		<result property="resNo" column="RES_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resRocationKeyword" column="RES_LOCATION_KEYWORD" />
 		<result property="thumb" column="THUMB" />
 		<result property="eatFoodName" column="EAT_FOOD_NAME" />
 		<result property="eatStatus" column="EAT_STATUS" />
+		<result property="eatCount" column="EAT_COUNT" />
+		<result property="eatOriginPrice" column="EAT_ORIGINPRICE" />
+		<result property="eatDiscount" column="EAT_DISCOUNT" />
 		<result property="eatStartDate" column="EAT_STARTDATE" />
 		<result property="eatEndDate" column="EAT_ENDDATE" />
 		<result property="eatContent" column="EAT_CONTENT" />
 	</resultMap>
 
 	<select id="getEatdeals"
-		resultType="restaurant" resultMap="eatResult">
-		SELECT * FROM FIG_EATDEAL 
+		resultType="eatdeal" resultMap="eatResult">
+		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO)
+	</select>
+	
+	<select id="getByEatNo"
+		resultType="eatdeal" resultMap="eatResult" parameterType="string">
+		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO) WHERE EAT_NO = #{eatNo}
 	</select>
 
 </mapper>

@@ -22,17 +22,20 @@ const PayContent =styled.div`
     }
 `;
 const PayInfo =({eat})=>{
-    
-    const{
-        eatNo,
-        thumb,
-        title,
-        status,
-        discount,
-        originPrice,
-        discountPrice,
-        remainFood,
-        FoodName,
+    const {
+      eatNo,
+      resNo,
+      resName,
+      resRocationKeyword,
+      thumb,
+      eatFoodName,
+      eatStatus,
+      eatCount,
+      eatOriginPrice,
+      eatDiscount,
+      eatStartDate,
+      eatEndDate,
+      eatContent
     } = eat;
     return (
         <>
@@ -40,9 +43,9 @@ const PayInfo =({eat})=>{
         <h3>주문목록</h3>  
             <PayImage url={thumb}/>
             <PayContent>
-            <p>{title}</p>
-            <h3>{FoodName}</h3>
-            <p>\{discountPrice}</p>
+            <p>{resName}</p>
+            <h3>{eatFoodName}</h3>
+            <p> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </p>
             </PayContent>
             
         </PayInfoContainer>

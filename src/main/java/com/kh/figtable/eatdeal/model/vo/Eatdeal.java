@@ -12,6 +12,8 @@ public class Eatdeal {
 
 	private String eatNo;
 	private String resNo;
+	private String resName;
+	private String resRocationKeyword;
 	private String thumb;
 	private String eatFoodName;
 	private String eatStatus;

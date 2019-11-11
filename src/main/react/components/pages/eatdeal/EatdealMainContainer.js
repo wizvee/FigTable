@@ -114,6 +114,8 @@ const EatdealMainContainer = ({eatdeal}) => {
   const {
     eatNo,
     resNo,
+    resName,
+    resRocationKeyword,
     thumb,
     eatFoodName,
     eatStatus,
@@ -127,7 +129,7 @@ const EatdealMainContainer = ({eatdeal}) => {
 
   
     return (
-      <Link to={`/figtable/eatdeal/${resNo}`}>
+      <Link to={`/figtable/eatdeal/${eatNo}`}>
         <EatdealCard>
             <ImageContainer>
             <Image url={thumb}/>
@@ -136,18 +138,18 @@ const EatdealMainContainer = ({eatdeal}) => {
                         (<Status color="#f67280">New</Status>)
                         :(<Status color="#f1c40f">Sold Out</Status>)
                     }
-                    <Status >{eatDiscount}</Status>
+                    <Status >{Number(eatDiscount)*100}%</Status>
                 </LeftArea>
                 <RightArea>
                     <OriginFoodPrice >\{eatOriginPrice} </OriginFoodPrice>
-                    <FoodPrice> \{eatOriginPrice} </FoodPrice>
+                    <FoodPrice> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </FoodPrice>
 
                 </RightArea>
             </ImageContainer>
             <TextContainer>
                 <RestauName>
                     <RestauNameTitle>
-                    {eatFoodName}
+                    [ {resRocationKeyword}]  {resName}
                     </RestauNameTitle> 
                     {eatCount<=3&& //3개 이하면 표시해줌
                     <RemainFood>

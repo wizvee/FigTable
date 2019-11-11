@@ -23,5 +23,10 @@ public class EatdealServiceImpl implements EatdealService {
 		return dao.getEatdeals(session);
 	}
 
+	@Override
+	public Eatdeal getByEatNo(String eatNo) {
+		return dao.getByEatNo(session, eatNo);
+	}
+
 
 }

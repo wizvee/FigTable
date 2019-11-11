@@ -11,6 +11,7 @@ import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 public interface EatdealDao {
 
 	List<Eatdeal> getEatdeals( SqlSession session);
+	Eatdeal getByEatNo(SqlSession session, String eatNo);
 
 
 }

@@ -9,6 +9,7 @@ import restaurants, { restaurantsSaga } from './restaurants';
 import reviews, { reviewsSaga } from './reviews';
 import review, { reviewSaga } from './review';
 import eatdeals, { eatdealsSaga } from './eatdeals';
+import eatdeal, { eatdealSaga } from './eatdeal';
 import ownerMain, { ownerMainSaga } from './owner';
 import adminRestaurants, { adminRestuarantsSaga } from './adminRestaurants';
 import adminOwners, { adminOwnersSaga } from './adminOnwers';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   review,
   reviews,
   eatdeals,
+  eatdeal,
   ownerMain,
   adminRestaurants,
   adminOwners,
@@ -39,6 +41,7 @@ export function* rootSaga() {
     reviewsSaga(),
     reviewsSaga(),
     eatdealsSaga(),
+    eatdealSaga(),
     ownerMainSaga(),
     adminRestuarantsSaga(),
     adminOwnersSaga(),

@@ -36,7 +36,5 @@ const eatdeals = handleActions(
   },
   initialState,
 );
-console.log('모듈잇딜');
-console.log('잇딜'+eatdeals.eatdeals);
 
 export default eatdeals;

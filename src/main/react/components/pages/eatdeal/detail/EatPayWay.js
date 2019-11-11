@@ -5,10 +5,11 @@ import palette from '../../../../lib/styles/Palette';
 const PayWay = styled.div`
     text-align:left;
     padding : 1rem 3rem;
-  p{
-    padding-left:1.5rem;
-  }
-    .container {
+ 
+`;
+const Label=styled.div`
+ display: block;
+ .container {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -66,20 +67,38 @@ const PayWay = styled.div`
   border-radius: 50%;
   background: white;
 }
+
 `;
-const EatPayWay =()=>{
+const payway = [
+  {
+      name:'card',
+      text:'카드결제'
+  },
+  
+  {
+      name:'kakao',
+      text:'카카오페이'
+  },
+]
+
+const EatPayWay =({onPayway})=>{
     return (
-        <PayWay>
+        <PayWay >
           <h3>결제방법</h3>
-          <label class="container">카드결제
-            <input type="radio" name="pay"/>
-            <span class="checkmark"></span>
-          </label>
+          { payway.map(p=>(
+              <Label key={p.name}
+              onClick={()=>{onPayway(p.name)}}>
+
+              <label className="container">{p.text}
+              <input type="radio" name="pay" value="card"/>
+              <span className="checkmark"></span>
+            </label>
+              </Label>
+            
+          ))
+
+          }
           
-          <label class="container">카카오페이
-            <input type="radio" name="pay"/>
-            <span class="checkmark"></span>
-          </label>
         </PayWay>
 
 

@@ -5,6 +5,7 @@ import { FiShare2 } from 'react-icons/fi';
 import palette from '../../../../lib/styles/Palette';
 
 import ShareModal from './ShareModal';
+
 const ImageContainer = styled.div`
   position: relative;
   overflow: hidden;
@@ -50,18 +51,22 @@ const IconContainer =styled.div`
 `;
 
 const EatDealImageContainer=({eat, modal, openModal, closeModal})=>{
+  const {
+    eatNo,
+    resNo,
+    resName,
+    resRocationKeyword,
+    thumb,
+    eatFoodName,
+    eatStatus,
+    eatCount,
+    eatOriginPrice,
+    eatDiscount,
+    eatStartDate,
+    eatEndDate,
+    eatContent
+  } = eat;
 
-    const{
-        eatNo,
-        thumb,
-        title,
-        status,
-        discount,
-        originPrice,
-        discountPrice,
-        remainFood,
-        FoodName,
-    } = eat;
     return(
 
         <ImageContainer>
@@ -71,7 +76,7 @@ const EatDealImageContainer=({eat, modal, openModal, closeModal})=>{
             </IconContainer>
             
     { !modal? null:<ShareModal closeModal={closeModal} /> }
-        <Status>{FoodName} {discount} 할인</Status> 
+        <Status>{eatFoodName} {Number(eatDiscount)*100}% 할인</Status> 
     </ImageContainer>
     )
 }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaInfoCircle,FaChevronRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import palette from '../../../../lib/styles/Palette';
+import moment from 'moment'
 
 const Infowrap=styled.div`
     margin:0.1rem;
@@ -43,31 +44,33 @@ const DiscountFoodName=styled.p`
 
 `;
 const EatDealInfo =({eat})=>{
-
-    const{
+    const {
         eatNo,
+        resNo,
+        resName,
+        resRocationKeyword,
         thumb,
-        title,
-        status,
-        discount,
-        originPrice,
-        discountPrice,
-        remainFood,
-        FoodName,
+        eatFoodName,
+        eatStatus,
+        eatCount,
+        eatOriginPrice,
+        eatDiscount,
+        eatStartDate,
+        eatEndDate,
+        eatContent
     } = eat;
 
 return(
     
     <Infowrap>
-    <TextTitle>{title}</TextTitle>
+<TextTitle>[{resRocationKeyword}] {resName}</TextTitle>
     <RestauInfo>
-        <Link to={`/figtable/restaurant/${eatNo}` /*식당정보로 바꾸기*/}>
+        <Link to={`/figtable/restaurant/${resNo}` /*식당정보로 바꾸기*/}>
             <FaInfoCircle/> 식당정보보기 <FaChevronRight/> 
         </Link>
     </RestauInfo>
-    <DiscountFoodName>{FoodName}</DiscountFoodName>
-    <Usedate>사용기간</Usedate>
-    
+    <DiscountFoodName>{eatFoodName}</DiscountFoodName>
+<Usedate>사용 기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Usedate>
     </Infowrap>
 )
     

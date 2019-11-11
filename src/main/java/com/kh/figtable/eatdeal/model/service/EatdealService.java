@@ -7,4 +7,5 @@ import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 public interface EatdealService {
 
 	List<Eatdeal> getEatdeals();
+	Eatdeal getByEatNo (String eatNo);
 }

@@ -52,16 +52,20 @@ const Point = styled.div`
     }
 `;
 const TotalPay=({eat})=>{
-    const{
-        eatNo,
-        thumb,
-        title,
-        status,
-        discount,
-        originPrice,
-        discountPrice,
-        remainFood,
-        FoodName,
+    const {
+      eatNo,
+      resNo,
+      resName,
+      resRocationKeyword,
+      thumb,
+      eatFoodName,
+      eatStatus,
+      eatCount,
+      eatOriginPrice,
+      eatDiscount,
+      eatStartDate,
+      eatEndDate,
+      eatContent
     } = eat;
     const memberPoint= 5000;
 
@@ -74,6 +78,7 @@ const TotalPay=({eat})=>{
             setMyPoint(true);
         }
     }
+    const discountPrice=(Number(eatOriginPrice)*(1-Number(eatDiscount)));
     //총 수량
     const [Count, setCount] = useState(1);
     //회원포인트 () 안에 회원 포인트 넣기
