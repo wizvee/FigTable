@@ -13,10 +13,11 @@
 			alias="strArr" />
 		<typeAlias type="com.kh.figtable.eatdeal.model.vo.Eatdeal"
 			alias="eatdeal" />
-		<typeAlias type="com.kh.figtable.owner.model.vo.MainInfo"
-			alias="mainInfo" />
-		<typeAlias
-			type="com.kh.figtable.owner.model.vo.Owner"
+		<typeAlias type="com.kh.figtable.owner.model.vo.Owner"
 			alias="owner" />
+		<typeAlias alias="ownRestaurant"
+			type="com.kh.figtable.owner.model.vo.OwnRestaurant" />
+		<typeAlias alias="ownerInfo"
+			type="com.kh.figtable.owner.model.vo.OwnerInfo" />
 	</typeAliases>
 </configuration>

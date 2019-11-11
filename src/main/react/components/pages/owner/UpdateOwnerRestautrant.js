@@ -6,6 +6,10 @@ import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerDetailTitle from './common/OwnerDetailTitle';
 import OwnerShopForm from './OwnerShopForm';
+import { withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { ownHeader } from '../../../modules/ownerHeader';
+import { ownerRes } from '../../../modules/ownerRestaurant';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -90,7 +94,26 @@ const store = {
 };
 /////////////////////////////////////////////////////
 
-const UpdateOwnerRestautrant = () => {
+const UpdateOwnerRestautrant = ({ match }) => {
+  const { resNo } = match.params;
+
+  const dispatch = useDispatch();
+  const {
+    restaurant,
+    error,
+    loading,
+    ownerInfo,
+    ownError,
+    ownLoading,
+  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    restaurant: ownerRes.ownRestaurant,
+    error: ownerRes.error,
+    loading: loading['owner/OWNER_RES'],
+    ownerInfo: ownHeader.ownerInfo,
+    ownError: ownHeader.error,
+    loading: loading['owner/OWN_HEADER'],
+  }));
+
   const [topMenu, setTopMenu] = useState('false');
 
   useEffect(() => {
@@ -99,25 +122,31 @@ const UpdateOwnerRestautrant = () => {
       setTopMenu(window.innerWidth <= 1024 ? true : false);
     };
     window.addEventListener('resize', handleResize);
-  });
+    dispatch(ownerRes(resNo));
+    dispatch(ownHeader('o22'));
+  }, []);
 
   return (
     <>
-      <HeaderOwner name={store.name} />
-      <Container>
-        <ContainerWrapper>
-          <div className="left">
-            <OwnerInfo store={store} />
-            <OwnerLeftMenu select="2" />
-          </div>
-          <Right>
-            <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
-            <OwnerShopForm store={store} />
-          </Right>
-        </ContainerWrapper>
-      </Container>
+      {!loading && restaurant && (
+        <>
+          <HeaderOwner ownerInfo={ownerInfo} />
+          <Container>
+            <ContainerWrapper>
+              <div className="left">
+                <OwnerInfo store={restaurant} />
+                <OwnerLeftMenu select="2" />
+              </div>
+              <Right>
+                <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
+                <OwnerShopForm store={restaurant} />
+              </Right>
+            </ContainerWrapper>
+          </Container>
+        </>
+      )}
     </>
   );
 };
 
-export default UpdateOwnerRestautrant;
+export default withRouter(UpdateOwnerRestautrant);

@@ -35,20 +35,24 @@ const MenuItem = styled.div`
   }
 `;
 
-const OwnerLeftMenu = ({ location: { pathname } }) => {
+const OwnerLeftMenu = ({ location: { pathname }, match }) => {
+  const { resNo } = match.params;
+
   return (
     <MenuContainer>
-      <Link to="/figtable/owner">
+      <Link to={`/figtable/owner/${resNo}`}>
         <MenuItem
-          className={pathname == '/figtable/owner' && 'selected'}
+          className={pathname == `/figtable/owner/${resNo}` && 'selected'}
           style={{ paddingTop: '0.6rem' }}
         >
           홈
         </MenuItem>
       </Link>
-      <Link to="/figtable/owner/restaurant">
+      <Link to={`/figtable/owner/restaurant/${resNo}`}>
         <MenuItem
-          className={pathname == '/figtable/owner/restaurant' && 'selected'}
+          className={
+            pathname == `/figtable/owner/restaurant/${resNo}` && 'selected'
+          }
         >
           가게정보 수정
         </MenuItem>
@@ -56,21 +60,27 @@ const OwnerLeftMenu = ({ location: { pathname } }) => {
 
       <Link to="/figtable/owner/waiting">
         <MenuItem
-          className={pathname == '/figtable/owner/waiting' && 'selected'}
+          className={
+            pathname == `/figtable/owner/waiting/${resNo}` && 'selected'
+          }
         >
           Waiting
         </MenuItem>
       </Link>
       <Link to="/figtable/owner/eatdeal">
         <MenuItem
-          className={pathname == '/figtable/owner/eatdeal' && 'selected'}
+          className={
+            pathname == `/figtable/owner/eatdeal/${resNo}` && 'selected'
+          }
         >
           Eat Deal
         </MenuItem>
       </Link>
       <Link to="/figtable/owner/statics">
         <MenuItem
-          className={pathname == '/figtable/owner/statics' && 'selected'}
+          className={
+            pathname == `/figtable/owner/statics/${resNo}` && 'selected'
+          }
         >
           통계
         </MenuItem>

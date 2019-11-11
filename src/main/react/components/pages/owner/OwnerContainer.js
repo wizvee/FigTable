@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ownerMain } from '../../../modules/owner';
 import { withRouter } from 'react-router-dom';
+import { ownerRes } from '../../../modules/ownerRestaurant';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import OwnerMenu from './OwnerMenu';
 import palette from '../../../lib/styles/Palette';
 import ListContainer from './ListContainer';
 import ShopOpenModal from './Modal/ShopOpenModal';
+import { ownHeader } from '../../../modules/ownerHeader';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -157,17 +158,17 @@ const ButtonSpan = styled.span`
 `;
 
 ////////// 임시데이터//////////////////////////
-// const store = {
-//   name: '김사장',
-//   shopName: '페더커피 ',
-//   imgUrl:
-//     'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
-//   foodKeyword: '당근케이크,카페',
-//   locationKeyword: '길동',
-//   view: 3,
-//   reviewCount: 5,
-//   star: 4.5,
-// };
+const store = {
+  name: '김사장',
+  shopName: '페더커피 ',
+  imgUrl:
+    'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
+  foodKeyword: '당근케이크,카페',
+  locationKeyword: '길동',
+  view: 3,
+  reviewCount: 5,
+  star: 4.5,
+};
 
 const waiting = [
   { name: '김손님', count: '2', phone: '010-1111-1111' },
@@ -181,15 +182,26 @@ const OwnerContainer = ({ match }) => {
   const { resNo } = match.params;
 
   const dispatch = useDispatch();
-  const { info, error, loading } = useSelector(({ ownerMain, loading }) => ({
-    info: ownerMain.info,
-    error: ownerMain.error,
-    loading: loading['owner/OWNER_MAIN'],
+  const {
+    restaurant,
+    error,
+    loading,
+    ownerInfo,
+    ownError,
+    ownLoading,
+  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    restaurant: ownerRes.ownRestaurant,
+    error: ownerRes.error,
+    loading: loading['owner/OWNER_RES'],
+    ownerInfo: ownHeader.ownerInfo,
+    ownError: ownHeader.error,
+    loading: loading['owner/OWN_HEADER'],
   }));
 
   useEffect(() => {
     document.body.style.overflow = 'scroll';
-    dispatch(ownerMain(resNo));
+    dispatch(ownerRes(resNo));
+    dispatch(ownHeader('o22'));
   }, [resNo]);
 
   const [shopModal, setIsShopModal] = useState(false);
@@ -221,13 +233,13 @@ const OwnerContainer = ({ match }) => {
 
   return (
     <>
-      {!loading && info && (
+      {!loading && restaurant && (
         <>
-          <HeaderOwner name={info.ownName} />
+          <HeaderOwner ownerInfo={ownerInfo} />
 
           <Container>
             <ContentWrapper>
-              <OwnerInfo store={info} />
+              <OwnerInfo store={restaurant} />
               <Button>
                 <ButtonInput id="buttonInput" />
                 <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>
@@ -239,6 +251,7 @@ const OwnerContainer = ({ match }) => {
                   modeSelModal={modeSelModal}
                   modeSelOpenM={modeSelOpenM}
                   modeSelCloseM={modeSelCloseM}
+                  resNo={restaurant.resNo}
                 />
                 <ListContainer list={waiting} />
               </RightContent>

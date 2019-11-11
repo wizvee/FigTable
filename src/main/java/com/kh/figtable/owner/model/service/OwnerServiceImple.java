@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.owner.model.dao.OwnerDao;
-import com.kh.figtable.owner.model.vo.MainInfo;
+import com.kh.figtable.owner.model.vo.OwnRestaurant;
+import com.kh.figtable.owner.model.vo.OwnerInfo;
 
 @Service
 public class OwnerServiceImple implements OwnerService {
@@ -16,8 +17,15 @@ public class OwnerServiceImple implements OwnerService {
 	private OwnerDao dao;
 	
 	@Override
-	public MainInfo getOwnerMainInfo(String resNo) {
+	public OwnRestaurant getOwnerRes(String resNo) {
 
-		return dao.getOwnerMainInfo(session, resNo);
+		return dao.getOwnerRes(session, resNo);
 	}
+	
+	@Override
+	public OwnerInfo getOwnerHeader(String ownNo) {
+		return dao.getOwnerHeader(session, ownNo);
+	}
+	
+	
 }
