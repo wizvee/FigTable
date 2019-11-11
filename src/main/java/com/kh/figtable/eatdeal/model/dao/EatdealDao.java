@@ -10,7 +10,7 @@ import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 @Repository
 public interface EatdealDao {
 
-	List<Eatdeal> getEatdeals(SqlSession session);
+	List<Eatdeal> getEatdeals( SqlSession session);
 
 
 }

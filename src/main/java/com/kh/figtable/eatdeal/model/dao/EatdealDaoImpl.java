@@ -11,7 +11,7 @@ import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 public class EatdealDaoImpl implements EatdealDao {
 
 	@Override
-	public List<Eatdeal> getEatdeals(SqlSession session) {
+	public List<Eatdeal> getEatdeals( SqlSession session) {
 		return session.selectList("eatdeal.getEatdeals");
 	}
 

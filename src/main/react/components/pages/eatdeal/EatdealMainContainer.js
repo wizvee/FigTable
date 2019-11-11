@@ -109,7 +109,7 @@ const RemainFood=styled.span`
     line-height:1.5;
     margin-left:auto;
 `;
-const EatdealMainContainer = ({eatDeal}) => {
+const EatdealMainContainer = ({eatdeal}) => {
     
   const {
     eatNo,
@@ -123,7 +123,7 @@ const EatdealMainContainer = ({eatDeal}) => {
     eatStartDate,
     eatEndDate,
     eatContent
-  } = eatDeal;
+  } = eatdeal;
 
   
     return (

@@ -8,6 +8,7 @@ import restaurant, { restaurantSaga } from './restaurant';
 import restaurants, { restaurantsSaga } from './restaurants';
 import reviews, { reviewsSaga } from './reviews';
 import review, { reviewSaga } from './review';
+import eatdeals, { eatdealsSaga } from './eatdeals';
 
 const rootReducer = combineReducers({
   guest,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   restaurants,
   review,
   reviews,
+  eatdeals
 });
 
 export function* rootSaga() {
@@ -29,6 +31,8 @@ export function* rootSaga() {
     restaurantsSaga(),
     reviewSaga(),
     reviewsSaga(),
+    reviewsSaga(),
+    eatdealsSaga(),
   ]);
 }
 

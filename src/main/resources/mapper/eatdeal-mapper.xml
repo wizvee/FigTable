@@ -12,9 +12,9 @@
 		<result property="eatContent" column="EAT_CONTENT" />
 	</resultMap>
 
-	<select id="getEatdeals" parameterType="string"
+	<select id="getEatdeals"
 		resultType="restaurant" resultMap="eatResult">
-		SELECT * FROM FIG_EATDEAL
+		SELECT * FROM FIG_EATDEAL 
 	</select>
 
 </mapper>
