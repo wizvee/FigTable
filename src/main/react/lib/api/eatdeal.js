@@ -4,5 +4,10 @@ import client from './client';
 export const getEatdeals = () =>
 client.get(`/figtable/api/eatdeals`);
 
+//잇딜 상세페이지 가져오기
 export const getByEatNo = eatNo =>
 client.get(`/figtable/api/eatdeals/${eatNo}`);
+
+//결제페이지 포인트 가져오기
+export const getMemberPoint= memNo =>
+  client.get(`/figtable/api/payment/point/?memNo=${memNo}`);

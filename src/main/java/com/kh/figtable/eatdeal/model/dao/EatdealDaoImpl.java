@@ -19,6 +19,11 @@ public class EatdealDaoImpl implements EatdealDao {
 	public Eatdeal getByEatNo(SqlSession session, String eatNo) {
 		return session.selectOne("eatdeal.getByEatNo", eatNo);
 	}
+
+	@Override
+	public List<String> getMemberPoint(SqlSession session, String memNo) {
+		return session.selectOne("eatdeal.getMemberPoint", memNo);
+	}
 	
 
 

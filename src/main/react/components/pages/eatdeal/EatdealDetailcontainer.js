@@ -10,7 +10,7 @@ import EatDealInfo from './detail/EatDealInfo';
 import Separator from './detail/Separator';
 import palette from '../../../lib/styles/Palette';
 import { readEat } from '../../../modules/eatdeal';
-import ModalLogin from '../../pages/user/ModalLogin';//////////////여기!!!
+import ModalLogin from '../../pages/user/ModalLogin';
 
 
 
@@ -49,7 +49,7 @@ const EatdealDetailContainer=({match})=>{
       eatdeal,
       eatError,
       eatLoading
-    }=useSelector(({member,eatdeal, loading})=>({
+    }=useSelector(({member, eatdeal,  loading})=>({
       member:member.member,
       eatdeal:eatdeal.eatdeal,
       eatError:eatdeal.error,
