@@ -21,7 +21,6 @@
 		<result property="resRating" column="RES_RATING" />
 		<result property="resReviews" column="RES_REVIEWS" />
 		<result property="resLikes" column="RES_LIKES" />
-		<result property="resReserve" column="RES_RESERVE" />
 		<result property="resWaiting" column="RES_WAITING" />
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 		<result property="resApply" column="RES_APPLY" />
@@ -32,6 +31,9 @@
 		<result property="ownName" column="OWN_NAME"/>
 		<result property="ownStatics" column="OWN_STATICS"/>
 		<result property="resCount" column="CNT"/>
+		<result property="no" column="NO"/>
+		<result property="name" column="NAME"/>
+		
 	</resultMap>
 
 	<select id="ownRestaurant" parameterType="string" resultType="ownRestaurant" resultMap="ownRes">
@@ -41,6 +43,9 @@
 	</select>
 	
 	<select id="ownerInfo" parameterType="string" resultType="ownerInfo" resultMap="ownInfo">
-		SELECT OWN_NO, OWN_NAME, OWN_STATICS, (SELECT COUNT(*) FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS CNT FROM FIG_OWNER WHERE OWN_NO=#{ownNo}
+		SELECT OWN_NO, OWN_NAME, OWN_STATICS, (SELECT COUNT(*) FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS CNT,
+		(SELECT LISTAGG(RES_NO,',') WITHIN GROUP (ORDER BY RES_NO) NO FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS NO, 
+		(SELECT LISTAGG(RES_NAME,',')  WITHIN GROUP (ORDER BY RES_NO) NAME FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS NAME
+		FROM FIG_OWNER WHERE OWN_NO=#{ownNo}
 	</select>
 </mapper>

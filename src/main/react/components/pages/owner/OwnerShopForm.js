@@ -198,8 +198,8 @@ const OwnerShopForm = ({ store }) => {
     resMenuPrice,
   } = store;
 
-  const open = resOpenDay.split(',');
-  const close = resCloseTime.split(',');
+  const open = resOpenDay.split('#%');
+  const close = resCloseTime.split('#%');
   const operation = [];
   {
     open.map((o, index) => {
@@ -207,13 +207,12 @@ const OwnerShopForm = ({ store }) => {
     });
   }
 
-  const title = resMenuTitle.split(',');
-  const temp = resMenuPrice.substr(0, resMenuPrice.length - 1);
-  const price = temp.split('원,');
+  const title = resMenuTitle.split('#%');
+  const price = resMenuPrice.split('#%');
   const menu = [];
   {
     title.map((m, index) => {
-      menu.push({ title: title[index], price: price[index] + '원' });
+      menu.push({ title: title[index], price: price[index] });
     });
   }
 
