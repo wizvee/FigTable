@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment {
-	
+
 	private String rvcNo;
 	private String rvNoRef;
 	private String memNo;
@@ -18,9 +18,8 @@ public class Comment {
 	private boolean rvcWarn;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date rvcDate;
-	
+
 	// JOIN시 추가 정보
 	private String memName;
-	private String memProfile;
 
 }

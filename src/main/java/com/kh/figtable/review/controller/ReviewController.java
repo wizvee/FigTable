@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.service.ReviewService;
+import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
 
 @RestController
@@ -89,6 +90,17 @@ public class ReviewController {
 	private ResponseEntity<Integer> writeReview(@RequestBody Review review) {
 		int r = service.writeReview(review);
 		return new ResponseEntity<Integer>(r, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/comment", method = RequestMethod.POST)
+	private ResponseEntity<List<Comment>> writeComment(@RequestBody Comment comment) {
+		int r = service.writeComment(comment);
+		if (r > 0) {
+			List<Comment> comments = service.getCommentsById(comment.getRvNoRef());
+			return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
+		}
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 }

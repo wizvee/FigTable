@@ -52,4 +52,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.writeReview(session, review);
 	}
 
+	@Override
+	public int writeComment(Comment comment) {
+		return dao.wirteComment(session, comment);
+	}
+
+	@Override
+	public List<Comment> getCommentsById(String rvNo) {
+		return dao.getCommentsById(session, rvNo);
+	}
+
 }

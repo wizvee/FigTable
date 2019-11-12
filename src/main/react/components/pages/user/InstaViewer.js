@@ -56,6 +56,9 @@ const ReviewSection = styled.div`
   .date {
     font-size: 0.9rem;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ImageSection = styled.div`
@@ -66,6 +69,7 @@ const ImageSection = styled.div`
   overflow: hidden;
   img {
     width: auto;
+    max-width: 90%;
     height: 90%;
   }
   svg {
