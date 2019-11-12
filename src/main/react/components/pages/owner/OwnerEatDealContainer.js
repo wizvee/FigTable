@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderOwner from './common/HeaderOwner';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
@@ -6,6 +6,10 @@ import OwnerInfo from './common/OwnerInfo';
 import OwnerLeftMenu from './common/OwnerLeftMenu';
 import OwnerDetailTitle from './common/OwnerDetailTitle';
 import OwnerEatdealForm from './OwnerEatdealForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { ownerRes } from '../../../modules/ownerRestaurant';
+import { ownHeader } from '../../../modules/ownerHeader';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -66,22 +70,52 @@ const store = {
 };
 /////////////////////////////////////////////////////
 
-const OwnerEatDealContainer = () => {
+const OwnerEatDealContainer = ({ match }) => {
+  const { resNo } = match.params;
+
+  const dispatch = useDispatch();
+  const {
+    restaurant,
+    error,
+    loading,
+    ownerInfo,
+    ownError,
+    ownLoading,
+  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    restaurant: ownerRes.ownRestaurant,
+    error: ownerRes.error,
+    loading: loading['owner/OWNER_RES'],
+    ownerInfo: ownHeader.ownerInfo,
+    ownError: ownHeader.error,
+    loading: loading['owner/OWN_HEADER'],
+  }));
+
+  useEffect(() => {
+    document.body.style.overflow = 'scroll';
+    dispatch(ownerRes(resNo));
+    //나중에 변경
+    dispatch(ownHeader('o22'));
+  }, [resNo]);
+
   return (
     <>
-      <HeaderOwner name={store.name} />
-      <Container>
-        <ContainerWrapper>
-          <OwnerInfo store={store} />
-          <OwnerLeftMenu select="5" />
-          <Right>
-            <OwnerDetailTitle title="Eat Deal" />
-            <OwnerEatdealForm />
-          </Right>
-        </ContainerWrapper>
-      </Container>
+      {!loading && restaurant && (
+        <>
+          <HeaderOwner ownerInfo={ownerInfo} />
+          <Container>
+            <ContainerWrapper>
+              <OwnerInfo store={restaurant} />
+              <OwnerLeftMenu />
+              <Right>
+                <OwnerDetailTitle title="Eat Deal" />
+                <OwnerEatdealForm />
+              </Right>
+            </ContainerWrapper>
+          </Container>
+        </>
+      )}
     </>
   );
 };
 
-export default OwnerEatDealContainer;
+export default withRouter(OwnerEatDealContainer);

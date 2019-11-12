@@ -48,38 +48,38 @@ const OwnerLeftMenu = ({ location: { pathname }, match }) => {
           홈
         </MenuItem>
       </Link>
-      <Link to={`/figtable/owner/restaurant/${resNo}`}>
+      <Link to={`/figtable/owner/${resNo}/restaurant`}>
         <MenuItem
           className={
-            pathname == `/figtable/owner/restaurant/${resNo}` && 'selected'
+            pathname == `/figtable/owner/${resNo}/restaurant` && 'selected'
           }
         >
           가게정보 수정
         </MenuItem>
       </Link>
 
-      <Link to="/figtable/owner/waiting">
+      <Link to={`/figtable/owner/${resNo}/waiting`}>
         <MenuItem
           className={
-            pathname == `/figtable/owner/waiting/${resNo}` && 'selected'
+            pathname == `/figtable/owner/${resNo}/waiting` && 'selected'
           }
         >
           Waiting
         </MenuItem>
       </Link>
-      <Link to="/figtable/owner/eatdeal">
+      <Link to={`/figtable/owner/${resNo}/eatdeal`}>
         <MenuItem
           className={
-            pathname == `/figtable/owner/eatdeal/${resNo}` && 'selected'
+            pathname == `/figtable/owner/${resNo}/eatdeal` && 'selected'
           }
         >
           Eat Deal
         </MenuItem>
       </Link>
-      <Link to="/figtable/owner/statics">
+      <Link to={`/figtable/owner/${resNo}/statics`}>
         <MenuItem
           className={
-            pathname == `/figtable/owner/statics/${resNo}` && 'selected'
+            pathname == `/figtable/owner/${resNo}/statics` && 'selected'
           }
         >
           통계

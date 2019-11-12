@@ -158,17 +158,6 @@ const ButtonSpan = styled.span`
 `;
 
 ////////// 임시데이터//////////////////////////
-const store = {
-  name: '김사장',
-  shopName: '페더커피 ',
-  imgUrl:
-    'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
-  foodKeyword: '당근케이크,카페',
-  locationKeyword: '길동',
-  view: 3,
-  reviewCount: 5,
-  star: 4.5,
-};
 
 const waiting = [
   { name: '김손님', count: '2', phone: '010-1111-1111' },
@@ -201,14 +190,12 @@ const OwnerContainer = ({ match }) => {
   useEffect(() => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
+    //나중에 변경
     dispatch(ownHeader('o22'));
   }, [resNo]);
 
   const [shopModal, setIsShopModal] = useState(false);
-  const [shopOpen, setShopOpen] = useState(
-    // info.resWating === 'null' ? false : true,
-    false,
-  );
+  const [shopOpen, setShopOpen] = useState(false);
   const [modeSelModal, setModeSelModal] = useState(false);
 
   const shopOpenM = () => {

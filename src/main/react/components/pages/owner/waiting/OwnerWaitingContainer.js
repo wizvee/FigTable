@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderOwner from '../common/HeaderOwner';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Responsive from '../../../common/Responsive';
 import OwnerDetailTitle from '../common/OwnerDetailTitle';
 import ListContainer from '../ListContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { ownHeader } from '../../../../modules/ownerHeader';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -66,9 +68,6 @@ const CountContainer = styled.div`
 `;
 
 ////////////임시데이터////////////////
-const store = {
-  name: '김사장',
-};
 
 const waiting = [
   { name: '김손님', count: '2', phone: '010-1111-1111' },
@@ -78,20 +77,38 @@ const waiting = [
 ////////////////////////////////////
 
 const OwnerWaitingContainer = () => {
+  const dispatch = useDispatch();
+  const { ownerInfo, ownError, ownLoading } = useSelector(
+    ({ ownHeader, loading }) => ({
+      ownerInfo: ownHeader.ownerInfo,
+      ownError: ownHeader.error,
+      loading: loading['owner/OWN_HEADER'],
+    }),
+  );
+
+  useEffect(() => {
+    //나중에 변경
+    dispatch(ownHeader('o22'));
+  }, []);
+
   return (
     <>
-      <HeaderOwner name={store.name} />
-      <Container>
-        <ContainerWrapper>
-          <OwnerDetailTitle title="Waiting" />
-          <CountContainer>
-            현재 <span className="count">{waiting.length}</span> 팀 대기 중
-          </CountContainer>
-          <Right>
-            <ListContainer list={waiting} />
-          </Right>
-        </ContainerWrapper>
-      </Container>
+      {!loading && restaurant && (
+        <>
+          <HeaderOwner ownerInfo={ownerInfo} />
+          <Container>
+            <ContainerWrapper>
+              <OwnerDetailTitle title="Waiting" />
+              <CountContainer>
+                현재 <span className="count">{waiting.length}</span> 팀 대기 중
+              </CountContainer>
+              <Right>
+                <ListContainer list={waiting} />
+              </Right>
+            </ContainerWrapper>
+          </Container>
+        </>
+      )}
     </>
   );
 };

@@ -69,29 +69,40 @@ const MenuItem = styled.div`
   }
 `;
 
-const OwnerDetailTitle = ({ title, location: { pathname }, topMenu }) => {
+const OwnerDetailTitle = ({
+  title,
+  location: { pathname },
+  match,
+  topMenu,
+}) => {
   const [visible, setVisible] = useState(false);
+  const { resNo } = match.params;
   const showMenu = () => {
     setVisible(!visible);
   };
+
+  console.log(topMenu);
 
   return (
     <>
       <Title
         className={
-          pathname == '/figtable/owner/waiting'
+          pathname == `/figtable/owner/${resNo}/waiting`
             ? 'waiting'
-            : pathname == '/figtable/owner/statics'
+            : pathname == `/figtable/owner/${resNo}/statics`
             ? 'statics'
             : ''
         }
       >
         {title}
-        {pathname == '/figtable/owner/reservation' ||
-        pathname == '/figtable/owner/waiting' ||
-        topMenu == true ? (
+        {pathname == `/figtable/owner/${resNo}/waiting` ||
+        ((pathname == `/figtable/owner/${resNo}/statics` ||
+          pathname == `/figtable/owner/${resNo}/restaurant`) &&
+          topMenu == true) ? (
           <MenuButton
-            className={pathname == '/figtable/owner/waiting' && 'waiting'}
+            className={
+              pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'
+            }
             onClick={showMenu}
           >
             {visible ? <MdClose /> : <FiMenu />}
@@ -101,20 +112,23 @@ const OwnerDetailTitle = ({ title, location: { pathname }, topMenu }) => {
         )}
         {visible ? (
           <DropDownMenu
-            className={pathname == '/figtable/owner/waiting' && 'waiting'}
+            className={
+              pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'
+            }
           >
-            <Link to="/figtable/owner">
+            <Link to={`/figtable/owner/${resNo}`}>
               <MenuItem
-                className={pathname == '/figtable/owner' && 'selected'}
+                className={pathname == `/figtable/owner/${resNo}` && 'selected'}
                 style={{ paddingTop: '14px', width: '80px' }}
               >
                 홈
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/restaurant">
+            <Link to={`/figtable/owner/${resNo}/restaurant`}>
               <MenuItem
                 className={
-                  pathname == '/figtable/owner/restaurant' && 'selected'
+                  pathname == `/figtable/owner/${resNo}/restaurant` &&
+                  'selected'
                 }
                 style={{ paddingTop: '5px', fontSize: '17px' }}
               >
@@ -123,25 +137,31 @@ const OwnerDetailTitle = ({ title, location: { pathname }, topMenu }) => {
                 수정
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/waiting">
+            <Link to={`/figtable/owner/${resNo}/waiting`}>
               <MenuItem
-                className={pathname == '/figtable/owner/waiting' && 'selected'}
+                className={
+                  pathname == `/figtable/owner/${resNo}/waiting` && 'selected'
+                }
                 style={{ paddingTop: '14px' }}
               >
                 Waiting
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/eatdeal">
+            <Link to={`/figtable/owner/${resNo}/eatdeal`}>
               <MenuItem
-                className={pathname == '/figtable/owner/eatdeal' && 'selected'}
+                className={
+                  pathname == `/figtable/owner/${resNo}/eatdeal` && 'selected'
+                }
                 style={{ paddingTop: '12px' }}
               >
                 Eat Deal
               </MenuItem>
             </Link>
-            <Link to="/figtable/owner/statics">
+            <Link to={`/figtable/owner/${resNo}/statics`}>
               <MenuItem
-                className={pathname == '/figtable/owner/statics' && 'selected'}
+                className={
+                  pathname == `/figtable/owner/${resNo}/statics` && 'selected'
+                }
                 style={{ paddingTop: '15px', width: '85px' }}
               >
                 통계

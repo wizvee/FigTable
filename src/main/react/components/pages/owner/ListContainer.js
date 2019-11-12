@@ -105,11 +105,15 @@ const ListContainer = ({ list, location: { pathname }, match }) => {
   const { resNo } = match.params;
 
   return (
-    <Container className={pathname == '/figtable/owner/waiting' && 'waiting'}>
-      <Title className={pathname == '/figtable/owner/waiting' && 'waiting'}>
+    <Container
+      className={pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'}
+    >
+      <Title
+        className={pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'}
+      >
         Waiting List
         {pathname == `/figtable/owner/${resNo}` && (
-          <Link to="/figtable/owner/waiting">
+          <Link to={`/figtable/owner/${resNo}/waiting`}>
             <div className="detail">자세히보기</div>
           </Link>
         )}

@@ -5,6 +5,10 @@ import OwnerLeftMenu from './common/OwnerLeftMenu';
 import OwnerInfo from './common/OwnerInfo';
 import Responsive from '../../common/Responsive';
 import OwnerDetailTitle from './common/OwnerDetailTitle';
+import { withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { ownerRes } from '../../../modules/ownerRestaurant';
+import { ownHeader } from '../../../modules/ownerHeader';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -72,62 +76,87 @@ const store = {
 
 //////////////////////////////////////////////
 
-const OwnerStaticsContainer = () => {
-  const [topMenu, setTopMenu] = useState('false');
+const OwnerStaticsContainer = ({ match }) => {
+  const { resNo } = match.params;
 
+  const dispatch = useDispatch();
+  const {
+    restaurant,
+    error,
+    loading,
+    ownerInfo,
+    ownError,
+    ownLoading,
+  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    restaurant: ownerRes.ownRestaurant,
+    error: ownerRes.error,
+    loading: loading['owner/OWNER_RES'],
+    ownerInfo: ownHeader.ownerInfo,
+    ownError: ownHeader.error,
+    loading: loading['owner/OWN_HEADER'],
+  }));
+
+  const [topMenu, setTopMenu] = useState('false');
   useEffect(() => {
     setTopMenu(window.innerWidth <= 1024 ? true : false);
     const handleResize = () => {
       setTopMenu(window.innerWidth <= 1024 ? true : false);
     };
     window.addEventListener('resize', handleResize);
-  });
+    dispatch(ownerRes(resNo));
+    //나중에 변경
+    dispatch(ownHeader('o22'));
+  }, [resNo]);
   return (
     <>
-      <HeaderOwner name={store.name} />
-      <Container>
-        <ContentWrapper>
-          <div className="left">
-            <OwnerInfo store={store} />
-            <OwnerLeftMenu />
-          </div>
-          <Right>
-            <OwnerDetailTitle title="통계" topMenu={topMenu} />
-            <div
-              style={{
-                width: '100%',
-                height: '300px',
-                background: 'white',
-                marginTop: '20px',
-              }}
-            >
-              시간대별 통계
-            </div>
-            <div
-              style={{
-                float: 'left',
-                width: '48%',
-                height: '300px',
-                background: 'white',
-                marginTop: '20px',
-              }}
-            >
-              연령별 통계
-            </div>
-            <div
-              style={{
-                float: 'right',
-                width: '48%',
-                height: '300px',
-                background: 'white',
-                marginTop: '20px',
-              }}
-            >
-              성별 통계
-            </div>
-          </Right>
-        </ContentWrapper>
-      </Container>
+      {!loading && restaurant && (
+        <>
+          <HeaderOwner ownerInfo={ownerInfo} />
+          <Container>
+            <ContentWrapper>
+              <div className="left">
+                <OwnerInfo store={restaurant} />
+                <OwnerLeftMenu />
+              </div>
+              <Right>
+                <OwnerDetailTitle title="통계" topMenu={topMenu} />
+                <div
+                  style={{
+                    width: '100%',
+                    height: '300px',
+                    background: 'white',
+                    marginTop: '20px',
+                  }}
+                >
+                  시간대별 통계
+                </div>
+                <div
+                  style={{
+                    float: 'left',
+                    width: '48%',
+                    height: '300px',
+                    background: 'white',
+                    marginTop: '20px',
+                  }}
+                >
+                  연령별 통계
+                </div>
+                <div
+                  style={{
+                    float: 'right',
+                    width: '48%',
+                    height: '300px',
+                    background: 'white',
+                    marginTop: '20px',
+                  }}
+                >
+                  성별 통계
+                </div>
+              </Right>
+            </ContentWrapper>
+          </Container>
+        </>
+      )}
     </>
   );
 };

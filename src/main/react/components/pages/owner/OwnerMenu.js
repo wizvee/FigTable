@@ -64,7 +64,7 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
   return (
     <>
       <MenuWrapper>
-        <Link to={`/figtable/owner/restaurant/${resNo}`}>
+        <Link to={`/figtable/owner/${resNo}/restaurant`}>
           <MenuItem>
             <IconWrapper>
               <FaStore />
@@ -72,15 +72,15 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             가게정보 수정
           </MenuItem>
         </Link>
-        <Link to="/figtable/owner/waiting" onClick={modeSelOpenM}>
-          <MenuItem>
-            <IconWrapper style={{ marginBottom: '22px' }}>
-              <MdNaturePeople />
-            </IconWrapper>
-            Waiting
-          </MenuItem>
-        </Link>
-        <Link to="/figtable/owner/eatdeal">
+        {/* <Link onClick={modeSelOpenM} to={`/figtable/owner/${resNo}/waiting`}> */}
+        <MenuItem onClick={modeSelOpenM}>
+          <IconWrapper style={{ marginBottom: '22px' }}>
+            <MdNaturePeople />
+          </IconWrapper>
+          Waiting
+        </MenuItem>
+        {/* </Link> */}
+        <Link to={`/figtable/owner/${resNo}/eatdeal`}>
           <MenuItem>
             <IconWrapper>
               <MdRestaurantMenu />
@@ -88,7 +88,7 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             Eat Deal
           </MenuItem>
         </Link>
-        <Link to="/figtable/owner/statics">
+        <Link to={`/figtable/owner/${resNo}/statics`}>
           <MenuItem>
             <IconWrapper>
               <FaRegChartBar />
@@ -97,7 +97,9 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
           </MenuItem>
         </Link>
       </MenuWrapper>
-      {!modeSelModal ? null : <ModeSelectModal modeSelCloseM={modeSelCloseM} />}
+      {!modeSelModal ? null : (
+        <ModeSelectModal resNo={resNo} modeSelCloseM={modeSelCloseM} />
+      )}
     </>
   );
 };

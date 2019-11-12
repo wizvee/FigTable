@@ -75,7 +75,7 @@ const Button = styled.div`
   }
 `;
 
-const ModeSelectModal = ({ modeSelCloseM }) => {
+const ModeSelectModal = ({ modeSelCloseM, resNo }) => {
   return (
     <ModalWrapper>
       <Modal>
@@ -84,10 +84,10 @@ const ModeSelectModal = ({ modeSelCloseM }) => {
           <MdClose onClick={modeSelCloseM} />
         </ModalTitle>
         <ButtonWrapper>
-          <Link to="/figtable/owner/waiting">
+          <Link to={`/figtable/owner/${resNo}/waiting`}>
             <Button>사장님</Button>
           </Link>
-          <Link to="/figtable/owner/public">
+          <Link to={`/figtable/owner/${resNo}/public`}>
             <Button>매장</Button>
           </Link>
         </ButtonWrapper>

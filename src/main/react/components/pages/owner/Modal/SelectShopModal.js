@@ -96,9 +96,8 @@ const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
         <Modal>
           {{ resCount } != 1
             ? names.map((name, index) => (
-                <Link to={`/figtable/owner/${numbers[index]}`}>
-                  {' '}
-                  <ShopItem> {name}</ShopItem>
+                <Link key={index} to={`/figtable/owner/${numbers[index]}`}>
+                  <ShopItem key={numbers[index]}> {name}</ShopItem>
                 </Link>
               ))
             : ''}
