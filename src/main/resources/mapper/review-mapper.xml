@@ -38,4 +38,5 @@
 		SELECT
 		MEM_NO FROM FIG_RV_LOVES WHERE MEM_NO = #{memNo} AND RV_NO = #{rvNo}
 	</select>
+
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
 
@@ -21,7 +22,9 @@ public interface ReviewDao {
 	int writeReview(SqlSession session, Review review);
 
 	int wirteComment(SqlSession session, Comment comment);
-	
+
 	int deleteComment(SqlSession session, String rvcNo);
+
+	List<Member> getLoversList(SqlSession session, String rvNo);
 
 }

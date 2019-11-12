@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 import { readRes, unloadRes } from '../../../../modules/restaurant';
 import { listReviews, unloadReviews } from '../../../../modules/reviews';
-import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
-import DetailPresenter from './DetailPresenter';
-import ReviewPresenter from '../ReviewPresenter';
-import InstaViewer from '../InstaViewer';
 import HeaderContainer from '../../../common/HeaderContainer';
+import DetailPresenter from './DetailPresenter';
+import ReviewPresenter from './ReviewPresenter';
+import InstaViewer from './InstaViewer';
 
 const Container = styled(Responsive)`
   margin-bottom: 2rem;

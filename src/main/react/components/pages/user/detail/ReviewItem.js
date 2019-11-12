@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
-import RatingIcon from './RatingIcon';
+import palette from '../../../../lib/styles/Palette';
+import RatingIcon from '../RatingIcon';
 import ReviewActionButtons from './ReviewActionButtons';
-import MemberProfile from './MemberProfile';
+import MemberProfile from '../MemberProfile';
 
 const Container = styled.div`
   display: flex;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.figtable.member.model.dao.MemberDao;
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.dao.ReviewDao;
 import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
@@ -76,6 +77,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int deleteComment(String rvcNo) {
 		return dao.deleteComment(session, rvcNo);
+	}
+
+	@Override
+	public List<Member> getLoversList(String rvNo) {
+		return dao.getLoversList(session, rvNo);
 	}
 
 }

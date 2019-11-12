@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
+import palette from '../../../../lib/styles/Palette';
 import {
   MdModeEdit,
   MdPeople,
   MdNavigateBefore,
   MdNavigateNext,
 } from 'react-icons/md';
-import RatingIcon from './RatingIcon';
+import RatingIcon from '../RatingIcon';
 import ReviewActionButtons from './ReviewActionButtons';
 
 const Overlay = styled.div`

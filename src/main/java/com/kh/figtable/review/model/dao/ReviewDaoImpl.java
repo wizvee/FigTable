@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
 
@@ -40,6 +41,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public int deleteComment(SqlSession session, String rvcNo) {
 		return session.delete("comment.deleteComment", rvcNo);
+	}
+
+	@Override
+	public List<Member> getLoversList(SqlSession session, String rvNo) {
+		return session.selectList("member.getLoversList", rvNo);
 	}
 
 }

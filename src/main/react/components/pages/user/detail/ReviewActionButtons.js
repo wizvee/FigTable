@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from 'react-icons/ai';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
-import { lovesRv, unlovesRv } from '../../../modules/member';
-import ModalLogin from '../user/ModalLogin';
-import client from '../../../lib/api/client';
+import palette from '../../../../lib/styles/Palette';
+import { lovesRv, unlovesRv } from '../../../../modules/member';
+import ModalLogin from '../ModalLogin';
+import client from '../../../../lib/api/client';
 
 const Container = styled.div`
   padding-top: 0.8rem;
@@ -35,7 +35,8 @@ const Icon = styled.span`
 
 const Comment = styled.div`
   position: relative;
-  width: 60%;
+  width: 100%;
+  max-width: 400px;
   margin-top: 0.7rem;
   font-size: 0.95rem;
   color: ${palette.text};
@@ -63,7 +64,8 @@ const CommentForm = styled.form`
   display: flex;
   align-items: center;
   margin: 1rem 0 0;
-  width: 60%;
+  width: 100%;
+  max-width: 400px;
   button {
     position: absolute;
     right: 1rem;
@@ -191,14 +193,16 @@ const ReviewActionButtons = ({ review }) => {
       {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
       <Container>
         {isLoved ? (
-          <Icon onClick={onUnlove}>
-            <AiFillHeart className="loves" />
-            좋아요 {lovesCount}개
+          <Icon>
+            <AiFillHeart className="loves" onClick={onUnlove} />
+            <span onClick={() => console.log('z')}>좋아요 {lovesCount}개</span>
           </Icon>
         ) : (
-          <Icon onClick={member ? onLove : () => openModal('love')}>
-            <AiOutlineHeart />
-            좋아요 {lovesCount}개
+          <Icon>
+            <AiOutlineHeart
+              onClick={member ? onLove : () => openModal('love')}
+            />
+            <span onClick={() => console.log('z')}>좋아요 {lovesCount}개</span>
           </Icon>
         )}
         {member ? (
