@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { writeReview } from '../../../../modules/review';
 import { check } from '../../../../modules/member';
+import ModalAlert from '../../../common/ModalAlert';
 
 const ActionButtonsContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const ActionButtonsContainer = ({ history }) => {
     error: review.error,
   }));
 
+  const [isModal, setModal] = useState(false);
   const [submitError, setError] = useState(null);
 
   // 리뷰 등록
@@ -48,18 +50,27 @@ const ActionButtonsContainer = ({ history }) => {
 
   // 성공 혹은 실패 시 할 작업
   useEffect(() => {
-    if (result && result > 0) history.push(`/figtable/restaurant/${resNo}`);
+    if (result && result > 0) setModal(true);
     if (error) console.log(error);
     // unmount 시 멤버 정보 check
     return () => dispatch(check(memNo));
   }, [history, result, error]);
 
   return (
-    <ActionButtons
-      onCancel={onCancel}
-      onSubmit={onSubmit}
-      error={submitError}
-    />
+    <>
+      {isModal && (
+        <ModalAlert
+          title="포인트"
+          msg="리뷰 작성으로 300😻 지급이 완료되었습니다."
+          url={`/figtable/restaurant/${resNo}`}
+        />
+      )}
+      <ActionButtons
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        error={submitError}
+      />
+    </>
   );
 };
 

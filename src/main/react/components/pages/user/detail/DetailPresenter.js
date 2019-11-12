@@ -108,10 +108,13 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   return (
     <>
       <ImageWrapper>
-        {images.map((img, index) => (
-          <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
-        ))}
-        {images.length == 0 && <ImgBlock url={resThumb} />}
+        {images.length == 0 ? (
+          <ImgBlock url={resThumb} />
+        ) : (
+          images.map((img, index) => (
+            <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
+          ))
+        )}
       </ImageWrapper>
       <InfoWrapper>
         <InfoHeader>
@@ -152,4 +155,4 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   );
 };
 
-export default DetailPresenter;
+export default React.memo(DetailPresenter);

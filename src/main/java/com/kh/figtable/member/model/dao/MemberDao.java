@@ -33,5 +33,7 @@ public interface MemberDao {
 	int update(SqlSession session, Member m);
 
 	String getOldProfile(SqlSession session, String memNo);
+	
+	int addPoint(SqlSession session, Map point);
 
 }

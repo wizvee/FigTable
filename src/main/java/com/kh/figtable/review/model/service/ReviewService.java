@@ -16,5 +16,7 @@ public interface ReviewService {
 	int writeComment(Comment comment);
 	
 	List<Comment> getCommentsById(String rvNo);
+	
+	int deleteComment(String rvcNo);
 
 }
