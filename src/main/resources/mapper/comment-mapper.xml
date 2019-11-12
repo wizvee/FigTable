@@ -3,10 +3,16 @@
 <mapper namespace="comment">
 	<resultMap type="comment" id="cmtResult">
 		<result property="rvcNo" column="RVC_NO" />
-		<result property="rvcNoRef" column="RVC_NO_REF" />
+		<result property="rvNoRef" column="RV_NO_REF" />
 		<result property="memNo" column="MEM_NO" />
 		<result property="rvcContent" column="RVC_CONTENT" />
 		<result property="rvcWarn" column="RVC_WARN" />
 		<result property="rvcDate" column="RVC_DATE" />
 	</resultMap>
+
+	<select id="getCommentsById" parameterType="string"
+		resultType="comment" resultMap="cmtResult">
+		SELECT * FROM FIG_REVIEW_COM WHERE
+		RV_NO_REF = #{rvNo}
+	</select>
 </mapper>

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { TiHeartOutline, TiHeartFullOutline, TiMessage } from 'react-icons/ti';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
-import { TiHeartOutline, TiHeartFullOutline, TiMessage } from 'react-icons/ti';
 import { lovesRv, unlovesRv } from '../../../modules/member';
 import ModalLogin from '../user/ModalLogin';
 
@@ -40,6 +40,8 @@ const ReviewActionButtons = ({ review }) => {
 
   const [lovesCount, setLovesCount] = useState(review.rvLove);
   const [isLoved, setLoved] = useState(review.loved);
+  const [cmtCount, setCmtCount] = useState(review.comments.length);
+  const [cmtInput, setCmtInput] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
 
@@ -66,6 +68,12 @@ const ReviewActionButtons = ({ review }) => {
     dispatch(unlovesRv({ member, review }));
   }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
 
+  // 코멘트 창 제어 이벤트 핸들러
+  const onCmtToggle = useCallback(() => {
+    if (cmtInput) setCmtInput(false);
+    else setCmtInput(true);
+  }, []);
+
   return (
     <>
       {isModal && <ModalLogin msg={msg} closeModal={closeModal} />}
@@ -76,15 +84,22 @@ const ReviewActionButtons = ({ review }) => {
             좋아요 {lovesCount}개
           </Icon>
         ) : (
-          <Icon onClick={member ? onLove : () => openModal('like')}>
+          <Icon onClick={member ? onLove : () => openModal('love')}>
             <TiHeartOutline />
             좋아요 {lovesCount}개
           </Icon>
         )}
-        <Icon>
-          <TiMessage />
-          댓글
-        </Icon>
+        {member ? (
+          <Icon onClick={onCmtToggle}>
+            <TiMessage />
+            댓글 {cmtCount}개
+          </Icon>
+        ) : (
+          <Icon onClick={() => openModal('comment')}>
+            <TiMessage />
+            댓글 {cmtCount}개
+          </Icon>
+        )}
       </Container>
     </>
   );

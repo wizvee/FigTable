@@ -52,9 +52,10 @@ const ModalLogin = ({ msg, closeModal }) => {
       <Container>
         <h3>로그인</h3>
         <div className="msg" onClick={closeModal}>
-          {msg === 'review'
-            ? '로그인하시면 리뷰를 작성할 수 있어요.'
-            : '로그인하시면 가고싶은 식당을 저장할 수 있어요.'}
+          {msg == 'review' && '로그인하시면 리뷰를 작성할 수 있어요.'}
+          {msg == 'like' && '로그인하시면 가고싶은 식당을 저장할 수 있어요.'}
+          {msg == 'love' && '로그인하시면 리뷰에 공감할 수 있어요.'}
+          {msg == 'comment' && '로그인하시면 리뷰에 댓글을 달 수 있어요.'}
           <ButtonWithMarginTop to="/figtable/login" fullwidth>
             로그인
           </ButtonWithMarginTop>

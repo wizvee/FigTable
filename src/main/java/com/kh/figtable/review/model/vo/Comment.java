@@ -12,7 +12,7 @@ import lombok.Data;
 public class Comment {
 	
 	private String rvcNo;
-	private String rvcNoRef;
+	private String rvNoRef;
 	private String memNo;
 	private String rvcContent;
 	private boolean rvcWarn;

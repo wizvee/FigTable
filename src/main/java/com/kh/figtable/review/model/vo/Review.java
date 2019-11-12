@@ -1,6 +1,7 @@
 package com.kh.figtable.review.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,4 +30,6 @@ public class Review {
 	private int memFwCnt;
 	private int loveCnt;
 	private boolean isLoved;
+	
+	private List<Comment> comments;
 }

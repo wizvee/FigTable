@@ -84,9 +84,7 @@ const InfoBody = styled.div`
 `;
 
 const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
-  if (error) {
-    return null;
-  }
+  if (error) return null;
   if (loading || !info || !imgReviews) return <Loader />;
 
   const {

@@ -69,7 +69,7 @@ const Paging = styled.div`
 `;
 
 const ReviewPresenter = ({ reviews, loading, openInsta }) => {
-  if (loading || !reviews) return <Loader />;
+  if (loading || !reviews) return null;
 
   // category state
   const [selectCtg, setSelectCtg] = useState(null);

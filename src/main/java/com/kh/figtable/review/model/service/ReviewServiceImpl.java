@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.figtable.review.model.dao.ReviewDao;
+import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
 
 @Service
@@ -22,7 +23,12 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> getReviewsById(String resNo) {
-		return dao.getReviewsById(session, resNo);
+		List<Review> result = dao.getReviewsById(session, resNo);
+		for (Review review : result) {
+			List<Comment> comments = dao.getCommentsById(session, review.getRvNo());
+			review.setComments(comments);
+		}
+		return result;
 	}
 
 	@Override
@@ -33,7 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
 			info.put("memNo", memNo);
 			info.put("rvNo", review.getRvNo());
 			String isLoved = dao.isLoved(session, info);
-			if(isLoved != null)
+			if (isLoved != null)
 				review.setLoved(true);
 			else
 				review.setLoved(false);

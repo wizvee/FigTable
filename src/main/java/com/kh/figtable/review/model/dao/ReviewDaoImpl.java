@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
 
 @Repository
@@ -14,6 +15,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public List<Review> getReviewsById(SqlSession session, String resNo) {
 		return session.selectList("review.getReviewsById", resNo);
+	}
+	
+	@Override
+	public List<Comment> getCommentsById(SqlSession session, String rvNo) {
+		return session.selectList("comment.getCommentsById", rvNo);
 	}
 
 	@Override
