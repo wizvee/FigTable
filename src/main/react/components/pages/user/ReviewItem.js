@@ -13,7 +13,7 @@ const Container = styled.div`
   border-bottom: 1px solid ${palette.borderGray};
   transition: background 0.2s linear;
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.03);
   }
 `;
 

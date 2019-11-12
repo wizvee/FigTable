@@ -16,7 +16,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	public List<Review> getReviewsById(SqlSession session, String resNo) {
 		return session.selectList("review.getReviewsById", resNo);
 	}
-	
+
 	@Override
 	public List<Comment> getCommentsById(SqlSession session, String rvNo) {
 		return session.selectList("comment.getCommentsById", rvNo);
@@ -30,6 +30,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public int writeReview(SqlSession session, Review review) {
 		return session.insert("review.writeReview", review);
+	}
+
+	@Override
+	public int wirteComment(SqlSession session, Comment comment) {
+		return session.insert("comment.wirteComment", comment);
 	}
 
 }

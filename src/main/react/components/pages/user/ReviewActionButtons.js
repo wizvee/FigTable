@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TiHeartOutline, TiHeartFullOutline, TiMessage } from 'react-icons/ti';
+import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from 'react-icons/ai';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import { lovesRv, unlovesRv } from '../../../modules/member';
 import ModalLogin from '../user/ModalLogin';
+import client from '../../../lib/api/client';
 
 const Container = styled.div`
   padding-top: 0.8rem;
@@ -32,7 +33,70 @@ const Icon = styled.span`
   }
 `;
 
-const Comment = styled.div``;
+const Comment = styled.div`
+  width: 80%;
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  color: ${palette.text};
+  & + & {
+    margin: 0.1rem 0;
+  }
+  span + span {
+    margin-left: 1.5rem;
+  }
+`;
+
+const CommentForm = styled.form`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 0;
+  width: 70%;
+  button {
+    position: absolute;
+    right: 1rem;
+    margin-left: 0.3rem;
+    border: none;
+    background: transparent;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: ${palette.textGray};
+    font-size: 1rem;
+    outline: none;
+    transition: color 0.2s linear;
+    cursor: pointer;
+  }
+`;
+
+const path = process.env.PATH;
+const Profile = styled.div`
+  margin-right: 0.5rem;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: url(${props => `${path}/upload/profiles/${props.url}`});
+  background-size: cover;
+  background-position: center center;
+`;
+
+const StyledInput = styled.input`
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2rem;
+  border: 1px solid ${palette.borderGray};
+  font-size: 0.95rem;
+`;
+
+const AllCmtView = styled.div`
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  span {
+    cursor: pointer;
+    transition: color 0.3s linear;
+    &:hover {
+      color: ${palette.primary};
+    }
+  }
+`;
 
 const ReviewActionButtons = ({ review }) => {
   const dispatch = useDispatch();
@@ -42,8 +106,10 @@ const ReviewActionButtons = ({ review }) => {
 
   const [lovesCount, setLovesCount] = useState(review.rvLove);
   const [isLoved, setLoved] = useState(review.loved);
-  const [cmtCount, setCmtCount] = useState(review.comments.length);
+  const [cmtArr, setCmtArr] = useState(review.comments);
   const [cmtInput, setCmtInput] = useState(false);
+  const [cmtContent, setCmtContent] = useState('');
+  const [isViewAllCmt, setViewAllCmt] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
 
@@ -72,9 +138,35 @@ const ReviewActionButtons = ({ review }) => {
 
   // 코멘트 창 제어 이벤트 핸들러
   const onCmtToggle = useCallback(() => {
-    if (cmtInput) setCmtInput(false);
-    else setCmtInput(true);
+    if (cmtInput) {
+      setCmtInput(false);
+      setCmtContent('');
+    } else setCmtInput(true);
   }, [cmtInput, setCmtInput]);
+
+  // 코멘트 내용 state
+  const onChange = useCallback(
+    ({ target }) => {
+      setCmtContent(target.value);
+    },
+    [cmtContent, setCmtContent],
+  );
+
+  // 코멘트 등록
+  const onSubmit = useCallback(async e => {
+    e.preventDefault();
+    await client
+      .post('/figtable/api/comment', {
+        rvNoRef: review.rvNo,
+        memNo: member.memNo,
+        rvcContent: cmtContent,
+      })
+      .then(({ data }) => setCmtArr(data));
+    setCmtContent('');
+  });
+
+  // 코멘트 모두 보기
+  const onViewAllCmt = useCallback(() => setViewAllCmt(true), []);
 
   return (
     <>
@@ -82,33 +174,65 @@ const ReviewActionButtons = ({ review }) => {
       <Container>
         {isLoved ? (
           <Icon onClick={onUnlove}>
-            <TiHeartFullOutline className="loves" />
+            <AiFillHeart className="loves" />
             좋아요 {lovesCount}개
           </Icon>
         ) : (
           <Icon onClick={member ? onLove : () => openModal('love')}>
-            <TiHeartOutline />
+            <AiOutlineHeart />
             좋아요 {lovesCount}개
           </Icon>
         )}
         {member ? (
           <Icon onClick={onCmtToggle}>
-            <TiMessage />
-            댓글 {cmtCount}개
+            <AiOutlineMessage />
+            댓글 {cmtArr.length}개
           </Icon>
         ) : (
           <Icon onClick={() => openModal('comment')}>
-            <TiMessage />
-            댓글 {cmtCount}개
+            <AiOutlineMessage />
+            댓글 {cmtArr.length}개
           </Icon>
         )}
-        {cmtInput && <div>코멘트창</div>}
-        {review.comments.map(comment => (
-          <Comment>
-            <span>글쓴이</span>
-            <span>내용</span>
-          </Comment>
-        ))}
+        {cmtInput && (
+          <CommentForm onSubmit={onSubmit}>
+            <Profile url={member.memProfile} />
+            <StyledInput
+              type="text"
+              value={cmtContent}
+              onChange={onChange}
+              placeholder="댓글 달기..."
+            />
+            <button>게시</button>
+          </CommentForm>
+        )}
+        {isViewAllCmt
+          ? cmtArr.map(comment => (
+              <Comment key={comment.rvcNo}>
+                <span>
+                  <b>{comment.memName}</b>
+                </span>
+                <span>{comment.rvcContent}</span>
+              </Comment>
+            ))
+          : cmtArr.map((comment, index) => {
+              if (index < 2)
+                return (
+                  <Comment key={comment.rvcNo}>
+                    <span>
+                      <b>{comment.memName}</b>
+                    </span>
+                    <span>{comment.rvcContent}</span>
+                  </Comment>
+                );
+            })}
+        {cmtArr.length > 2 && !isViewAllCmt && (
+          <AllCmtView>
+            <span onClick={onViewAllCmt}>
+              댓글 <b>{cmtArr.length}</b>개 모두 보기
+            </span>
+          </AllCmtView>
+        )}
       </Container>
     </>
   );
