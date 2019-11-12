@@ -89,6 +89,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
 
   const {
     resNo,
+    resThumb,
     resName,
     resLocationKeyword,
     resLat,
@@ -110,6 +111,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
         {images.map((img, index) => (
           <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
         ))}
+        {images.length == 0 && <ImgBlock url={resThumb} />}
       </ImageWrapper>
       <InfoWrapper>
         <InfoHeader>

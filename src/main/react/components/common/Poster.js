@@ -101,7 +101,7 @@ const Poster = ({ restaurant }) => {
           {resWaiting && <Waiting>대기 {resWaitCnt}팀</Waiting>}
         </ImageContainer>
         <Title>
-          {resName}
+          {resName.length > 9 ? `${resName.substring(0, 9)}...` : resName}
           <Rating>
             {isNaN(resRating / resReviews)
               ? '0.0'

@@ -229,7 +229,7 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
             </UserWrapper>
             <div className="comment">{selectReview.rvContent}</div>
             <div className="date">{selectReview.rvDate}</div>
-            <ReviewActionButtons />
+            <ReviewActionButtons review={selectReview} />
           </ReviewSection>
         </Container>
       </>

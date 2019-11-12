@@ -45,7 +45,7 @@ const DetailContainer = ({ match }) => {
   useEffect(() => {
     dispatch(readRes(resNo));
     dispatch(listReviews(resNo));
-    // 언마운트 될 때 리덕스에서 레스토랑 데이터 없애기
+    // 언마운트 될 때 스토어에서 레스토랑 데이터 없애기
     return () => {
       dispatch(unloadRes());
       dispatch(unloadReviews());

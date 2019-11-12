@@ -30,7 +30,8 @@
 	<select id="getByLocal" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_ADDRESS LIKE '%'|| #{local} || '%'
+		RES_ADDRESS LIKE '%'|| #{local} || '%' ORDER BY RES_RATING DESC,
+		RES_LIKES DESC, RES_REVIEWS DESC, RES_VIEWS DESC
 	</select>
 
 	<select id="getById" parameterType="string"
@@ -55,6 +56,6 @@
 		MEM_NO FROM FIG_RES_LIKES WHERE MEM_NO = #{memNo} AND RES_NO =
 		#{resNo}
 	</select>
-	
-	
+
+
 </mapper>

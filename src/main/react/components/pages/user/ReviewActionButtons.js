@@ -32,6 +32,8 @@ const Icon = styled.span`
   }
 `;
 
+const Comment = styled.div``;
+
 const ReviewActionButtons = ({ review }) => {
   const dispatch = useDispatch();
   const { member } = useSelector(({ member }) => ({
@@ -72,7 +74,7 @@ const ReviewActionButtons = ({ review }) => {
   const onCmtToggle = useCallback(() => {
     if (cmtInput) setCmtInput(false);
     else setCmtInput(true);
-  }, []);
+  }, [cmtInput, setCmtInput]);
 
   return (
     <>
@@ -100,6 +102,13 @@ const ReviewActionButtons = ({ review }) => {
             댓글 {cmtCount}개
           </Icon>
         )}
+        {cmtInput && <div>코멘트창</div>}
+        {review.comments.map(comment => (
+          <Comment>
+            <span>글쓴이</span>
+            <span>내용</span>
+          </Comment>
+        ))}
       </Container>
     </>
   );

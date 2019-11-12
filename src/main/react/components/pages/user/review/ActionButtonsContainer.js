@@ -51,7 +51,7 @@ const ActionButtonsContainer = ({ history }) => {
     if (result && result > 0) history.push(`/figtable/restaurant/${resNo}`);
     if (error) console.log(error);
     // unmount 시 멤버 정보 check
-    return dispatch(check(memNo));
+    return () => dispatch(check(memNo));
   }, [history, result, error]);
 
   return (

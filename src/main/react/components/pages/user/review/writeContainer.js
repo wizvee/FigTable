@@ -52,9 +52,7 @@ const WriteContainer = ({ history }) => {
 
   // unMount 시 review 초기화
   useEffect(() => {
-    return () => {
-      disaptch(initializeForm());
-    };
+    return () => disaptch(initializeForm());
   }, [disaptch]);
 
   return (

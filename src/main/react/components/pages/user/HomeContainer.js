@@ -7,7 +7,7 @@ import HomePresenter from './HomePresenter';
 import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
-import { listRes } from '../../../modules/restaurants';
+import { listRes, unloadRes } from '../../../modules/restaurants';
 
 const Container = styled.div`
   display: flex;
@@ -113,8 +113,11 @@ const HomeContainer = ({ history }) => {
     [keyword],
   );
 
+  // 마운트 시 GPS 기준으로 레스토랑 리스트 가져오기
   useEffect(() => {
     dispatch(listRes('강남'));
+    // 언마운트 시 스토어에서 레스토랑 리스트 데이터 없애기
+    return () => dispatch(unloadRes());
   }, [dispatch]);
 
   return (
