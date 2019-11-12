@@ -14,7 +14,6 @@ const TextTitle=styled.div`
     font-weight:bold;
 `;
 const RestauInfo=styled.div`
-    position:absolute;
     width: 6.1rem;
     margin-top:0.3rem;
     align-items: center;

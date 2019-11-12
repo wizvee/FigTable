@@ -9,10 +9,9 @@ import { listEat } from '../../../modules/eatdeals';
 const EatdealContainer = () => {
   
 const dispatch = useDispatch();
-//const [eatdeals, setEatdeals]=useState(null);
 
-const { eatdeals, error, loading } = useSelector(
-  ({ eatdeals, loading }) => ({
+const {eatdeals, error, loading } = useSelector(
+  ({eatdeals, loading }) => ({
     eatdeals: eatdeals.eatdeals,
     error: eatdeals.error,
     loading: loading['eatdeals/LIST_EAT'],
@@ -24,16 +23,8 @@ useEffect(() => {
   dispatch(listEat());
 }, [dispatch]);
 
-if(!eatdeals){
-  return (
-    <>
-    <HeaderSimple />
-    <div>
-      데이터 없음
-    </div>
-    </>
-  )
-}
+if(error) return null;
+
   
   return (
     <>
@@ -43,7 +34,7 @@ if(!eatdeals){
       ) : (
       <div>
         {!loading && eatdeals && eatdeals.map(eatdeal=>(
-          <EatdealMainContainer key={eatdeal.eatNo} eatdeal={eatdeal}/>
+          <EatdealMainContainer key={eatdeal.eatNo} eatdeal={eatdeal} />
         ))};
       </div>
       )}

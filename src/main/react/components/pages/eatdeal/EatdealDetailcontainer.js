@@ -10,6 +10,7 @@ import EatDealInfo from './detail/EatDealInfo';
 import Separator from './detail/Separator';
 import palette from '../../../lib/styles/Palette';
 import { readEat } from '../../../modules/eatdeal';
+import ModalLogin from '../../pages/user/ModalLogin';//////////////여기!!!
 
 
 
@@ -44,16 +45,17 @@ const EatdealDetailContainer=({match})=>{
     const dispatch= useDispatch();
 
     const {
+      member,
       eatdeal,
       eatError,
       eatLoading
-    }=useSelector(({eatdeal, loading})=>({
+    }=useSelector(({member,eatdeal, loading})=>({
+      member:member.member,
       eatdeal:eatdeal.eatdeal,
       eatError:eatdeal.error,
       eatLoading:loading['eatdeal/READ_EAT']
     }));
     
-  // 처음 마운트 될 때 레스토랑 가져오기 API요청
   useEffect(() => {
     dispatch(readEat(eatNo));
   }, [eatNo])
@@ -65,6 +67,21 @@ const EatdealDetailContainer=({match})=>{
     function closeModal(){
       setIsModal(false);
     }
+    
+  // 로그인모달을 열고 닫는 이벤트 핸들링
+  const [loginModal, setLoginModal] = useState(false);
+  const openLoginModal = useCallback(type => {
+    setMsg(type);
+    setLoginModal(true);
+    document.body.style.overflow = 'hidden';
+  }, []);
+  const openCloseModal = useCallback(() => {
+    setLoginModal(false);
+    document.body.style.overflow = 'unset';
+  }, []);
+
+  const [msg, setMsg] = useState('review'); // login modal용 msg 설정 state
+
 
     if(!eatdeal) {
         return <div>존재하지 않습니다.</div>
@@ -72,6 +89,7 @@ const EatdealDetailContainer=({match})=>{
     return(
         <>
         <HeaderSimple />
+      {loginModal && <ModalLogin msg={msg} closeModal={openCloseModal} />}
         <EatdealCard>
             <EatDealImageContainer eat={eatdeal} modal={modal} openModal={openModal} closeModal={closeModal}/>
             <TextContainer>
@@ -80,9 +98,15 @@ const EatdealDetailContainer=({match})=>{
                 <Separator/>
                 <EatDealIntroduce eat={eatdeal}/>
             </TextContainer >
-            <Link to={`/figtable/payment/${eatNo}`}>
+             {!member?(
+             <Button onClick={() => openLoginModal('payment')}>구매하기</Button> 
+            ):(
+              <Link to={`/figtable/payment/${eatNo}`}>
               <Button>구매하기</Button> 
             </Link>
+            )
+
+            }
         </EatdealCard>
         </>
     )
