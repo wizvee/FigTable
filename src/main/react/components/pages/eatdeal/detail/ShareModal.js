@@ -1,58 +1,12 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { MdClose } from 'react-icons/md';
 import { FaLine } from 'react-icons/fa';
 import { FiLink, FiMessageCircle } from 'react-icons/fi';
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    ViberShareButton,
-    WorkplaceShareButton,
-    LineShareButton,
-    EmailShareButton,
-  } from 'react-share';
-  import {
-    FacebookIcon,
-    TwitterIcon,
-    TelegramIcon,
-    WhatsappIcon,
-    GooglePlusIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    VKIcon,
-    OKIcon,
-    RedditIcon,
-    TumblrIcon,
-    LivejournalIcon,
-    MailruIcon,
-    ViberIcon,
-    WorkplaceIcon,
-    LineIcon,
-    EmailIcon,
-  } from 'react-share';
-  import {
-    FacebookShareCount,
-    GooglePlusShareCount,
-    LinkedinShareCount,
-    PinterestShareCount,
-    VKShareCount,
-    OKShareCount,
-    RedditShareCount,
-    TumblrShareCount,
-  } from 'react-share';
-  
+import { FacebookShareButton, LineShareButton } from 'react-share';
+import { FacebookIcon, LineIcon, } from 'react-share';
 const ModalWrap= styled.div`
     position: fixed;
     top: 0;
@@ -98,18 +52,52 @@ const ShareContents= styled.div`
     padding: 0.3rem;
 `;
 const ShareContent= styled.div`
+    outline-style:none;
+    border:none;
     text-align:left;
     font-size: 1.2rem;
     padding: 0.4rem 1.2rem;
     cursor:pointer;
-    
     svg {
+        transform: translateX(0.5rem);
         transform: translateY(0.5rem);
-        margin-right: 1.2rem;
         font-size: 1.5rem;
+    }
+    g{
+        transform: translateY(0.1rem);
+    }
+`;
+const IconBox=styled.div`
+outline-style:none;
+border:none;
+width:1.5rem;
+height:1.5rem;
+    display:inline-block;
+        margin-right: 1.2rem;
+`;
+const CopyStatus =styled.div`
+      opacity:0%;
+      animation-name: fadeout;
+      animation-duration: 2s;
+      animation-iteration-count: inherit;
+      @keyframes fadeout {
+      from {
+          opacity:100%;
+      }
+      to {
+          opacity:0%;
+      }
     }
 `;
 const ShareModal =({closeModal})=>{
+    //이 페이지의 url받아오기
+    const thisUrl = window.location.href;
+    //카피상태로 복사되었는지 알려주기
+    const [copied, setCopied] =useState(false);
+    //카피상태변경하는 함수
+    const onSetCopy =()=>{
+        setCopied(true);
+    }
     return (
         <>
         <ModalWrap>
@@ -121,13 +109,40 @@ const ShareModal =({closeModal})=>{
             
             <Separator/> 
             <ShareContents>
-                <ShareContent><FiMessageCircle color="#F79F1F"/> 카카오톡</ShareContent>
-                <ShareContent><FaLine color="green"/>
-                <LineIcon size={32} round={true} />  라인</ShareContent>
-                <ShareContent><FiLink color="gray"/> url</ShareContent>
+                {/* <ShareContent>
+                    <IconBox><FiMessageCircle color="#F79F1F"/></IconBox> 
+                    카카오톡
+                </ShareContent> */}
+                <ShareContent>
+                    <FacebookShareButton url={thisUrl}  >
+                        <IconBox><FacebookIcon size={32} round={true}/></IconBox>
+                        페이스북
+                        
+                    </FacebookShareButton>
+                </ShareContent>
+                <ShareContent>
+                    <LineShareButton url={thisUrl}  >
+                        <IconBox><LineIcon size={32} round={true} /></IconBox>
+                        라인
+                    </LineShareButton>
+                </ShareContent>
+                <ShareContent>
+                    <IconBox><FiLink color="gray"/></IconBox>
+                    <CopyToClipboard text={thisUrl} 
+                        onCopy={() => onSetCopy()}>
+                        <span>url</span>
+                    </CopyToClipboard>
+                </ShareContent>
             </ShareContents>
-            
             <Separator/> 
+            {!copied?null:(
+             <CopyStatus>
+                 <div className="fadeOut">
+                 ClipBoard에 복사되었습니다
+                 </div>
+            </CopyStatus>)
+                }
+
         </Modal>
         </ModalWrap>
         </>
