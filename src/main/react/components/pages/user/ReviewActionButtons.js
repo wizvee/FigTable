@@ -34,7 +34,8 @@ const Icon = styled.span`
 `;
 
 const Comment = styled.div`
-  width: 80%;
+  position: relative;
+  width: 60%;
   margin-top: 0.7rem;
   font-size: 0.95rem;
   color: ${palette.text};
@@ -44,6 +45,17 @@ const Comment = styled.div`
   span + span {
     margin-left: 1.5rem;
   }
+  .delBtn {
+    position: absolute;
+    right: 1.5rem;
+    margin-left: 3rem;
+    color: ${palette.textGray};
+    font-size: 0.8rem;
+    cursor: pointer;
+    &:hover {
+      color: ${palette.text};
+    }
+  }
 `;
 
 const CommentForm = styled.form`
@@ -51,7 +63,7 @@ const CommentForm = styled.form`
   display: flex;
   align-items: center;
   margin: 1rem 0 0;
-  width: 70%;
+  width: 60%;
   button {
     position: absolute;
     right: 1rem;
@@ -165,6 +177,12 @@ const ReviewActionButtons = ({ review }) => {
     setCmtContent('');
   });
 
+  // 코멘트 삭제
+  const onDelete = useCallback(async rvcNo => {
+    await client.patch(`/figtable/api/comment/${rvcNo}`);
+    setCmtArr(cmtArr.filter(cmt => cmt.rvcNo != rvcNo));
+  });
+
   // 코멘트 모두 보기
   const onViewAllCmt = useCallback(() => setViewAllCmt(true), []);
 
@@ -213,6 +231,14 @@ const ReviewActionButtons = ({ review }) => {
                   <b>{comment.memName}</b>
                 </span>
                 <span>{comment.rvcContent}</span>
+                {member && member.memNo == comment.memNo && (
+                  <span
+                    className="delBtn"
+                    onClick={() => onDelete(comment.rvcNo)}
+                  >
+                    삭제
+                  </span>
+                )}
               </Comment>
             ))
           : cmtArr.map((comment, index) => {
@@ -223,6 +249,14 @@ const ReviewActionButtons = ({ review }) => {
                       <b>{comment.memName}</b>
                     </span>
                     <span>{comment.rvcContent}</span>
+                    {member && member.memNo == comment.memNo && (
+                      <span
+                        className="delBtn"
+                        onClick={() => onDelete(comment.rvcNo)}
+                      >
+                        삭제
+                      </span>
+                    )}
                   </Comment>
                 );
             })}

@@ -1,11 +1,13 @@
 package com.kh.figtable.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.figtable.member.model.dao.MemberDao;
 import com.kh.figtable.member.model.vo.Member;
@@ -20,8 +22,16 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao dao;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int register(Member mem) {
-		return dao.register(session, mem);
+		int r = dao.register(session, mem);
+		// 회원가입 성공 시 1,000냥 지급
+		Map point = new HashMap();
+		point.put("memNo", mem.getMemNo());
+		point.put("poHistory", 1000);
+		point.put("poContent", "회원가입 1,000냥 지급");
+		dao.addPoint(session, point);
+		return r;
 	}
 
 	@Override

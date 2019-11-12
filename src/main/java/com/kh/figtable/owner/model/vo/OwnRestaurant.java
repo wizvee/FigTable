@@ -28,7 +28,6 @@ public class OwnRestaurant {
 	private int resRating;
 	private int resReviews;
 	private int resLikes;
-	private String resReserve;
 	private String resWaiting;
 	private int resWaitCnt;
 	private String resApply;

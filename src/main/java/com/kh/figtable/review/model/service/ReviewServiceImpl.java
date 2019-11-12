@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.figtable.member.model.dao.MemberDao;
 import com.kh.figtable.review.model.dao.ReviewDao;
 import com.kh.figtable.review.model.vo.Comment;
 import com.kh.figtable.review.model.vo.Review;
@@ -20,6 +21,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private SqlSessionTemplate session;
 	@Autowired
 	private ReviewDao dao;
+	@Autowired
+	private MemberDao mDao;
 
 	@Override
 	public List<Review> getReviewsById(String resNo) {
@@ -48,8 +51,16 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int writeReview(Review review) {
-		return dao.writeReview(session, review);
+		int r = dao.writeReview(session, review);
+		// 리뷰 작성 시 300냥 지급
+		Map point = new HashMap();
+		point.put("memNo", review.getMemNo());
+		point.put("poHistory", 300);
+		point.put("poContent", "리뷰 작성 300냥 지급");
+		mDao.addPoint(session, point);
+		return r;
 	}
 
 	@Override
@@ -60,6 +71,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Comment> getCommentsById(String rvNo) {
 		return dao.getCommentsById(session, rvNo);
+	}
+
+	@Override
+	public int deleteComment(String rvcNo) {
+		return dao.deleteComment(session, rvcNo);
 	}
 
 }

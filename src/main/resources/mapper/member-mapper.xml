@@ -18,7 +18,12 @@
 		INSERT INTO FIG_MEMBER
 		VALUES('m'||MEM_SEQ.NEXTVAL, #{memEmail},
 		#{memPassword}, #{memPhone},
-		#{memName}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		#{memName}, DEFAULT, DEFAULT, DEFAULT,
+		DEFAULT, DEFAULT)
+		<selectKey keyProperty="memNo" resultType="string"
+			order="AFTER">
+			SELECT 'm'||MEM_SEQ.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 
 	<select id="login" parameterType="member" resultType="member"
@@ -42,12 +47,12 @@
 		SELECT
 		RV_NO FROM FIG_RV_LOVES WHERE MEM_NO = #{memNo}
 	</select>
-	
+
 	<insert id="lovesRv" parameterType="map">
 		INSERT INTO FIG_RV_LOVES
 		VALUES(#{memNo}, #{rvNo})
 	</insert>
-	
+
 	<delete id="unlovesRv" parameterType="map">
 		DELETE FIG_RV_LOVES WHERE
 		MEM_NO = #{memNo} AND RV_NO = #{rvNo}
@@ -85,6 +90,11 @@
 	<select id="getOldProfile" parameterType="string"
 		resultType="string">
 		SELECT MEM_PROFILE FROM FIG_MEMBER WHERE MEM_NO = #{memNo}
+	</select>
+
+	<select id="addPoint" parameterType="map">
+		INSERT INTO FIG_POINT
+		VALUES(#{memNo}, #{poHistory}, #{poContent}, SYSDATE)
 	</select>
 
 </mapper>

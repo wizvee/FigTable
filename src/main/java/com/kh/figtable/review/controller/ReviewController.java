@@ -103,4 +103,13 @@ public class ReviewController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
+	@RequestMapping(value = "/api/comment/{rvcNo}", method = RequestMethod.PATCH)
+	private ResponseEntity deleteComment(@PathVariable("rvcNo") String rvcNo) {
+		int r = service.deleteComment(rvcNo);
+		if (r > 0)
+			return new ResponseEntity<List<Comment>>(HttpStatus.OK);
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
 }

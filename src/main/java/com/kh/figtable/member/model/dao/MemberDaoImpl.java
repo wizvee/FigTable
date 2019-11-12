@@ -67,4 +67,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("member.unlovesRv", data);
 	}
 
+	@Override
+	public int addPoint(SqlSession session, Map point) {
+		return session.insert("member.addPoint", point);
+	}
+
 }

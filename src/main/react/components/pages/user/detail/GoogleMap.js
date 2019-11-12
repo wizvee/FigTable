@@ -40,6 +40,8 @@ const GoogleMap = ({ lat, lng }) => {
       let marker = createMarker();
       marker.setMap(map);
     });
+
+    return () => window.document.body.removeChild(googleScript);
   }, []);
 
   return <InfoMap ref={googleMapRef} />;
