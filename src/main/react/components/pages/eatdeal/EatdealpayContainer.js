@@ -11,8 +11,6 @@ import EatPayWay from './detail/EatPayWay';
 import TotalPay from './detail/TotalPay';
 import { readEat } from '../../../modules/eatdeal';
 
-
-
   
 const EatdealCard =styled.div`
   display: flex;
@@ -58,7 +56,6 @@ const EatdealpayContainer = ({match}) => {
       eatLoading:loading['eatdeal/READ_EAT']
     }));
     
-  // 처음 마운트 될 때 레스토랑 가져오기 API요청
   useEffect(() => {
     dispatch(readEat(eatNo));
   }, [eatNo])

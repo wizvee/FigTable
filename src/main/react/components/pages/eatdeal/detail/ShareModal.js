@@ -4,7 +4,55 @@ import styled, { css } from 'styled-components';
 import { MdClose } from 'react-icons/md';
 import { FaLine } from 'react-icons/fa';
 import { FiLink, FiMessageCircle } from 'react-icons/fi';
-
+import {
+    FacebookShareButton,
+    GooglePlusShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
+    PinterestShareButton,
+    VKShareButton,
+    OKShareButton,
+    RedditShareButton,
+    TumblrShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    ViberShareButton,
+    WorkplaceShareButton,
+    LineShareButton,
+    EmailShareButton,
+  } from 'react-share';
+  import {
+    FacebookIcon,
+    TwitterIcon,
+    TelegramIcon,
+    WhatsappIcon,
+    GooglePlusIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    VKIcon,
+    OKIcon,
+    RedditIcon,
+    TumblrIcon,
+    LivejournalIcon,
+    MailruIcon,
+    ViberIcon,
+    WorkplaceIcon,
+    LineIcon,
+    EmailIcon,
+  } from 'react-share';
+  import {
+    FacebookShareCount,
+    GooglePlusShareCount,
+    LinkedinShareCount,
+    PinterestShareCount,
+    VKShareCount,
+    OKShareCount,
+    RedditShareCount,
+    TumblrShareCount,
+  } from 'react-share';
+  
 const ModalWrap= styled.div`
     position: fixed;
     top: 0;
@@ -74,7 +122,8 @@ const ShareModal =({closeModal})=>{
             <Separator/> 
             <ShareContents>
                 <ShareContent><FiMessageCircle color="#F79F1F"/> 카카오톡</ShareContent>
-                <ShareContent><FaLine color="green"/>  라인</ShareContent>
+                <ShareContent><FaLine color="green"/>
+                <LineIcon size={32} round={true} />  라인</ShareContent>
                 <ShareContent><FiLink color="gray"/> url</ShareContent>
             </ShareContents>
             
