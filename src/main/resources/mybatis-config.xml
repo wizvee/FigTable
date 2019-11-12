@@ -9,6 +9,8 @@
 			alias="restaurant" />
 		<typeAlias type="com.kh.figtable.review.model.vo.Review"
 			alias="review" />
+		<typeAlias type="com.kh.figtable.review.model.vo.Comment"
+			alias="comment" />
 		<typeAlias type="com.kh.figtable.common.StringArrayHandler"
 			alias="strArr" />
 		<typeAlias type="com.kh.figtable.eatdeal.model.vo.Eatdeal"

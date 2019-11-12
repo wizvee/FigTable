@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="comment">
+	<resultMap type="comment" id="cmtResult">
+		<result property="rvcNo" column="RVC_NO" />
+		<result property="rvcNoRef" column="RVC_NO_REF" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="rvcContent" column="RVC_CONTENT" />
+		<result property="rvcWarn" column="RVC_WARN" />
+		<result property="rvcDate" column="RVC_DATE" />
+	</resultMap>
+</mapper>
