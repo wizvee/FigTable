@@ -12,4 +12,6 @@ public class OwnerInfo {
 	private String ownName;
 	private char ownStatics;
 	private int resCount;
+	private String no;
+	private String name;
 }
