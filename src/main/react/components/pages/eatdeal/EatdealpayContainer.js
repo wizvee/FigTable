@@ -10,6 +10,7 @@ import Separator from './detail/Separator';
 import EatPayWay from './detail/EatPayWay';
 import TotalPay from './detail/TotalPay';
 import { readEat } from '../../../modules/eatdeal';
+import { getPoint } from '../../../modules/point';
 
   
 const EatdealCard =styled.div`
@@ -48,22 +49,28 @@ const EatdealpayContainer = ({match}) => {
 
     const {
       eatdeal,
+      member,
+      point,
       eatError,
       eatLoading
-    }=useSelector(({eatdeal, loading})=>({
+    }=useSelector(({eatdeal, member, point, loading})=>({
+      member:member.member,
+      point:point.point,
       eatdeal:eatdeal.eatdeal,
       eatError:eatdeal.error,
       eatLoading:loading['eatdeal/READ_EAT']
     }));
-    
+    console.log(member.memNo);
   useEffect(() => {
     dispatch(readEat(eatNo));
+    dispatch(getPoint(member.memNo));
   }, [eatNo])
     
   const [pay, setPay]=useState('');
   const onPayway=useCallback(pay=>setPay(pay),[]);
   
   console.log(pay);//값 넘어오는지 확인 
+  console.log(point);//값 넘어오는지 확인
 
     if(!eatdeal) {
       return <div>존재하지 않습니다.</div>
@@ -74,7 +81,7 @@ const EatdealpayContainer = ({match}) => {
         <EatdealCard>
             <PayInfo eat={eatdeal}/>
             <Separator/>
-              <TotalPay eat={eatdeal}/>
+              <TotalPay eat={eatdeal} point={point}/>
             <Separator/>
              <EatPayWay onPayway={onPayway}/>
             <ButtonArea>

@@ -24,4 +24,9 @@
 		FIG_REVIEW_COM VALUES('rvc'||RVC_SEQ.NEXTVAL, #{rvNoRef}, #{memNo},
 		#{rvcContent}, NULL, DEFAULT)
 	</insert>
+
+	<delete id="deleteComment" parameterType="string">
+		DELETE FIG_REVIEW_COM
+		WHERE RVC_NO = #{rvcNo}
+	</delete>
 </mapper>

@@ -59,7 +59,7 @@ const PosterSmall = props => {
         <Image url={resThumb} onClick={closeModal} />
         <TextWrapper onClick={closeModal}>
           <span>
-            {resName}
+            {resName.length > 9 ? `${resName.substring(0, 9)}...` : resName}
             <Rating>
               {isNaN(resRating / resReviews)
                 ? '0.0'

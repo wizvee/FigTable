@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.figtable.eatdeal.model.service.EatdealService;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
-import com.kh.figtable.owner.model.vo.MainInfo;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @RestController
@@ -35,11 +34,19 @@ public class EatdealController {
 	@RequestMapping(value = "/api/eatdeals/{eatNo}", method = RequestMethod.GET)
 	private ResponseEntity<Eatdeal> getByEatNo(@PathVariable("eatNo") String eatNo ) {
 
-		System.out.print("컨트롤러 들어옴");
 		Eatdeal e= service.getByEatNo(eatNo);
-		System.out.print(e.getEatStartDate());
 		
 		return new ResponseEntity<Eatdeal>(e, HttpStatus.OK);
+		
+	}
+	@RequestMapping(value = "/api/payment/point", method = RequestMethod.GET)
+	private ResponseEntity<List<String>> getMemberPoint(@RequestParam String memNo) {
+
+		System.out.print("컨트롤러 들어옴");
+		List<String> list = service.getMemberPoint(memNo);
+		System.out.print(list);
+		
+		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
 		
 	}
 

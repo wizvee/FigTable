@@ -10,9 +10,11 @@ import {
 import { setMember } from '../../../modules/member';
 import RegisterPresenter from './RegisterPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
+import ModalAlert from '../../common/ModalAlert';
 
 const RegisterContainer = ({ history }) => {
   const [error, setError] = useState(null);
+  const [isModal, setModal] = useState(false);
 
   const dispatch = useDispatch();
   const { form, auth, authError, member } = useSelector(({ auth, member }) => ({
@@ -88,7 +90,7 @@ const RegisterContainer = ({ history }) => {
   }, [auth, authError, dispatch]);
 
   useEffect(() => {
-    if (member) history.push('/');
+    if (member) setModal(true);
     try {
       sessionStorage.setItem('member', JSON.stringify(member));
     } catch (e) {
@@ -98,6 +100,13 @@ const RegisterContainer = ({ history }) => {
 
   return (
     <>
+      {isModal && (
+        <ModalAlert
+          title="포인트"
+          msg="회원가입으로 1,000😻 지급이 완료되었습니다."
+          url={`/figtable`}
+        />
+      )}
       <HeaderSimple />
       <RegisterPresenter
         form={form}

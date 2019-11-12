@@ -8,7 +8,7 @@ import Loader from '../../common/Loader';
 const Container = styled(Responsive)`
   padding: 2rem 1rem;
   height: 100%;
-  min-height: 100vh - 39rem;
+  min-height: calc(100vh - 39rem);
 `;
 
 const HomePresenter = ({ restaurants, error, loading }) => {

@@ -37,4 +37,9 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.insert("comment.wirteComment", comment);
 	}
 
+	@Override
+	public int deleteComment(SqlSession session, String rvcNo) {
+		return session.delete("comment.deleteComment", rvcNo);
+	}
+
 }

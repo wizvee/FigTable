@@ -21,5 +21,7 @@ public interface ReviewDao {
 	int writeReview(SqlSession session, Review review);
 
 	int wirteComment(SqlSession session, Comment comment);
+	
+	int deleteComment(SqlSession session, String rvcNo);
 
 }

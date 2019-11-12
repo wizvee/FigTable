@@ -17,6 +17,7 @@ const Container = styled(Responsive)`
   justify-content: center;
   align-items: center;
   width: 800px;
+  min-height: calc(100vh - 12rem);
   padding: 2rem;
 `;
 
