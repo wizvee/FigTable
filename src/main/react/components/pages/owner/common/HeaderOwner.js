@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const Header = styled.div`
   width: 100%;
@@ -57,12 +58,14 @@ const Wrapper = styled(Responsive)`
     }
   }
 `;
-const HeaderOwner = ({ name }) => {
+const HeaderOwner = ({ ownerInfo, match }) => {
+  const { ownName, resCount } = ownerInfo;
+  const { resNo } = match.params;
   return (
     <Header>
       <Wrapper>
         <div className="logo">
-          <Link to="/figtable/owner">
+          <Link to={`/figtable/owner/${resNo}`}>
             <div className="logoMain">FIGTABLE</div>
             &nbsp;&nbsp;
             <div className="logoSide">
@@ -71,7 +74,7 @@ const HeaderOwner = ({ name }) => {
           </Link>
         </div>
         <div className="info">
-          <b>{name}</b> 파트너님
+          <b>{ownName}</b> 파트너님
           <div className="icon">
             &nbsp;
             <MdSettings />
@@ -82,4 +85,4 @@ const HeaderOwner = ({ name }) => {
   );
 };
 
-export default HeaderOwner;
+export default withRouter(HeaderOwner);

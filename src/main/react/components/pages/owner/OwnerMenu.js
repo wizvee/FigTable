@@ -5,6 +5,7 @@ import { MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
 import ModeSelectModal from './Modal/ModeSelectModal';
+import { withRouter } from 'react-router-dom';
 
 const MenuWrapper = styled.ul`
   text-align: center;
@@ -59,11 +60,11 @@ const MenuItem = styled.li`
     }
   }
 `;
-const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM }) => {
+const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
   return (
     <>
       <MenuWrapper>
-        <Link to="/figtable/owner/restaurant">
+        <Link to={`/figtable/owner/restaurant/${resNo}`}>
           <MenuItem>
             <IconWrapper>
               <FaStore />
@@ -101,4 +102,4 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM }) => {
   );
 };
 
-export default OwnerMenu;
+export default withRouter(OwnerMenu);

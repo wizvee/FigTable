@@ -182,19 +182,41 @@ const Preview = styled.div`
 
 const OwnerShopForm = ({ store }) => {
   const {
-    shopName,
-    imgUrl,
-    addr,
-    foodKeyword,
-    locationKeyword,
-    view,
-    reviewCount,
-    star,
-    tel,
-    owner,
-    operation,
-    menu,
+    resNo,
+    resName,
+    resThumb,
+    resAddress,
+    resFoodKeyword,
+    resLocationKeyword,
+    resViews,
+    resReviews,
+    resRating,
+    resTel,
+    resOpenDay,
+    resCloseTime,
+    resMenuTitle,
+    resMenuPrice,
   } = store;
+
+  const open = resOpenDay.split(',');
+  const close = resCloseTime.split(',');
+  const operation = [];
+  {
+    open.map((o, index) => {
+      operation.push({ openDay: open[index], closeTime: close[index] });
+    });
+  }
+
+  const title = resMenuTitle.split(',');
+  const temp = resMenuPrice.substr(0, resMenuPrice.length - 1);
+  const price = temp.split('원,');
+  const menu = [];
+  {
+    title.map((m, index) => {
+      menu.push({ title: title[index], price: price[index] + '원' });
+    });
+  }
+
   const [addOp, setAddOp] = useState(operation);
   const [addMn, setAddMn] = useState(menu);
 
@@ -250,7 +272,7 @@ const OwnerShopForm = ({ store }) => {
             name="resName"
             placeholder="매장명"
             onChange={onChange}
-            defaultValue={shopName}
+            defaultValue={resName}
           />
         </div>
         <div className="label">
@@ -261,7 +283,7 @@ const OwnerShopForm = ({ store }) => {
             name="resAddr"
             placeholder="매장 주소"
             onChange={onChange}
-            defaultValue={addr}
+            defaultValue={resAddress}
           />
         </div>
         <div className="label">
@@ -272,20 +294,10 @@ const OwnerShopForm = ({ store }) => {
             name="resTel"
             placeholder="매장 전화번호"
             onChange={onChange}
-            defaultValue={tel}
+            defaultValue={resTel}
           />
         </div>
-        <div className="label">
-          대표자 명
-          <StyledInput
-            style={{ marginLeft: '34px' }}
-            type="text"
-            name="resAdminName"
-            placeholder="대표자명"
-            onChange={onChange}
-            defaultValue={owner}
-          />
-        </div>
+
         <div className="label">
           위치 키워드
           <StyledInput
@@ -294,7 +306,7 @@ const OwnerShopForm = ({ store }) => {
             name="resLocationKeyword"
             placeholder="위치 키워드"
             onChange={onChange}
-            defaultValue={locationKeyword}
+            defaultValue={resLocationKeyword}
           />
         </div>
         <div className="label">
@@ -305,7 +317,7 @@ const OwnerShopForm = ({ store }) => {
             name="resFoodKeyword"
             placeholder="음식 키워드"
             onChange={onChange}
-            defaultValue={foodKeyword}
+            defaultValue={resFoodKeyword}
           />
         </div>
         <div className="label imgLabel">
@@ -321,7 +333,7 @@ const OwnerShopForm = ({ store }) => {
             multiple="multiple"
             /* onChange={onChangeFile} */
           />
-          <Preview url={imgUrl} />
+          <Preview url={resThumb} />
         </div>
         <br />
       </FormContainer>

@@ -80,7 +80,7 @@ const Image = styled.div`
 
 const Name = styled.div`
   width: 280px;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
   position: relative;
@@ -89,7 +89,7 @@ const Name = styled.div`
 
 const Keyword = styled.div`
   color: ${palette.textGray};
-  font-size: 18px;
+  font-size: 17px;
   width: 100%;
   text-align: center;
 `;
@@ -104,10 +104,15 @@ const Statics = styled.div`
   padding-top: 12px;
   .detail {
     text-align: center;
-    font-size: 20px;
+    font-size: 19px;
     span {
       margin-left: 10px;
       margin-right: 10px;
+
+      svg {
+        position: relative;
+        top: 2px;
+      }
     }
   }
 `;

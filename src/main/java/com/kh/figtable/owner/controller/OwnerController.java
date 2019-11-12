@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.figtable.owner.model.service.OwnerService;
-import com.kh.figtable.owner.model.vo.MainInfo;
-
-
+import com.kh.figtable.owner.model.vo.OwnRestaurant;
+import com.kh.figtable.owner.model.vo.OwnerInfo;
 
 
 @RestController	
@@ -21,9 +20,17 @@ public class OwnerController {
 	private OwnerService service;	
 	
 	@RequestMapping(value ="/api/owner/{resNo}", method = RequestMethod.GET)
-	private ResponseEntity<MainInfo> getOwnerMainInfo(@PathVariable("resNo") String resNo)
+	private ResponseEntity<OwnRestaurant> getOwnerRes(@PathVariable("resNo") String resNo)
 	{
-		MainInfo info = service.getOwnerMainInfo(resNo);
-		return new ResponseEntity<MainInfo>(info, HttpStatus.OK);
+		OwnRestaurant r = service.getOwnerRes(resNo);
+		return new ResponseEntity<OwnRestaurant>(r, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/api/ownerInfo/{ownNo}", method=RequestMethod.GET)
+	private ResponseEntity<OwnerInfo> getOwnerHeader(@PathVariable("ownNo") String ownNo){
+		OwnerInfo info = service.getOwnerHeader(ownNo);
+		return new ResponseEntity<OwnerInfo>(info, HttpStatus.OK);
+	}
+	
+	
 }
