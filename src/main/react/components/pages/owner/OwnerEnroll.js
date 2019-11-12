@@ -26,12 +26,13 @@ const ContentWrapper = styled(Responsive)`
 
 const OwnerEnroll = () => {
   return (
-    <>
-      <HeaderOwner />
-      <Container>
-        <ContentWrapper>회원가입</ContentWrapper>
-      </Container>
-    </>
+    // <>
+    //   <HeaderOwner />
+    //   <Container>
+    //     <ContentWrapper>회원가입</ContentWrapper>
+    //   </Container>
+    // </>
+    <div>ㅇㅇㅇ</div>
   );
 };
 

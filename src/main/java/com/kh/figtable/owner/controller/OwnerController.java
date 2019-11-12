@@ -29,7 +29,6 @@ public class OwnerController {
 	@RequestMapping(value="/api/ownerInfo/{ownNo}", method=RequestMethod.GET)
 	private ResponseEntity<OwnerInfo> getOwnerHeader(@PathVariable("ownNo") String ownNo){
 		OwnerInfo info = service.getOwnerHeader(ownNo);
-		System.out.println(info);
 		return new ResponseEntity<OwnerInfo>(info, HttpStatus.OK);
 	}
 	

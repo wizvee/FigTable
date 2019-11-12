@@ -46,26 +46,26 @@ const App = () => {
         />
         <Route path="/figtable/owner/:resNo" exact component={OwnerContainer} />
         <Route
-          path="/figtable/owner/restaurant/:resNo"
+          path="/figtable/owner/:resNo/restaurant"
           component={UpdateOwnerRestaurant}
         />
         <Route
-          path="/figtable/owner/eatdeal"
+          path="/figtable/owner/:resNo/eatdeal"
           component={OwnerEatDealContainer}
         />
         <Route
-          path="/figtable/owner/statics"
+          path="/figtable/owner/:resNo/statics"
           component={OwnerStaticsContainer}
         />
         <Route
-          path="/figtable/owner/waiting"
+          path="/figtable/owner/:resNo/waiting"
           component={OwnerWaitingContainer}
         />
         <Route
-          path="/figtable/owner/public"
+          path="/figtable/owner/:resNo/public"
           component={WaitingPublicContainer}
         />
-        <Route path="/figtable/owner/enroll" component={OwnerEnroll} />
+        <Route path="/figtable/ownerEnroll" exact component={OwnerEnroll} />
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
         <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
