@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import WaitingForm from './WaitingForm';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vmax;
@@ -92,7 +92,8 @@ const Logo = styled.div`
   }
 `;
 
-const WaitingPublicContainer = () => {
+const WaitingPublicContainer = ({ match }) => {
+  const { resNo } = match.params;
   const [pNumber, setPNumber] = useState();
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -121,7 +122,7 @@ const WaitingPublicContainer = () => {
           </Back>
         </Left>
         <Right>
-          <Link to="/figtable/owner">
+          <Link to={`/figtable/owner/${resNo}`}>
             <Logo>
               <div className="logoMain">FIGTABLE</div>
               &nbsp;&nbsp;
@@ -137,4 +138,4 @@ const WaitingPublicContainer = () => {
   );
 };
 
-export default WaitingPublicContainer;
+export default withRouter(WaitingPublicContainer);

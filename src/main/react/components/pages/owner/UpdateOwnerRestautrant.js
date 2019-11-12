@@ -135,7 +135,7 @@ const UpdateOwnerRestautrant = ({ match }) => {
             <ContainerWrapper>
               <div className="left">
                 <OwnerInfo store={restaurant} />
-                <OwnerLeftMenu select="2" />
+                <OwnerLeftMenu />
               </div>
               <Right>
                 <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
