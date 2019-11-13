@@ -51,7 +51,7 @@ const Point = styled.div`
     margin:0;
     }
 `;
-const TotalPay=({eat})=>{
+const TotalPay=({eat, memPoint})=>{
     const {
       eatNo,
       resNo,
@@ -67,7 +67,7 @@ const TotalPay=({eat})=>{
       eatEndDate,
       eatContent
     } = eat;
-    const memberPoint= 5000;
+    const memberPoint= Number(memPoint);
 
     //포인트 일부적용 창 키고 끄기
     const [myPoint, setMyPoint] = useState(false);

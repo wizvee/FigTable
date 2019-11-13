@@ -40,13 +40,21 @@ public class EatdealController {
 		
 	}
 	@RequestMapping(value = "/api/payment/point", method = RequestMethod.GET)
-	private ResponseEntity<List<String>> getMemberPoint(@RequestParam String memNo) {
+	private ResponseEntity <String> getMemberPoint(@RequestParam String memNo) {
+
+		String mpoint = service.getMemberPoint(memNo);
+		
+		return new ResponseEntity<String>(mpoint, HttpStatus.OK);
+		
+	}
+	@RequestMapping(value = "/api/owner/eatdeal", method = RequestMethod.GET)
+	private ResponseEntity <List<Eatdeal>>getByResNo(@RequestParam String resNo) {
 
 		System.out.print("컨트롤러 들어옴");
-		List<String> list = service.getMemberPoint(memNo);
+		List<Eatdeal> list = service.getByResNo(resNo);
 		System.out.print(list);
 		
-		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<Eatdeal>>(list, HttpStatus.OK);
 		
 	}
 

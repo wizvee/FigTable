@@ -28,7 +28,12 @@
 	</select>
 	<select id="getMemberPoint"
 		resultType="string" parameterType="string">
-		SELECT SUM(PO_HISTORY) FROM FIG_POINT WHERE MEM_NO=#{memNo}
+		SELECT SUM(PO_HISTORY) FROM FIG_POINT WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<select id="getByResNo"
+		resultType="eatdeal" resultMap="eatResult" parameterType="string">
+		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO) WHERE RES_NO = #{resNo}
 	</select>
 
 </mapper>

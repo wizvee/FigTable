@@ -8,5 +8,6 @@ public interface EatdealService {
 
 	List<Eatdeal> getEatdeals();
 	Eatdeal getByEatNo (String eatNo);
-	List<String> getMemberPoint(String memNo);
+	String getMemberPoint(String memNo);
+	List<Eatdeal>getByResNo(String resNo);
 }

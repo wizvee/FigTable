@@ -12,7 +12,7 @@ public interface EatdealDao {
 
 	List<Eatdeal> getEatdeals( SqlSession session);
 	Eatdeal getByEatNo(SqlSession session, String eatNo);
-	List<String> getMemberPoint ( SqlSession session, String memNo);
-
+	String getMemberPoint ( SqlSession session, String memNo);
+	List<Eatdeal> getByResNo(SqlSession session, String resNo);
 
 }

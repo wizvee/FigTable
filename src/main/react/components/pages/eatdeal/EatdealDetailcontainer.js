@@ -39,6 +39,7 @@ const Button= styled.div`
     cursor: pointer;
     position:sticky;
     bottom:0;
+    z-index:9999999;
 `;
 const EatdealDetailContainer=({match})=>{
     const { eatNo } = match.params;

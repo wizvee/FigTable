@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
 import EatdealModal from './EatdealModal';
+import moment from 'moment';
 
 const EatdealCard =styled.div`
 display:flex;
@@ -56,17 +57,21 @@ const EatdealButton= styled(Button)`
   vertical-align:center;
 `;
 const EatdealManageDetail=({eatDeal})=>{
-    const {
-      eatNo,
-      thumb,
-      title,
-      status,
-      discount,
-      originPrice,
-      discountPrice,
-      remainFood,
-      FoodName,
-    } = eatDeal;
+  const {
+    eatNo,
+    resNo,
+    resName,
+    resRocationKeyword,
+    thumb,
+    eatFoodName,
+    eatStatus,
+    eatCount,
+    eatOriginPrice,
+    eatDiscount,
+    eatStartDate,
+    eatEndDate,
+    eatContent
+  } = eatDeal;
     
     const [modal, setIsModal] = useState(false);
     function openModal(){
@@ -80,14 +85,14 @@ const EatdealManageDetail=({eatDeal})=>{
         <EatdealCard>
             <Image url={thumb}/>
             <RightContainer>
-                    <Text>메뉴 : <span>{FoodName}</span></Text>
-                    <Text>원래 가격 : <span>\{originPrice}</span> | 할인율 : <span>{discount}</span> |  할인 가격 :  <span>\{discountPrice}</span></Text>
+                    <Text>메뉴 : <span>{eatFoodName}</span></Text>
+                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{eatDiscount}</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
             
-                    <Text>기간 : 0000.00.00 ~ 0000.00.00</Text>
-                    <Text>남은 수량 : <span>{remainFood}</span> </Text>
-                    {status==='N'?
+                    <Text>기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Text>
+                    <Text>남은 수량 : <span>{eatCount}</span> </Text>
+                    {eatStatus==='N'?
                     (<Text color="#f67280">상태 : <span>New</span></Text>)
-                    :(<Text color="#f1c40f">상태 : <span>재입고</span></Text>)
+                    :(<Text color="#f1c40f">상태 : <span>Sold Out</span></Text>)
                      }
             </RightContainer>
         </EatdealCard>

@@ -29,8 +29,13 @@ public class EatdealServiceImpl implements EatdealService {
 	}
 
 	@Override
-	public List<String> getMemberPoint(String memNo) {
+	public String getMemberPoint(String memNo) {
 		return dao.getMemberPoint(session, memNo);
+	}
+
+	@Override
+	public List<Eatdeal> getByResNo(String resNo) {
+		return dao.getByResNo(session, resNo);
 	}
 
 
