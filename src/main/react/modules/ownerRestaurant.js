@@ -10,8 +10,13 @@ const [
   OWNER_RES_SUCCESS,
   OWNER_RES_FAILURE,
 ] = createRequestActionTypes('owner/OWNER_RES');
+const CHANGE_FIELD = 'owner/CHANGE_FILED';
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
+export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
+  key,
+  value,
+}));
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 export function* ownerResSaga() {
@@ -33,6 +38,10 @@ const ownerRestaurant = handleActions(
       ...state,
       error,
     }),
+    [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
+      produce(state, draft => {
+        draft[key] = value;
+      }),
   },
   initialState,
 );

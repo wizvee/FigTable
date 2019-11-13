@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.figtable.admin.model.service.AdminService;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
+import com.kh.figtable.review.model.vo.Review;
 
 @RestController
 public class AdminController {
@@ -23,7 +24,6 @@ public class AdminController {
 	@RequestMapping(value = "/api/adminRestaurnats", method = RequestMethod.GET)
 	private ResponseEntity<List<Restaurant>> getRestaurantsByApply(){
 		List<Restaurant> list = service.getRestaurantsByApply();
-		System.out.println("res 갯수 : " + list.size());
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 	
@@ -31,8 +31,24 @@ public class AdminController {
 	@RequestMapping(value="/api/adminOwners", method=RequestMethod.GET)
 	private ResponseEntity<List<Owner>> getOwnersByApply(){
 		List<Owner> list = service.getOwnersByApply();
-		System.out.println("own 갯수 : " + list.size());
 		return new ResponseEntity<List<Owner>>(list, HttpStatus.OK);
+	}
+	
+	
+//	@RequestMapping(value="/api/adminInsertRes", method = RequestMethod.GET)
+//	private ResponseEntity<Integer> insertRes(@RequestBody Restaurant res) {
+//		int result = service.insertRes(res);
+//		System.out.println(result);
+//		
+//		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+//	}
+	
+	
+	//review
+	@RequestMapping(value="/api/adminReviews", method=RequestMethod.GET)
+	private ResponseEntity<List<Review>> getReviews(){
+		List<Review> list = service.getReviews();
+		return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
 	}
 	
 }

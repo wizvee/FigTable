@@ -11,3 +11,11 @@ client.get(`/figtable/api/eatdeals/${eatNo}`);
 //결제페이지 포인트 가져오기
 export const getMemberPoint= memNo =>
   client.get(`/figtable/api/payment/point/?memNo=${memNo}`);
+
+//owner페이지에 eatdeal가져오기
+export const getByResNo= resNo =>
+  client.get(`/figtable/api/owner/eatdeal/?resNo=${resNo}`);
+
+//eatdeal 구매한 사람 조회
+export const getBuy= resNo =>
+client.get(`/figtable/api/owner/eatdeal/buy/?resNo=${resNo}`);

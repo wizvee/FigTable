@@ -36,6 +36,24 @@
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 		<result property="resApply" column="RES_APPLY" />
 	</resultMap>
+	
+	<resultMap type="review" id="rvResult">
+		<result property="memNo" column="MEM_NO" />
+		<result property="resNo" column="RES_NO" />
+		<result property="rvNo" column="RV_NO" />
+		<result property="rvRating" column="RV_RATING" />
+		<result property="rvContent" column="RV_CONTENT" />
+		<result property="rvImages" column="RV_IMAGES"
+			typeHandler="strArr" />
+		<result property="rvDate" column="RV_DATE" />
+		<result property="rvWarn" column="RV_WARN" />
+		<result property="rvLove" column="RV_LOVE" />
+
+		<result property="memName" column="MEM_NAME" />
+		<result property="memProfile" column="MEM_PROFILE" />
+		<result property="memRvCnt" column="MEM_RVCNT" />
+		<result property="memFwCnt" column="MEM_FWCNT" />
+	</resultMap>
   
   
 	<select id="getByResApply" resultType="restaurant" resultMap="resResult">
@@ -43,6 +61,10 @@
 	</select>
 	
 	 <select id="getByOwnApply" resultType="owner" resultMap="ownResult">
-  	SELECT * FROM FIG_OWNER WHERE OWN_APPLY = 'S'
-  </select>
+  		SELECT * FROM FIG_OWNER WHERE OWN_APPLY = 'S'
+  	</select>
+  	
+  	<select id="getReviews" resultType="review" resultMap="rvResult">
+  		SELECT * FROM FIG_REVIEW WHERE RV_WARN = 'w'
+  	</select>
 </mapper>

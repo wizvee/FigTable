@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { MdLocalDining, MdEdit, MdFace, MdSpeakerNotes } from 'react-icons/md';
+import { MdLocalDining, MdFace, MdSpeakerNotes } from 'react-icons/md';
+import { FaComments } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom';
 import Responsive from '../../common/Responsive';
 import SearchTemplate from './SearchTemplate';
@@ -10,6 +11,7 @@ const MenuBlock = styled.div`
   position: fixed;
   background-color: rgba(255, 255, 255, 0.1);
   top: 60px;
+  z-index: 9999;
   ${props =>
     !props.isHome &&
     css`
@@ -110,6 +112,7 @@ const IconWrapper4 = styled.div`
   align-items: center;
   text-align: center;
   font-size: 1.8rem;
+  color: ${props => (props.isRevList ? '#f67280' : '#474747')};
 `;
 
 const MenuNavi = ({
@@ -129,6 +132,9 @@ const MenuNavi = ({
   const isOwnList =
     pathname === '/figtable/admin/owner' ||
     pathname === '/figtable/admin/owner/';
+  const isRevList =
+    pathname === '/figtable/admin/review' ||
+    pathname === '/figtable/admin/review/';
 
   const [isHome, setIsHome] = useState(false);
 
@@ -153,13 +159,6 @@ const MenuNavi = ({
             <h3>{subTitle}</h3>
           </TitleWrapper>
           <SearchWrapper>
-            {isResList && (
-              <SearchTemplate
-                onSubmit={onSubmit}
-                input={input}
-                onReset={onReset}
-              />
-            )}
             {isOwnList && (
               <SearchTemplate
                 onSubmit={onSubmit}
@@ -181,7 +180,7 @@ const MenuNavi = ({
                 <li className="li">
                   <Link className="menu" to="/figtable/admin/restaurant">
                     <IconWrapper2 isResList={isResList}>
-                      <MdEdit />
+                      <FaComments />
                     </IconWrapper2>
                   </Link>
                 </li>
@@ -194,7 +193,7 @@ const MenuNavi = ({
                 </li>
                 <li className="li">
                   <Link className="menu" to="/figtable/admin/review">
-                    <IconWrapper4>
+                    <IconWrapper4 isRevList={isRevList}>
                       <MdSpeakerNotes />
                     </IconWrapper4>
                   </Link>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
+import com.kh.figtable.review.model.vo.Review;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -22,6 +23,14 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Owner> getOwnersByApply(SqlSession session) {
 		return session.selectList("admin.getByOwnApply");
+	}
+	
+	
+	
+	//review
+	@Override
+	public List<Review> getReviews(SqlSession session) {
+		return session.selectList("admin.getReviews");
 	}
 
 }

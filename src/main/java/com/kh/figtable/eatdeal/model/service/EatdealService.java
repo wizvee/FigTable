@@ -1,12 +1,16 @@
 package com.kh.figtable.eatdeal.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 
 public interface EatdealService {
 
 	List<Eatdeal> getEatdeals();
 	Eatdeal getByEatNo (String eatNo);
-	List<String> getMemberPoint(String memNo);
+	String getMemberPoint(String memNo);
+	List<Eatdeal>getByResNo(String resNo);
+	List<Buyer> getBuy(String resNo);
 }

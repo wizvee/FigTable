@@ -27,5 +27,12 @@ public class OwnerServiceImple implements OwnerService {
 		return dao.getOwnerHeader(session, ownNo);
 	}
 	
+	@Override
+	public int updateThumb(OwnRestaurant r) throws Exception {
+		int result = dao.updateThumb(session, r);
+		if(result == 0) throw new Exception();
+		return result;
+	}
+	
 	
 }

@@ -328,7 +328,7 @@ const OwnerShopForm = ({ store }) => {
             id="thumbUpload"
             style={{ marginLeft: '76px' }}
             type="file"
-            name="rvImages"
+            name="resThumb"
             multiple="multiple"
             /* onChange={onChangeFile} */
           />

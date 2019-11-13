@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { ownerRes } from '../../../modules/ownerRestaurant';
+import { ownerRes, changeField } from '../../../modules/ownerRestaurant';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import palette from '../../../lib/styles/Palette';
 import ListContainer from './ListContainer';
 import ShopOpenModal from './Modal/ShopOpenModal';
 import { ownHeader } from '../../../modules/ownerHeader';
+import client from '../../../lib/api/client';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -187,6 +188,22 @@ const OwnerContainer = ({ match }) => {
     loading: loading['owner/OWN_HEADER'],
   }));
 
+  const onChangeFile = useCallback(
+    async ({ target: { files, name } }) => {
+      const file = files[0];
+      let form = new FormData();
+      form.append('thumbnail', file);
+
+      await client
+        .post(`/figtable/api/ownerThumb/${resNo}`, form, {
+          headers: { 'content-type': 'multipart/form-data' },
+        })
+        .then(({ data }) => dispatch(changeField({ key: name, value: data })))
+        .catch(err => console.log(err));
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
@@ -226,7 +243,7 @@ const OwnerContainer = ({ match }) => {
 
           <Container>
             <ContentWrapper>
-              <OwnerInfo store={restaurant} />
+              <OwnerInfo store={restaurant} onChangeFile={onChangeFile} />
               <Button>
                 <ButtonInput id="buttonInput" />
                 <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>

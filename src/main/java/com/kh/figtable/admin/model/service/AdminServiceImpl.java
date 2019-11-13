@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.figtable.admin.model.dao.AdminDao;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
+import com.kh.figtable.review.model.vo.Review;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -32,6 +33,12 @@ public class AdminServiceImpl implements AdminService {
 		return dao.getOwnersByApply(session);
 	}
 	
-		
+	
+	
+	//review
+	@Override
+	public List<Review> getReviews() {
+		return dao.getReviews(session);
+	}
 
 }

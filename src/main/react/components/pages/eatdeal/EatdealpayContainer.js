@@ -60,7 +60,6 @@ const EatdealpayContainer = ({match}) => {
       eatError:eatdeal.error,
       eatLoading:loading['eatdeal/READ_EAT']
     }));
-    console.log(member.memNo);
   useEffect(() => {
     dispatch(readEat(eatNo));
     dispatch(getPoint(member.memNo));
@@ -69,19 +68,16 @@ const EatdealpayContainer = ({match}) => {
   const [pay, setPay]=useState('');
   const onPayway=useCallback(pay=>setPay(pay),[]);
   
-  console.log(pay);//값 넘어오는지 확인 
-  console.log(point);//값 넘어오는지 확인
 
-    if(!eatdeal) {
-      return <div>존재하지 않습니다.</div>
-    }
+   
+    if(eatError) return null;
     return (
         <>
         <HeaderSimple />
         <EatdealCard>
             <PayInfo eat={eatdeal}/>
             <Separator/>
-              <TotalPay eat={eatdeal} point={point}/>
+              <TotalPay eat={eatdeal} memPoint={point}/>
             <Separator/>
              <EatPayWay onPayway={onPayway}/>
             <ButtonArea>

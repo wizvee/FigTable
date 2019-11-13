@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
@@ -18,7 +18,8 @@ const Container = styled.div`
     background: white;
     position: relative;
     width: 280px;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
     border-radius: 5px;
     box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 
@@ -50,6 +51,45 @@ const Container = styled.div`
       margin-left: 19%;
     }
   }
+  #thLabel {
+    padding: 2.6rem 3.15rem;
+    z-index: 999;
+    position: relative;
+    top: -52px;
+    left: 7px;
+    border-radius: 70px;
+    &::before {
+      content: '';
+    }
+    &:hover {
+      padding: 1.7rem 2.4rem;
+      color: white;
+      text-align: center;
+      font-weight: 500;
+      font-size: 40px;
+      position: relative;
+      top: -67px;
+      left: 7px;
+      background: black;
+      opacity: 0.3;
+      &::before {
+        content: '+';
+        color: white;
+        text-align: center;
+        font-weight: 500;
+        font-size: 40px;
+      }
+    }
+  }
+  input[type='file'] {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 `;
 
 const Image = styled.div`
@@ -62,20 +102,6 @@ const Image = styled.div`
   height: 100px;
   border-radius: 50px;
   z-index: 1;
-
-  &.main {
-    &:hover {
-      opacity: 0.7;
-      padding-top: 28px;
-      &::before {
-        content: '+';
-      }
-      color: white;
-      text-align: center;
-      font-weight: 500;
-      font-size: 40px;
-    }
-  }
 `;
 
 const Name = styled.div`
@@ -101,7 +127,9 @@ const Statics = styled.div`
   height: 50px;
   background: rgba(206, 212, 218, 0.5);
   margin-top: 33px;
+  margin-bottom: 15px;
   padding-top: 12px;
+
   .detail {
     text-align: center;
     font-size: 19px;
@@ -117,7 +145,14 @@ const Statics = styled.div`
   }
 `;
 
-const OwnerInfo = ({ store, location: { pathname } }) => {
+const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
+  useEffect(() => {
+    const resName = document.getElementById('resName').textContent;
+
+    document.getElementById('resName').style.fontSize =
+      (resName.length > 8 && resName.length < 19 && '16px') ||
+      (resName.length > 18 && '23px');
+  });
   const {
     resNo,
     resName,
@@ -133,13 +168,23 @@ const OwnerInfo = ({ store, location: { pathname } }) => {
       <div className="profile">
         <div className="background1">
           <div className="background2">
-            <Image
-              imgUrl={resThumb}
-              className={pathname == `/figtable/owner/{resNo}` && 'main'}
-            />
+            <Image imgUrl={resThumb} />
+            {pathname == `/figtable/owner/${resNo}` && (
+              <>
+                <label id="thLabel" htmlFor="thumb" />
+                <input
+                  type="file"
+                  id="thumb"
+                  type="file"
+                  name="rvImages"
+                  multiple="multiple"
+                  onChange={onChangeFile}
+                />
+              </>
+            )}
           </div>
         </div>
-        <Name>{resName}</Name>
+        <Name id="resName">{resName}</Name>
         <Keyword>
           {resLocationKeyword} | {resFoodKeyword}
         </Keyword>

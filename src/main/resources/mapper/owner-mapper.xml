@@ -48,4 +48,7 @@
 		(SELECT LISTAGG(RES_NAME,',')  WITHIN GROUP (ORDER BY RES_NO) NAME FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS NAME
 		FROM FIG_OWNER WHERE OWN_NO=#{ownNo}
 	</select>
+	<update id="updateThumb" parameterType="ownRestaurant">
+		UPDATE FIG_RESTAURANT SET RES_THUMB=#{resThumb} WHERE RES_NO=#{resNo}
+	</update>
 </mapper>

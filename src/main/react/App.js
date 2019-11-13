@@ -12,7 +12,7 @@ import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
 import EatdealpayContainer from './components/pages/eatdeal/EatdealpayContainer';
 import InsertRestaurant from './components/pages/admin/InsertRestaurant';
-import UpdateRestaurant from './components/pages/admin/UpdateRestaurant';
+import QnAContainer from './components/pages/admin/QnAContainer';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
 import OwnerStaticsContainer from './components/pages/owner/OwnerStaticsContainer';
@@ -68,7 +68,7 @@ const App = () => {
         <Route path="/figtable/ownerEnroll" exact component={OwnerEnroll} />
         <Route path="/figtable/admin" exact component={AdminContainer} />
         <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
-        <Route path="/figtable/admin/restaurant" component={UpdateRestaurant} />
+        <Route path="/figtable/admin/qna" component={QnAContainer} />
         <Route path="/figtable/admin/owner" component={ApplyOwnerContainer} />
         <Route path="/figtable/admin/review" component={ReviewContainer} />
         <Redirect from="*" to="/figtable" />

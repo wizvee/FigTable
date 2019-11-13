@@ -108,7 +108,7 @@ const OwnerEatDealContainer = ({ match }) => {
               <OwnerLeftMenu />
               <Right>
                 <OwnerDetailTitle title="Eat Deal" />
-                <OwnerEatdealForm />
+                <OwnerEatdealForm restaurant={restaurant}/>
               </Right>
             </ContainerWrapper>
           </Container>

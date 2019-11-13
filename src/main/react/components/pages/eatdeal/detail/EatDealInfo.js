@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FaInfoCircle,FaChevronRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import palette from '../../../../lib/styles/Palette';
-import moment from 'moment'
+import moment from 'moment';
 
 const Infowrap=styled.div`
     margin:0.1rem;
