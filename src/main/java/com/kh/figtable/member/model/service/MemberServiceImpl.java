@@ -84,4 +84,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.unlovesRv(session, data);
 	}
 
+	@Override
+	public int followingMember(Map<String, String> data) {
+		return dao.followingMember(session, data);
+	}
+
 }

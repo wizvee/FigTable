@@ -101,25 +101,21 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/api/member/love", method = RequestMethod.POST)
-	public ResponseEntity<List<String>> lovesRv(@RequestBody Map<String, String> data) {
+	public ResponseEntity lovesRv(@RequestBody Map<String, String> data) {
 		int r = service.lovesRv(data);
-		if (r > 0) {
-			// loves table에 insert성공하면, 해당 멤버의 loves목록을 업데이트하여 반환
-			List<String> list = service.getLoves(data.get("memNo"));
-			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
-		}
+		// 성공시 200 반환
+		if (r > 0)
+			return new ResponseEntity(HttpStatus.OK);
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@RequestMapping(value = "/api/member/love", method = RequestMethod.PATCH)
-	public ResponseEntity<List<String>> unlovesRv(@RequestBody Map<String, String> data) {
+	public ResponseEntity unlovesRv(@RequestBody Map<String, String> data) {
 		int r = service.unlovesRv(data);
-		if (r > 0) {
-			// loves table에 delete성공하면, 해당 멤버의 loves목록을 업데이트하여 반환
-			List<String> list = service.getLoves(data.get("memNo"));
-			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
-		}
+		// 성공시 200 반환
+		if (r > 0)
+			return new ResponseEntity(HttpStatus.OK);
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
@@ -170,6 +166,16 @@ public class MemberController {
 		}
 
 		return new ResponseEntity<String>(rename, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/follow", method = RequestMethod.POST)
+	public ResponseEntity followingMember(@RequestBody Map<String, String> data) {
+		int r = service.followingMember(data);
+		// 성공시 200 반환
+		if (r > 0)
+			return new ResponseEntity(HttpStatus.OK);
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 }

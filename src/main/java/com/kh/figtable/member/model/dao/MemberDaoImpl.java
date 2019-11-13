@@ -72,4 +72,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.addPoint", point);
 	}
 
+	@Override
+	public int followingMember(SqlSession session, Map data) {
+		return session.insert("member.followingMember", data);
+	}
+
 }

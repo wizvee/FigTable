@@ -6,6 +6,7 @@ import client from '../../../../lib/api/client';
 import { lovesRv, unlovesRv } from '../../../../modules/member';
 import palette from '../../../../lib/styles/Palette';
 import ModalLogin from '../ModalLogin';
+import ModalLoversContainer from './ModalLoversContainer';
 
 const Icon = styled.span`
   font-size: 0.95rem;
@@ -44,7 +45,7 @@ const ReviewActionButtonLoves = ({ review }) => {
   const [isModal, setIsModal] = useState(false);
   const [lovesCount, setLovesCount] = useState(review.rvLove);
   const [isLoved, setLoved] = useState(review.loved);
-  const [loverList, setLoverList] = useState([]);
+  const [isLoverModal, setLoverModal] = useState(false);
 
   // 모달을 열고 닫는 이벤트 핸들링
   const openModal = useCallback(() => {
@@ -69,15 +70,21 @@ const ReviewActionButtonLoves = ({ review }) => {
   }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
 
   // 좋아요 목록 보기 이벤트 핸들러
-  const onLoverList = useCallback(async rvNo => {
-    await client
-      .get(`/figtable/api/review/loves/${rvNo}`)
-      .then(({ data }) => console.log(data));
-  });
+  const openLoverModal = useCallback(() => {
+    setLoverModal(true);
+    document.body.style.overflow = 'hidden';
+  }, []);
+  const closeLoverModal = useCallback(() => {
+    setLoverModal(false);
+    document.body.style.overflow = 'unset';
+  }, []);
 
   return (
     <>
       {isModal && <ModalLogin msg="love" closeModal={closeModal} />}
+      {isLoverModal && (
+        <ModalLoversContainer rvNo={review.rvNo} closeModal={closeLoverModal} />
+      )}
       {isLoved ? (
         <Icon onClick={onUnlove}>
           <AiFillHeart className="loves" />
@@ -90,7 +97,7 @@ const ReviewActionButtonLoves = ({ review }) => {
         </Icon>
       )}
       {lovesCount > 0 && (
-        <Icon className="small" onClick={() => onLoverList(review.rvNo)}>
+        <Icon className="small" onClick={openLoverModal}>
           <AiFillSmile />
         </Icon>
       )}

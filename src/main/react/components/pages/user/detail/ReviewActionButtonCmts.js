@@ -148,10 +148,10 @@ const ReviewActionButtonCmts = ({ review }) => {
       .post('/figtable/api/comment', {
         rvNoRef: review.rvNo,
         memNo: member.memNo,
-        rvcContent: cmtContent,
+        rvcContent: cmtInput,
       })
       .then(({ data }) => setCmtArr(data));
-    setCmtContent('');
+    setCmtInput('');
   });
 
   // 코멘트 삭제
@@ -176,12 +176,12 @@ const ReviewActionButtonCmts = ({ review }) => {
           댓글 {cmtArr.length}개
         </Icon>
       )}
-      {cmtInput && (
+      {member && viewInput && (
         <CommentForm onSubmit={onSubmit}>
           <Profile url={member.memProfile} />
           <StyledInput
             type="text"
-            value={cmtContent}
+            value={cmtInput}
             onChange={onChange}
             placeholder="댓글 달기..."
           />

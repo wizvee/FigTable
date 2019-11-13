@@ -35,5 +35,7 @@ public interface MemberDao {
 	String getOldProfile(SqlSession session, String memNo);
 	
 	int addPoint(SqlSession session, Map point);
+	
+	int followingMember(SqlSession session, Map data);
 
 }
