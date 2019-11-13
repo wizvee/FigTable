@@ -18,4 +18,9 @@ public class OwnerDaoImpl implements OwnerDao {
 	public OwnerInfo getOwnerHeader(SqlSession session, String ownNo) {
 		return session.selectOne("owner.ownerInfo", ownNo);
 	}
+	
+	@Override
+	public int updateThumb(SqlSession session, OwnRestaurant r) {
+		return session.update("owner.updateThumb", r);
+	}
 }
