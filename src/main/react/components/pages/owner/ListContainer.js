@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import ReservationItem from './ReservationItem';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import WaitingItem from './waiting/WaitingItem';
+import { FiAlertCircle } from 'react-icons/fi';
 
 const Container = styled.div`
   margin-top: 40px;
@@ -99,11 +100,29 @@ const Content = styled.div`
     width: 100%;
     height: 550px;
   }
+
+  .closeMsg {
+    color: ${palette.textGray};
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    padding-top: 44px;
+
+    svg {
+      position: relative;
+      top: 7px;
+      font-size: 25px;
+    }
+  }
 `;
 
-const ListContainer = ({ list, location: { pathname }, match }) => {
+const ListContainer = ({ resOpen, list, location: { pathname }, match }) => {
   const { resNo } = match.params;
-
+  useEffect(() => {
+    resOpen == 'false' &&
+      (document.getElementById('listContent').style.overflowY = 'hidden');
+  }, []);
+  console.log(resOpen);
   return (
     <Container
       className={pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'}
@@ -119,11 +138,16 @@ const ListContainer = ({ list, location: { pathname }, match }) => {
         )}
       </Title>
       <Content
+        id="listContent"
         className={pathname == `/figtable/owner/${resNo}` ? 'main' : 'waiting'}
       >
-        {list.map((l, index) => (
-          <WaitingItem waiting={l} key={index} />
-        ))}
+        {resOpen == 'false' ? (
+          <div className="closeMsg">
+            <FiAlertCircle /> 영업 준비 중
+          </div>
+        ) : (
+          list.map((l, index) => <WaitingItem waiting={l} key={index} />)
+        )}
       </Content>
     </Container>
   );

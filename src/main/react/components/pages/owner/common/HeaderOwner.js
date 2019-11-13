@@ -6,7 +6,6 @@ import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import SelectShopModal from '../Modal/SelectShopModal';
-import { FaHandMiddleFinger } from 'react-icons/fa';
 
 const Header = styled.div`
   width: 100%;

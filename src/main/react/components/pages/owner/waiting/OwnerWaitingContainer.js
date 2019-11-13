@@ -82,7 +82,7 @@ const OwnerWaitingContainer = () => {
     ({ ownHeader, loading }) => ({
       ownerInfo: ownHeader.ownerInfo,
       ownError: ownHeader.error,
-      loading: loading['owner/OWN_HEADER'],
+      ownLoading: loading['owner/OWN_HEADER'],
     }),
   );
 
@@ -93,7 +93,7 @@ const OwnerWaitingContainer = () => {
 
   return (
     <>
-      {!loading && restaurant && (
+      {!ownLoading && (
         <>
           <HeaderOwner ownerInfo={ownerInfo} />
           <Container>

@@ -32,6 +32,8 @@ public class OwnerController {
 	private ResponseEntity<OwnRestaurant> getOwnerRes(@PathVariable("resNo") String resNo)
 	{
 		OwnRestaurant r = service.getOwnerRes(resNo);
+		System.out.println(r.getResWaiting());
+		r.setResWaiting(r.getResWaiting()==null?"false":"true");
 		return new ResponseEntity<OwnRestaurant>(r, HttpStatus.OK);
 	}
 	
