@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import RatingIcon from '../RatingIcon';
-import ReviewActionButtons from './ReviewActionButtons';
 import MemberProfile from '../MemberProfile';
+import ReviewActionButtonLoves from './ReviewActionButtonLoves';
+import ReviewActionButtonCmts from './ReviewActionButtonCmts';
 
 const Container = styled.div`
   display: flex;
@@ -57,6 +58,11 @@ const ImgBlock = styled.div`
   }
 `;
 
+const ReviewActionButtons = styled.div`
+  padding-top: 0.8rem;
+  width: 100%;
+`;
+
 const ReviewItem = ({ review, openInsta }) => {
   const {
     memProfile,
@@ -86,7 +92,10 @@ const ReviewItem = ({ review, openInsta }) => {
               <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
             ))}
         </div>
-        <ReviewActionButtons review={review} />
+        <ReviewActionButtons>
+          <ReviewActionButtonLoves review={review} />
+          <ReviewActionButtonCmts review={review} />
+        </ReviewActionButtons>
       </Content>
       <RatingIcon width="90px" fontSize="3rem" rating={rvRating} />
     </Container>

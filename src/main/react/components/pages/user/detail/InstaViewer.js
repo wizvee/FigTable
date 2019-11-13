@@ -8,7 +8,8 @@ import {
   MdNavigateNext,
 } from 'react-icons/md';
 import RatingIcon from '../RatingIcon';
-import ReviewActionButtons from './ReviewActionButtons';
+import ReviewActionButtonLoves from './ReviewActionButtonLoves';
+import ReviewActionButtonCmts from './ReviewActionButtonCmts';
 
 const Overlay = styled.div`
   z-index: 55;
@@ -159,6 +160,15 @@ const Data = styled.div`
   }
 `;
 
+const ReviewActionButtons = styled.div`
+  padding-top: 0.8rem;
+  width: 100%;
+  color: ${palette.textGray};
+  span + span {
+    margin-left: 1rem;
+  }
+`;
+
 const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
   const { selectImage, isView } = viewInsta;
 
@@ -233,7 +243,10 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
             </UserWrapper>
             <div className="comment">{selectReview.rvContent}</div>
             <div className="date">{selectReview.rvDate}</div>
-            <ReviewActionButtons review={selectReview} />
+            <ReviewActionButtons>
+              <ReviewActionButtonLoves review={selectReview} />
+              <ReviewActionButtonCmts review={selectReview} />
+            </ReviewActionButtons>
           </ReviewSection>
         </Container>
       </>

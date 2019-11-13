@@ -19,12 +19,8 @@ const [UNLIKES_RES] = createRequestActionTypes('member/UNLIKES_RES');
 const [GET_LOVES, GET_LOVES_SUCCESS] = createRequestActionTypes(
   'member/GET_LOVES',
 );
-const [LOVES_RV, LOVES_RV_SUCCESS] = createRequestActionTypes(
-  'member/LOVES_RV',
-);
-const [UNLOVES_RV, UNLOVES_RV_SUCCESS] = createRequestActionTypes(
-  'member/UNLOVES_RV',
-);
+const [LOVES_RV] = createRequestActionTypes('member/LOVES_RV');
+const [UNLOVES_RV] = createRequestActionTypes('member/UNLOVES_RV');
 
 export const setMember = createAction(SET_MEMBER, member => member);
 export const logout = createAction(LOGOUT);
@@ -113,14 +109,6 @@ export default handleActions(
       likes,
     }),
     [GET_LOVES_SUCCESS]: (state, { payload: loves }) => ({
-      ...state,
-      loves,
-    }),
-    [LOVES_RV_SUCCESS]: (state, { payload: loves }) => ({
-      ...state,
-      loves,
-    }),
-    [UNLOVES_RV_SUCCESS]: (state, { payload: loves }) => ({
       ...state,
       loves,
     }),

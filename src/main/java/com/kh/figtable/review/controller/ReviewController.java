@@ -115,7 +115,7 @@ public class ReviewController {
 	@RequestMapping(value = "/api/review/loves/{rvNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Member>> getLoversList(@PathVariable("rvNo") String rvNo) {
 		List<Member> result = service.getLoversList(rvNo);
-		return new ResponseEntity<List<Member>>(result, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
 	}
 
 }

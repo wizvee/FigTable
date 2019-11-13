@@ -9,6 +9,11 @@ import RestaurantInfo from './RestaurantInfo';
 import ActionButtons from './ActionButtons';
 import Loader from '../../../common/Loader';
 
+const FullHeight = styled.div`
+  width: 100%;
+  height: calc(100vh - 12rem);
+`;
+
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -50,7 +55,7 @@ const Title = styled.div`
 const Rating = styled.span`
   flex: 1;
   align-self: flex-end;
-  padding-left: 0.3rem;
+  padding-left: 0.5rem;
   font-size: 1.5rem;
   color: ${palette.primary};
   transform: translateY(-5px);
@@ -85,7 +90,12 @@ const InfoBody = styled.div`
 
 const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   if (error) return null;
-  if (loading || !info || !imgReviews) return <Loader />;
+  if (loading || !info || !imgReviews)
+    return (
+      <FullHeight>
+        <Loader />
+      </FullHeight>
+    );
 
   const {
     resNo,
