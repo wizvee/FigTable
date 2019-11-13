@@ -1,5 +1,6 @@
 package com.kh.figtable.eatdeal.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.eatdeal.model.dao.EatdealDao;
+import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 
 @Service
@@ -36,6 +38,11 @@ public class EatdealServiceImpl implements EatdealService {
 	@Override
 	public List<Eatdeal> getByResNo(String resNo) {
 		return dao.getByResNo(session, resNo);
+	}
+
+	@Override
+	public List<Buyer>  getBuy(String resNo) {
+		return dao.getBuy(session, resNo);
 	}
 
 

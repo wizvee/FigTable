@@ -15,3 +15,7 @@ export const getMemberPoint= memNo =>
 //owner페이지에 eatdeal가져오기
 export const getByResNo= resNo =>
   client.get(`/figtable/api/owner/eatdeal/?resNo=${resNo}`);
+
+//eatdeal 구매한 사람 조회
+export const getBuy= resNo =>
+client.get(`/figtable/api/owner/eatdeal/buy/?resNo=${resNo}`);

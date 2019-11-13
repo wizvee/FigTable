@@ -8,24 +8,33 @@ import { takeLatest } from 'redux-saga/effects';
 const [LIST_EAT, LIST_EAT_SUCCESS, LIST_EAT_FAILURE] = createRequestActionTypes(
   'eatdeals/LIST_EAT',
 );
-const UNLOAD_EAT = 'eatdeals/UNLOAD_EAT'; // 상세 페이지에서 벗어날 때 데이터 비우기
 
 const[LIST_OWN_EAT, LIST_OWN_EAT_SUCCESS, LIST_OWN_EAT_FAILURE] 
 = createRequestActionTypes('eatdeals/LIST_OWN_EAT',);
 
+const[LIST_BUY_EAT,LIST_BUY_EAT_SUCCESS, LIST_BUY_EAT_FAILURE ]
+= createRequestActionTypes('eatdeals/LIST_BUY_EAT',);
+
+
+const UNLOAD_EAT = 'eatdeals/UNLOAD_EAT'; // 상세 페이지에서 벗어날 때 데이터 비우기
+
 export const listEat = createAction(LIST_EAT);
 export const listOwnEat = createAction(LIST_OWN_EAT, resNo => resNo);
+export const listBuyEat = createAction(LIST_BUY_EAT, resNo => resNo);
 export const unloadEat = createAction(UNLOAD_EAT);
 
 const listEatSaga = createRequestSaga(LIST_EAT, restAPI.getEatdeals);
 const listOwnEatSaga = createRequestSaga(LIST_OWN_EAT, restAPI.getByResNo);
+const listBuyEatSaga = createRequestSaga(LIST_BUY_EAT, restAPI.getBuy);
 export function* eatdealsSaga() {
   yield takeLatest(LIST_EAT, listEatSaga);
   yield takeLatest(LIST_OWN_EAT, listOwnEatSaga);
+  yield takeLatest(LIST_BUY_EAT, listBuyEatSaga);
 }
 const initialState = {
   eatdeals: null,
   ownEatdeals:null,
+  buyers:null,
   error: null,
 };
 
@@ -44,6 +53,14 @@ const eatdeals = handleActions(
       ownEatdeals,
     }),
     [LIST_OWN_EAT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+    [LIST_BUY_EAT_SUCCESS]: (state, { payload: buyers }) => ({
+      ...state,
+      buyers,
+    }),
+    [LIST_BUY_EAT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

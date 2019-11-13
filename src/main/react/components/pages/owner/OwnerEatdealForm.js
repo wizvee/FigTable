@@ -6,7 +6,7 @@ import EatdealEnroll from './EatdealEnroll';
 import EatdealManage from './EatdealManage';
 import EatdealBuy from './EatdealBuy';
 import palette from '../../../lib/styles/Palette';
-import { listOwnEat } from '../../../modules/eatdeals';
+import { listOwnEat, listBuyEat } from '../../../modules/eatdeals';
 
 const FormContainer = styled.div`
   width: 100%;
@@ -37,18 +37,22 @@ const OwnerEatdealForm = ({restaurant}) => {
   const dispatch= useDispatch();
   const {
     eatdeals,
+    buyers,
     eatError,
     eatLoading
   }=useSelector(({eatdeals, loading})=>({
     eatdeals:eatdeals.ownEatdeals,
+    buyers:eatdeals.buyers,
     eatError:eatdeals.error,
     eatLoading:loading['eatdeal/READ_EAT']
   }));
   
   useEffect(() => {
     dispatch(listOwnEat(resNo));
-  }, [dispatch]);
-
+    dispatch(listBuyEat(resNo));
+  }, [resNo]);
+console.log(resNo);
+console.log(buyers);
   
   const [category, setCategory]=useState('manage');
   const onSelect=useCallback(category=>setCategory(category),[]);
@@ -64,7 +68,7 @@ const OwnerEatdealForm = ({restaurant}) => {
         {/* 카테고리별로 컴포넌트 불러옴 */}
         {category==='enroll'&& <EatdealEnroll/>||
          category==='manage'&&<EatdealManage eatdeals={eatdeals}/>||
-         category==='buy'&&<EatdealBuy/> }
+         category==='buy'&&<EatdealBuy buyers={buyers}/> }
          
          
         </FormContainer>

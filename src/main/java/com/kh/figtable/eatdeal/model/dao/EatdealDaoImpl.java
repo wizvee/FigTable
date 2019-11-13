@@ -1,10 +1,12 @@
 package com.kh.figtable.eatdeal.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 
 @Repository
@@ -28,6 +30,11 @@ public class EatdealDaoImpl implements EatdealDao {
 	@Override
 	public List<Eatdeal> getByResNo(SqlSession session, String resNo) {
 		return session.selectList("eatdeal.getByResNo", resNo);
+	}
+
+	@Override
+	public List<Buyer> getBuy(SqlSession session, String resNo) {
+		return session.selectList("eatdeal.getBuy", resNo);
 	}
 	
 

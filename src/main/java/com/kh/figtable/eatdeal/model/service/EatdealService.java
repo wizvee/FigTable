@@ -1,7 +1,9 @@
 package com.kh.figtable.eatdeal.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
 
 public interface EatdealService {
@@ -10,4 +12,5 @@ public interface EatdealService {
 	Eatdeal getByEatNo (String eatNo);
 	String getMemberPoint(String memNo);
 	List<Eatdeal>getByResNo(String resNo);
+	List<Buyer> getBuy(String resNo);
 }

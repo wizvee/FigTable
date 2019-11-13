@@ -23,7 +23,7 @@ useEffect(() => {
   dispatch(listEat());
 }, [dispatch]);
 
-if(error) return null;
+// if(error) return null;
 
   
   return (

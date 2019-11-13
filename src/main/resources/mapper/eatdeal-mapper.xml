@@ -16,6 +16,16 @@
 		<result property="eatEndDate" column="EAT_ENDDATE" />
 		<result property="eatContent" column="EAT_CONTENT" />
 	</resultMap>
+	<resultMap type="buyer" id="buyerResult">
+		<result property="payNo" column="PAY_NO" />
+		<result property="eatNo" column="EAT_NO" />
+		<result property="eatFoodName" column="EAT_FOOD_NAME" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="thumb" column="THUMB" />
+		<result property="buyDate" column="BUY_DATE" />
+		<result property="buyStatus" column="BUY_STATUS" />
+	</resultMap>
 
 	<select id="getEatdeals"
 		resultType="eatdeal" resultMap="eatResult">
@@ -34,6 +44,15 @@
 	<select id="getByResNo"
 		resultType="eatdeal" resultMap="eatResult" parameterType="string">
 		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO) WHERE RES_NO = #{resNo}
+	</select>
+	<select id="getBuy"
+		resultType="buyer" resultMap="buyerResult" parameterType="string">
+		SELECT PAY_NO, EAT_NO, EAT_FOOD_NAME, MEM_NAME, MEM_NO, THUMB, BUY_DATE, BUY_STATUS 
+		FROM FIG_EATDEAL_PAY
+		JOIN FIG_EATDEAL USING(EAT_NO)
+		JOIN FIG_MEMBER USING(MEM_NO)
+		WHERE RES_NO = #{resNo}
+		ORDER BY BUY_DATE DESC
 	</select>
 
 </mapper>
