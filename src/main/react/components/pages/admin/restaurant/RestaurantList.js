@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ResModal from './ResModal';
 import '../TableStyle.css';
-import { MdRestaurant } from 'react-icons/md';
 
 const RestaurantList = ({ restaurants, loading, error, keyword }) => {
   //에러 발생시
@@ -18,6 +17,20 @@ const RestaurantList = ({ restaurants, loading, error, keyword }) => {
       </>
     );
   }
+
+  if (restaurants == null || restaurants == '') {
+    return (
+      <>
+        <tr style={{ height: 100 }}>
+          <td colSpan="4" className="resNullTd">
+            신청내역이 존재하지 않습니다.
+          </td>
+        </tr>
+        <tr style={{ height: 330 }}></tr>
+      </>
+    );
+  }
+
   const restaurant =
     keyword != ''
       ? restaurants.filter(s => s.resName.includes(keyword))
@@ -41,18 +54,6 @@ const RestaurantList = ({ restaurants, loading, error, keyword }) => {
     setIsModal(false);
   };
 
-  if (restaurant === '' && MdRestaurant === null) {
-    return (
-      <>
-        <tr style={{ height: 100 }}>
-          <td colSpan="4" className="resNullTd">
-            신청내역이 존재하지 않습니다.
-          </td>
-        </tr>
-        <tr style={{ height: 330 }}></tr>
-      </>
-    );
-  }
   return (
     <>
       {modal && (

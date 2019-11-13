@@ -18,7 +18,7 @@ const TableWrapper = styled.div`
   min-height: 465px;
 `;
 
-const UpdateRestaurant = () => {
+const QnAContainer = () => {
   const dispatch = useDispatch();
   const { restaurants, error, loading } = useSelector(
     ({ adminRestaurants, loading }) => ({
@@ -83,4 +83,4 @@ const UpdateRestaurant = () => {
   );
 };
 
-export default UpdateRestaurant;
+export default QnAContainer;

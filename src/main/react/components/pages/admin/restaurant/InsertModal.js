@@ -11,7 +11,6 @@ const ModalWrap = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 90;
 `;
-
 const Modal = styled.div`
   position: relative;
   display: flex;
@@ -24,7 +23,6 @@ const Modal = styled.div`
   height: 12rem;
   border-radius: 8px;
 `;
-
 const Content = styled.div`
   margin-top: 3rem;
 `;
@@ -42,33 +40,15 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const RevModal = ({ review, closeModal }) => {
-  const {
-    rvNo,
-    memName,
-    resName,
-    resAddr,
-    rvRating,
-    rvContent,
-    rvImages,
-    rvDate,
-  } = review;
-
+const insertModal = ({ msg, url }) => {
   return (
-    <>
-      <ModalWrap>
-        <Modal>
-          <Content>
-            <div>해당 리뷰를 삭제하시겠습니까?</div>
-          </Content>
-          <ButtonWrapper>
-            <StyledButton onClick={closeModal}>삭제</StyledButton>
-            <StyledButton onClick={closeModal}>복구</StyledButton>
-          </ButtonWrapper>
-        </Modal>
-      </ModalWrap>
-    </>
+    <ModalWrap>
+      <Modal>
+        <Content>{msg}</Content>
+        <StyledButton to={url}>확인</StyledButton>
+      </Modal>
+    </ModalWrap>
   );
 };
 
-export default RevModal;
+export default insertModal;

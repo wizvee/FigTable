@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import AdminHeader from './AdminHeader';
 import { MdLocalDining, MdEdit, MdFace, MdSpeakerNotes } from 'react-icons/md';
+import { FaComments } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Header = styled.div`
@@ -87,11 +88,11 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/restaurant">
+              <Link className="menu" to="/figtable/admin/qna">
                 <IconWrapper>
-                  <MdEdit />
+                  <FaComments />
                 </IconWrapper>
-                매장 신청 내역
+                문의 내역
               </Link>
             </li>
             <li className="li">
