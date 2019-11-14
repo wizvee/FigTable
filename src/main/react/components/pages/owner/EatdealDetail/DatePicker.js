@@ -25,6 +25,8 @@ class EatdealEnroll extends Component{
         startDate: null,
         endDate: null,
         focusedInput: null,
+        //displayFormat: 'YYYY년MM월DD일',
+        //isDateBlocked: false,
       };
     }
     render(){

@@ -11,13 +11,13 @@ import { listOwnEat, listBuyEat } from '../../../modules/eatdeals';
 const FormContainer = styled.div`
   width: 100%;
   height: auto;
-  overflow: hidden;
   display: relative;
   padding-bottom: 20px;
   margin-top: 20px;
   background: white;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   min-height:35rem;
+  z-index:999999;
 `;
 
 const SubTitle = styled.div`
@@ -51,8 +51,6 @@ const OwnerEatdealForm = ({restaurant}) => {
     dispatch(listOwnEat(resNo));
     dispatch(listBuyEat(resNo));
   }, [resNo]);
-console.log(resNo);
-console.log(buyers);
   
   const [category, setCategory]=useState('manage');
   const onSelect=useCallback(category=>setCategory(category),[]);

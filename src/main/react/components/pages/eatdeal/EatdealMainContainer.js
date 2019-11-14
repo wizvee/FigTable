@@ -110,6 +110,7 @@ const RemainFood=styled.span`
     margin-left:auto;
 `;
 const EatdealMainContainer = ({eatdeal}) => {
+    const path = process.env.PATH;
     
   const {
     eatNo,
@@ -129,7 +130,7 @@ const EatdealMainContainer = ({eatdeal}) => {
 
   
     return (
-      <Link to={`/figtable/eatdeal/${eatNo}`}>
+      <Link to={`${path}/eatdeal/${eatNo}`}>
         <EatdealCard>
             <ImageContainer>
             <Image url={thumb}/>
