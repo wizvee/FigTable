@@ -188,21 +188,20 @@ const OwnerContainer = ({ match }) => {
     loading: loading['owner/OWN_HEADER'],
   }));
 
-  const onChangeFile = useCallback(
-    async ({ target: { files, name } }) => {
-      const file = files[0];
-      let form = new FormData();
-      form.append('thumbnail', file);
+  const onChangeFile = useCallback(async ({ target: { files, name } }) => {
+    const file = files[0];
+    let form = new FormData();
+    form.append('thumbnail', file);
 
-      await client
-        .post(`/figtable/api/ownerThumb/${resNo}`, form, {
-          headers: { 'content-type': 'multipart/form-data' },
-        })
-        .then(({ data }) => dispatch(changeField({ key: name, value: data })))
-        .catch(err => console.log(err));
-    },
-    [dispatch],
-  );
+    await client
+      .post(`/figtable/api/ownerThumb/${resNo}`, form, {
+        headers: { 'content-type': 'multipart/form-data' },
+      })
+      .then(({ data }) => {
+        dispatch(changeField({ key: name, value: data })), location.reload();
+      })
+      .catch(err => console.log(err));
+  });
 
   useEffect(() => {
     document.body.style.overflow = 'scroll';
@@ -257,7 +256,7 @@ const OwnerContainer = ({ match }) => {
                   modeSelCloseM={modeSelCloseM}
                   resNo={restaurant.resNo}
                 />
-                <ListContainer list={waiting} />
+                <ListContainer resOpen={restaurant.resWaiting} list={waiting} />
               </RightContent>
             </ContentWrapper>
           </Container>

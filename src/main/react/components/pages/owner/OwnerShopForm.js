@@ -4,6 +4,7 @@ import palette from '../../../lib/styles/Palette';
 import { FiPlusCircle } from 'react-icons/Fi';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import TextareaAutosize from 'react-textarea-autosize';
+import { withRouter } from 'react-router-dom';
 
 const FormContainer = styled.div`
   width: 100%;
@@ -403,4 +404,4 @@ const OwnerShopForm = ({ store }) => {
   );
 };
 
-export default OwnerShopForm;
+export default withRouter(OwnerShopForm);

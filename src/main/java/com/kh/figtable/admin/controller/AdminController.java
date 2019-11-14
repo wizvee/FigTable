@@ -1,18 +1,28 @@
 package com.kh.figtable.admin.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.admin.model.service.AdminService;
+import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 import com.kh.figtable.review.model.vo.Review;
+
 
 @RestController
 public class AdminController {
@@ -46,9 +56,49 @@ public class AdminController {
 	
 	//review
 	@RequestMapping(value="/api/adminReviews", method=RequestMethod.GET)
-	private ResponseEntity<List<Review>> getReviews(){
-		List<Review> list = service.getReviews();
-		return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
+	private ResponseEntity<List<AdminReview>> getReviews(){
+		List<AdminReview> list = service.getReviews();
+		System.out.println(list.size());
+		return new ResponseEntity<List<AdminReview>>(list, HttpStatus.OK);
 	}
 	
+	//매장 썸네일 등록
+	@RequestMapping(value="/api/adminFile", method=RequestMethod.POST)
+	private ResponseEntity<String> uploadFile(MultipartHttpServletRequest req){
+		//파일 저장 경로
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
+		String image = "";
+		
+		// 저장경로가 없으면 생성
+		File dir = new File(saveDir);
+		if (!dir.exists())
+		dir.mkdirs();
+		
+		//multipart request에서 fileName 가져오기
+		MultipartFile f = req.getFile("resThumb");
+		String original = f.getOriginalFilename();
+		String ext = original.substring(original.lastIndexOf("."));
+		// rename 규칙 설정
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
+		String rename = "restaurant_" + sdf.format(System.currentTimeMillis()) + ext;
+		// rename으로 파일 저장
+		try {
+			f.transferTo(new File(saveDir + "/" + rename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		image = "/figtable/resources/upload/restaurant/" + rename;
+	
+		return new ResponseEntity<String>(image, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/api/adminFile", method=RequestMethod.PATCH)
+	private void deleteFile(@RequestBody Restaurant res, HttpServletRequest req) {
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
+		//매장 등록 실패시 파일 삭제
+		//res.getResThumb()
+		File f = new File(saveDir + res.getResThumb().substring(res.getResThumb().lastIndexOf("/")));
+		f.delete();
+	}
 }

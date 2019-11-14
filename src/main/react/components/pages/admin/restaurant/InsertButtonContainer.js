@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import InsertButton from './InsertButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -65,6 +65,11 @@ const InsertButtonContainer = ({ history }) => {
     );
   };
 
+  //취소
+  const onCancel = useCallback(() => {
+    history.goBack();
+  }, [history]);
+
   //성공 or 실패시
   useEffect(() => {
     if (restaurant && restaurant > 0) {
@@ -86,7 +91,11 @@ const InsertButtonContainer = ({ history }) => {
           url="/figtable/admin/enroll"
         />
       )}
-      <InsertButton onPublish={onPublish} errorMsg={errorMsg} />
+      <InsertButton
+        onCancel={onCancel}
+        onPublish={onPublish}
+        errorMsg={errorMsg}
+      />
     </>
   );
 };

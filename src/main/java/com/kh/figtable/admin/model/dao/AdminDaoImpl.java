@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
-import com.kh.figtable.review.model.vo.Review;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -29,8 +29,10 @@ public class AdminDaoImpl implements AdminDao {
 	
 	//review
 	@Override
-	public List<Review> getReviews(SqlSession session) {
+	public List<AdminReview> getReviews(SqlSession session) {
 		return session.selectList("admin.getReviews");
 	}
+	
+	
 
 }

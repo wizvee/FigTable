@@ -150,7 +150,7 @@ const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
     const resName = document.getElementById('resName').textContent;
 
     document.getElementById('resName').style.fontSize =
-      (resName.length > 8 && resName.length < 19 && '16px') ||
+      (resName.length > 8 && resName.length < 19 && '18px') ||
       (resName.length > 18 && '23px');
   });
   const {
