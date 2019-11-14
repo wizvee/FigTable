@@ -209,6 +209,7 @@ const OwnerContainer = ({ match }) => {
         .catch(err => console.log(err));
 
       dispatch(updateThumb({ resNo, resThumb: thumb }));
+      window.location.reload();
     },
     [dispatch],
   );
@@ -226,13 +227,14 @@ const OwnerContainer = ({ match }) => {
 
   const shopOpenM = () => {
     setIsShopModal(true);
-    document.getElementsByTagName('label')[0].click();
+    document.getElementsByTagName('label')[1].click();
   };
   const shopCloseM = open => {
     {
       open == true
-        ? (document.getElementsByTagName('label')[0].click(),
+        ? (document.getElementsByTagName('label')[1].click(),
           setShopOpen(!shopOpen))
+          // dispatch()
         : '';
     }
     setIsShopModal(false);
