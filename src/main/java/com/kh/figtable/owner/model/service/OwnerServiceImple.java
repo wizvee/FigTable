@@ -38,6 +38,10 @@ public class OwnerServiceImple implements OwnerService {
 	public String getOldThumb(String resNo) {
 		return dao.getOldThumb(session, resNo);
 	}
+	@Override
+	public int updateOpen(Restaurant r) {
+		return dao.updateOpen(session, r);
+	}
 	
 	
 }

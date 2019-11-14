@@ -199,6 +199,7 @@ const OwnerShopForm = ({ store }) => {
     resMenuPrice,
   } = store;
 
+  const path = process.env.PATH;
   const open = resOpenDay.split('#%');
   const close = resCloseTime.split('#%');
   const operation = [];
@@ -331,7 +332,7 @@ const OwnerShopForm = ({ store }) => {
             type="file"
             name="resThumb"
             multiple="multiple"
-            /* onChange={onChangeFile} */
+            onChange={onChangeFile}
           />
           <Preview
             url={

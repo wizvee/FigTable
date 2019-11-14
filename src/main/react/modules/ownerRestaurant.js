@@ -5,6 +5,7 @@ import createRequestSaga, {
 import produce from 'immer';
 import * as restAPI from '../lib/api/ownerRestaurant';
 import { takeLatest } from 'redux-saga/effects';
+import restaurants from './restaurants';
 
 const [
   OWNER_RES,
@@ -27,20 +28,23 @@ export const updateThumb = createAction(
     resThumb,
   }),
 );
+export const resOpen = createAction(RES_OPEN, ({ resNo, open }) => ({
+  resNo,
+  open,
+}));
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
+const openSaga = createRequestSaga(RES_OPEN, restAPI.updateOpen);
 export function* ownerResSaga() {
   yield takeLatest(OWNER_RES, ownerSaga);
   yield takeLatest(UPDATE_THUMB, thumbSaga);
+  yield takeLatest(RES_OPEN, openSaga);
 }
 
 const initialState = {
   ownRestaurant: null,
   error: null,
-  resNo: '',
-  resThumb: '',
-  open: false,
 };
 
 const ownerRestaurant = handleActions(
@@ -55,17 +59,12 @@ const ownerRestaurant = handleActions(
     }),
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
-        draft[key] = value;
+        draft.ownRestaurant.resThumb = value;
       }),
-    [UPDATE_THUMB]: (state, { payload: { resNo, resThumb } }) => ({
-      ...state,
-      resNo,
-      resThumb,
-    }),
-    [UPDATE_THUMB_SUCCESS]: (state, { payload: { result } }) => ({
-      ...state,
-      result,
-    }),
+    [RES_OPEN_SUCCESS]: (state, { payload: { open } }) =>
+      produce(state, draft => {
+        draft.ownRestaurant.open = open;
+      }),
   },
   initialState,
 );

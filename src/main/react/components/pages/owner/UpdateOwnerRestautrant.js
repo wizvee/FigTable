@@ -9,7 +9,8 @@ import OwnerShopForm from './OwnerShopForm';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownHeader } from '../../../modules/ownerHeader';
-import { ownerRes } from '../../../modules/ownerRestaurant';
+import { ownerRes, changeField } from '../../../modules/ownerRestaurant';
+import client from '../../../lib/api/client';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -84,6 +85,23 @@ const UpdateOwnerRestautrant = ({ match }) => {
     ownError: ownHeader.error,
     loading: loading['owner/OWN_HEADER'],
   }));
+
+  const onChangeFile = useCallback(
+    async ({ target: { files, name } }) => {
+      const file = files[0];
+      let form = new FormData();
+      form.append('thumbnail', file);
+      let thumb;
+      await client
+        .post(`${path}/api/ownerThumb/${resNo}`, form, {
+          headers: { 'content-type': 'multipart/form-data' },
+        })
+        .then(({ data }) => {
+          dispatch(changeField({ key: name, value: data })), (thumb = data);
+        });
+    },
+    [dispatch],
+  );
 
   const [topMenu, setTopMenu] = useState('false');
 

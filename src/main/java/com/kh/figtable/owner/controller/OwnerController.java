@@ -86,7 +86,6 @@ public class OwnerController {
 
 	@RequestMapping(value="/api/ownerThumb", method=RequestMethod.PATCH)
 	public ResponseEntity updateThumb(@RequestBody Map<String, String> data, HttpServletRequest req) {
-
 		String oldname = service.getOldThumb(data.get("resNo"));
 		int r = service.updateThumb(data);
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
@@ -97,10 +96,35 @@ public class OwnerController {
 				File d = new File(saveDir + "/" + oldname);
 				d.delete();
 			}
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<String>(data.get("resThumb"), HttpStatus.OK);
 		}
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/shopOpen", method=RequestMethod.PATCH)
+	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
+		Restaurant r = new Restaurant();
+		System.out.println("들어옴");
+		System.out.println(data.get("resNo"));
+		System.out.println(data.get("open"));
+//		if(data.get("open").equals("true")) {
+//			r.setResWaiting("T");
+//			r.setOpen(true);
+//		}else {
+//			r.setResWaiting(null);
+//			r.setOpen(false);
+//		}
+//		r.setResNo(data.get("resNo"));
+//	
+//		int result = service.updateOpen(r);
+//		
+//		if(result>0) {
+//			return new ResponseEntity<Boolean> (r.isOpen(), HttpStatus.OK);
+//		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		
+		
 	}
 
 

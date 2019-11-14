@@ -55,4 +55,7 @@
 		resultType="string">
 		SELECT RES_THUMB FROM FIG_RESTAURANT WHERE RES_NO = #{resNo}
 	</select>
+<!-- 	<update id="updateOpen" parameterType="restaurant">
+		UPDATE FIG_RESTAURANT SET RES_WAITING=#{resWaiting} WHERE RES_NO=#{resNo} 
+	</update> -->
 </mapper>

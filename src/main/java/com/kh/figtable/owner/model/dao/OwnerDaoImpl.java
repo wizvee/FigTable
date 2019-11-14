@@ -30,4 +30,9 @@ public class OwnerDaoImpl implements OwnerDao {
 	public String getOldThumb(SqlSession session, String resNo) {
 		return session.selectOne("owner.getOldThumb", resNo);
 	}
+	
+	@Override
+	public int updateOpen(SqlSession session, Restaurant r) {
+		return session.update("owner.updateOpen", r);
+	}
 }

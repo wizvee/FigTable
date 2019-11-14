@@ -5,6 +5,7 @@ import {
   ownerRes,
   changeField,
   updateThumb,
+  resOpen,
 } from '../../../modules/ownerRestaurant';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
@@ -204,14 +205,13 @@ const OwnerContainer = ({ match }) => {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .then(({ data }) => {
-          dispatch(changeField({ key: name, value: data })), (thumb = data);
+          dispatch(changeField({ key: name, value: data })),
+            (thumb = data),
+            dispatch(updateThumb({ resNo, resThumb: thumb }));
         })
         .catch(err => console.log(err));
-
-      dispatch(updateThumb({ resNo, resThumb: thumb }));
-      window.location.reload();
     },
-    [dispatch],
+    [changeField, updateThumb],
   );
 
   useEffect(() => {
@@ -233,7 +233,8 @@ const OwnerContainer = ({ match }) => {
     {
       open == true
         ? (document.getElementsByTagName('label')[1].click(),
-          setShopOpen(!shopOpen))
+          setShopOpen(!shopOpen),
+          dispatch(resOpen({ resNo, open: shopOpen })))
         : '';
     }
     setIsShopModal(false);
