@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="owner">
-	<resultMap type="ownRestaurant" id="ownRes">
+	<resultMap type="restaurant" id="ownRes">
 		<result property="resNo" column="RES_NO" />
 		<result property="ownNo" column="OWN_NO" />
 		<result property="resName" column="RES_NAME" />
@@ -36,7 +36,7 @@
 		
 	</resultMap>
 
-	<select id="ownRestaurant" parameterType="string" resultType="ownRestaurant" resultMap="ownRes">
+	<select id="ownRestaurant" parameterType="string" resultType="restaurant" resultMap="ownRes">
 		SELECT *
 		FROM FIG_RESTAURANT
 		WHERE RES_NO=#{resNo}
@@ -48,7 +48,11 @@
 		(SELECT LISTAGG(RES_NAME,',')  WITHIN GROUP (ORDER BY RES_NO) NAME FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}) AS NAME
 		FROM FIG_OWNER WHERE OWN_NO=#{ownNo}
 	</select>
-	<update id="updateThumb" parameterType="ownRestaurant">
+	<update id="updateThumb" parameterType="map">
 		UPDATE FIG_RESTAURANT SET RES_THUMB=#{resThumb} WHERE RES_NO=#{resNo}
 	</update>
+	<select id="getOldThumb" parameterType="string"
+		resultType="string">
+		SELECT RES_THUMB FROM FIG_RESTAURANT WHERE RES_NO = #{resNo}
+	</select>
 </mapper>

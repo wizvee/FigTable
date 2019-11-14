@@ -1,11 +1,14 @@
 package com.kh.figtable.owner.model.service;
 
-import com.kh.figtable.owner.model.vo.OwnRestaurant;
+import java.util.Map;
+
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface OwnerService {
-	OwnRestaurant getOwnerRes(String resNo);
+	Restaurant getOwnerRes(String resNo);
 	OwnerInfo getOwnerHeader(String ownNo);
-	int updateThumb(OwnRestaurant r) throws Exception;
+	String getOldThumb(String resNo);
+	int updateThumb(Map<String, String> data);
 	
 }

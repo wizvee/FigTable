@@ -12,21 +12,36 @@ const [
   OWNER_RES_FAILURE,
 ] = createRequestActionTypes('owner/OWNER_RES');
 const CHANGE_FIELD = 'owner/CHANGE_FILED';
+const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = 'owner/UPDATE_THUMB';
+const [RES_OPEN, RES_OPEN_SUCCESS] = 'owner/RES_OPEN';
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
+export const updateThumb = createAction(
+  UPDATE_THUMB,
+  ({ resNo, resThumb }) => ({
+    resNo,
+    resThumb,
+  }),
+);
+export const resOpen = createAction(RES_OPEN, { resNo });
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
+const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
 export function* ownerResSaga() {
   yield takeLatest(OWNER_RES, ownerSaga);
+  yield takeLatest(UPDATE_THUMB, thumbSaga);
 }
 
 const initialState = {
   ownRestaurant: null,
   error: null,
+  resNo: '',
+  resThumb: '',
+  open: false,
 };
 
 const ownerRestaurant = handleActions(
@@ -43,6 +58,15 @@ const ownerRestaurant = handleActions(
       produce(state, draft => {
         draft[key] = value;
       }),
+    [UPDATE_THUMB]: (state, { payload: { resNo, resThumb } }) => ({
+      ...state,
+      resNo,
+      resThumb,
+    }),
+    [UPDATE_THUMB_SUCCESS]: (state, { payload: { result } }) => ({
+      ...state,
+      result,
+    }),
   },
   initialState,
 );

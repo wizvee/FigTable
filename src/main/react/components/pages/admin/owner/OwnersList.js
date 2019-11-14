@@ -62,10 +62,10 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
               onClick={() => onClickOpenModal(row)}
               className="resTr"
             >
-              <td key={`${index}+ownResName`}>{row.ownName}</td>
-              <td key={`${index}+ownResAddr`}>{row.ownName}</td>
-              <td key={`${index}+ownerName`}>{row.ownEmail}</td>
-              <td key={`${index}+ownerEmail`}>{row.ownPhone}</td>
+              <td key={`${index}+ownResName`}>{row.resName}</td>
+              <td key={`${index}+ownResAddr`}>{row.resAddress}</td>
+              <td key={`${index}+ownerName`}>{row.ownName}</td>
+              <td key={`${index}+ownerEmail`}>{row.ownEmail}</td>
             </tr>
           );
         })}

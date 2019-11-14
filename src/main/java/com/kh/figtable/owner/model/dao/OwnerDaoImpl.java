@@ -1,16 +1,18 @@
 package com.kh.figtable.owner.model.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.figtable.owner.model.vo.OwnRestaurant;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
 public class OwnerDaoImpl implements OwnerDao {
 
 	@Override
-	public OwnRestaurant getOwnerRes(SqlSession session, String resNo) {
+	public Restaurant getOwnerRes(SqlSession session, String resNo) {
 		return session.selectOne("owner.ownRestaurant", resNo);
 	}
 	
@@ -20,7 +22,12 @@ public class OwnerDaoImpl implements OwnerDao {
 	}
 	
 	@Override
-	public int updateThumb(SqlSession session, OwnRestaurant r) {
-		return session.update("owner.updateThumb", r);
+	public int updateThumb(SqlSession session, Map<String, String> data) {
+		return session.update("owner.updateThumb", data);
+	}
+	
+	@Override
+	public String getOldThumb(SqlSession session, String resNo) {
+		return session.selectOne("owner.getOldThumb", resNo);
 	}
 }

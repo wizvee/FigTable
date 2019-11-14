@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
-import ReservationItem from './ReservationItem';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import WaitingItem from './waiting/WaitingItem';
@@ -118,30 +117,31 @@ const Content = styled.div`
 
 const ListContainer = ({ resOpen, list, location: { pathname }, match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
   useEffect(() => {
-    resOpen == 'false' &&
+    resOpen == false &&
       (document.getElementById('listContent').style.overflowY = 'hidden');
   }, []);
-  console.log(resOpen);
+
   return (
     <Container
-      className={pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'}
+      className={pathname == `${path}/owner/${resNo}/waiting` && 'waiting'}
     >
       <Title
-        className={pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'}
+        className={pathname == `${path}/owner/${resNo}/waiting` && 'waiting'}
       >
         Waiting List
-        {pathname == `/figtable/owner/${resNo}` && (
-          <Link to={`/figtable/owner/${resNo}/waiting`}>
+        {pathname == `${path}/owner/${resNo}` && (
+          <Link to={`${path}/owner/${resNo}/waiting`}>
             <div className="detail">자세히보기</div>
           </Link>
         )}
       </Title>
       <Content
         id="listContent"
-        className={pathname == `/figtable/owner/${resNo}` ? 'main' : 'waiting'}
+        className={pathname == `${path}/owner/${resNo}` ? 'main' : 'waiting'}
       >
-        {resOpen == 'false' ? (
+        {resOpen == false ? (
           <div className="closeMsg">
             <FiAlertCircle /> 영업 준비 중
           </div>

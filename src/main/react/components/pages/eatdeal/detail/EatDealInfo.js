@@ -43,6 +43,7 @@ const DiscountFoodName=styled.p`
 
 `;
 const EatDealInfo =({eat})=>{
+    const path = process.env.PATH;
     const {
         eatNo,
         resNo,
@@ -64,7 +65,7 @@ return(
     <Infowrap>
 <TextTitle>[{resRocationKeyword}] {resName}</TextTitle>
     <RestauInfo>
-        <Link to={`/figtable/restaurant/${resNo}` /*식당정보로 바꾸기*/}>
+        <Link to={`${path}/restaurant/${resNo}` /*식당정보로 바꾸기*/}>
             <FaInfoCircle/> 식당정보보기 <FaChevronRight/> 
         </Link>
     </RestauInfo>

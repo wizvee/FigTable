@@ -1,4 +1,4 @@
-import client from './client';
+import client, { path } from './client';
 
 export const getOwnerHeader = ownNo =>
-  client.get(`/figtable/api/ownerInfo/${ownNo}`);
+  client.get(`${path}/api/ownerInfo/${ownNo}`);

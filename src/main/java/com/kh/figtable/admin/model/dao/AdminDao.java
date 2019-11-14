@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminReview;
-import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface AdminDao {
@@ -15,7 +15,7 @@ public interface AdminDao {
 	
 	
 	//owner
-	List<Owner> getOwnersByApply(SqlSession session);
+	List<AdminOwner> getOwnersByApply(SqlSession session);
 	
 	
 	//review

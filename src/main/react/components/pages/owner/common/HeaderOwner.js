@@ -84,6 +84,7 @@ const Button = styled.div`
   }
 `;
 const HeaderOwner = ({ ownerInfo, match }) => {
+  const path = process.env.PATH;
   const { ownName, resCount, no, name } = ownerInfo;
   const { resNo } = match.params;
   const [selectShopModal, setSelectShopModal] = useState(false);
@@ -100,7 +101,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
       <Header>
         <Wrapper>
           <div className="logo">
-            <Link to={`/figtable/owner/${resNo}`}>
+            <Link to={`${path}/owner/${resNo}`}>
               <div className="logoMain">FIGTABLE</div>
               &nbsp;&nbsp;
               <div className="logoSide">

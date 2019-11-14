@@ -36,51 +36,46 @@ const MenuItem = styled.div`
 `;
 
 const OwnerLeftMenu = ({ location: { pathname }, match }) => {
+  const path = process.env.PATH;
   const { resNo } = match.params;
 
   return (
     <MenuContainer>
-      <Link to={`/figtable/owner/${resNo}`}>
+      <Link to={`${path}/owner/${resNo}`}>
         <MenuItem
-          className={pathname == `/figtable/owner/${resNo}` && 'selected'}
+          className={pathname == `${path}/owner/${resNo}` && 'selected'}
           style={{ paddingTop: '0.6rem' }}
         >
           홈
         </MenuItem>
       </Link>
-      <Link to={`/figtable/owner/${resNo}/restaurant`}>
+      <Link to={`${path}/owner/${resNo}/restaurant`}>
         <MenuItem
           className={
-            pathname == `/figtable/owner/${resNo}/restaurant` && 'selected'
+            pathname == `${path}/owner/${resNo}/restaurant` && 'selected'
           }
         >
           가게정보 수정
         </MenuItem>
       </Link>
 
-      <Link to={`/figtable/owner/${resNo}/waiting`}>
+      <Link to={`${path}/owner/${resNo}/waiting`}>
         <MenuItem
-          className={
-            pathname == `/figtable/owner/${resNo}/waiting` && 'selected'
-          }
+          className={pathname == `${path}/owner/${resNo}/waiting` && 'selected'}
         >
           Waiting
         </MenuItem>
       </Link>
-      <Link to={`/figtable/owner/${resNo}/eatdeal`}>
+      <Link to={`${path}/owner/${resNo}/eatdeal`}>
         <MenuItem
-          className={
-            pathname == `/figtable/owner/${resNo}/eatdeal` && 'selected'
-          }
+          className={pathname == `${path}/owner/${resNo}/eatdeal` && 'selected'}
         >
           Eat Deal
         </MenuItem>
       </Link>
-      <Link to={`/figtable/owner/${resNo}/statics`}>
+      <Link to={`${path}/owner/${resNo}/statics`}>
         <MenuItem
-          className={
-            pathname == `/figtable/owner/${resNo}/statics` && 'selected'
-          }
+          className={pathname == `${path}/owner/${resNo}/statics` && 'selected'}
         >
           통계
         </MenuItem>

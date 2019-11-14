@@ -1,13 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import AdminHeader from './AdminHeader';
-import { MdLocalDining, MdEdit, MdFace, MdSpeakerNotes } from 'react-icons/md';
+import { MdLocalDining, MdFace, MdSpeakerNotes } from 'react-icons/md';
 import { FaComments } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Header = styled.div`
   height: 20rem;
-  background: url(${process.env.PATH}/images/adminTitle.jpg);
+  background: url(${process.env.PATH}/resources/images/adminTitle.jpg);
   background-size: cover;
   background-position: center center;
   margin-top: -66px;
@@ -68,6 +68,7 @@ const IconWrapper = styled.div`
 `;
 
 const AdminContainer = () => {
+  const path = process.env.PATH;
   return (
     <>
       <AdminHeader />
@@ -80,7 +81,7 @@ const AdminContainer = () => {
         <MenuList>
           <ul className="ulList">
             <li className="li">
-              <Link className="menu" to="/figtable/admin/enroll">
+              <Link className="menu" to={`${path}/admin/enroll`}>
                 <IconWrapper>
                   <MdLocalDining />
                 </IconWrapper>
@@ -88,7 +89,7 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/qna">
+              <Link className="menu" to={`${path}/admin/qna`}>
                 <IconWrapper>
                   <FaComments />
                 </IconWrapper>
@@ -96,7 +97,7 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/owner">
+              <Link className="menu" to={`${path}/admin/owner`}>
                 <IconWrapper>
                   <MdFace />
                 </IconWrapper>
@@ -104,7 +105,7 @@ const AdminContainer = () => {
               </Link>
             </li>
             <li className="li">
-              <Link className="menu" to="/figtable/admin/review">
+              <Link className="menu" to={`${path}/admin/review`}>
                 <IconWrapper>
                   <MdSpeakerNotes />
                 </IconWrapper>

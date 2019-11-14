@@ -45,6 +45,7 @@ const Wrapper = styled(Responsive)`
 `;
 
 const HeaderOwnerSimple = () => {
+  const path = process.env.PATH;
   return (
     <Header>
       <Wrapper>

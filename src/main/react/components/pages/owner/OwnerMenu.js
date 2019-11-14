@@ -61,10 +61,11 @@ const MenuItem = styled.li`
   }
 `;
 const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
+  const path = process.env.PATH;
   return (
     <>
       <MenuWrapper>
-        <Link to={`/figtable/owner/${resNo}/restaurant`}>
+        <Link to={`${path}/owner/${resNo}/restaurant`}>
           <MenuItem>
             <IconWrapper>
               <FaStore />
@@ -72,15 +73,13 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             가게정보 수정
           </MenuItem>
         </Link>
-        {/* <Link onClick={modeSelOpenM} to={`/figtable/owner/${resNo}/waiting`}> */}
         <MenuItem onClick={modeSelOpenM}>
           <IconWrapper style={{ marginBottom: '22px' }}>
             <MdNaturePeople />
           </IconWrapper>
           Waiting
         </MenuItem>
-        {/* </Link> */}
-        <Link to={`/figtable/owner/${resNo}/eatdeal`}>
+        <Link to={`${path}/owner/${resNo}/eatdeal`}>
           <MenuItem>
             <IconWrapper>
               <MdRestaurantMenu />
@@ -88,7 +87,7 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             Eat Deal
           </MenuItem>
         </Link>
-        <Link to={`/figtable/owner/${resNo}/statics`}>
+        <Link to={`${path}/owner/${resNo}/statics`}>
           <MenuItem>
             <IconWrapper>
               <FaRegChartBar />

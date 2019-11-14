@@ -83,14 +83,14 @@ const IconWrapper = styled.div`
 `;
 
 const AdminHeader = ({ location: { pathname } }) => {
-  const isAdmin =
-    pathname === '/figtable/admin' || pathname === '/figtable/admin/';
+  const path = process.env.PATH;
+  const isAdmin = pathname === `${path}/admin` || pathname === `${path}/admin/`;
   return (
     <>
       <HeaderBlock>
         <HeaderWrapper isAdmin={isAdmin}>
           <div className="logo">
-            <Link to="/figtable/admin">
+            <Link to={`${path}/admin`}>
               <div className="logoMain">FIGTABLE</div>
               <div className="logoAdmin">
                 <b>관리자</b>

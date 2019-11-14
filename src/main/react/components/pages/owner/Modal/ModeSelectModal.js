@@ -76,6 +76,7 @@ const Button = styled.div`
 `;
 
 const ModeSelectModal = ({ modeSelCloseM, resNo }) => {
+  const path = process.env.PATH;
   return (
     <ModalWrapper>
       <Modal>
@@ -84,10 +85,10 @@ const ModeSelectModal = ({ modeSelCloseM, resNo }) => {
           <MdClose onClick={modeSelCloseM} />
         </ModalTitle>
         <ButtonWrapper>
-          <Link to={`/figtable/owner/${resNo}/waiting`}>
+          <Link to={`${path}/owner/${resNo}/waiting`}>
             <Button>사장님</Button>
           </Link>
-          <Link to={`/figtable/owner/${resNo}/public`}>
+          <Link to={`${path}/owner/${resNo}/public`}>
             <Button>매장</Button>
           </Link>
         </ButtonWrapper>

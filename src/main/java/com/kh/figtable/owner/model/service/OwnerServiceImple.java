@@ -1,12 +1,14 @@
 package com.kh.figtable.owner.model.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.owner.model.dao.OwnerDao;
-import com.kh.figtable.owner.model.vo.OwnRestaurant;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Service
 public class OwnerServiceImple implements OwnerService {
@@ -17,7 +19,7 @@ public class OwnerServiceImple implements OwnerService {
 	private OwnerDao dao;
 	
 	@Override
-	public OwnRestaurant getOwnerRes(String resNo) {
+	public Restaurant getOwnerRes(String resNo) {
 
 		return dao.getOwnerRes(session, resNo);
 	}
@@ -28,10 +30,13 @@ public class OwnerServiceImple implements OwnerService {
 	}
 	
 	@Override
-	public int updateThumb(OwnRestaurant r) throws Exception {
-		int result = dao.updateThumb(session, r);
-		if(result == 0) throw new Exception();
-		return result;
+	public int updateThumb(Map<String, String> data) {
+		return dao.updateThumb(session, data);
+	}
+	
+	@Override
+	public String getOldThumb(String resNo) {
+		return dao.getOldThumb(session, resNo);
 	}
 	
 	
