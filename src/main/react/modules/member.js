@@ -4,6 +4,7 @@ import createRequestSaga, {
 } from '../lib/createRequestSaga';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { initializeForm } from './auth';
+import { increaseLoves, decreaseLoves } from './reviews';
 import * as memberAPI from '../lib/api/member';
 
 const SET_MEMBER = 'member/SET_MEMBER';
@@ -67,8 +68,22 @@ const likesResSaga = createRequestSaga(LIKES_RES, memberAPI.likesRes);
 const unlikesResSaga = createRequestSaga(UNLIKES_RES, memberAPI.unlikesRes);
 
 const getLovesSaga = createRequestSaga(GET_LOVES, memberAPI.getLoves);
-const lovesRvSaga = createRequestSaga(LOVES_RV, memberAPI.lovesRv);
-const unlovesRvSaga = createRequestSaga(UNLOVES_RV, memberAPI.unlovesRv);
+function* lovesRvSaga({ payload }) {
+  try {
+    yield call(memberAPI.lovesRv, payload);
+    yield put(increaseLoves(payload.rvNo));
+  } catch (e) {
+    console.log(e);
+  }
+}
+function* unlovesRvSaga({ payload }) {
+  try {
+    yield call(memberAPI.unlovesRv, payload);
+    yield put(decreaseLoves(payload.rvNo));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function* memberSaga() {
   yield takeLatest(LOGOUT, logoutSaga);

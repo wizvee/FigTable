@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +35,6 @@ public class ReviewController {
 	@RequestMapping(value = "/api/reviews/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo, HttpServletRequest req) {
 		List<Review> result = service.getReviewsById(resNo);
-
 		// 로그인 되어 있다면 loved 여부를 판별
 		Member m = (Member) req.getSession().getAttribute("login");
 		if (m != null)
@@ -103,11 +103,13 @@ public class ReviewController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/api/comment/{rvcNo}", method = RequestMethod.PATCH)
-	private ResponseEntity deleteComment(@PathVariable("rvcNo") String rvcNo) {
-		int r = service.deleteComment(rvcNo);
-		if (r > 0)
-			return new ResponseEntity<List<Comment>>(HttpStatus.OK);
+	@RequestMapping(value = "/api/comment", method = RequestMethod.PATCH)
+	private ResponseEntity<List<Comment>> deleteComment(@RequestBody Map<String, String> data) {
+		int r = service.deleteComment(data.get("rvcNo"));
+		if (r > 0) {
+			List<Comment> comments = service.getCommentsById(data.get("rvNo"));
+			return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
+		}
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}

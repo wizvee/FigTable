@@ -47,7 +47,6 @@ export function* rootSaga() {
     restaurantsSaga(),
     reviewSaga(),
     reviewsSaga(),
-    reviewsSaga(),
     eatdealsSaga(),
     eatdealSaga(),
     pointSaga(),

@@ -42,8 +42,6 @@ const ReviewActionButtonLoves = ({ review }) => {
   }));
 
   const [isModal, setIsModal] = useState(false);
-  const [lovesCount, setLovesCount] = useState(review.rvLove);
-  const [isLoved, setLoved] = useState(review.loved);
   const [isLoverModal, setLoverModal] = useState(false);
 
   // 모달을 열고 닫는 이벤트 핸들링
@@ -57,16 +55,12 @@ const ReviewActionButtonLoves = ({ review }) => {
   }, []);
 
   // 좋아요 제어 이벤트 핸들러
-  const onLove = useCallback(() => {
-    setLoved(true);
-    setLovesCount(lovesCount + 1);
-    dispatch(lovesRv({ member, review }));
-  }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
-  const onUnlove = useCallback(() => {
-    setLoved(false);
-    setLovesCount(lovesCount - 1);
-    dispatch(unlovesRv({ member, review }));
-  }, [dispatch, isLoved, setLoved, lovesCount, setLovesCount]);
+  const onLove = useCallback(() => dispatch(lovesRv({ member, review })), [
+    dispatch,
+  ]);
+  const onUnlove = useCallback(() => dispatch(unlovesRv({ member, review })), [
+    dispatch,
+  ]);
 
   // 좋아요 목록 보기 이벤트 핸들러
   const openLoverModal = useCallback(() => {
@@ -84,18 +78,18 @@ const ReviewActionButtonLoves = ({ review }) => {
       {isLoverModal && (
         <ModalLoversContainer rvNo={review.rvNo} closeModal={closeLoverModal} />
       )}
-      {isLoved ? (
+      {member && review.loved ? (
         <Icon onClick={onUnlove}>
           <AiFillHeart className="loves" />
-          좋아요 {lovesCount}개
+          좋아요 {review.rvLove}개
         </Icon>
       ) : (
         <Icon onClick={member ? onLove : openModal}>
           <AiOutlineHeart />
-          좋아요 {lovesCount}개
+          좋아요 {review.rvLove}개
         </Icon>
       )}
-      {lovesCount > 0 && (
+      {review.rvLove > 0 && (
         <Icon className="small" onClick={openLoverModal}>
           <AiFillSmile />
         </Icon>
