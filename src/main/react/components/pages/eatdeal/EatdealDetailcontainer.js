@@ -42,6 +42,7 @@ const Button= styled.div`
     z-index:9999999;
 `;
 const EatdealDetailContainer=({match})=>{
+  const path = process.env.PATH;
     const { eatNo } = match.params;
     const dispatch= useDispatch();
 
@@ -102,7 +103,7 @@ const EatdealDetailContainer=({match})=>{
              {!member?(
              <Button onClick={() => openLoginModal('payment')}>구매하기</Button> 
             ):(
-              <Link to={`/figtable/payment/${eatNo}`}>
+              <Link to={`${path}/payment/${eatNo}`}>
               <Button>구매하기</Button> 
             </Link>
             )

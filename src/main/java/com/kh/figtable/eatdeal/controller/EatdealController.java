@@ -59,9 +59,7 @@ public class EatdealController {
 	@RequestMapping(value = "/api/owner/eatdeal/buy", method = RequestMethod.GET)
 	private ResponseEntity <List<Buyer>>getBuy(@RequestParam String resNo) {
 
-		System.out.print("컨트롤러 들어옴");
 		List<Buyer> list = service.getBuy(resNo);
-		System.out.print(list);
 		
 		return new ResponseEntity <List<Buyer>>(list, HttpStatus.OK);
 		
