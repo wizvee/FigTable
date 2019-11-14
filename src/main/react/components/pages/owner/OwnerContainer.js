@@ -234,7 +234,6 @@ const OwnerContainer = ({ match }) => {
       open == true
         ? (document.getElementsByTagName('label')[1].click(),
           setShopOpen(!shopOpen))
-          // dispatch()
         : '';
     }
     setIsShopModal(false);

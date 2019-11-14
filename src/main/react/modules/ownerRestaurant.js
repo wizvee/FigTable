@@ -27,7 +27,6 @@ export const updateThumb = createAction(
     resThumb,
   }),
 );
-export const resOpen = createAction(RES_OPEN, { resNo });
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
