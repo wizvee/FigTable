@@ -102,12 +102,12 @@ public class OwnerController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping(value="/api/shopOpen", method=RequestMethod.PATCH)
-	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
-		Restaurant r = new Restaurant();
-		System.out.println("들어옴");
-		System.out.println(data.get("resNo"));
-		System.out.println(data.get("open"));
+//	@RequestMapping(value="/api/shopOpen", method=RequestMethod.PATCH)
+//	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
+//		Restaurant r = new Restaurant();
+//		System.out.println("들어옴");
+//		System.out.println(data.get("resNo"));
+//		System.out.println(data.get("open"));
 //		if(data.get("open").equals("true")) {
 //			r.setResWaiting("T");
 //			r.setOpen(true);
@@ -122,10 +122,10 @@ public class OwnerController {
 //		if(result>0) {
 //			return new ResponseEntity<Boolean> (r.isOpen(), HttpStatus.OK);
 //		}
-		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		
-		
-	}
+//		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//		
+//		
+//	}
 
 
 }
