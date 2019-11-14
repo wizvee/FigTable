@@ -14,4 +14,5 @@ public interface OwnerDao {
 	Restaurant getOwnerRes(SqlSession session, String resNo);
 	OwnerInfo getOwnerHeader(SqlSession session, String ownNo);
 	int updateThumb(SqlSession session, Map<String, String> data);
+	String getOldThumb(SqlSession session, String resNo);
 }

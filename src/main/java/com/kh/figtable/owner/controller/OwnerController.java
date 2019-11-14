@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +50,9 @@ public class OwnerController {
 		Restaurant r = new Restaurant();
 		r.setResNo(resNo);
 
-	
 		// 1. 파일저장경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
+
 		String image="";
 		// 저장경로가 없으면 생성
 		File dir = new File(saveDir);
@@ -83,17 +85,20 @@ public class OwnerController {
 	}
 
 	@RequestMapping(value="/api/ownerThumb", method=RequestMethod.PATCH)
-	public ResponseEntity updateThumb(@RequestBody Map<String, String> data) {
+	public ResponseEntity updateThumb(@RequestBody Map<String, String> data, HttpServletRequest req) {
 
-//		String oldname = service.getOldProfile(data.get("resNo"));
+		String oldname = service.getOldThumb(data.get("resNo"));
 		int r = service.updateThumb(data);
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
+
 		// 성공시 200 반환
-		if (r > 0)
-//			if (!oldname.equals("default.png")) {
-//				File d = new File(saveDir + "/" + oldname);
-//				d.delete();
-//			}
+		if (r > 0) {
+			if (!oldname.substring(0, 4).equals("http")) {
+				File d = new File(saveDir + "/" + oldname);
+				d.delete();
+			}
 			return new ResponseEntity(HttpStatus.OK);
+		}
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}

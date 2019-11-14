@@ -51,4 +51,8 @@
 	<update id="updateThumb" parameterType="map">
 		UPDATE FIG_RESTAURANT SET RES_THUMB=#{resThumb} WHERE RES_NO=#{resNo}
 	</update>
+	<select id="getOldThumb" parameterType="string"
+		resultType="string">
+		SELECT RES_THUMB FROM FIG_RESTAURANT WHERE RES_NO = #{resNo}
+	</select>
 </mapper>
