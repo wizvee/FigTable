@@ -13,8 +13,10 @@ const [
   OWNER_RES_FAILURE,
 ] = createRequestActionTypes('owner/OWNER_RES');
 const CHANGE_FIELD = 'owner/CHANGE_FILED';
-const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = 'owner/UPDATE_THUMB';
-const [RES_OPEN, RES_OPEN_SUCCESS] = 'owner/RES_OPEN';
+const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = createRequestActionTypes(
+  'owner/UPDATE_THUMB',
+);
+const [RES_OPEN, RES_OPEN_SUCCESS] = createRequestActionTypes('owner/RES_OPEN');
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({

@@ -168,7 +168,7 @@ public class MemberController {
 		return new ResponseEntity<String>(rename, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/member/follow", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/member/following", method = RequestMethod.POST)
 	public ResponseEntity followingMember(@RequestBody Map<String, String> data) {
 		int r = service.followingMember(data);
 		// 성공시 200 반환
