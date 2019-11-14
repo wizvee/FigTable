@@ -103,9 +103,6 @@ public class OwnerController {
 	@RequestMapping(value = "/api/shopOpen", method = RequestMethod.PATCH)
 	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
 		Restaurant r = new Restaurant();
-		System.out.println("바뀜");
-		System.out.println(data.get("resNo"));
-		System.out.println(data.get("open"));
 		
 		if((data.get("open")).equals("true")) {
 			r.setResWaiting("T");
@@ -116,7 +113,6 @@ public class OwnerController {
 		}
 		
 		r.setResNo(data.get("resNo"));
-		System.out.println(r.isOpen());
 		int result = service.updateOpen(r);
 		
 		if(result>0) {
