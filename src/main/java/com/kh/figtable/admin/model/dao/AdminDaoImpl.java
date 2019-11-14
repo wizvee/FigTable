@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminReview;
-import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
@@ -21,7 +21,7 @@ public class AdminDaoImpl implements AdminDao {
 	
 	//owner
 	@Override
-	public List<Owner> getOwnersByApply(SqlSession session) {
+	public List<AdminOwner> getOwnersByApply(SqlSession session) {
 		return session.selectList("admin.getByOwnApply");
 	}
 	

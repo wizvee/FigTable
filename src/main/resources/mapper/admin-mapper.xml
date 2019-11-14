@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
-  <resultMap type="owner" id="ownResult">
+  <resultMap type="adminOwner" id="ownResult">
   	<result property="ownNo" column="OWN_NO" />
   	<result property="ownEmail" column="OWN_EMAIL" />
   	<result property="ownPassword" column="OWN_PASSWORD" />
@@ -9,6 +9,22 @@
   	<result property="ownName" column="OWN_NAME" />
   	<result property="ownStatus" column="OWN_STATUS" />
   	<result property="ownStatics" column="OWN_STATICS" />
+  	<result property="ownApply" column="OWN_APPLY" />
+  	<result property="resNo" column="RES_NO" />
+  	<result property="resName" column="RES_NAME" />
+  	<result property="resLocationKeyword"
+			column="RES_LOCATION_KEYWORD" />
+	<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
+	<result property="resThumb" column="RES_THUMB" />
+	<result property="resAddress" column="RES_ADDRESS" />
+	<result property="resOpenDay" column="RES_OPEN_DAY" />
+	<result property="resCloseTime" column="RES_CLOSE_TIME" />
+	<result property="resMenuTitle" column="RES_MENU_TITLE" />
+	<result property="resMenuPrice" column="RES_MENU_PRICE" />
+	<result property="resTel" column="RES_TEL" />
+	<result property="resLat" column="RES_LAT" />
+	<result property="resLong" column="RES_LONG" />
+	<result property="resApply" column="RES_APPLY" />
   </resultMap>
   
   <resultMap type="restaurant" id="resResult">
@@ -54,12 +70,22 @@
 		SELECT * FROM FIG_RESTAURANT WHERE RES_APPLY = 'S'
 	</select>
 	
-	 <select id="getByOwnApply" resultType="owner" resultMap="ownResult">
-  		SELECT * FROM FIG_OWNER WHERE OWN_APPLY = 'S'
+	 <select id="getByOwnApply" resultType="adminOwner" resultMap="ownResult">
+  		SELECT O.OWN_NO, OWN_EMAIL, OWN_PASSWORD, OWN_PHONE, 
+  			   OWN_NAME, OWN_STATUS, OWN_APPLY, 
+  			   RES_NO, RES_NAME, RES_LOCATION_KEYWORD, RES_FOOD_KEYWORD, 
+  			   RES_THUMB, RES_ADDRESS, RES_OPEN_DAY, RES_CLOSE_TIME, 
+  			   RES_MENU_TITLE, RES_MENU_PRICE, RES_TEL, RES_LAT, 
+  			   RES_LONG, RES_APPLY
+		FROM FIG_OWNER O
+		JOIN FIG_RESTAURANT R ON(O.OWN_NO = R.OWN_NO)
+		WHERE OWN_APPLY = 'S'
   	</select>
   	
   	<select id="getReviews" resultType="review" resultMap="rvResult">
-  		SELECT RV_NO, M.MEM_NO, M.MEM_NAME, T.RES_NO, T.RES_NAME, T.RES_ADDRESS, RV_CONTENT, RV_WARN, RV_DATE
+  		SELECT RV_NO, RV_CONTENT, RV_WARN, RV_DATE, 
+  			   M.MEM_NO, M.MEM_NAME, 
+  		       T.RES_NO, T.RES_NAME, T.RES_ADDRESS
   		  FROM FIG_REVIEW R
   		  JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO)
   		  JOIN FIG_RESTAURANT T ON(R.RES_NO = T.RES_NO)

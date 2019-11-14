@@ -1,3 +1,3 @@
-import client from './client';
+import client, { path } from './client';
 
-export const getByApply = () => client.get(`/figtable/api/adminRestaurnats`);
+export const getByApply = () => client.get(`${path}/api/adminRestaurnats`);

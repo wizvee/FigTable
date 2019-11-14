@@ -18,10 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.admin.model.service.AdminService;
+import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminReview;
-import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
-import com.kh.figtable.review.model.vo.Review;
 
 
 @RestController
@@ -39,9 +38,10 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/api/adminOwners", method=RequestMethod.GET)
-	private ResponseEntity<List<Owner>> getOwnersByApply(){
-		List<Owner> list = service.getOwnersByApply();
-		return new ResponseEntity<List<Owner>>(list, HttpStatus.OK);
+	private ResponseEntity<List<AdminOwner>> getOwnersByApply(){
+		List<AdminOwner> list = service.getOwnersByApply();
+	
+		return new ResponseEntity<List<AdminOwner>>(list, HttpStatus.OK);
 	}
 	
 	
@@ -58,7 +58,6 @@ public class AdminController {
 	@RequestMapping(value="/api/adminReviews", method=RequestMethod.GET)
 	private ResponseEntity<List<AdminReview>> getReviews(){
 		List<AdminReview> list = service.getReviews();
-		System.out.println(list.size());
 		return new ResponseEntity<List<AdminReview>>(list, HttpStatus.OK);
 	}
 	
@@ -101,4 +100,7 @@ public class AdminController {
 		File f = new File(saveDir + res.getResThumb().substring(res.getResThumb().lastIndexOf("/")));
 		f.delete();
 	}
+	
+	
+	
 }

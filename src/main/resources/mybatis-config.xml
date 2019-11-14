@@ -25,5 +25,7 @@
 			type="com.kh.figtable.owner.model.vo.OwnerInfo" />
 		<typeAlias alias="adminReview"
 			type="com.kh.figtable.admin.model.vo.AdminReview" />
+		<typeAlias alias="adminOwner"
+			type="com.kh.figtable.admin.model.vo.AdminOwner" />
 	</typeAliases>
 </configuration>

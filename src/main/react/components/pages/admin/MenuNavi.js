@@ -122,18 +122,16 @@ const MenuNavi = ({
   input,
   onReset,
 }) => {
+  const path = process.env.PATH;
   //주소값 비교 후 css 바꾸기
   const isInsertRes =
-    pathname === '/figtable/admin/enroll' ||
-    pathname === '/figtable/admin/enroll/';
+    pathname === `${path}/admin/enroll` || pathname === `${path}/admin/enroll/`;
   const isQnaList =
-    pathname === '/figtable/admin/qna' || pathname === '/figtable/admin/qna/';
+    pathname === `${path}/admin/qna` || pathname === `${path}/admin/qna/`;
   const isOwnList =
-    pathname === '/figtable/admin/owner' ||
-    pathname === '/figtable/admin/owner/';
+    pathname === `${path}/admin/owner` || pathname === `${path}/admin/owner/`;
   const isRevList =
-    pathname === '/figtable/admin/review' ||
-    pathname === '/figtable/admin/review/';
+    pathname === `${path}/admin/review` || pathname === `${path}/admin/review/`;
 
   const [isHome, setIsHome] = useState(false);
 
@@ -177,28 +175,28 @@ const MenuNavi = ({
             <div>
               <ul className="ulList">
                 <li>
-                  <Link className="menu" to="/figtable/admin/enroll">
+                  <Link className="menu" to={`${path}/admin/enroll`}>
                     <IconWrapper1 isInsertRes={isInsertRes}>
                       <MdLocalDining />
                     </IconWrapper1>
                   </Link>
                 </li>
                 <li className="li">
-                  <Link className="menu" to="/figtable/admin/qna">
+                  <Link className="menu" to={`${path}/admin/qna`}>
                     <IconWrapper2 isQnaList={isQnaList}>
                       <FaComments />
                     </IconWrapper2>
                   </Link>
                 </li>
                 <li className="li">
-                  <Link className="menu" to="/figtable/admin/owner">
+                  <Link className="menu" to={`${path}/admin/owner`}>
                     <IconWrapper3 isOwnList={isOwnList}>
                       <MdFace />
                     </IconWrapper3>
                   </Link>
                 </li>
                 <li className="li">
-                  <Link className="menu" to="/figtable/admin/review">
+                  <Link className="menu" to={`${path}/admin/review`}>
                     <IconWrapper4 isRevList={isRevList}>
                       <MdSpeakerNotes />
                     </IconWrapper4>

@@ -1,4 +1,4 @@
-import client from './client';
+import client, { path } from './client';
 
 export const insertRes = ({
   resName,
@@ -11,7 +11,7 @@ export const insertRes = ({
   resCloseTime,
   resThumb,
 }) =>
-  client.post('/figtable/api/insertRes', {
+  client.post(`${path}/api/insertRes`, {
     resName,
     resAddress,
     resTel,
