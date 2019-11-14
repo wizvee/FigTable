@@ -104,4 +104,15 @@
 		M.MEM_NO) WHERE L.RV_NO = #{rvNo}
 	</select>
 
+	<insert id="followingMember" parameterType="map">
+		INSERT INTO
+		FIG_FOLLOWING VALUES(#{memNo}, #{targetMemNo})
+	</insert>
+
+	<select id="getFollowingList" parameterType="string"
+		resultType="member" resultMap="memResult">
+		SELECT TARGET_MEM_NO FROM FIG_FOLLOWING
+		WHERE MEM_NO = #{memNo}
+	</select>
+
 </mapper>

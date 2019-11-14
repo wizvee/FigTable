@@ -25,7 +25,7 @@ public interface MemberDao {
 	List<String> getLoves(SqlSession session, String memNo);
 
 	int lovesRv(SqlSession session, Map<String, String> data);
-	
+
 	int unlovesRv(SqlSession session, Map<String, String> data);
 
 	Member check(SqlSession session, String memNo);
@@ -33,9 +33,11 @@ public interface MemberDao {
 	int update(SqlSession session, Member m);
 
 	String getOldProfile(SqlSession session, String memNo);
-	
+
 	int addPoint(SqlSession session, Map point);
-	
+
 	int followingMember(SqlSession session, Map data);
+
+	List<Member> getFollowingList(SqlSession session, String memNo);
 
 }

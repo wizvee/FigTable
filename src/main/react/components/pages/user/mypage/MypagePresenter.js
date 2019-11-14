@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import Button from '../../../../lib/styles/Button';
 

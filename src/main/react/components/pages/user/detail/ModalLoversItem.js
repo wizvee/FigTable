@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import client, { path } from '../../../../lib/api/client';
 import Button from '../../../../lib/styles/Button';
 
 const Container = styled.div`
@@ -12,7 +13,6 @@ const Container = styled.div`
   }
 `;
 
-const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.7rem;
   width: 35px;
@@ -32,6 +32,10 @@ const ModalLoversItem = ({ lover }) => {
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
+
+  const [isFollow, setFollow] = useState(lover.follow);
+
+  const following = async memNo => {};
 
   return (
     <Container>

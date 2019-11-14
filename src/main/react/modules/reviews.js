@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
@@ -37,10 +37,17 @@ const writeCommentSaga = createRequestSaga(
   WRITE_COMMENT,
   reviewAPI.writeComment,
 );
-const deleteCommentSaga = createRequestSaga(
-  DELETE_COMMENT,
-  reviewAPI.deleteComment,
-);
+function* deleteCommentSaga({ payload }) {
+  try {
+    const resp = yield call(reviewAPI.deleteComment, payload);
+    yield put({
+      type: DELETE_COMMENT_SUCCESS,
+      payload: { comments: resp.data, rvNo: payload.rvNo },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function* reviewsSaga() {
   yield takeLatest(LIST_RV, listReviewsSaga);
@@ -83,11 +90,9 @@ const reviews = handleActions(
         );
         review.comments = comments;
       }),
-    [DELETE_COMMENT_SUCCESS]: (state, { payload: comments }) =>
+    [DELETE_COMMENT_SUCCESS]: (state, { payload: { comments, rvNo } }) =>
       produce(state, draft => {
-        const review = draft.reviews.find(
-          review => review.rvNo == comments[0].rvNoRef,
-        );
+        const review = draft.reviews.find(review => review.rvNo == rvNo);
         review.comments = comments;
       }),
   },

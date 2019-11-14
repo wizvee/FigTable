@@ -31,5 +31,7 @@ public interface MemberService {
 	String getOldProfile(String memNo);
 
 	int followingMember(Map<String, String> data);
+	
+	List<Member> getFollowingList(String memNo);
 
 }

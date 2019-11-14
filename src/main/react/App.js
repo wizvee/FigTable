@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Footer from './components/common/Footer';
 import HomeContainer from './components/pages/user/HomeContainer';
@@ -26,6 +27,8 @@ import MypageContainer from './components/pages/user/mypage/MypageContainer';
 
 const App = () => {
   const path = process.env.PATH;
+  const { member } = useSelector(({ member }) => ({ member: member.member }));
+
   return (
     <>
       <Switch>
@@ -34,8 +37,14 @@ const App = () => {
         <Route path={`${path}/search/:keyword`} component={SearchContainer} />
         <Route path={`${path}/register`} component={RegisterContainer} />
         <Route path={`${path}/login`} component={LoginContainer} />
-        <Route path={`${path}/@:memName`} component={MypageContainer} />
-        <Route path={`${path}/review`} component={WriteContainer} />
+        <Route
+          path={`${path}/@:memName`}
+          render={() => (member ? <MypageContainer /> : <Redirect to={path} />)}
+        />
+        <Route
+          path={`${path}/review`}
+          render={() => (member ? <WriteContainer /> : <Redirect to={path} />)}
+        />
         <Route path={`${path}/eatdeal`} exact component={EatdealContainer} />
         <Route
           path={`${path}/eatdeal/:eatNo`}

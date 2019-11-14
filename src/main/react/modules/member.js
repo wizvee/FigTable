@@ -1,13 +1,15 @@
 import { createAction, handleActions } from 'redux-actions';
+import { takeLatest, put, call } from 'redux-saga/effects';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
-import { takeLatest, put, call } from 'redux-saga/effects';
 import { initializeForm } from './auth';
 import { increaseLoves, decreaseLoves } from './reviews';
 import * as memberAPI from '../lib/api/member';
 
 const SET_MEMBER = 'member/SET_MEMBER';
+const CHANGE_FIELD = 'member/CHANGE_FIELD';
 const LOGOUT = 'member/LOGOUT';
 const INITIALIZE_ITEM = 'member/INITIALIZE_ITEM';
 
@@ -24,6 +26,10 @@ const [LOVES_RV] = createRequestActionTypes('member/LOVES_RV');
 const [UNLOVES_RV] = createRequestActionTypes('member/UNLOVES_RV');
 
 export const setMember = createAction(SET_MEMBER, member => member);
+export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
+  key,
+  value,
+}));
 export const logout = createAction(LOGOUT);
 export const initializeItem = createAction(INITIALIZE_ITEM, key => key);
 
@@ -110,6 +116,10 @@ export default handleActions(
       ...state,
       member,
     }),
+    [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
+      produce(state, draft => {
+        draft.member[key] = value;
+      }),
     [LOGOUT]: () => initialState,
     [INITIALIZE_ITEM]: (state, { payload: key }) => ({
       ...state,

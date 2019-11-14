@@ -1,21 +1,18 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import HeaderContainer from '../../../common/HeaderContainer';
 import WritePresenter from './WritePresenter';
 import { changeField, initializeForm } from '../../../../modules/review';
 import ActionButtonsContainer from './ActionButtonsContainer';
 import client, { path } from '../../../../lib/api/client';
 
-const WriteContainer = ({ history }) => {
+const WriteContainer = () => {
   const disaptch = useDispatch();
   const { member, resName, rvImages } = useSelector(({ member, review }) => ({
     member: member.member,
     resName: review.resName,
     rvImages: review.rvImages,
   }));
-
-  if (!member) history.push('/');
 
   // 기본인풋 변경 이벤트 핸들러
   const onChange = useCallback(
@@ -56,18 +53,20 @@ const WriteContainer = ({ history }) => {
   }, [disaptch]);
 
   return (
-    <>
-      <HeaderContainer />
-      <WritePresenter
-        member={member}
-        resName={resName}
-        onChange={onChange}
-        onChangeFile={onChangeFile}
-        rvImages={rvImages}
-        buttons={<ActionButtonsContainer />}
-      />
-    </>
+    member && (
+      <>
+        <HeaderContainer />
+        <WritePresenter
+          member={member}
+          resName={resName}
+          onChange={onChange}
+          onChangeFile={onChangeFile}
+          rvImages={rvImages}
+          buttons={<ActionButtonsContainer />}
+        />
+      </>
+    )
   );
 };
 
-export default withRouter(WriteContainer);
+export default WriteContainer;

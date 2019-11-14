@@ -29,13 +29,15 @@ const MypageContainer = () => {
   // mount 시마다 member information을 DB와 연동
   useEffect(() => {
     dispatch(check(member.memNo));
-  }, [member]);
+  }, [dispatch]);
 
   return (
-    <>
-      <HeaderContainer />
-      <MypagePresenter member={member} onChangeFile={onChangeFile} />
-    </>
+    member && (
+      <>
+        <HeaderContainer />
+        <MypagePresenter member={member} onChangeFile={onChangeFile} />
+      </>
+    )
   );
 };
 

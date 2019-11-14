@@ -36,7 +36,7 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Restaurant> getLikes(SqlSession session, String memNo) {
 		return session.selectList("restaurant.getLikes", memNo);
 	}
-	
+
 	@Override
 	public Member check(SqlSession session, String memNo) {
 		return session.selectOne("member.check", memNo);
@@ -75,6 +75,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int followingMember(SqlSession session, Map data) {
 		return session.insert("member.followingMember", data);
+	}
+
+	@Override
+	public List<Member> getFollowingList(SqlSession session, String memNo) {
+		return session.selectList("member.getFollowingList", memNo);
 	}
 
 }

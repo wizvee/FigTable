@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kh.figtable.member.model.service.MemberService;
 import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.service.ReviewService;
 import com.kh.figtable.review.model.vo.Comment;
@@ -31,6 +33,8 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
+	@Autowired
+	private MemberService memService;
 
 	@RequestMapping(value = "/api/reviews/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo, HttpServletRequest req) {
@@ -89,6 +93,7 @@ public class ReviewController {
 	@RequestMapping(value = "/api/review", method = RequestMethod.POST)
 	private ResponseEntity<Integer> writeReview(@RequestBody Review review) {
 		int r = service.writeReview(review);
+
 		return new ResponseEntity<Integer>(r, HttpStatus.OK);
 	}
 
@@ -106,8 +111,9 @@ public class ReviewController {
 	@RequestMapping(value = "/api/comment", method = RequestMethod.PATCH)
 	private ResponseEntity<List<Comment>> deleteComment(@RequestBody Map<String, String> data) {
 		int r = service.deleteComment(data.get("rvcNo"));
+		List<Comment> comments = null;
 		if (r > 0) {
-			List<Comment> comments = service.getCommentsById(data.get("rvNo"));
+			comments = service.getCommentsById(data.get("rvNo"));
 			return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
 		}
 		// 실패 시 400 에러 반환
@@ -115,8 +121,18 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/api/review/loves/{rvNo}", method = RequestMethod.GET)
-	private ResponseEntity<List<Member>> getLoversList(@PathVariable("rvNo") String rvNo) {
+	private ResponseEntity<List<Member>> getLoversList(@PathVariable("rvNo") String rvNo, HttpSession session) {
 		List<Member> result = service.getLoversList(rvNo);
+
+		// 로그인 되어 있다면 following 여부를 판별
+//		Member m = (Member) session.getAttribute("login");
+//		if (m != null) {
+//			List<Member> followingList = memService.getFollowingList(m.getMemNo());
+//			for (Member member : result) {
+//				
+//			}
+//		}
+
 		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
 	}
 

@@ -115,7 +115,10 @@ const HeaderPresenter = ({
 
   useEffect(() => {
     setIsHome(false);
-    if (pathname === '/figtable/' || pathname === '/figtable') {
+    if (
+      pathname === `${process.env.PATH}` ||
+      pathname === `${process.env.PATH}/`
+    ) {
       if (window.scrollY < 250) setIsHome(true);
       window.addEventListener('scroll', handleScroll);
     }
