@@ -1,8 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
 import { MdClose } from 'react-icons/md';
+import DatePicker from '../EatdealDetail/DatePicker';
+import moment from 'moment';
 
 const ModalWrap= styled.div`
     position: fixed;
@@ -44,33 +46,22 @@ const Separator = styled.div`
     margin:0.5rem;
     background-color:#E9E9E9;
 `;
-const ShareContents= styled.div`
-    padding: 0.3rem;
-`;
-const ShareContent= styled.div`
-    text-align:left;
-    font-size: 1.2rem;
-    padding: 0.4rem 1.2rem;
-    cursor:pointer;
-    
-    svg {
-        transform: translateY(0.5rem);
-        margin-right: 1.2rem;
-        font-size: 1.5rem;
-    }
-`;
 
-const EatdealInput = styled.div`
-margin:0.5rem 0;
-padding:0 3rem;
-input{
-  width:80%;
-  border-radius: 5px;
-  border: 1px solid ${palette.borderGray};
-  font-size: 1rem;
-  outline: none;
-  text-align:center;
-}
+const EatdealDateInput= styled.div`
+
+    margin:0.5rem 0;
+    padding:0 3rem;
+    .wrap{
+      display:inline-block;
+      border-radius: 5px;
+      border: 1px solid ${palette.borderGray};
+      font-size: 0.8rem;
+      outline: none;
+      :focus{
+        border: 1px solid ${palette.primary};
+        transition-duration:0.5s;
+      }
+    }
 `;
 
 const EatdealButton= styled(Button)`
@@ -88,6 +79,14 @@ text-align:center;
 `;
 
 const EatdealModal =({closeModal})=>{
+    const [start, setStart]= useState(null);
+    const [end, setEnd]= useState(null);
+
+    const onSetValue = (value) =>{
+        setStart(moment(value.startDate).format('YYYY-MM-DD'));
+        setEnd(moment(value.endDate).format('YYYY-MM-DD'));
+
+    }
     return (
         <>
         <ModalWrap>
@@ -98,9 +97,12 @@ const EatdealModal =({closeModal})=>{
             <ModalTitle>기간 연장</ModalTitle>
             <Separator/> 
             
-          <EatdealInput>
-            <input type="text" name="resName" placeholder="2019.00.00~2019.00.00"/>
-          </EatdealInput>
+          
+            <EatdealDateInput>
+                <div className="wrap">
+                    <DatePicker onSetValue={onSetValue}/>
+                </div>
+            </EatdealDateInput>
             <Separator/> 
         <ButtonArea>
               <EatdealButton >
@@ -111,6 +113,7 @@ const EatdealModal =({closeModal})=>{
         </Modal>
         </ModalWrap>
         </>
+
     )
 };
 export default EatdealModal;

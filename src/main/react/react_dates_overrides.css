@@ -25,5 +25,38 @@
 .CalendarDay__hovered_span {
   background: brown;
 }
-.DayPicker_transitionContainer{
+.DateRangePicker_picker__directionLeft{
+    left:-200px !important;
+}
+.DateRangePickerInput__withBorder{
+border:none ! important;
+}
+.DateInput {
+}
+.DateInput_input{
+    line-height:none !important;
+    padding: 0 1rem !important;
+    font-size:0.8rem !important;
+}
+.DateInput_input__focused{
+    border-bottom:none !important;
+}
+.CalendarDay__selected{
+    background-color: #ff7b88 !important;
+    border: 1px solid #fa5767 !important;
+
+}
+.CalendarDay__selected_span{
+    background-color: #f89ca5 !important;
+    border: 1px solid #ff7b88 !important;
+
+}
+.CalendarDay__hovered_span{
+    background-color: #fbc0c6 !important;
+    border: 1px solid #f89ca5 !important;
+    color: #764045 !important;
+
+}
+.DayPickerKeyboardShortcuts_show__bottomRight{
+    display: none;
 }

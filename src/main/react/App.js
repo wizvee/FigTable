@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import './react_dates_overrides.css';
 import Footer from './components/common/Footer';
 import HomeContainer from './components/pages/user/HomeContainer';
 import DetailContainer from './components/pages/user/detail/DetailContainer';
