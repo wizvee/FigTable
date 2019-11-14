@@ -55,7 +55,8 @@ const ReviewSection = styled.div`
     padding: 1rem 0;
   }
   .date {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: ${palette.textGray};
   }
   @media (max-width: 768px) {
     display: none;
@@ -163,7 +164,6 @@ const Data = styled.div`
 const ReviewActionButtons = styled.div`
   padding-top: 0.8rem;
   width: 100%;
-  color: ${palette.textGray};
   span + span {
     margin-left: 1rem;
   }

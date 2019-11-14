@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineMessage } from 'react-icons/ai';
 import styled from 'styled-components';
-import client, { path } from '../../../../lib/api/client';
+import { writeComment, deleteComment } from '../../../../modules/reviews';
 import palette from '../../../../lib/styles/Palette';
 import ModalLogin from '../ModalLogin';
 
@@ -73,6 +73,7 @@ const CommentForm = styled.form`
   }
 `;
 
+const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.5rem;
   width: 35px;
@@ -104,12 +105,12 @@ const AllCmtView = styled.div`
 `;
 
 const ReviewActionButtonCmts = ({ review }) => {
+  const dispatch = useDispatch();
   const { member } = useSelector(({ member }) => ({
     member: member.member,
   }));
 
   const [isModal, setIsModal] = useState(false);
-  const [cmtArr, setCmtArr] = useState(review.comments);
   const [viewInput, setViewInput] = useState(false);
   const [cmtInput, setCmtInput] = useState('');
   const [isViewAllCmt, setViewAllCmt] = useState(false);
@@ -141,23 +142,28 @@ const ReviewActionButtonCmts = ({ review }) => {
   );
 
   // 코멘트 등록
-  const onSubmit = useCallback(async e => {
-    e.preventDefault();
-    await client
-      .post(`${path}/api/comment`, {
-        rvNoRef: review.rvNo,
-        memNo: member.memNo,
-        rvcContent: cmtInput,
-      })
-      .then(({ data }) => setCmtArr(data));
-    setCmtInput('');
-  });
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(
+        writeComment({
+          rvNoRef: review.rvNo,
+          memNo: member.memNo,
+          rvcContent: cmtInput,
+        }),
+      );
+      setCmtInput('');
+    },
+    [dispatch, cmtInput, setCmtInput],
+  );
 
   // 코멘트 삭제
-  const onDelete = useCallback(async rvcNo => {
-    await client.patch(`${path}/api/comment/${rvcNo}`);
-    setCmtArr(cmtArr.filter(cmt => cmt.rvcNo != rvcNo));
-  });
+  const onDelete = useCallback(
+    rvcNo => {
+      dispatch(deleteComment({ rvNo: review.rvNo, rvcNo }));
+    },
+    [dispatch],
+  );
 
   // 코멘트 모두 보기
   const onViewAllCmt = useCallback(() => setViewAllCmt(true), []);
@@ -167,12 +173,12 @@ const ReviewActionButtonCmts = ({ review }) => {
       {member ? (
         <Icon onClick={onCmtToggle}>
           <AiOutlineMessage />
-          댓글 {cmtArr.length}개
+          댓글 {review.comments.length}개
         </Icon>
       ) : (
         <Icon onClick={openModal}>
           <AiOutlineMessage />
-          댓글 {cmtArr.length}개
+          댓글 {review.comments.length}개
         </Icon>
       )}
       {member && viewInput && (
@@ -188,7 +194,7 @@ const ReviewActionButtonCmts = ({ review }) => {
         </CommentForm>
       )}
       {isViewAllCmt
-        ? cmtArr.map(comment => (
+        ? review.comments.map(comment => (
             <Comment key={comment.rvcNo}>
               <span>
                 <b>{comment.memName}</b>
@@ -204,7 +210,7 @@ const ReviewActionButtonCmts = ({ review }) => {
               )}
             </Comment>
           ))
-        : cmtArr.map((comment, index) => {
+        : review.comments.map((comment, index) => {
             if (index < 2)
               return (
                 <Comment key={comment.rvcNo}>
@@ -223,10 +229,10 @@ const ReviewActionButtonCmts = ({ review }) => {
                 </Comment>
               );
           })}
-      {cmtArr.length > 2 && !isViewAllCmt && (
+      {review.comments.length > 2 && !isViewAllCmt && (
         <AllCmtView>
           <span onClick={onViewAllCmt}>
-            댓글 <b>{cmtArr.length}</b>개 모두 보기
+            댓글 <b>{review.comments.length}</b>개 모두 보기
           </span>
         </AllCmtView>
       )}

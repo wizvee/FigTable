@@ -37,7 +37,7 @@ const ModalLoversItem = ({ lover }) => {
     <Container>
       <Profile url={lover.memProfile} />
       <span className="name">{lover.memName}</span>
-      {member && <SmallButton>팔로우</SmallButton>}
+      <SmallButton>팔로우</SmallButton>
     </Container>
   );
 };
