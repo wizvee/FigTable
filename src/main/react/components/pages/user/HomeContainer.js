@@ -108,7 +108,7 @@ const HomeContainer = ({ history }) => {
     e => {
       e.preventDefault();
       document.body.style.overflow = 'unset';
-      history.push(`/figtable/search/${keyword}`);
+      history.push(`${process.env.PATH}/search/${keyword}`);
     },
     [keyword],
   );

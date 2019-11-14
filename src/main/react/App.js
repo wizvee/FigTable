@@ -25,53 +25,54 @@ import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 import MypageContainer from './components/pages/user/mypage/MypageContainer';
 
 const App = () => {
+  const path = process.env.PATH;
   return (
     <>
       <Switch>
-        <Route path="/figtable" exact component={HomeContainer} />
-        <Route path="/figtable/restaurant/:resNo" component={DetailContainer} />
-        <Route path="/figtable/search/:keyword" component={SearchContainer} />
-        <Route path="/figtable/register" component={RegisterContainer} />
-        <Route path="/figtable/login" component={LoginContainer} />
-        <Route path="/figtable/@:memName" component={MypageContainer} />
-        <Route path="/figtable/review" component={WriteContainer} />
-        <Route path="/figtable/eatdeal" exact component={EatdealContainer} />
+        <Route path={path} exact component={HomeContainer} />
+        <Route path={`${path}/restaurant/:resNo`} component={DetailContainer} />
+        <Route path={`${path}/search/:keyword`} component={SearchContainer} />
+        <Route path={`${path}/register`} component={RegisterContainer} />
+        <Route path={`${path}/login`} component={LoginContainer} />
+        <Route path={`${path}/@:memName`} component={MypageContainer} />
+        <Route path={`${path}/review`} component={WriteContainer} />
+        <Route path={`${path}/eatdeal`} exact component={EatdealContainer} />
         <Route
-          path="/figtable/eatdeal/:eatNo"
+          path={`${path}/eatdeal/:eatNo`}
           component={EatdealDetailContainer}
         />
         <Route
-          path="/figtable/payment/:eatNo"
+          path={`${path}/payment/:eatNo`}
           component={EatdealpayContainer}
         />
-        <Route path="/figtable/owner/:resNo" exact component={OwnerContainer} />
+        <Route path={`${path}/owner/:resNo`} exact component={OwnerContainer} />
         <Route
-          path="/figtable/owner/:resNo/restaurant"
+          path={`${path}/owner/:resNo/restaurant`}
           component={UpdateOwnerRestaurant}
         />
         <Route
-          path="/figtable/owner/:resNo/eatdeal"
+          path={`${path}/owner/:resNo/eatdeal`}
           component={OwnerEatDealContainer}
         />
         <Route
-          path="/figtable/owner/:resNo/statics"
+          path={`${path}/owner/:resNo/statics`}
           component={OwnerStaticsContainer}
         />
         <Route
-          path="/figtable/owner/:resNo/waiting"
+          path={`${path}/owner/:resNo/waiting`}
           component={OwnerWaitingContainer}
         />
         <Route
-          path="/figtable/owner/:resNo/public"
+          path={`${path}/owner/:resNo/public`}
           component={WaitingPublicContainer}
         />
-        <Route path="/figtable/ownerEnroll" exact component={OwnerEnroll} />
-        <Route path="/figtable/admin" exact component={AdminContainer} />
-        <Route path="/figtable/admin/enroll" component={InsertRestaurant} />
-        <Route path="/figtable/admin/qna" component={QnAContainer} />
-        <Route path="/figtable/admin/owner" component={ApplyOwnerContainer} />
-        <Route path="/figtable/admin/review" component={ReviewContainer} />
-        <Redirect from="*" to="/figtable" />
+        <Route path={`${path}/ownerEnroll`} exact component={OwnerEnroll} />
+        <Route path={`${path}/admin`} exact component={AdminContainer} />
+        <Route path={`${path}/admin/enroll`} component={InsertRestaurant} />
+        <Route path={`${path}/admin/qna`} component={QnAContainer} />
+        <Route path={`${path}/admin/owner`} component={ApplyOwnerContainer} />
+        <Route path={`${path}/admin/review`} component={ReviewContainer} />
+        <Redirect from="*" to={path} />
       </Switch>
       <Footer />
     </>
