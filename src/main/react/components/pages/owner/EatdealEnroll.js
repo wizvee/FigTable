@@ -4,19 +4,33 @@ import palette from '../../../lib/styles/Palette';
 import Button from '../../../lib/styles/Button';
 import DatePicker from './EatdealDetail/DatePicker';
 
+const EnrollWrapper = styled.div`
+  height:45rem;
+`;
+const EatdealDateInput= styled.div`
 
-    const StyledButton = styled.button`
-    width: 140px;
-    height: 40px;
-    font-weight: 900;
-    font-size: 20px;
-    float: right;
-    margin-top: 19px;
-    margin-right: 23px;
-    border-radius: 5px;
-    background: #f67280;
-    color: white;
-  `;
+    margin:0.5rem 0;
+    padding:0 3rem;
+    .wrap{
+      display:inline-block;
+      width:60%;
+      border-radius: 5px;
+      border: 1px solid ${palette.borderGray};
+      font-size: 0.8rem;
+      outline: none;
+      :focus{
+        border: 1px solid ${palette.primary};
+        transition-duration:0.5s;
+      }
+    }
+    .title{
+      display:inline-block;
+      width:8rem;
+      text-align:right;
+      margin-right:1rem;
+      vertical-align:top;
+    }
+`;
   const EatdealInput = styled.div`
     margin:0.5rem 0;
     padding:0 3rem;
@@ -68,11 +82,12 @@ import DatePicker from './EatdealDetail/DatePicker';
       outline: none;
   `;
   const ButtonArea = styled.div`
-      width:60%;
       font-size: 0.8rem;
       outline: none;
   `;
   const PointButton= styled(Button)`
+      display:inline-block;
+      float:right;
       margin-top: 0.5rem;
       font-size: 0.8rem;
   `;
@@ -82,7 +97,7 @@ const EatdealEnroll =()=>{
     return(
         <>
         
-       
+       <EnrollWrapper>
         <EatdealInput>
             <div className="title">eatdeal 제목</div><input type="text" name="resName" placeholder="예)피그테이블 역삼점"/>
           </EatdealInput>
@@ -100,11 +115,12 @@ const EatdealEnroll =()=>{
           <EatdealInput>
             <div className="title">할인율</div><input type="text" name="eatDiscount" placeholder="예)25"/>
           </EatdealInput>
-          <EatdealInput>
+          <EatdealDateInput>
             <div className="title">날짜</div>
-            
-          <DatePicker/>
-          </EatdealInput>
+            <div className="wrap">
+               <DatePicker/>
+            </div>
+          </EatdealDateInput>
           
           
           <EatdealInput>
@@ -118,6 +134,8 @@ const EatdealEnroll =()=>{
             <PointButton>등록</PointButton>
             </ButtonArea>
           </EatdealInput>
+         
+         </EnrollWrapper>
         </>
 
     )

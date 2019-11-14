@@ -10,9 +10,7 @@ import { DateRangePicker } from 'react-dates';
 
 const ButtonArea = styled.div`
     display:inline-block;
-    width:60%;
     border-radius: 5px;
-    border: 1px solid ${palette.borderGray};
     font-size: 0.8rem;
     z-index: 9999;
 `;
@@ -28,7 +26,14 @@ class EatdealEnroll extends Component{
         //displayFormat: 'YYYY년MM월DD일',
         //isDateBlocked: false,
       };
-    }
+    
+      }
+
+      onClick ({startDate,endDate}){
+        this.setState({ startDate, endDate })
+        this.props.onSetValue(({startDate, endDate}));
+      }
+   
     render(){
       return(
           <ButtonArea>
@@ -37,7 +42,7 @@ class EatdealEnroll extends Component{
             endDateId="endDate"
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate })}}
+            onDatesChange={({ startDate, endDate }) => { this.onClick({ startDate, endDate })}}
             focusedInput={this.state.focusedInput}
             onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
             />
