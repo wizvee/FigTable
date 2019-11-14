@@ -37,22 +37,16 @@
 		<result property="resApply" column="RES_APPLY" />
 	</resultMap>
 	
-	<resultMap type="review" id="rvResult">
-		<result property="memNo" column="MEM_NO" />
-		<result property="resNo" column="RES_NO" />
+	<resultMap type="adminReview" id="rvResult">
 		<result property="rvNo" column="RV_NO" />
-		<result property="rvRating" column="RV_RATING" />
-		<result property="rvContent" column="RV_CONTENT" />
-		<result property="rvImages" column="RV_IMAGES"
-			typeHandler="strArr" />
-		<result property="rvDate" column="RV_DATE" />
-		<result property="rvWarn" column="RV_WARN" />
-		<result property="rvLove" column="RV_LOVE" />
-
+		<result property="memNo" column="MEM_NO" />
 		<result property="memName" column="MEM_NAME" />
-		<result property="memProfile" column="MEM_PROFILE" />
-		<result property="memRvCnt" column="MEM_RVCNT" />
-		<result property="memFwCnt" column="MEM_FWCNT" />
+		<result property="resNo" column="RES_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resAddress" column="RES_ADDRESS" />
+		<result property="rvContent" column="RV_CONTENT" />
+		<result property="rvWarn" column="RV_WARN" />
+		<result property="rvDate" column="RV_DATE" />
 	</resultMap>
   
   
@@ -65,6 +59,10 @@
   	</select>
   	
   	<select id="getReviews" resultType="review" resultMap="rvResult">
-  		SELECT * FROM FIG_REVIEW WHERE RV_WARN = 'w'
+  		SELECT RV_NO, M.MEM_NO, M.MEM_NAME, T.RES_NO, T.RES_NAME, T.RES_ADDRESS, RV_CONTENT, RV_WARN, RV_DATE
+  		  FROM FIG_REVIEW R
+  		  JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO)
+  		  JOIN FIG_RESTAURANT T ON(R.RES_NO = T.RES_NO)
+  		  WHERE RV_WARN = 'W'
   	</select>
 </mapper>

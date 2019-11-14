@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
-import com.kh.figtable.review.model.vo.Review;
 
 public interface AdminDao {
 	
@@ -19,7 +19,7 @@ public interface AdminDao {
 	
 	
 	//review
-	List<Review> getReviews(SqlSession session);
+	List<AdminReview> getReviews(SqlSession session);
 	
 
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { MdLocalDining, MdFace, MdSpeakerNotes } from 'react-icons/md';
 import { FaComments } from 'react-icons/fa';
@@ -95,7 +95,7 @@ const IconWrapper2 = styled.div`
   text-align: center;
   font-size: 1.8rem;
   margin-right: 20px;
-  color: ${props => (props.isResList ? '#f67280' : '#474747')};
+  color: ${props => (props.isQnaList ? '#f67280' : '#474747')};
 `;
 const IconWrapper3 = styled.div`
   display: flex;
@@ -126,9 +126,8 @@ const MenuNavi = ({
   const isInsertRes =
     pathname === '/figtable/admin/enroll' ||
     pathname === '/figtable/admin/enroll/';
-  const isResList =
-    pathname === '/figtable/admin/restaurant' ||
-    pathname === '/figtable/admin/restaurant/';
+  const isQnaList =
+    pathname === '/figtable/admin/qna' || pathname === '/figtable/admin/qna/';
   const isOwnList =
     pathname === '/figtable/admin/owner' ||
     pathname === '/figtable/admin/owner/';
@@ -159,6 +158,13 @@ const MenuNavi = ({
             <h3>{subTitle}</h3>
           </TitleWrapper>
           <SearchWrapper>
+            {isQnaList && (
+              <SearchTemplate
+                onSubmit={onSubmit}
+                input={input}
+                onReset={onReset}
+              />
+            )}
             {isOwnList && (
               <SearchTemplate
                 onSubmit={onSubmit}
@@ -178,8 +184,8 @@ const MenuNavi = ({
                   </Link>
                 </li>
                 <li className="li">
-                  <Link className="menu" to="/figtable/admin/restaurant">
-                    <IconWrapper2 isResList={isResList}>
+                  <Link className="menu" to="/figtable/admin/qna">
+                    <IconWrapper2 isQnaList={isQnaList}>
                       <FaComments />
                     </IconWrapper2>
                   </Link>

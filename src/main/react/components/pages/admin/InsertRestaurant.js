@@ -45,28 +45,25 @@ const InsertRestaurant = ({ history }) => {
     ({ target }) => {
       const { value, name } = target;
       dispatch(changeField({ key: name, value }));
-      console.log(value, name);
     },
     [dispatch],
   );
 
   const onChangeFile = useCallback(
-    async ({ target: { file, name } }) => {
+    async ({ target: { files, name } }) => {
       if (resThumb.length != 0) {
         await client.patch('/figtable/api/adminFile', { resThumb });
       }
-
-      const imgFile = file;
+      const imgFile = files[0];
       let form = new FormData();
-
-      form.append(0, imgFile);
+      form.append('resThumb', imgFile);
 
       await client
         .post('/figtable/api/adminFile', form, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .then(({ data }) => dispatch(changeField({ key: name, value: data })))
-        .catch(error => console.log(error));
+        .catch(err => console.log(err));
     },
     [dispatch],
   );

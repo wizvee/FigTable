@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.admin.model.dao.AdminDao;
+import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
-import com.kh.figtable.review.model.vo.Review;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -37,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	//review
 	@Override
-	public List<Review> getReviews() {
+	public List<AdminReview> getReviews() {
 		return dao.getReviews(session);
 	}
 

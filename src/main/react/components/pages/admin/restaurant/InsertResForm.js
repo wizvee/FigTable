@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Responsive from '../../../common/Responsive';
-import InsertButton from './InsertButton';
+import InsertButtonContainer from './InsertButtonContainer';
 
 const FormBlock = styled(Responsive)`
   display: flex;
@@ -75,7 +75,6 @@ const StyledButton = styled.div`
 const ImgUploadBlock = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 1rem;
   padding: 0 1px;
   input[type='file'] {
     outline: none;
@@ -84,27 +83,21 @@ const ImgUploadBlock = styled.div`
     user-select: none;
   }
   label {
-    display: inline-block;
+    cursor: pointer;
     width: 50px;
     height: 35px;
     transition: all 0.2s linear;
-    cursor: pointer;
   }
 `;
 
 const Preview = styled.div`
-  display: inline-block;
-  width: 90px;
-  height: 90px;
-  margin-right: 5px;
+  width: 100px;
+  height: 100px;
+  margin-left: 30px;
   border-radius: 2px;
   background: url(${props => `${props.url}`});
   background-size: cover;
   background-position: center center;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 const InsertResForm = ({
@@ -219,23 +212,21 @@ const InsertResForm = ({
         </InputWrapper>
         <InputWrapper>
           <ImgUploadBlock>
-            <StyledButton style={{ marginLeft: 13 }}>
+            <StyledButton>
               <label htmlFor="thumbUpload">썸네일</label>
             </StyledButton>
             <StyledInput
               id="thumbUpload"
-              style={{ marginLeft: '76px' }}
               type="file"
               name="resThumb"
               multiple="multiple"
               onChange={onChangeFile}
             />
-            {resThumb.length != 0 && <Preview url={img} />}
+            {resThumb.length != 0 && <Preview url={resThumb} />}
           </ImgUploadBlock>
-          <InputWrapper>
-            <Span> </Span>
-            <InsertButton />
-          </InputWrapper>
+        </InputWrapper>
+        <InputWrapper>
+          <InsertButtonContainer />
         </InputWrapper>
       </FormBlock>
     </>
