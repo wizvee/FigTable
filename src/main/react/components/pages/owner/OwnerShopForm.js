@@ -333,7 +333,13 @@ const OwnerShopForm = ({ store }) => {
             multiple="multiple"
             /* onChange={onChangeFile} */
           />
-          <Preview url={resThumb} />
+          <Preview
+            url={
+              resThumb.substring(0, 4) == 'http'
+                ? resThumb
+                : `${path}/resources/upload/restaurant/${resThumb}`
+            }
+          />
         </div>
         <br />
       </FormContainer>

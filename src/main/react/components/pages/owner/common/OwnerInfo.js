@@ -146,6 +146,7 @@ const Statics = styled.div`
 `;
 
 const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
+  const path = process.env.PATH;
   useEffect(() => {
     const resName = document.getElementById('resName').textContent;
 
@@ -153,6 +154,7 @@ const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
       (resName.length > 8 && resName.length < 19 && '18px') ||
       (resName.length > 18 && '23px');
   });
+
   const {
     resNo,
     resName,
@@ -163,20 +165,28 @@ const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
     resRating,
     resReviews,
   } = store;
+
+  console.log(resThumb.substring(0, 4));
   return (
     <Container>
       <div className="profile">
         <div className="background1">
           <div className="background2">
-            <Image imgUrl={resThumb} />
-            {pathname == `/figtable/owner/${resNo}` && (
+            <Image
+              imgUrl={
+                resThumb.substring(0, 4) == 'http'
+                  ? resThumb
+                  : `${path}/resources/upload/restaurant/${resThumb}`
+              }
+            />
+            {pathname == `${path}/owner/${resNo}` && (
               <>
                 <label id="thLabel" htmlFor="thumb" />
                 <input
                   type="file"
                   id="thumb"
                   type="file"
-                  name="rvImages"
+                  name="resThumb"
                   multiple="multiple"
                   onChange={onChangeFile}
                 />

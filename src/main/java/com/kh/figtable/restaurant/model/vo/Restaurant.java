@@ -33,5 +33,8 @@ public class Restaurant {
 	
 	// for member
 	private boolean isLiked;
+	
+	//for owner
+	private boolean isOpen;
 
 }

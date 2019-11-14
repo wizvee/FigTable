@@ -75,33 +75,32 @@ const OwnerDetailTitle = ({
   match,
   topMenu,
 }) => {
+  const path = process.env.PATH;
   const [visible, setVisible] = useState(false);
   const { resNo } = match.params;
   const showMenu = () => {
     setVisible(!visible);
   };
 
-  console.log(topMenu);
-
   return (
     <>
       <Title
         className={
-          pathname == `/figtable/owner/${resNo}/waiting`
+          pathname == `${path}/owner/${resNo}/waiting`
             ? 'waiting'
-            : pathname == `/figtable/owner/${resNo}/statics`
+            : pathname == `${path}/owner/${resNo}/statics`
             ? 'statics'
             : ''
         }
       >
         {title}
-        {pathname == `/figtable/owner/${resNo}/waiting` ||
-        ((pathname == `/figtable/owner/${resNo}/statics` ||
-          pathname == `/figtable/owner/${resNo}/restaurant`) &&
+        {pathname == `${path}/owner/${resNo}/waiting` ||
+        ((pathname == `${path}/owner/${resNo}/statics` ||
+          pathname == `${path}/owner/${resNo}/restaurant`) &&
           topMenu == true) ? (
           <MenuButton
             className={
-              pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'
+              pathname == `${path}/owner/${resNo}/waiting` && 'waiting'
             }
             onClick={showMenu}
           >
@@ -113,22 +112,21 @@ const OwnerDetailTitle = ({
         {visible ? (
           <DropDownMenu
             className={
-              pathname == `/figtable/owner/${resNo}/waiting` && 'waiting'
+              pathname == `${path}/owner/${resNo}/waiting` && 'waiting'
             }
           >
-            <Link to={`/figtable/owner/${resNo}`}>
+            <Link to={`${path}/owner/${resNo}`}>
               <MenuItem
-                className={pathname == `/figtable/owner/${resNo}` && 'selected'}
+                className={pathname == `${path}/owner/${resNo}` && 'selected'}
                 style={{ paddingTop: '14px', width: '80px' }}
               >
                 홈
               </MenuItem>
             </Link>
-            <Link to={`/figtable/owner/${resNo}/restaurant`}>
+            <Link to={`${path}/owner/${resNo}/restaurant`}>
               <MenuItem
                 className={
-                  pathname == `/figtable/owner/${resNo}/restaurant` &&
-                  'selected'
+                  pathname == `${path}/owner/${resNo}/restaurant` && 'selected'
                 }
                 style={{ paddingTop: '5px', fontSize: '17px' }}
               >
@@ -137,30 +135,30 @@ const OwnerDetailTitle = ({
                 수정
               </MenuItem>
             </Link>
-            <Link to={`/figtable/owner/${resNo}/waiting`}>
+            <Link to={`${path}/owner/${resNo}/waiting`}>
               <MenuItem
                 className={
-                  pathname == `/figtable/owner/${resNo}/waiting` && 'selected'
+                  pathname == `${path}/owner/${resNo}/waiting` && 'selected'
                 }
                 style={{ paddingTop: '14px' }}
               >
                 Waiting
               </MenuItem>
             </Link>
-            <Link to={`/figtable/owner/${resNo}/eatdeal`}>
+            <Link to={`${path}/owner/${resNo}/eatdeal`}>
               <MenuItem
                 className={
-                  pathname == `/figtable/owner/${resNo}/eatdeal` && 'selected'
+                  pathname == `${path}/owner/${resNo}/eatdeal` && 'selected'
                 }
                 style={{ paddingTop: '12px' }}
               >
                 Eat Deal
               </MenuItem>
             </Link>
-            <Link to={`/figtable/owner/${resNo}/statics`}>
+            <Link to={`${path}/owner/${resNo}/statics`}>
               <MenuItem
                 className={
-                  pathname == `/figtable/owner/${resNo}/statics` && 'selected'
+                  pathname == `${path}/owner/${resNo}/statics` && 'selected'
                 }
                 style={{ paddingTop: '15px', width: '85px' }}
               >

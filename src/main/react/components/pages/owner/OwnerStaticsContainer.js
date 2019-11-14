@@ -61,21 +61,6 @@ const Right = styled.div`
   }
 `;
 
-////////// 임시데이터//////////////////////////
-const store = {
-  name: '김사장',
-  shopName: '페더커피 ',
-  imgUrl:
-    'https://mp-seoul-image-production-s3.mangoplate.com/528686_1563717610211710.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80',
-  foodKeyword: '당근케이크,카페',
-  locationKeyword: '길동',
-  view: 3,
-  reviewCount: 5,
-  star: 4.5,
-};
-
-//////////////////////////////////////////////
-
 const OwnerStaticsContainer = ({ match }) => {
   const { resNo } = match.params;
 

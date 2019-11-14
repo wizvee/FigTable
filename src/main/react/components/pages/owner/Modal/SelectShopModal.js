@@ -80,6 +80,7 @@ const ShopItem = styled.div`
 
 const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
   const [numbers, setNumbers] = useState(no.split(','));
   const [names, setNames] = useState(name.split(','));
   useEffect(() => {
@@ -96,7 +97,7 @@ const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
         <Modal>
           {{ resCount } != 1
             ? names.map((name, index) => (
-                <Link key={index} to={`/figtable/owner/${numbers[index]}`}>
+                <Link key={index} to={`${path}/owner/${numbers[index]}`}>
                   <ShopItem key={numbers[index]}> {name}</ShopItem>
                 </Link>
               ))

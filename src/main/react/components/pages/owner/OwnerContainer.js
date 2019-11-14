@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { ownerRes, changeField } from '../../../modules/ownerRestaurant';
+import {
+  ownerRes,
+  changeField,
+  updateThumb,
+} from '../../../modules/ownerRestaurant';
 import HeaderOwner from './common/HeaderOwner';
 import OwnerInfo from './common/OwnerInfo';
 import styled from 'styled-components';
@@ -170,6 +174,7 @@ const waiting = [
 
 const OwnerContainer = ({ match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
 
   const dispatch = useDispatch();
   const {
@@ -192,15 +197,18 @@ const OwnerContainer = ({ match }) => {
     const file = files[0];
     let form = new FormData();
     form.append('thumbnail', file);
-
+    let thumb;
+    console.log(name);
     await client
-      .post(`/figtable/api/ownerThumb/${resNo}`, form, {
+      .post(`${path}/api/ownerThumb/${resNo}`, form, {
         headers: { 'content-type': 'multipart/form-data' },
       })
       .then(({ data }) => {
-        dispatch(changeField({ key: name, value: data })), location.reload();
+        dispatch(changeField({ key: name, value: data })), (thumb = data);
       })
       .catch(err => console.log(err));
+
+    dispatch(updateThumb({ resNo, resThumb: thumb }));
   });
 
   useEffect(() => {
@@ -256,7 +264,7 @@ const OwnerContainer = ({ match }) => {
                   modeSelCloseM={modeSelCloseM}
                   resNo={restaurant.resNo}
                 />
-                <ListContainer resOpen={restaurant.resWaiting} list={waiting} />
+                <ListContainer resOpen={restaurant.open} list={waiting} />
               </RightContent>
             </ContentWrapper>
           </Container>

@@ -110,29 +110,28 @@ const ButtonWrapper = styled.div`
 
 const WaitingItem = ({ waiting, location: { pathname }, match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
   const { name, count, phone } = waiting;
 
   return (
     <Item>
       <div className="content">
         <InnerContent
-          className={pathname == `/figtable/owner/${resNo}` && 'main'}
+          className={pathname == `${path}/owner/${resNo}` && 'main'}
         >
           {name}
         </InnerContent>
         <InnerContent
-          className={pathname == `/figtable/owner/${resNo}` && 'main'}
+          className={pathname == `${path}/owner/${resNo}` && 'main'}
         >
           {count}명
         </InnerContent>
 
-        {pathname == '/figtable/owner/waiting' && (
+        {pathname == `${path}/owner/waiting` && (
           <InnerContent className="phone">{phone}</InnerContent>
         )}
       </div>
-      <ButtonWrapper
-        className={pathname == `/figtable/owner/${resNo}` && 'main'}
-      >
+      <ButtonWrapper className={pathname == `${path}/owner/${resNo}` && 'main'}>
         <MdNotifications className="noti" />
         <FaChair className="seat" />
         <MdClose className="cancel" />

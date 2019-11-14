@@ -94,6 +94,7 @@ const Logo = styled.div`
 
 const WaitingPublicContainer = ({ match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
   const [pNumber, setPNumber] = useState();
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -122,7 +123,7 @@ const WaitingPublicContainer = ({ match }) => {
           </Back>
         </Left>
         <Right>
-          <Link to={`/figtable/owner/${resNo}`}>
+          <Link to={`${path}/owner/${resNo}`}>
             <Logo>
               <div className="logoMain">FIGTABLE</div>
               &nbsp;&nbsp;
