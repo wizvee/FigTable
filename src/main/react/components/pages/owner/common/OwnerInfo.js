@@ -166,7 +166,6 @@ const OwnerInfo = ({ store, location: { pathname }, onChangeFile }) => {
     resReviews,
   } = store;
 
-  console.log(resThumb.substring(0, 4));
   return (
     <Container>
       <div className="profile">

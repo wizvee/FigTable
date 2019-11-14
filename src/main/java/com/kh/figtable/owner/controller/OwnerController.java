@@ -48,6 +48,7 @@ public class OwnerController {
 		Restaurant r = new Restaurant();
 		r.setResNo(resNo);
 
+	
 		// 1. 파일저장경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
 		String image="";
@@ -73,21 +74,25 @@ public class OwnerController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			image="/figtable/resources/upload/restaurant/" + rename;
-			r.setResThumb(image);
+			image=rename;
+			r.setResThumb(rename);
 		}
 
-		//삭제 아직 안함!
 		return new ResponseEntity<String>(image, HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value="/api/ownerThumb", method=RequestMethod.PATCH)
 	public ResponseEntity updateThumb(@RequestBody Map<String, String> data) {
-		int r = service.updateThumb(data);
 
+//		String oldname = service.getOldProfile(data.get("resNo"));
+		int r = service.updateThumb(data);
 		// 성공시 200 반환
 		if (r > 0)
+//			if (!oldname.equals("default.png")) {
+//				File d = new File(saveDir + "/" + oldname);
+//				d.delete();
+//			}
 			return new ResponseEntity(HttpStatus.OK);
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);

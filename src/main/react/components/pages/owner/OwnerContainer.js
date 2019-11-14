@@ -193,23 +193,25 @@ const OwnerContainer = ({ match }) => {
     loading: loading['owner/OWN_HEADER'],
   }));
 
-  const onChangeFile = useCallback(async ({ target: { files, name } }) => {
-    const file = files[0];
-    let form = new FormData();
-    form.append('thumbnail', file);
-    let thumb;
-    console.log(name);
-    await client
-      .post(`${path}/api/ownerThumb/${resNo}`, form, {
-        headers: { 'content-type': 'multipart/form-data' },
-      })
-      .then(({ data }) => {
-        dispatch(changeField({ key: name, value: data })), (thumb = data);
-      })
-      .catch(err => console.log(err));
+  const onChangeFile = useCallback(
+    async ({ target: { files, name } }) => {
+      const file = files[0];
+      let form = new FormData();
+      form.append('thumbnail', file);
+      let thumb;
+      await client
+        .post(`${path}/api/ownerThumb/${resNo}`, form, {
+          headers: { 'content-type': 'multipart/form-data' },
+        })
+        .then(({ data }) => {
+          dispatch(changeField({ key: name, value: data })), (thumb = data);
+        })
+        .catch(err => console.log(err));
 
-    dispatch(updateThumb({ resNo, resThumb: thumb }));
-  });
+      dispatch(updateThumb({ resNo, resThumb: thumb }));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     document.body.style.overflow = 'scroll';
