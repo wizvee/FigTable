@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   height: 29rem;
-  background: url(${process.env.PATH}/images/title.png);
+  background: url(${process.env.PATH}/resources/images/title.png);
   background-size: cover;
   background-position: center center;
   .title {

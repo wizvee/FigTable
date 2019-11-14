@@ -55,7 +55,7 @@ const PosterSmall = props => {
   } = props;
   return (
     <Container>
-      <FlexLink to={`/figtable/restaurant/${resNo}`}>
+      <FlexLink to={`${process.env.PATH}restaurant/${resNo}`}>
         <Image url={resThumb} onClick={closeModal} />
         <TextWrapper onClick={closeModal}>
           <span>

@@ -57,7 +57,7 @@ const ModalLogin = ({ msg, closeModal }) => {
           {msg == 'love' && '로그인하시면 리뷰에 공감할 수 있어요.'}
           {msg == 'comment' && '로그인하시면 리뷰에 댓글을 달 수 있어요.'}
           {msg == 'payment' && '로그인하시면 잇딜을 구매할 수 있어요.'}
-          <ButtonWithMarginTop to="/figtable/login" fullwidth>
+          <ButtonWithMarginTop to={`${process.env.PATH}/login`} fullwidth>
             로그인
           </ButtonWithMarginTop>
           <ButtonWithMarginTop fullwidth bgColor="#fed330">

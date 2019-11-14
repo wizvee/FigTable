@@ -43,12 +43,13 @@ const Content = styled.div`
   }
 `;
 
+const path = process.env.PATH;
 const ImgBlock = styled.div`
   flex: 0 0 auto;
   width: 120px;
   height: 120px;
   border-radius: 2px;
-  background: url(${props => props.url});
+  background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
   background-size: cover;
   background-position: center center;
   cursor: pointer;

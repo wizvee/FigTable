@@ -5,7 +5,7 @@ import HeaderContainer from '../../../common/HeaderContainer';
 import WritePresenter from './WritePresenter';
 import { changeField, initializeForm } from '../../../../modules/review';
 import ActionButtonsContainer from './ActionButtonsContainer';
-import client from '../../../../lib/api/client';
+import client, { path } from '../../../../lib/api/client';
 
 const WriteContainer = ({ history }) => {
   const disaptch = useDispatch();
@@ -30,7 +30,7 @@ const WriteContainer = ({ history }) => {
   const onChangeFile = useCallback(
     async ({ target: { files, name } }) => {
       if (rvImages.length != 0) {
-        await client.patch('/figtable/api/files', { rvImages });
+        await client.patch(`${path}/api/files`, { rvImages });
       }
 
       const imgFiles = Array.from(files);
@@ -41,7 +41,7 @@ const WriteContainer = ({ history }) => {
       });
 
       await client
-        .post('/figtable/api/files', form, {
+        .post(`${path}/api/files`, form, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .then(({ data }) => disaptch(changeField({ key: name, value: data })))

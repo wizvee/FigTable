@@ -94,7 +94,7 @@ const Poster = ({ restaurant }) => {
   ]);
 
   return (
-    <Link to={`/figtable/restaurant/${resNo}`}>
+    <Link to={`${process.env.PATH}/restaurant/${resNo}`}>
       <Container onClick={() => onInsert(restaurant)}>
         <ImageContainer>
           <Image url={resThumb} />

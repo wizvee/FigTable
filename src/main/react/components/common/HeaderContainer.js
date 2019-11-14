@@ -47,7 +47,7 @@ const HeaderContainer = ({ history }) => {
       e.preventDefault();
       setIsSearchModal(false);
       document.body.style.overflow = 'unset';
-      history.push(`/figtable/search/${keyword}`);
+      history.push(`${process.env.PATH}/search/${keyword}`);
     },
     [keyword],
   );

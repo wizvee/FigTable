@@ -70,7 +70,7 @@ public class ReviewController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			images.add("/figtable/resources/upload/reviews/" + rename);
+			images.add(rename);
 		}
 
 		return new ResponseEntity<List<String>>(images, HttpStatus.OK);

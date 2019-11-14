@@ -38,7 +38,7 @@ const Footer = () => {
     <>
       <Container>
         <Wrapper>
-          <Link to="/figtable">
+          <Link to={process.env.PATH}>
             <div className="logo">FIGTABLE</div>
           </Link>
           <div className="compony">

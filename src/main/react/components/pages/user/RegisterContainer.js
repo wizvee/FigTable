@@ -104,7 +104,7 @@ const RegisterContainer = ({ history }) => {
         <ModalAlert
           title="포인트"
           msg="회원가입으로 1,000😻 지급이 완료되었습니다."
-          url={`/figtable`}
+          url={`${process.env.PATH}`}
         />
       )}
       <HeaderSimple />

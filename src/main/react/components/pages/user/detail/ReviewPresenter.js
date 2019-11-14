@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import ReviewItem from './ReviewItem';
 import { FiChevronsDown } from 'react-icons/fi';
-import Loader from '../../../common/Loader';
 
 const Container = styled.div`
   display: flex;

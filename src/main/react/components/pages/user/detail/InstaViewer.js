@@ -90,10 +90,11 @@ const ThumbSection = styled.div`
   }
 `;
 
+const path = process.env.PATH;
 const Thumbnail = styled.div`
   width: 60px;
   height: 60px;
-  background: url(${props => props.url});
+  background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
   background-size: cover;
   background-position: center center;
   opacity: 0.3;
@@ -119,13 +120,12 @@ const UserWrapper = styled.div`
   border-bottom: 1px solid ${palette.borderGray};
 `;
 
-const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.5rem;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: url(${props => `${path}/upload/profiles/${props.url}`});
+  background: url(${props => `${path}/resources/upload/profiles/${props.url}`});
   background-size: cover;
   background-position: center center;
 `;
@@ -204,7 +204,10 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
           <div className="img">
             <ImageSection>
               <MdNavigateBefore onClick={() => openInsta(prev)} />
-              <img src={selectImage} alt={`${title} 리뷰사진`} />
+              <img
+                src={`${path}/resources/upload/reviews/${selectImage}`}
+                alt={`${title} 리뷰사진`}
+              />
               <MdNavigateNext onClick={() => openInsta(next)} />
             </ImageSection>
             <ThumbSection>

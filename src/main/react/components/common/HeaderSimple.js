@@ -30,7 +30,7 @@ const HeaderSimple = () => {
     <Container>
       <Wrapper>
         <div className="logo">
-          <Link to="/figtable">FIGTABLE</Link>
+          <Link to={process.env.PATH}>FIGTABLE</Link>
         </div>
       </Wrapper>
     </Container>

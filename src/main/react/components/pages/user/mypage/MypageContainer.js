@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import client from '../../../../lib/api/client';
+import client, { path } from '../../../../lib/api/client';
 import HeaderContainer from '../../../common/HeaderContainer';
 import MypagePresenter from './MypagePresenter';
 import { check, changeField } from '../../../../modules/member';
@@ -17,7 +17,7 @@ const MypageContainer = () => {
       form.append('profile', file);
 
       await client
-        .post(`/figtable/api/member/profile/?memNo=${member.memNo}`, form, {
+        .post(`${path}/api/member/profile/?memNo=${member.memNo}`, form, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .then(({ data }) => dispatch(changeField({ key: name, value: data })))
@@ -29,7 +29,7 @@ const MypageContainer = () => {
   // mount 시마다 member information을 DB와 연동
   useEffect(() => {
     dispatch(check(member.memNo));
-  }, []);
+  }, [member]);
 
   return (
     <>

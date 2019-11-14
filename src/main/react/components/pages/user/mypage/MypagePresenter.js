@@ -27,7 +27,7 @@ const Pic = styled.div`
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: url(${props => `${path}/upload/profiles/${props.url}`});
+  background: url(${props => `${path}/resources/upload/profiles/${props.url}`});
   background-size: cover;
   background-position: center center;
 `;

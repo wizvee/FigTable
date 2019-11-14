@@ -132,7 +132,7 @@ const RegisterPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
         <ButtonWithMarginTop fullwidth>회원가입</ButtonWithMarginTop>
       </form>
       <div className="login">
-        이미 가입하셨나요? <Link to="/figtable/login">로그인</Link>
+        이미 가입하셨나요? <Link to={`${process.env.PATH}/login`}>로그인</Link>
       </div>
     </Container>
   );

@@ -24,7 +24,21 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const path = process.env.PATH;
 const ImgBlock = styled.div`
+  flex: 1;
+  height: 100%;
+  background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
+const ThumbBlock = styled.div`
   flex: 1;
   height: 100%;
   background: url(${props => props.url});
@@ -119,7 +133,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
     <>
       <ImageWrapper>
         {images.length == 0 ? (
-          <ImgBlock url={resThumb} />
+          <ThumbBlock url={resThumb} />
         ) : (
           images.map((img, index) => (
             <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />

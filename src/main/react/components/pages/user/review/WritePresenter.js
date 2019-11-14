@@ -115,13 +115,14 @@ const ImgUploadBlock = styled.div`
   }
 `;
 
+const path = process.env.PATH;
 const Preview = styled.div`
   display: inline-block;
   width: 90px;
   height: 90px;
   margin-right: 5px;
   border-radius: 2px;
-  background: url(${props => `${props.url}`});
+  background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
   background-size: cover;
   background-position: center center;
   cursor: pointer;

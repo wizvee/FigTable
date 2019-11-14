@@ -59,7 +59,7 @@ const ActionButtons = ({ history, likesCount, setLikesCount }) => {
   // 리뷰 쓰기 이벤트 핸들러
   const onWrite = useCallback(() => {
     dispatch(setRes({ restaurant, member }));
-    history.push('/figtable/review');
+    history.push(`${process.env.PATH}/review`);
   }, [dispatch]);
 
   // 가고 싶다 제어 이벤트 핸들러

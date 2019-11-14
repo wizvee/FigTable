@@ -116,7 +116,8 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
         </ButtonWithMarginTop>
       </div>
       <div className="register">
-        아직 회원이 아니신가요? <Link to="/figtable/register">회원가입</Link>
+        아직 회원이 아니신가요?{' '}
+        <Link to={`${process.env.PATH}/figtable/register`}>회원가입</Link>
       </div>
     </Container>
   );

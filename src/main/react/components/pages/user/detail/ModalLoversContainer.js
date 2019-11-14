@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import client from '../../../../lib/api/client';
+import client, { path } from '../../../../lib/api/client';
 import ModalLoversItem from './ModalLoversItem';
 
 // 모달 배경
@@ -38,7 +38,7 @@ const ModalLoversContainer = ({ rvNo, closeModal }) => {
 
   useEffect(() => {
     client
-      .get(`/figtable/api/review/loves/${rvNo}`)
+      .get(`${path}/api/review/loves/${rvNo}`)
       .then(({ data }) => setLoversArr(data));
   }, []);
 

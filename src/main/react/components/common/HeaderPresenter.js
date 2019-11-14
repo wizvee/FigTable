@@ -110,7 +110,7 @@ const HeaderPresenter = ({
 
   // 마이페이지 전환 함수
   const toMypage = useCallback(() => {
-    history.push(`/figtable/@${member.memName}`);
+    history.push(`${process.env.PATH}/@${member.memName}`);
   }, [history, member]);
 
   useEffect(() => {
@@ -129,7 +129,7 @@ const HeaderPresenter = ({
       <HeaderBlock isHome={isHome} isModal={isModal}>
         <HeaderWrapper isHome={isHome}>
           <div className="logo">
-            <Link to="/figtable">FIGTABLE</Link>
+            <Link to={process.env.PATH}>FIGTABLE</Link>
           </div>
           {!isHome && (
             <form onSubmit={onSubmit}>

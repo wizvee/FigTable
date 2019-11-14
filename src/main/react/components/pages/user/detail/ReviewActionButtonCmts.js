@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { AiOutlineMessage } from 'react-icons/ai';
 import styled from 'styled-components';
-import client from '../../../../lib/api/client';
+import client, { path } from '../../../../lib/api/client';
 import palette from '../../../../lib/styles/Palette';
 import ModalLogin from '../ModalLogin';
 
@@ -73,13 +73,12 @@ const CommentForm = styled.form`
   }
 `;
 
-const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.5rem;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: url(${props => `${path}/upload/profiles/${props.url}`});
+  background: url(${props => `${path}/resources/upload/profiles/${props.url}`});
   background-size: cover;
   background-position: center center;
 `;
@@ -145,7 +144,7 @@ const ReviewActionButtonCmts = ({ review }) => {
   const onSubmit = useCallback(async e => {
     e.preventDefault();
     await client
-      .post('/figtable/api/comment', {
+      .post(`${path}/api/comment`, {
         rvNoRef: review.rvNo,
         memNo: member.memNo,
         rvcContent: cmtInput,
@@ -156,7 +155,7 @@ const ReviewActionButtonCmts = ({ review }) => {
 
   // 코멘트 삭제
   const onDelete = useCallback(async rvcNo => {
-    await client.patch(`/figtable/api/comment/${rvcNo}`);
+    await client.patch(`${path}/api/comment/${rvcNo}`);
     setCmtArr(cmtArr.filter(cmt => cmt.rvcNo != rvcNo));
   });
 

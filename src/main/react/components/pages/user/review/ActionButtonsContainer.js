@@ -62,7 +62,7 @@ const ActionButtonsContainer = ({ history }) => {
         <ModalAlert
           title="포인트"
           msg="리뷰 작성으로 300😻 지급이 완료되었습니다."
-          url={`/figtable/restaurant/${resNo}`}
+          url={`${process.env.PATH}/restaurant/${resNo}`}
         />
       )}
       <ActionButtons
