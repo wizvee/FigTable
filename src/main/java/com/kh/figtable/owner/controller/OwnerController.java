@@ -23,29 +23,27 @@ import com.kh.figtable.owner.model.service.OwnerService;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
-
-@RestController	
+@RestController
 public class OwnerController {
 
 	@Autowired
-	private OwnerService service;	
+	private OwnerService service;
 
-	@RequestMapping(value ="/api/owner/{resNo}", method = RequestMethod.GET)
-	private ResponseEntity<Restaurant> getOwnerRes(@PathVariable("resNo") String resNo)
-	{
+	@RequestMapping(value = "/api/owner/{resNo}", method = RequestMethod.GET)
+	private ResponseEntity<Restaurant> getOwnerRes(@PathVariable("resNo") String resNo) {
 		Restaurant r = service.getOwnerRes(resNo);
-		r.setOpen((r.getResWaiting()==null?false:true));
+		r.setOpen((r.getResWaiting() == null ? false : true));
 		return new ResponseEntity<Restaurant>(r, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/api/ownerInfo/{ownNo}", method=RequestMethod.GET)
-	private ResponseEntity<OwnerInfo> getOwnerHeader(@PathVariable("ownNo") String ownNo){
+	@RequestMapping(value = "/api/ownerInfo/{ownNo}", method = RequestMethod.GET)
+	private ResponseEntity<OwnerInfo> getOwnerHeader(@PathVariable("ownNo") String ownNo) {
 		OwnerInfo info = service.getOwnerHeader(ownNo);
 		return new ResponseEntity<OwnerInfo>(info, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/api/ownerThumb/{resNo}", method = {RequestMethod.GET,RequestMethod.POST})
-	private ResponseEntity<String> saveThumb(@PathVariable("resNo") String resNo, MultipartHttpServletRequest req){
+	@RequestMapping(value = "/api/ownerThumb/{resNo}", method = { RequestMethod.GET, RequestMethod.POST })
+	private ResponseEntity<String> saveThumb(@PathVariable("resNo") String resNo, MultipartHttpServletRequest req) {
 
 		Restaurant r = new Restaurant();
 		r.setResNo(resNo);
@@ -53,7 +51,7 @@ public class OwnerController {
 		// 1. 파일저장경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
 
-		String image="";
+		String image = "";
 		// 저장경로가 없으면 생성
 		File dir = new File(saveDir);
 		if (!dir.exists())
@@ -76,7 +74,7 @@ public class OwnerController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			image=rename;
+			image = rename;
 			r.setResThumb(rename);
 		}
 
@@ -84,7 +82,7 @@ public class OwnerController {
 
 	}
 
-	@RequestMapping(value="/api/ownerThumb", method=RequestMethod.PATCH)
+	@RequestMapping(value = "/api/ownerThumb", method = RequestMethod.PATCH)
 	public ResponseEntity updateThumb(@RequestBody Map<String, String> data, HttpServletRequest req) {
 		String oldname = service.getOldThumb(data.get("resNo"));
 		int r = service.updateThumb(data);
@@ -101,31 +99,31 @@ public class OwnerController {
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
-	
-//	@RequestMapping(value="/api/shopOpen", method=RequestMethod.PATCH)
-//	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
-//		Restaurant r = new Restaurant();
-//		System.out.println("들어옴");
-//		System.out.println(data.get("resNo"));
-//		System.out.println(data.get("open"));
-//		if(data.get("open").equals("true")) {
-//			r.setResWaiting("T");
-//			r.setOpen(true);
-//		}else {
-//			r.setResWaiting(null);
-//			r.setOpen(false);
-//		}
-//		r.setResNo(data.get("resNo"));
-//	
-//		int result = service.updateOpen(r);
-//		
-//		if(result>0) {
-//			return new ResponseEntity<Boolean> (r.isOpen(), HttpStatus.OK);
-//		}
-//		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//		
-//		
-//	}
 
+	@RequestMapping(value = "/api/shopOpen", method = RequestMethod.PATCH)
+	public ResponseEntity updateOpen(@RequestBody Map<String, String> data) {
+		Restaurant r = new Restaurant();
+		System.out.println("바뀜");
+		System.out.println(data.get("resNo"));
+		System.out.println(data.get("open"));
+		
+		if((data.get("open")).equals("true")) {
+			r.setResWaiting("T");
+			r.setOpen(true);
+		}else {
+			r.setResWaiting(null);
+			r.setOpen(false);
+		}
+		
+		r.setResNo(data.get("resNo"));
+		System.out.println(r.isOpen());
+		int result = service.updateOpen(r);
+		
+		if(result>0) {
+			return new ResponseEntity<Boolean> (r.isOpen(), HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		
+	}
 
 }
