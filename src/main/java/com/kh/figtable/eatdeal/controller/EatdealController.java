@@ -1,20 +1,33 @@
 package com.kh.figtable.eatdeal.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.eatdeal.model.service.EatdealService;
 import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
+import com.kh.figtable.member.model.vo.Member;
+import com.kh.figtable.review.model.vo.Review;
 
 @RestController
 public class EatdealController {
@@ -64,6 +77,66 @@ public class EatdealController {
 		return new ResponseEntity <List<Buyer>>(list, HttpStatus.OK);
 		
 	}
+
+	@RequestMapping(value = "/api/newEat/register", method = RequestMethod.POST)
+	public ResponseEntity<Member> register(@RequestBody Eatdeal eat, HttpSession session) {
+		System.out.println(eat);
+//		int result = service.register(eat);
+//		if (result > 0) {
+//			//잇딜등록 성공했을 경우 eatdeal 반환
+//			Eatdeal e = service.selectEat(eat);
+//			return new ResponseEntity<Eatdeal>(e, HttpStatus.OK);
+//		}
+//		// 실패 시 409 에러 반환
+		return new ResponseEntity<Member>(HttpStatus.CONFLICT);
+	}
+
+
+	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.POST)
+	private ResponseEntity<List<String>> uploadFiles(MultipartHttpServletRequest req) {
+		System.out.println("post들어옴");
+		// 1. 파일저장경로
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/eatdeal");
+		List<String> images = new ArrayList<>();
+		// 저장경로가 없으면 생성
+		File dir = new File(saveDir);
+		if (!dir.exists())
+			dir.mkdirs();
+
+		// 2. MultipartHttpServletRequest에서 filenames
+		Iterator<String> fileNames = req.getFileNames();
+		// 다중파일을 서버에 저장
+		while (fileNames.hasNext()) {
+			String formName = fileNames.next();
+			MultipartFile f = req.getFile(formName);
+			String original = f.getOriginalFilename();
+			String ext = original.substring(original.lastIndexOf("."));
+			// rename 규칙 설정
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
+			String rename = "figtable_" + sdf.format(System.currentTimeMillis()) + ext;
+			// rename된 파일명으로 파일 저장
+			try {
+				f.transferTo(new File(saveDir + "/" + rename));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			images.add(rename);
+		}
+
+		return new ResponseEntity<List<String>>(images, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.PATCH)
+	private void deleteFiles(@RequestBody Eatdeal eatdeal, HttpServletRequest req) {
+		System.out.println("patch들어옴");
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/eatdeal");
+//		 review 등록 실패 혹은 취소 시 파일 삭제 로직
+		if (eatdeal.getThumb()!=null) {
+			File f = new File(saveDir+"/"+eatdeal.getThumb());
+			f.delete();
+		}
+	}
+	
 
 
 }

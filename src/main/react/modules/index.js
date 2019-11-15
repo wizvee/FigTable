@@ -11,6 +11,7 @@ import review, { reviewSaga } from './review';
 import eatdeals, { eatdealsSaga } from './eatdeals';
 import eatdeal, { eatdealSaga } from './eatdeal';
 import point, { pointSaga } from './point';
+import newEat, { newEatSaga } from './newEat';
 import ownerRes, { ownerResSaga } from './ownerRestaurant';
 import ownHeader, { ownHeaderSaga } from './ownerHeader';
 import adminRestaurants, { adminRestuarantsSaga } from './adminRestaurants';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   eatdeals,
   eatdeal,
   point,
+  newEat,
   ownerRes,
   ownHeader,
   adminRestaurants,
@@ -50,6 +52,7 @@ export function* rootSaga() {
     eatdealsSaga(),
     eatdealSaga(),
     pointSaga(),
+    newEatSaga(),
     ownerResSaga(),
     ownHeaderSaga(),
     adminRestuarantsSaga(),
