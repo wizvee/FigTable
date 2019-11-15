@@ -39,4 +39,9 @@
 		MEM_NO FROM FIG_RV_LOVES WHERE MEM_NO = #{memNo} AND RV_NO = #{rvNo}
 	</select>
 
+	<update id="warnReview" parameterType="string">
+		UPDATE FIG_REVIEW SET
+		RV_WARN = 'W' WHERE RV_NO = #{rvNo}
+	</update>
+
 </mapper>

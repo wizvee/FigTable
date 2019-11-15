@@ -48,4 +48,9 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectList("member.getLoversList", rvNo);
 	}
 
+	@Override
+	public int warnReview(SqlSession session, String rvNo) {
+		return session.update("review.warnReview", rvNo);
+	}
+
 }

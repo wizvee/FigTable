@@ -5,8 +5,10 @@ import RatingIcon from '../RatingIcon';
 import MemberProfile from '../MemberProfile';
 import ReviewActionButtonLoves from './ReviewActionButtonLoves';
 import ReviewActionButtonCmts from './ReviewActionButtonCmts';
+import ReviewActionButtonWarn from './ReviewActionButtonWarn';
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   padding: 1rem 0;
   width: 100%;
@@ -15,6 +17,19 @@ const Container = styled.div`
   transition: background 0.2s linear;
   &:hover {
     background: rgba(0, 0, 0, 0.03);
+  }
+  .warn {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    strong {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -60,6 +75,7 @@ const ImgBlock = styled.div`
 `;
 
 const ReviewActionButtons = styled.div`
+  display: flex;
   padding-top: 0.8rem;
   width: 100%;
 `;
@@ -74,10 +90,16 @@ const ReviewItem = ({ review, openInsta }) => {
     rvContent,
     rvRating,
     rvImages,
+    rvWarn,
   } = review;
 
   return (
     <Container>
+      {rvWarn && (
+        <div className="warn">
+          🚨&nbsp;<strong>신고된 리뷰입니다.</strong>&nbsp;🚨
+        </div>
+      )}
       <MemberProfile
         picUrl={memProfile}
         name={memName}
@@ -96,6 +118,7 @@ const ReviewItem = ({ review, openInsta }) => {
         <ReviewActionButtons>
           <ReviewActionButtonLoves review={review} />
           <ReviewActionButtonCmts review={review} />
+          <ReviewActionButtonWarn review={review} />
         </ReviewActionButtons>
       </Content>
       <RatingIcon width="90px" fontSize="3rem" rating={rvRating} />

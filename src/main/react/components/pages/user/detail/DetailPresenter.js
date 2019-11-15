@@ -11,7 +11,7 @@ import Loader from '../../../common/Loader';
 
 const FullHeight = styled.div`
   width: 100%;
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 16rem);
 `;
 
 const ImageWrapper = styled.div`

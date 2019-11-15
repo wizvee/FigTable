@@ -84,4 +84,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.getLoversList(session, rvNo);
 	}
 
+	@Override
+	public int warnReview(String rvNo) {
+		return dao.warnReview(session, rvNo);
+	}
+
 }

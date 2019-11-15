@@ -29,34 +29,36 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   .msg {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
+  }
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 `;
 
 const ButtonWithMarginTop = styled(Button)`
   margin-top: 2rem;
-  padding: 0.5rem;
+  & + & {
+    margin-left: 0.5rem;
+  }
 `;
 
-const ModalAlert = ({ title, msg, url }) => {
+const ModalConfirm = ({ title, msg, confirm, closeModal }) => {
   return (
     <>
       <Overlay />
       <Container>
         <h3>{title}</h3>
-        <div className="msg">
-          {msg}
-          <ButtonWithMarginTop to={url} fullwidth>
-            확인
-          </ButtonWithMarginTop>
+        <div className="msg">{msg}</div>
+        <div className="buttons">
+          <ButtonWithMarginTop onClick={confirm}>확인</ButtonWithMarginTop>
+          <ButtonWithMarginTop onClick={closeModal}>취소</ButtonWithMarginTop>
         </div>
       </Container>
     </>
   );
 };
 
-export default ModalAlert;
+export default React.memo(ModalConfirm);

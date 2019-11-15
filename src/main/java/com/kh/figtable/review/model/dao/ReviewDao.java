@@ -26,5 +26,7 @@ public interface ReviewDao {
 	int deleteComment(SqlSession session, String rvcNo);
 
 	List<Member> getLoversList(SqlSession session, String rvNo);
+	
+	int warnReview(SqlSession session, String rvNo);
 
 }

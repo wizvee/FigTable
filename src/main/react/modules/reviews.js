@@ -18,6 +18,7 @@ const [WRITE_COMMENT, WRITE_COMMENT_SUCCESS] = createRequestActionTypes(
 const [DELETE_COMMENT, DELETE_COMMENT_SUCCESS] = createRequestActionTypes(
   'reviews/DELETE_COMMENT',
 );
+const WARN_REVIEW = 'reviews/WARN_REVIEW';
 
 export const listReviews = createAction(LIST_RV, resNo => resNo);
 export const unloadReviews = createAction(UNLOAD_RV);
@@ -31,6 +32,7 @@ export const deleteComment = createAction(
   DELETE_COMMENT,
   ({ rvNo, rvcNo }) => ({ rvNo, rvcNo }),
 );
+export const warnReview = createAction(WARN_REVIEW, rvNo => rvNo);
 
 const listReviewsSaga = createRequestSaga(LIST_RV, reviewAPI.getByResNo);
 const writeCommentSaga = createRequestSaga(
@@ -94,6 +96,11 @@ const reviews = handleActions(
       produce(state, draft => {
         const review = draft.reviews.find(review => review.rvNo == rvNo);
         review.comments = comments;
+      }),
+    [WARN_REVIEW]: (state, { payload: rvNo }) =>
+      produce(state, draft => {
+        const review = draft.reviews.find(review => review.rvNo == rvNo);
+        review.rvWarn = 'W';
       }),
   },
   initialState,

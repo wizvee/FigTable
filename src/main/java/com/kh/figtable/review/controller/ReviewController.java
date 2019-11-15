@@ -136,5 +136,11 @@ public class ReviewController {
 		}
 		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/review/warn/{rvNo}", method = RequestMethod.POST)
+	private ResponseEntity warnReview(@PathVariable("rvNo") String rvNo) {
+		service.warnReview(rvNo);
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 }

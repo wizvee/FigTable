@@ -21,5 +21,7 @@ public interface ReviewService {
 	int deleteComment(String rvcNo);
 
 	List<Member> getLoversList(String rvNo);
+	
+	int warnReview(String rvNo);
 
 }

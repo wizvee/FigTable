@@ -27,7 +27,7 @@ const Icon = styled.span`
     margin-left: 0.3rem;
     svg {
       font-size: 0.93rem;
-      transform: translateY(3px);
+      transform: translateY(7px);
     }
     &:hover {
       color: ${palette.text};
