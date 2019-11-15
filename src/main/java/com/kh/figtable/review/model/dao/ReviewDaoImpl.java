@@ -34,6 +34,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
+	public int deleteReview(SqlSession session, Map<String, String> data) {
+		return session.delete("review.deleteReview", data);
+	}
+
+	@Override
 	public int wirteComment(SqlSession session, Comment comment) {
 		return session.insert("comment.wirteComment", comment);
 	}

@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineAlert, AiOutlineDelete } from 'react-icons/ai';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import ModalConfirm from '../../../common/ModalConfirm';
 import client, { path } from '../../../../lib/api/client';
-import { warnReview } from '../../../../modules/reviews';
+import { warnReview, deleteReview } from '../../../../modules/reviews';
+import ModalAlert from '../../../common/ModalAlert';
+import { check } from '../../../../modules/member';
 
 const Icon = styled.span`
   margin-left: auto;
@@ -34,6 +36,7 @@ const ReviewActionButtonWarn = ({ review }) => {
 
   const [isWarnPop, setWarnPop] = useState(false);
   const [isDelPop, setDelPop] = useState(false);
+  const [isPointPop, setPointPop] = useState(false);
   const [target, setTarget] = useState('');
   // 모달 이벤트 핸들러
   const openDelPop = useCallback(
@@ -60,6 +63,14 @@ const ReviewActionButtonWarn = ({ review }) => {
     setWarnPop(false);
     document.body.style.overflow = 'unset';
   }, []);
+  const openPointPop = useCallback(() => {
+    setPointPop(true);
+    document.body.style.overflow = 'hidden';
+  });
+  const closePointPop = useCallback(() => {
+    setPointPop(false);
+    document.body.style.overflow = 'unset';
+  });
 
   const onWarn = useCallback(async () => {
     closeWarnPop();
@@ -68,10 +79,19 @@ const ReviewActionButtonWarn = ({ review }) => {
       .then(() => dispatch(warnReview(target)));
   }, [target]);
 
-  function onDel() {
+  const onDel = useCallback(() => {
     closeDelPop();
-    console.log(target);
-  }
+    if (member.memPoint < 300) {
+      openPointPop();
+      return;
+    }
+    dispatch(deleteReview({ rvNo: review.rvNo, memNo: member.memNo }));
+  }, []);
+
+  // unmount 시 멤버 정보 DB와 크로스 체크
+  useEffect(() => {
+    return () => dispatch(check(member.memNo));
+  }, []);
 
   return (
     member && (
@@ -92,12 +112,19 @@ const ReviewActionButtonWarn = ({ review }) => {
             closeModal={closeDelPop}
           />
         )}
-        {member.memNo != review.memNo && (
+        {isPointPop && (
+          <ModalAlert
+            title="삭제 실패"
+            msg={`😿이 충분하지 않아 리뷰를 삭제할 수 없어요.`}
+            closeModal={closePointPop}
+          />
+        )}
+        {member.memNo == review.memNo && (
           <Icon>
             <AiOutlineDelete onClick={() => openDelPop(review.rvNo)} />
           </Icon>
         )}
-        {member.memNo == review.memNo && (
+        {member.memNo != review.memNo && (
           <Icon>
             <AiOutlineAlert
               className="alert"

@@ -13,6 +13,10 @@ export const writeReview = ({ memNo, resNo, rvRating, rvContent, rvImages }) =>
     rvImages,
   });
 
+// review 삭제
+export const deleteReview = ({ rvNo, memNo }) =>
+  client.patch(`${path}/api/review`, { rvNo, memNo });
+
 // 코멘트 등록
 export const writeComment = ({ rvNoRef, memNo, rvcContent }) =>
   client.post(`${path}/api/comment`, { rvNoRef, memNo, rvcContent });

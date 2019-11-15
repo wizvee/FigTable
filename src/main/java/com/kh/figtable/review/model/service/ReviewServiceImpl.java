@@ -65,6 +65,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public int deleteReview(Map<String, String> data) {
+		int r = dao.deleteReview(session, data);
+		// 리뷰 삭제 시 300냥 환급
+		Map point = new HashMap();
+		point.put("memNo", data.get("memNo"));
+		point.put("poHistory", -300);
+		point.put("poContent", "리뷰 삭제 300냥 차감");
+		mDao.addPoint(session, point);
+		return r;
+	}
+
+	@Override
 	public int writeComment(Comment comment) {
 		return dao.wirteComment(session, comment);
 	}

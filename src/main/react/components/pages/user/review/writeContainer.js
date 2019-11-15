@@ -47,10 +47,10 @@ const WriteContainer = () => {
     [disaptch],
   );
 
-  // unMount 시 review 초기화
+  // unmount 시 review 초기화
   useEffect(() => {
     return () => disaptch(initializeForm());
-  }, [disaptch]);
+  }, []);
 
   return (
     member && (

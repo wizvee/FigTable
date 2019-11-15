@@ -93,8 +93,13 @@ public class ReviewController {
 	@RequestMapping(value = "/api/review", method = RequestMethod.POST)
 	private ResponseEntity<Integer> writeReview(@RequestBody Review review) {
 		int r = service.writeReview(review);
-
 		return new ResponseEntity<Integer>(r, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/review", method = RequestMethod.PATCH)
+	private ResponseEntity<String> deleteReview(@RequestBody Map<String, String> data) {
+		service.deleteReview(data);
+		return new ResponseEntity<String>(data.get("rvNo"), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/comment", method = RequestMethod.POST)
@@ -136,7 +141,7 @@ public class ReviewController {
 		}
 		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/review/warn/{rvNo}", method = RequestMethod.POST)
 	private ResponseEntity warnReview(@PathVariable("rvNo") String rvNo) {
 		service.warnReview(rvNo);

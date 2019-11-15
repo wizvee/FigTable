@@ -14,16 +14,26 @@ const Container = styled(Responsive)`
 const HomePresenter = ({ restaurants, error, loading }) => {
   if (error) return null;
 
+  const recommend =
+    restaurants && restaurants.filter(restaurant => restaurant.resWaiting);
+
   return (
     <Container>
       {loading || !restaurants ? (
         <Loader />
       ) : (
-        <Section title="내 주변 맛집">
-          {restaurants.map(r => (
-            <Poster key={r.resNo} restaurant={r} />
-          ))}
-        </Section>
+        <>
+          <Section title="내 주변 추천">
+            {recommend.map(r => (
+              <Poster key={r.resNo} restaurant={r} />
+            ))}
+          </Section>
+          <Section title="내 주변 맛집">
+            {restaurants.map(r => (
+              <Poster key={r.resNo} restaurant={r} />
+            ))}
+          </Section>
+        </>
       )}
     </Container>
   );

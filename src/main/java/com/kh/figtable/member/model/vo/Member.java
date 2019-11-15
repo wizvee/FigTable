@@ -26,9 +26,9 @@ public class Member {
 	private int memWrCnt;
 	private String memStatus;
 
-	// isFollowing
 	private boolean isFollowing;
-	
+	private int memPoint;
+
 	@Override
 	public int hashCode() {
 		return Integer.parseInt(memNo.substring(1));

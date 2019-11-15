@@ -34,6 +34,11 @@
 		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT, NULL, DEFAULT)
 	</insert>
 
+	<delete id="deleteReview" parameterType="map">
+		DELETE FIG_REVIEW WHERE
+		RV_NO = #{rvNo}
+	</delete>
+
 	<select id="isLoved" parameterType="map" resultType="string">
 		SELECT
 		MEM_NO FROM FIG_RV_LOVES WHERE MEM_NO = #{memNo} AND RV_NO = #{rvNo}

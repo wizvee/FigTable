@@ -1,6 +1,7 @@
 package com.kh.figtable.review.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.review.model.vo.Comment;
@@ -13,6 +14,8 @@ public interface ReviewService {
 	List<Review> isLoved(String memNo, List<Review> result);
 
 	int writeReview(Review review);
+	
+	int deleteReview(Map<String, String> data);
 
 	int writeComment(Comment comment);
 

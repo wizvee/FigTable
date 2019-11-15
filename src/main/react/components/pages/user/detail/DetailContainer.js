@@ -9,6 +9,7 @@ import HeaderContainer from '../../../common/HeaderContainer';
 import DetailPresenter from './DetailPresenter';
 import ReviewPresenter from './ReviewPresenter';
 import InstaViewer from './InstaViewer';
+import { check } from '../../../../modules/member';
 
 const Container = styled(Responsive)`
   margin-bottom: 4rem;
@@ -20,17 +21,17 @@ const DetailContainer = ({ match }) => {
 
   const dispatch = useDispatch();
   const {
+    member,
     restaurant,
     resError,
     reviews,
-    rvError,
     resLoading,
     rvLoading,
-  } = useSelector(({ restaurant, reviews, loading }) => ({
+  } = useSelector(({ member, restaurant, reviews, loading }) => ({
+    member: member.member,
     restaurant: restaurant.restaurant,
     resError: restaurant.error,
     reviews: reviews.reviews,
-    rvError: reviews.error,
     resLoading: loading['restaurant/READ_RES'],
     rvLoading: loading['reviews/LIST_RV'],
   }));
@@ -41,10 +42,12 @@ const DetailContainer = ({ match }) => {
     isView: false,
   });
 
-  // 처음 마운트 될 때 레스토랑 가져오기 API요청
+  // 처음 마운트 될 때 레스토랑 가져오기 API요청,
+  // 멤버 정보를 DB와 크로스 체크
   useEffect(() => {
     dispatch(readRes(resNo));
     dispatch(listReviews(resNo));
+    dispatch(check(member.memNo));
     // 언마운트 될 때 스토어에서 레스토랑 데이터 없애기
     return () => {
       dispatch(unloadRes());

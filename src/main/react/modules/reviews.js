@@ -19,6 +19,9 @@ const [DELETE_COMMENT, DELETE_COMMENT_SUCCESS] = createRequestActionTypes(
   'reviews/DELETE_COMMENT',
 );
 const WARN_REVIEW = 'reviews/WARN_REVIEW';
+const [DELETE_REVIEW, DELETE_REVIEW_SUCCESS] = createRequestActionTypes(
+  'reviews/DELETE_REVIEW',
+);
 
 export const listReviews = createAction(LIST_RV, resNo => resNo);
 export const unloadReviews = createAction(UNLOAD_RV);
@@ -33,6 +36,10 @@ export const deleteComment = createAction(
   ({ rvNo, rvcNo }) => ({ rvNo, rvcNo }),
 );
 export const warnReview = createAction(WARN_REVIEW, rvNo => rvNo);
+export const deleteReview = createAction(DELETE_REVIEW, ({ rvNo, memNo }) => ({
+  rvNo,
+  memNo,
+}));
 
 const listReviewsSaga = createRequestSaga(LIST_RV, reviewAPI.getByResNo);
 const writeCommentSaga = createRequestSaga(
@@ -50,11 +57,16 @@ function* deleteCommentSaga({ payload }) {
     console.log(e);
   }
 }
+const deleteReviewSaga = createRequestSaga(
+  DELETE_REVIEW,
+  reviewAPI.deleteReview,
+);
 
 export function* reviewsSaga() {
   yield takeLatest(LIST_RV, listReviewsSaga);
   yield takeLatest(WRITE_COMMENT, writeCommentSaga);
   yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
+  yield takeLatest(DELETE_REVIEW, deleteReviewSaga);
 }
 
 const initialState = {
@@ -101,6 +113,10 @@ const reviews = handleActions(
       produce(state, draft => {
         const review = draft.reviews.find(review => review.rvNo == rvNo);
         review.rvWarn = 'W';
+      }),
+    [DELETE_REVIEW_SUCCESS]: (state, { payload: rvNo }) =>
+      produce(state, draft => {
+        draft.reviews = draft.reviews.filter(review => review.rvNo != rvNo);
       }),
   },
   initialState,

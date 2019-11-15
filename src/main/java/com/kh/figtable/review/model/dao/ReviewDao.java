@@ -21,12 +21,14 @@ public interface ReviewDao {
 
 	int writeReview(SqlSession session, Review review);
 
+	int deleteReview(SqlSession session, Map<String, String> data);
+
 	int wirteComment(SqlSession session, Comment comment);
 
 	int deleteComment(SqlSession session, String rvcNo);
 
 	List<Member> getLoversList(SqlSession session, String rvNo);
-	
+
 	int warnReview(SqlSession session, String rvNo);
 
 }

@@ -12,6 +12,8 @@
 		<result property="memFwCnt" column="MEM_FWCNT" />
 		<result property="memWrCnt" column="MEM_WRCNT" />
 		<result property="memStatus" column="MEM_STATUS" />
+
+		<result property="memPoint" column="MEM_POINT" />
 	</resultMap>
 
 	<insert id="register" parameterType="member">
@@ -28,9 +30,9 @@
 
 	<select id="login" parameterType="member" resultType="member"
 		resultMap="memResult">
-		SELECT *
-		FROM
-		FIG_MEMBER WHERE MEM_EMAIL = #{memEmail}
+		SELECT M.*, P.MEM_POINT FROM FIG_MEMBER M JOIN (SELECT
+		MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM FIG_POINT GROUP BY MEM_NO) P
+		ON(M.MEM_NO = P.MEM_NO) WHERE M.MEM_EMAIL = #{memEmail}
 	</select>
 
 	<insert id="likesRes" parameterType="map">
@@ -60,9 +62,9 @@
 
 	<select id="check" parameterType="string" resultType="member"
 		resultMap="memResult">
-		SELECT *
-		FROM
-		FIG_MEMBER WHERE MEM_NO = #{memNo}
+		SELECT M.*, P.MEM_POINT FROM FIG_MEMBER M JOIN (SELECT
+		MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM FIG_POINT GROUP BY MEM_NO) P
+		ON(M.MEM_NO = P.MEM_NO) WHERE M.MEM_NO = #{memNo}
 	</select>
 
 	<update id="update" parameterType="member">

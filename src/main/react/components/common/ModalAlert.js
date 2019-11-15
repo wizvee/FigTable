@@ -42,17 +42,23 @@ const ButtonWithMarginTop = styled(Button)`
   padding: 0.5rem;
 `;
 
-const ModalAlert = ({ title, msg, url }) => {
+const ModalAlert = ({ title, msg, url, closeModal }) => {
   return (
     <>
-      <Overlay />
+      <Overlay onClick={closeModal} />
       <Container>
         <h3>{title}</h3>
         <div className="msg">
           {msg}
-          <ButtonWithMarginTop to={url} fullwidth>
-            확인
-          </ButtonWithMarginTop>
+          {closeModal ? (
+            <ButtonWithMarginTop onClick={closeModal} fullwidth>
+              확인
+            </ButtonWithMarginTop>
+          ) : (
+            <ButtonWithMarginTop to={url} fullwidth>
+              확인
+            </ButtonWithMarginTop>
+          )}
         </div>
       </Container>
     </>
