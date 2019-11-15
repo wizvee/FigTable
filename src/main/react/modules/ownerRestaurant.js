@@ -17,6 +17,7 @@ const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = createRequestActionTypes(
   'owner/UPDATE_THUMB',
 );
 const [RES_OPEN, RES_OPEN_SUCCESS] = createRequestActionTypes('owner/RES_OPEN');
+const [EDIT_RES] = createRequestActionTypes('owner/EDIT_RES');
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -34,6 +35,7 @@ export const resOpen = createAction(RES_OPEN, ({ resNo, open }) => ({
   resNo,
   open,
 }));
+export const editRes = createAction(EDIT_RES, ({ resNo }) => ({ resNo }));
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
@@ -61,7 +63,8 @@ const ownerRestaurant = handleActions(
     }),
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
-        draft.ownRestaurant.resThumb = value;
+        // draft.ownRestaurant.resThumb = value;
+        draft.ownRestaurant[key] = value;
       }),
     [RES_OPEN]: (state, { payload: { resNo, open } }) =>
       produce(state, draft => {

@@ -10,10 +10,10 @@
 		<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
 		<result property="resThumb" column="RES_THUMB" />
 		<result property="resAddress" column="RES_ADDRESS" />
-		<result property="resOpenDay" column="RES_OPEN_DAY" />
-		<result property="resCloseTime" column="RES_CLOSE_TIME" />
-		<result property="resMenuTitle" column="RES_MENU_TITLE" />
-		<result property="resMenuPrice" column="RES_MENU_PRICE" />
+		<result property="resOpenDay" column="RES_OPEN_DAY" typeHandler="strArrRes"/>
+		<result property="resCloseTime" column="RES_CLOSE_TIME" typeHandler="strArrRes"/>
+		<result property="resMenuTitle" column="RES_MENU_TITLE" typeHandler="strArrRes"/>
+		<result property="resMenuPrice" column="RES_MENU_PRICE" typeHandler="strArrRes"/>
 		<result property="resTel" column="RES_TEL" />
 		<result property="resLat" column="RES_LAT" />
 		<result property="resLong" column="RES_LONG" />

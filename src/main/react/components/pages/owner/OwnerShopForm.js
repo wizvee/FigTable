@@ -181,7 +181,7 @@ const Preview = styled.div`
   margin-top: 0.5rem;
 `;
 
-const OwnerShopForm = ({ store }) => {
+const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
   const {
     resNo,
     resName,
@@ -247,10 +247,6 @@ const OwnerShopForm = ({ store }) => {
         return m;
       }),
     );
-  };
-
-  const onChange = e => {
-    const { value, name } = e.target;
   };
 
   const opRemove = index => {

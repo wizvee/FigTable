@@ -15,10 +15,10 @@ public class Restaurant {
 	private String resFoodKeyword;
 	private String resThumb;
 	private String resAddress;
-	private String resOpenDay;
-	private String resCloseTime;
-	private String resMenuTitle;
-	private String resMenuPrice;
+	private String[] resOpenDay;
+	private String[] resCloseTime;
+	private String[] resMenuTitle;
+	private String[] resMenuPrice;
 	private String resTel;
 	private double resLat;
 	private double resLong;

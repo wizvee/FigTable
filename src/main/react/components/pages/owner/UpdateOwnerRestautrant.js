@@ -68,6 +68,7 @@ const Right = styled.div`
 
 const UpdateOwnerRestautrant = ({ match }) => {
   const { resNo } = match.params;
+  const path = process.env.PATH;
 
   const dispatch = useDispatch();
   const {
@@ -103,6 +104,14 @@ const UpdateOwnerRestautrant = ({ match }) => {
     [dispatch],
   );
 
+  const onChange = useCallback(
+    ({ target }) => {
+      const { value, name } = target;
+      disaptch(changeField({ key: name, value }));
+    },
+    [dispatch],
+  );
+
   const [topMenu, setTopMenu] = useState('false');
 
   useEffect(() => {
@@ -128,7 +137,7 @@ const UpdateOwnerRestautrant = ({ match }) => {
               </div>
               <Right>
                 <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
-                <OwnerShopForm store={restaurant} />
+                <OwnerShopForm onChangeFile={onChangeFile} store={restaurant} />
               </Right>
             </ContainerWrapper>
           </Container>

@@ -4,7 +4,7 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
-	
+
 	<typeAliases>
 		<typeAlias type="com.kh.figtable.member.model.vo.Member"
 			alias="member" />
@@ -29,5 +29,7 @@
 			type="com.kh.figtable.admin.model.vo.AdminReview" />
 		<typeAlias alias="adminOwner"
 			type="com.kh.figtable.admin.model.vo.AdminOwner" />
+		<typeAlias alias="strArrRes"
+			type="com.kh.figtable.common.StringArrayResHandler" />
 	</typeAliases>
 </configuration>
