@@ -16,6 +16,10 @@ export const getMemberPoint= memNo =>
 export const getByResNo= resNo =>
   client.get(`${path}/api/owner/eatdeal/?resNo=${resNo}`);
 
-//eatdeal 구매한 사람 조회
+//owner eatdeal 구매한 사람 조회
 export const getBuy= resNo =>
 client.get(`${path}/api/owner/eatdeal/buy/?resNo=${resNo}`);
+
+//owner잇딜 삭제
+export const deleteEat= eatNo =>
+client.patch(`${path}/api/owner/eatdeal/delete`, eatNo);
