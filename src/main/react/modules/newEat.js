@@ -25,15 +25,19 @@ export const initializeForm = createAction(INITIALIZE_FORM, form => form);
 
 export const register = createAction(
   REGISTER,
-  ({ thumb,eatFoodName, eatCount, eatOriginPrice, eatDiscount, eatStartDate, eatEndDate, eatContent, })=>({
-    thumb,
-    eatFoodName,
-    eatCount,
-    eatOriginPrice,
-    eatDiscount,
-    eatStartDate,
-    eatEndDate,
-    eatContent,
+  ({ resNo, resName, resRocationKeyword, thumb, eatFoodName, eatCount, eatOriginPrice, eatDiscount, eatStartDate, eatEndDate, eatContent,  })=>({
+   
+	resNo,
+	resName,
+	resRocationKeyword,
+  thumb,
+	eatFoodName,
+	eatCount,
+	eatOriginPrice,
+	eatDiscount,
+	eatStartDate,
+	eatEndDate,
+	eatContent,
   }),
 );
 
@@ -44,7 +48,10 @@ export function* newEatSaga() {
 }
 const initialState = {
   register:{
-    thumb:[],
+    resNo:'',
+    resName:'',
+    resRocationKeyword:'',
+    thumb:'',
     eatFoodName:'',
     eatCount:'',
     eatOriginPrice:'',
@@ -63,8 +70,8 @@ const newEat = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, draft => {
-        draft[form][key] = value;
-      //  draft.newEat.thumb=thumb;
+        draft.register[key] = value;
+      // draft.register.thumb=value;
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
@@ -75,8 +82,8 @@ const newEat = handleActions(
     }),
     [REGISTER_SUCCESS]: (state, { payload: newEat }) => ({
       ...state,
-      newEatError: null,
-      newEat,
+      newEatError:null,
+      newEat: 1,
     }),
     [REGISTER_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -33,7 +33,10 @@ const SubTitle = styled.div`
 
 const OwnerEatdealForm = ({restaurant}) => {
 
-  const {resNo,}=restaurant;
+  const {
+    resNo,
+  }=restaurant;
+  
   const dispatch= useDispatch();
   const {
     eatdeals,
@@ -64,7 +67,7 @@ const OwnerEatdealForm = ({restaurant}) => {
             <EatdealCategory category={category} onSelect={onSelect}/>
         </SubTitle>
         {/* 카테고리별로 컴포넌트 불러옴 */}
-        {category==='enroll'&& <EatdealEnrollContainer/>||
+        {category==='enroll'&& <EatdealEnrollContainer  restaurant={restaurant}/>||
          category==='manage'&&<EatdealManage eatdeals={eatdeals}/>||
          category==='buy'&&<EatdealBuy buyers={buyers}/> }
          

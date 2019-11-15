@@ -140,27 +140,31 @@ const ErrorMsg = styled.div`
   text-align: center;
   font-size: 0.875rem;
 `;
-const EatdealEnrollPresenter =({ form, onChange, onChangeFile, thumb,  onSubmit, error })=>{
+const EatdealEnrollPresenter =({ 
+  form, onChange, onChangeFile, onSetValue, onSubmit, error, restaurant
+ })=>{
+  const {
+    resNo,
+  } = restaurant;
+  console.log(resNo);
+  const path = process.env.PATH;
 
     return(
         <>
         
        <EnrollWrapper>
          <form onSubmit={onSubmit}>
-        <EatdealInput>
-            <div className="title">eatdeal 제목</div>
+           <EatdealInput>
+            <div className="title">Eatdeal 메뉴이름</div>
             <input 
               type="text" 
-              name="eatTitle" 
-              placeholder="예)피그테이블 역삼점"
-              value={form.eatTitle}
+              name="eatFoodName" 
+              value={form.eatFoodName}
               onChange={onChange}
-            />
+              placeholder="예)소금구이 2인"/>
           </EatdealInput>
           <FileButton>
             <div className="title">대표사진<br/>
-            
-            
             <input 
                 className="fileinput"
                 type="file" 
@@ -172,26 +176,18 @@ const EatdealEnrollPresenter =({ form, onChange, onChangeFile, thumb,  onSubmit,
                 사진변경</label>
             </div>
             
-            {(thumb) ?
-              image.map((img, i) => <Image key={i} url={img} />):
-              (
+            {(form.thumb) ?
+              ( <Image url={`${path}/resources/upload/eatdeal/${form.thumb}`}/>)
+              : (
                 <Image url='https://mamadips.com/wp-content/uploads/2016/11/defimage.gif'/>
-              )};
+              )}
             
             </FileButton>
-          <EatdealInput>
-            <div className="title">메뉴이름</div>
-            <input 
-              type="text" 
-              name="eatFoodName" 
-              value={form.eatFoodName}
-              onChange={onChange}
-              placeholder="예)소금구이 2인"/>
-          </EatdealInput>
+         
           <EatdealInput>
             <div className="title">할인 전 가격</div>
             <input 
-              type="text" 
+              type="number" 
               name="eatOriginPrice" 
               value={form.eatOriginPrice}
               onChange={onChange}
@@ -200,16 +196,27 @@ const EatdealEnrollPresenter =({ form, onChange, onChangeFile, thumb,  onSubmit,
           <EatdealInput>
             <div className="title">할인율</div>
             <input 
-              type="text" 
+              type="number" 
               name="eatDiscount" 
               value={form.eatDiscount}
               onChange={onChange}
-              placeholder="예)25"/>
+              placeholder="예)25% => 0.25"/>
+          </EatdealInput>
+          <EatdealInput>
+            <div className="title">개수</div>
+            <input 
+              type="number" 
+              name="eatCount" 
+              value={form.eatCount}
+              onChange={onChange}
+              placeholder="n개"/>
           </EatdealInput>
           <EatdealDateInput>
             <div className="title">날짜</div>
             <div className="wrap">
-               <DatePicker/>
+               <DatePicker onSetValue={onSetValue}/>
+           {/* <input type="hidden" name="eatStartDate" value={form.eatStartDate}/>
+           <input type="hidden" name="eatEndDate" value={form.eatEndDate}/> */}
             </div>
           </EatdealDateInput>
           
@@ -237,8 +244,8 @@ const EatdealEnrollPresenter =({ form, onChange, onChangeFile, thumb,  onSubmit,
          </EnrollWrapper>
         </>
 
-    )
-  }
+    );
+  };
 
 
 export default React.memo(EatdealEnrollPresenter);

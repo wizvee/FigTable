@@ -57,6 +57,7 @@ const EatdealButton= styled(Button)`
   vertical-align:center;
 `;
 const EatdealManageDetail=({eatDeal})=>{
+  const path = process.env.PATH;
   const {
     eatNo,
     resNo,
@@ -83,10 +84,10 @@ const EatdealManageDetail=({eatDeal})=>{
     return (
         <>
         <EatdealCard>
-            <Image url={thumb}/>
+            <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <RightContainer>
                     <Text>메뉴 : <span>{eatFoodName}</span></Text>
-                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{eatDiscount}</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
+                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{Number(eatDiscount)*100}%</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
             
                     <Text>기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Text>
                     <Text>남은 수량 : <span>{eatCount}</span> </Text>

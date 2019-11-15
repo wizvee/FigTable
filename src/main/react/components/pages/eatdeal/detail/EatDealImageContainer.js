@@ -51,6 +51,7 @@ const IconContainer =styled.div`
 `;
 
 const EatDealImageContainer=({eat, modal, openModal, closeModal})=>{
+  const path = process.env.PATH;
   const {
     eatNo,
     resNo,
@@ -70,7 +71,7 @@ const EatDealImageContainer=({eat, modal, openModal, closeModal})=>{
     return(
 
         <ImageContainer>
-        <Image url={thumb}/>
+        <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <IconContainer>
                 <FiShare2 onClick={openModal} />
             </IconContainer>
