@@ -15,8 +15,9 @@ const FullHeight = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.5rem;
   width: 100%;
   height: 21.25rem;
   div + div {
@@ -26,7 +27,6 @@ const ImageWrapper = styled.div`
 
 const path = process.env.PATH;
 const ImgBlock = styled.div`
-  flex: 1;
   height: 100%;
   background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
   background-size: cover;
@@ -38,13 +38,16 @@ const ImgBlock = styled.div`
   }
 `;
 
+const EmptyBlock = styled.div`
+  height: 100%;
+  background: #e9ecef;
+`;
+
 const ThumbBlock = styled.div`
-  flex: 1;
   height: 100%;
   background: url(${props => props.url});
   background-size: cover;
   background-position: center center;
-  cursor: pointer;
   transition: opacity 0.2s linear;
   &:hover {
     opacity: 0.5;
@@ -129,15 +132,35 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   // 리뷰의 이미지url만 따온 배열 생성
   const images = imgReviews.flatMap(review => review.rvImages).slice(-3);
 
+  function createEmptyBlock(count) {
+    let blocks = [];
+    for (let i = 0; i < 3 - count; i++) {
+      blocks.push(<EmptyBlock key={i} />);
+    }
+    return blocks;
+  }
+
   return (
     <>
       <ImageWrapper>
         {images.length == 0 ? (
-          <ThumbBlock url={resThumb} />
+          <>
+            <ThumbBlock
+              url={
+                resThumb.substring(0, 4) == 'http'
+                  ? resThumb
+                  : `${process.env.PATH}/resources/upload/restaurant/${resThumb}`
+              }
+            />
+            {createEmptyBlock(1)}
+          </>
         ) : (
-          images.map((img, index) => (
-            <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
-          ))
+          <>
+            {images.map((img, index) => (
+              <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
+            ))}
+            {images.length < 3 && createEmptyBlock(images.length)}
+          </>
         )}
       </ImageWrapper>
       <InfoWrapper>

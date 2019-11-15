@@ -11,7 +11,7 @@ import ReviewPresenter from './ReviewPresenter';
 import InstaViewer from './InstaViewer';
 
 const Container = styled(Responsive)`
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 `;
 
 const DetailContainer = ({ match }) => {

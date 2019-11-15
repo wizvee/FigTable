@@ -140,10 +140,10 @@ const ReviewPresenter = ({ reviews, loading, openInsta }) => {
         badReviews.map(r => (
           <ReviewItem key={r.rvNo} review={r} openInsta={openInsta} />
         ))}
-      <Paging>
+      {/* <Paging>
         더보기
         <FiChevronsDown />
-      </Paging>
+      </Paging> */}
     </>
   );
 };

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
 import { insertRecentAsync } from '../../modules/guest';
-import { path } from '../../lib/api/client';
 
 const Image = styled.div`
   background: url(${props => `${props.url}`});
@@ -102,7 +101,7 @@ const Poster = ({ restaurant }) => {
             url={
               resThumb.substring(0, 4) == 'http'
                 ? resThumb
-                : `${path}/resources/resources/upload/restaurant/${resThumb}`
+                : `${process.env.PATH}/resources/upload/restaurant/${resThumb}`
             }
           />
           {resWaiting && <Waiting>대기 {resWaitCnt}팀</Waiting>}

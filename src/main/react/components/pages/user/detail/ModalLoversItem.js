@@ -7,6 +7,7 @@ import Button from '../../../../lib/styles/Button';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  margin: 0.5rem 0;
   width: 100%;
   .name {
     flex: 1;
@@ -33,15 +34,24 @@ const ModalLoversItem = ({ lover }) => {
     member: member.member,
   }));
 
-  const [isFollow, setFollow] = useState(lover.follow);
+  const [isFollowing, setFollowing] = useState(lover.follow);
 
-  const following = async memNo => {};
+  const following = useCallback(async memNo => {
+    await client
+      .post(`${path}/api/member/following`, {
+        memNo: member.memNo,
+        targetMemNo: memNo,
+      })
+      .then(() => setFollowing(true));
+  }, []);
 
   return (
     <Container>
       <Profile url={lover.memProfile} />
       <span className="name">{lover.memName}</span>
-      <SmallButton>팔로우</SmallButton>
+      {member && !isFollowing && lover.memNo != member.memNo && (
+        <SmallButton onClick={() => following(lover.memNo)}>팔로우</SmallButton>
+      )}
     </Container>
   );
 };

@@ -56,7 +56,14 @@ const PosterSmall = props => {
   return (
     <Container>
       <FlexLink to={`${process.env.PATH}/restaurant/${resNo}`}>
-        <Image url={resThumb} onClick={closeModal} />
+        <Image
+          url={
+            resThumb.substring(0, 4) == 'http'
+              ? resThumb
+              : `${process.env.PATH}/resources/upload/restaurant/${resThumb}`
+          }
+          onClick={closeModal}
+        />
         <TextWrapper onClick={closeModal}>
           <span>
             {resName.length > 9 ? `${resName.substring(0, 9)}...` : resName}
