@@ -33,19 +33,15 @@ const EatdealEnrollContainer = () =>{
       if (thumb) {
         await client.patch(`${path}/api/eatdeal/files`, { thumb });
       }
-
-      const imgFiles = Array.from(files);
+      const file = files[0]
       let form = new FormData();
-
-      imgFiles.forEach((img, i) => {
-        if (i < 2) form.append(i, img);
-      });
+      form.append('thumb', file);
 
       await client
         .post(`${path}/api/eatdeal/files`, form, {
           headers: { 'content-type': 'multipart/form-data' },
         })
-        .then(({ data }) => disaptch(changeField({ key: name, value: data })))
+        .then(({ data }) => dispatch(changeField({ key: name, value: data })))
         .catch(err => console.log(err));
     },
     [dispatch],

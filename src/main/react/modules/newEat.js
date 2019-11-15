@@ -7,7 +7,7 @@ import createRequestSaga, {
 import * as newEatAPI from '../lib/api/newEat';
 
 
-const CHANGE_FIELD = 'auth/CHANGE_FILED';
+const CHANGE_FIELD = 'newEat/CHANGE_FILED';
 const INITIALIZE_FORM = 'newEat/INITIALIZE_FORM';
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
   'newEat/REGISTER',
@@ -64,6 +64,7 @@ const newEat = handleActions(
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, draft => {
         draft[form][key] = value;
+      //  draft.newEat.thumb=thumb;
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
