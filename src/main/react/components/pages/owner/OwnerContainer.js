@@ -194,25 +194,22 @@ const OwnerContainer = ({ match }) => {
     loading: loading['owner/OWN_HEADER'],
   }));
 
-  const onChangeFile = useCallback(
-    async ({ target: { files, name } }) => {
-      const file = files[0];
-      let form = new FormData();
-      form.append('thumbnail', file);
-      let thumb;
-      await client
-        .post(`${path}/api/ownerThumb/${resNo}`, form, {
-          headers: { 'content-type': 'multipart/form-data' },
-        })
-        .then(({ data }) => {
-          dispatch(changeField({ key: name, value: data })),
-            (thumb = data),
-            dispatch(updateThumb({ resNo, resThumb: thumb }));
-        })
-        .catch(err => console.log(err));
-    },
-    [changeField, updateThumb],
-  );
+  const onChangeFile = useCallback(async ({ target: { files, name } }) => {
+    const file = files[0];
+    let form = new FormData();
+    form.append('thumbnail', file);
+    let thumb;
+    await client
+      .post(`${path}/api/ownerThumb/${resNo}`, form, {
+        headers: { 'content-type': 'multipart/form-data' },
+      })
+      .then(({ data }) => {
+        dispatch(changeField({ key: name, value: data })),
+          (thumb = data),
+          dispatch(updateThumb({ resNo, resThumb: thumb }));
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = 'scroll';
@@ -229,13 +226,12 @@ const OwnerContainer = ({ match }) => {
     setIsShopModal(true);
     document.getElementsByTagName('label')[1].click();
   };
-  const shopCloseM = open => {
-    {
-      open == true
-        ? (document.getElementsByTagName('label')[1].click(),
-          setShopOpen(!shopOpen),
-          dispatch(resOpen({ resNo, open: shopOpen })))
-        : '';
+
+  const shopCloseM = o => {
+    if (o) {
+      document.getElementsByTagName('label')[1].click();
+      setShopOpen(!shopOpen);
+      dispatch(resOpen({ resNo, open: !restaurant.open }));
     }
     setIsShopModal(false);
   };

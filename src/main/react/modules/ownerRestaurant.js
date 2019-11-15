@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
-import produce from 'immer';
+import produce, { produceWithPatches } from 'immer';
 import * as restAPI from '../lib/api/ownerRestaurant';
 import { takeLatest } from 'redux-saga/effects';
 import restaurants from './restaurants';
@@ -63,7 +63,7 @@ const ownerRestaurant = handleActions(
       produce(state, draft => {
         draft.ownRestaurant.resThumb = value;
       }),
-    [RES_OPEN_SUCCESS]: (state, { payload: { open } }) =>
+    [RES_OPEN]: (state, { payload: { resNo, open } }) =>
       produce(state, draft => {
         draft.ownRestaurant.open = open;
       }),
