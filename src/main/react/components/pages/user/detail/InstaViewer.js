@@ -48,9 +48,23 @@ const Container = styled.div`
 `;
 
 const ReviewSection = styled.div`
+  position: relative;
   padding: 1rem;
   width: 330px;
   background: white;
+  .warn {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    strong {
+      font-size: 1.1rem;
+    }
+  }
   .comment {
     padding: 1rem 0;
   }
@@ -222,6 +236,11 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
             </ThumbSection>
           </div>
           <ReviewSection>
+            {selectReview.rvWarn && (
+              <div className="warn">
+                🚨&nbsp;<strong>신고된 리뷰입니다.</strong>&nbsp;🚨
+              </div>
+            )}
             <Title>{title}</Title>
             <UserWrapper>
               <Profile url={selectReview.memProfile} />

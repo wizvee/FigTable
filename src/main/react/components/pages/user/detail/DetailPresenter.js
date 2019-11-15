@@ -20,8 +20,10 @@ const ImageWrapper = styled.div`
   grid-gap: 0.5rem;
   width: 100%;
   height: 21.25rem;
-  div + div {
-    margin-left: 10px;
+  overflow: hidden;
+  @media (max-width: 426px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 50%);
   }
 `;
 

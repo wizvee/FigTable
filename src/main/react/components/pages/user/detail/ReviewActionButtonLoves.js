@@ -80,13 +80,11 @@ const ReviewActionButtonLoves = ({ review }) => {
       )}
       {member && review.loved ? (
         <Icon onClick={onUnlove}>
-          <AiFillHeart className="loves" />
-          좋아요 {review.rvLove}개
+          <AiFillHeart className="loves" /> {review.rvLove}
         </Icon>
       ) : (
         <Icon onClick={member ? onLove : openModal}>
-          <AiOutlineHeart />
-          좋아요 {review.rvLove}개
+          <AiOutlineHeart /> {review.rvLove}
         </Icon>
       )}
       {review.rvLove > 0 && (

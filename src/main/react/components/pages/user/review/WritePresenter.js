@@ -19,6 +19,9 @@ const Container = styled(Responsive)`
   width: 800px;
   min-height: calc(100vh - 12rem);
   padding: 2rem;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.div`
@@ -26,6 +29,9 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  @media (max-width: 426px) {
+    flex-direction: row;
+  }
   .resInfo {
     display: flex;
     flex-direction: column;
@@ -64,6 +70,9 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  @media (max-width: 426px) {
+    flex-direction: row;
+  }
   .profile {
     margin-top: 0.2rem;
   }

@@ -25,6 +25,10 @@ const Profile = styled.div`
       width: ${props.size};
       height: ${props.size};
     `}
+  @media (max-width: 426px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const Nickname = styled.span`

@@ -42,10 +42,17 @@ const Title = styled.div`
   margin-top: 5px;
   padding: 0 3px;
   font-size: 1.23rem;
+  @media (max-width: 426px) {
+    font-size: 1.13rem;
+  }
 `;
 
 const Rating = styled.span`
   color: ${palette.primary};
+  font-size: 1.18rem;
+  @media (max-width: 426px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const Location = styled.span`
@@ -54,6 +61,9 @@ const Location = styled.span`
   padding: 0 3px;
   color: ${palette.textGray};
   font-size: 0.9rem;
+  @media (max-width: 426px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const Icon = styled.span`
@@ -65,6 +75,9 @@ const Icon = styled.span`
   svg {
     margin-right: 2px;
     transform: translateY(2px);
+  }
+  @media (max-width: 426px) {
+    font-size: 0.75rem;
   }
 `;
 

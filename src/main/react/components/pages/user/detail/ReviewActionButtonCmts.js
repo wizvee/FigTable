@@ -172,13 +172,11 @@ const ReviewActionButtonCmts = ({ review }) => {
     <>
       {member ? (
         <Icon onClick={onCmtToggle}>
-          <AiOutlineMessage />
-          댓글 {review.comments.length}개
+          <AiOutlineMessage /> {review.comments.length}
         </Icon>
       ) : (
         <Icon onClick={openModal}>
-          <AiOutlineMessage />
-          댓글 {review.comments.length}개
+          <AiOutlineMessage /> {review.comments.length}
         </Icon>
       )}
       {member && viewInput && (

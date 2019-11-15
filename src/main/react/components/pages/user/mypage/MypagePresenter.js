@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import Button from '../../../../lib/styles/Button';
+import palette from '../../../../lib/styles/Palette';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -10,6 +11,8 @@ const Container = styled(Responsive)`
 
 const Profile = styled.div`
   display: flex;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid ${palette.borderGray};
   label {
     cursor: pointer;
   }

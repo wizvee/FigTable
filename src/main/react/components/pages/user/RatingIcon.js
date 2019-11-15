@@ -15,6 +15,9 @@ const Icon = styled.div`
   color: ${palette.primary};
   svg {
     font-size: ${props => props.fontSize};
+    @media (max-width: 426px) {
+      font-size: 50px;
+    }
   }
   span {
     font-size: 0.8rem;
