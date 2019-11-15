@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
@@ -82,6 +82,9 @@ const TotalPay=({eat, memPoint})=>{
     //총 수량
     const [Count, setCount] = useState(1);
     //회원포인트 () 안에 회원 포인트 넣기
+    useEffect(()=>{
+        setPoint(memberPoint);
+    })
     const [point, setPoint] = useState(memberPoint);
     //부분 포인트 입력값
     const [partPoint, setPartPoint] = useState(0);

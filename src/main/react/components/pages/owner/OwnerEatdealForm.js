@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import EatdealCategory from './EatdealDetail/EatdealCategory';
-import EatdealEnroll from './EatdealEnroll';
+import EatdealEnrollContainer from './EatdealEnrollContainer';
 import EatdealManage from './EatdealManage';
 import EatdealBuy from './EatdealBuy';
 import palette from '../../../lib/styles/Palette';
@@ -64,7 +64,7 @@ const OwnerEatdealForm = ({restaurant}) => {
             <EatdealCategory category={category} onSelect={onSelect}/>
         </SubTitle>
         {/* 카테고리별로 컴포넌트 불러옴 */}
-        {category==='enroll'&& <EatdealEnroll/>||
+        {category==='enroll'&& <EatdealEnrollContainer/>||
          category==='manage'&&<EatdealManage eatdeals={eatdeals}/>||
          category==='buy'&&<EatdealBuy buyers={buyers}/> }
          

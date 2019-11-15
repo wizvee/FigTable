@@ -21,6 +21,7 @@ const Modal = styled.div`
     text-align:center; 
     margin:0px auto;
     flex-direction: column;
+    
     background-color: white;
     top:15rem;
     width:24rem;
