@@ -123,16 +123,17 @@ public class ReviewController {
 	@RequestMapping(value = "/api/review/loves/{rvNo}", method = RequestMethod.GET)
 	private ResponseEntity<List<Member>> getLoversList(@PathVariable("rvNo") String rvNo, HttpSession session) {
 		List<Member> result = service.getLoversList(rvNo);
-
 		// 로그인 되어 있다면 following 여부를 판별
-//		Member m = (Member) session.getAttribute("login");
-//		if (m != null) {
-//			List<Member> followingList = memService.getFollowingList(m.getMemNo());
-//			for (Member member : result) {
-//				
-//			}
-//		}
-
+		Member m = (Member) session.getAttribute("login");
+		if (m != null) {
+			List<Member> followingList = memService.getFollowingList(m.getMemNo());
+			for (Member member : result) {
+				if (followingList.contains(member))
+					member.setFollowing(true);
+				else
+					member.setFollowing(false);
+			}
+		}
 		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
 	}
 

@@ -178,4 +178,14 @@ public class MemberController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
+	@RequestMapping(value = "/api/member/following", method = RequestMethod.PATCH)
+	public ResponseEntity unfollowingMember(@RequestBody Map<String, String> data) {
+		int r = service.unfollowingMember(data);
+		// 성공시 200 반환
+		if (r > 0)
+			return new ResponseEntity(HttpStatus.OK);
+		// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
 }

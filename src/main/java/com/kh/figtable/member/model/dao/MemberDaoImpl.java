@@ -76,6 +76,11 @@ public class MemberDaoImpl implements MemberDao {
 	public int followingMember(SqlSession session, Map data) {
 		return session.insert("member.followingMember", data);
 	}
+	
+	@Override
+	public int unfollowingMember(SqlSession session, Map data) {
+		return session.delete("member.unfollowingMember", data);
+	}
 
 	@Override
 	public List<Member> getFollowingList(SqlSession session, String memNo) {

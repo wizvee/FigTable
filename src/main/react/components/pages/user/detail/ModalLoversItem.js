@@ -34,7 +34,7 @@ const ModalLoversItem = ({ lover }) => {
     member: member.member,
   }));
 
-  const [isFollowing, setFollowing] = useState(lover.follow);
+  const [isFollowing, setFollowing] = useState(lover.following);
 
   const following = useCallback(async memNo => {
     await client
@@ -45,12 +45,26 @@ const ModalLoversItem = ({ lover }) => {
       .then(() => setFollowing(true));
   }, []);
 
+  const unFollowing = useCallback(async memNo => {
+    await client
+      .patch(`${path}/api/member/following`, {
+        memNo: member.memNo,
+        targetMemNo: memNo,
+      })
+      .then(() => setFollowing(false));
+  }, []);
+
   return (
     <Container>
       <Profile url={lover.memProfile} />
       <span className="name">{lover.memName}</span>
       {member && !isFollowing && lover.memNo != member.memNo && (
         <SmallButton onClick={() => following(lover.memNo)}>팔로우</SmallButton>
+      )}
+      {member && isFollowing && lover.memNo != member.memNo && (
+        <SmallButton outline onClick={() => unFollowing(lover.memNo)}>
+          팔로잉
+        </SmallButton>
       )}
     </Container>
   );

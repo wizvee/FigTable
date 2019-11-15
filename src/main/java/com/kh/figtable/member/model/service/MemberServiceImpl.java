@@ -94,4 +94,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getFollowingList(session, memNo);
 	}
 
+	@Override
+	public int unfollowingMember(Map<String, String> data) {
+		return dao.unfollowingMember(session, data);
+	}
+
 }

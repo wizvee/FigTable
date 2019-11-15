@@ -26,6 +26,13 @@ const buttonStyle = css`
       width: 100%;
     `}
   ${props =>
+    props.outline &&
+    css`
+      background: #fff;
+      border: 1px solid ${palette.borderGray};
+      color: ${palette.text};
+    `}
+  ${props =>
     props.bgColor &&
     css`
       background: ${props.bgColor};
