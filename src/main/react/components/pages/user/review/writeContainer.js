@@ -69,4 +69,4 @@ const WriteContainer = () => {
   );
 };
 
-export default WriteContainer;
+export default React.memo(WriteContainer);

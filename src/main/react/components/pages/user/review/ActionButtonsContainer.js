@@ -74,4 +74,4 @@ const ActionButtonsContainer = ({ history }) => {
   );
 };
 
-export default withRouter(ActionButtonsContainer);
+export default withRouter(React.memo(ActionButtonsContainer));

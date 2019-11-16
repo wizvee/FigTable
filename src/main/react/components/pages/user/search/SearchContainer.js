@@ -36,4 +36,4 @@ const SearchContainer = ({ match }) => {
   );
 };
 
-export default withRouter(SearchContainer);
+export default withRouter(React.memo(SearchContainer));

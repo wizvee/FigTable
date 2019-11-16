@@ -119,4 +119,4 @@ const RegisterContainer = ({ history }) => {
   );
 };
 
-export default withRouter(RegisterContainer);
+export default withRouter(React.memo(RegisterContainer));

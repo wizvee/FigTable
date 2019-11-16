@@ -68,4 +68,4 @@ const LoginContainer = ({ history }) => {
   );
 };
 
-export default withRouter(LoginContainer);
+export default withRouter(React.memo(LoginContainer));

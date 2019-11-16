@@ -154,4 +154,4 @@ const HomeContainer = ({ history }) => {
   );
 };
 
-export default withRouter(HomeContainer);
+export default withRouter(React.memo(HomeContainer));
