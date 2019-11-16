@@ -11,17 +11,27 @@ const [
   LIST_REVIEWS_FAILURE,
 ] = createRequestActionTypes('adminReview/LIST_REVIEWS');
 
+const [UPDATE_REVIEW, UPDATE_REVIEW_SUCCESS] = createRequestActionTypes(
+  `adminReview/UPDATE_REVIEW`,
+);
+
 export const listReviews = createAction(LIST_REVIEWS);
+export const updateReview = createAction(UPDATE_REVIEW, rvNo => {
+  rvNo;
+});
 
 const listReviewsSaga = createRequestSaga(LIST_REVIEWS, revAPI.getReview);
+// const updateReviewSaga = createeRequestSaga(UPDATE_REVIEW, revAPI.updateReview);
 
 export function* adminReviewsSaga() {
   yield takeLatest(LIST_REVIEWS, listReviewsSaga);
+  //yield takeLatest(UPDATE_REVIEW, updateReviewSaga);
 }
 
 const initialState = {
-  reviews: null,
+  reviews: [],
   error: null,
+  result: null,
 };
 
 const adminReviews = handleActions(
@@ -34,6 +44,15 @@ const adminReviews = handleActions(
       ...state,
       error,
     }),
+
+    // [UPDATE_REVIEW_SUCCESS]: (state, { payload: reviews, rvNo }) => ({
+    //   ...state,
+    //   reviews,
+    // }),
+    // [UPDATE_REVIEW_FAILURE]: (state, { payload: error }) => ({
+    //   ...state,
+    //   error,
+    // }),
   },
   initialState,
 );

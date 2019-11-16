@@ -4,21 +4,19 @@ export const insertRes = ({
   resName,
   resAddress,
   resTel,
-  ownName,
   resLocationKeyword,
+  resLat,
+  resLong,
   resFoodKeyword,
-  resOpenDay,
-  resCloseTime,
   resThumb,
 }) =>
-  client.post(`${path}/api/insertRes`, {
+  client.post(`${path}/api/adminInsertRes`, {
     resName,
     resAddress,
     resTel,
-    ownName,
     resLocationKeyword,
+    resLat,
+    resLong,
     resFoodKeyword,
-    resOpenDay,
-    resCloseTime,
     resThumb,
   });

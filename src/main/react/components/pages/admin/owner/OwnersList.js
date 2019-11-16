@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import OwnerModal from './OwnerModal';
 import '../TableStyle.css';
 
 const OwnersList = ({ owners, keyword, error, loading }) => {
+  const dispatch = useDispatch();
+
   const owner =
     keyword != '' ? owners.filter(o => o.ownName.includes(keyword)) : owners;
 
+  //디테일 확인 모달
   const [modal, setIsModal] = useState(false);
   const [own, setOwn] = useState(null);
 
@@ -16,17 +20,8 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
   };
 
   //모달 닫는 function
-  const onClickCloseModal = () => {
+  const onReturn = () => {
     setIsModal(false);
-  };
-
-  const onClcikChangePage = () => {
-    setIsModal(false);
-    console.log('submit!');
-  };
-
-  const onSubmit = e => {
-    e.prevenDefault();
   };
 
   if (owner === '') {
@@ -44,14 +39,7 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
 
   return (
     <>
-      {modal && (
-        <OwnerModal
-          owner={own}
-          closeModal={onClickCloseModal}
-          changePage={onClcikChangePage}
-          onSubmit={onSubmit}
-        />
-      )}
+      {modal && <OwnerModal owner={own} onReturn={onReturn} />}
 
       {!loading &&
         owners &&

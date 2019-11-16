@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listReviews } from '../../../modules/adminReviews';
+import { withRouter } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import ReviewList from './review/ReviewList';
 import styled from 'styled-components';
+import ActionButtons from './review/ActionButtons';
+
 import './TableStyle.css';
 
 const BodyHeight = styled.div`
@@ -45,11 +48,15 @@ const ReviewContainer = () => {
                 <th>내용</th>
                 <th>작성일</th>
                 <th>매장명</th>
-                <th>매장주소</th>
               </tr>
             </thead>
             <tbody>
-              <ReviewList reviews={reviews} loading={loading} error={error} />
+              <ReviewList
+                reviews={reviews}
+                loading={loading}
+                error={error}
+                actionButtons={<ActionButtons />}
+              />
             </tbody>
           </table>
         </TableWrapper>
@@ -58,4 +65,4 @@ const ReviewContainer = () => {
   );
 };
 
-export default ReviewContainer;
+export default withRouter(ReviewContainer);

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listOwners } from '../../../modules/adminOnwers';
+import { listOwners } from '../../../modules/adminOwners';
 import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import styled from 'styled-components';

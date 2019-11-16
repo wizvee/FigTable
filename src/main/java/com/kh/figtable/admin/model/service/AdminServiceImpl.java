@@ -25,6 +25,16 @@ public class AdminServiceImpl implements AdminService {
 		return dao.getRestaurantsByApply(session);
 	}
 	
+	@Override
+	public List<Restaurant> getResList() {
+		return dao.getResList(session);
+	}
+	
+	@Override
+	public int insertRes(Restaurant res) {
+		return dao.insertRes(session, res);
+	}
+	
 
 	
 	//owner
@@ -41,4 +51,8 @@ public class AdminServiceImpl implements AdminService {
 		return dao.getReviews(session);
 	}
 
+	@Override
+	public int removeReview(String rvNo) {
+		return dao.removeReview(session, rvNo);
+	}
 }

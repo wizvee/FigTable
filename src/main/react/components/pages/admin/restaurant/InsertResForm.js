@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '../../../../lib/styles/Button';
 import palette from '../../../../lib/styles/Palette';
 import Responsive from '../../../common/Responsive';
-import InsertButtonContainer from './InsertButtonContainer';
+import AddressModal from '../../owner/Modal/AddressModal';
+import Geocode from 'react-geocode';
 
 const FormBlock = styled(Responsive)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
   position: relative;
   height: auto;
-  min-height: 500px;
+  min-height: calc(100vh - 16rem);
   margin-top: -1rem;
-  width: 350px;
+  form {
+    width: 290px;
+    .check {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: ${palette.textGray};
+      a {
+        text-decoration: underline;
+        transition: color 0.2s linear;
+      }
+      a:hover {
+        color: ${palette.primary};
+      }
+    }
 `;
 
 const InputWrapper = styled.div`
@@ -34,16 +47,23 @@ const StyledInput = styled.input`
   outline: none;
 `;
 
-const Span = styled.span`
+const ErrBlock = styled.div`
+  margin-top: 1rem;
+  text-align: center;
+`;
+
+const Error = styled.span`
   color: red;
-  width: 10%;
-  margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
 `;
 
 const ButtonBlock = styled.div`
-  width: 80px;
-  margin-top: 0.5rem;
-  margin-left: 1.2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledButton = styled.div`
@@ -51,7 +71,6 @@ const StyledButton = styled.div`
   width: auto;
   height: 35px;
   background: red;
-  color: white;
   cursor: pointer;
   border: none;
   border-radius: 4px;
@@ -63,12 +82,20 @@ const StyledButton = styled.div`
   opacity: 0.8;
   outline: none;
   transition: opacity 0.2s linear;
-  cursor: pointer;
   text-align: center;
   align-item: center;
   display: flex;
   &:hover {
     opacity: 1;
+  }
+`;
+
+const ButtonStyle = styled(Button)`
+  display: inline;
+  padding: 0.5rem;
+  width: 100px;
+  & + & {
+    margin: 1rem;
   }
 `;
 
@@ -89,148 +116,134 @@ const ImgUploadBlock = styled.div`
     transition: all 0.2s linear;
   }
 `;
-
+const path = process.env.PATH;
 const Preview = styled.div`
   width: 100px;
   height: 100px;
   margin-left: 30px;
   border-radius: 2px;
-  background: url(${props => `${props.url}`});
+  background: url(${props =>
+    `${path}/resources/upload/restaurant/${props.url}`});
   background-size: cover;
   background-position: center center;
 `;
 
 const InsertResForm = ({
-  resName,
-  resAddress,
-  resTel,
-  ownName,
-  resLocationKeyword,
-  resFoodKeyword,
-  resOpenDay,
-  resCloseTime,
-  resThumb,
+  form,
   onChange,
   onChangeFile,
+  onCancel,
+  onSubmit,
+  restaurant,
+  selectAddr,
+  addressModal,
+  addressModalOpen,
+  addressModalClose,
+  errorMsg,
 }) => {
-  const [modal, setModal] = useState(false);
+  const path = process.env.PATH;
+  Geocode.setApiKey('AIzaSyCKi8T8JWKVOvFwgJGEf61hwpDcFSOBYyI');
+  Geocode.setLanguage('kr');
+  const handleData = data => {
+    Geocode.fromAddress(data.jibunAddress).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
 
-  //주소 검색 모달 열기
-  // const toggleModal = () => {
-  //   setModal(modal === false ? true : false);
-  // };
+        selectAddr(data.jibunAddress, lat, lng);
+      },
+      error => {
+        console.error(error);
+      },
+    );
+    addressModalClose();
+  };
 
   return (
     <>
       <FormBlock>
-        <InputWrapper>
-          <Span>*</Span>
-          <StyledInput
-            type="text"
-            name="resName"
-            placeholder="매장명"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        {/* <ButtonBlock>
-            <StyledButton onClick={toggleModal}>
-              <div style={{ width: 80 }}>주소 찾기</div>
-            </StyledButton>
-            {modal && <Postcode />}
-          </ButtonBlock> */}
-        <InputWrapper>
-          <Span>*</Span>
-          <StyledInput
-            type="text"
-            name="resAddress1"
-            placeholder="매장 주소"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        {/* <InputWrapper>
-            <Span>*</Span>
+        <form onSubmit={onSubmit}>
+          <InputWrapper>
             <StyledInput
               type="text"
-              name="resAddress2"
-              placeholder="매장 상세주소"
+              name="resName"
+              placeholder="매장명"
               onChange={onChange}
+              value={form.resName}
             />
-          </InputWrapper> */}
-        <InputWrapper>
-          <Span>*</Span>
-          <StyledInput
-            type="tel"
-            name="resTel"
-            placeholder="매장 전화번호"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Span>*</Span>
-          <StyledInput
-            type="text"
-            name="resLocationKeyword"
-            placeholder="위치 키워드"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Span>*</Span>
-          <StyledInput
-            type="text"
-            name="resFoodKeyword"
-            placeholder="음식 키워드"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Span>&nbsp;</Span>
-          <StyledInput
-            type="text"
-            name="ownName"
-            placeholder="대표자명"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Span>&nbsp;</Span>
-          <StyledInput
-            type="text"
-            name="resOpenDay"
-            placeholder="영업일"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Span>&nbsp;</Span>
-          <StyledInput
-            type="text"
-            name="resCloseTime"
-            placeholder="운영시간"
-            onChange={onChange}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <ImgUploadBlock>
-            <StyledButton>
-              <label htmlFor="thumbUpload">썸네일</label>
-            </StyledButton>
+          </InputWrapper>
+
+          <InputWrapper>
             <StyledInput
-              id="thumbUpload"
-              type="file"
-              name="resThumb"
-              multiple="multiple"
-              onChange={onChangeFile}
+              type="text"
+              name="resAddress1"
+              placeholder="매장 주소"
+              onChange={onChange}
+              onClick={addressModalOpen}
+              value={form.resAddress}
+              readOnly
             />
-            {resThumb.length != 0 && <Preview url={resThumb} />}
-          </ImgUploadBlock>
-        </InputWrapper>
-        <InputWrapper>
-          <InsertButtonContainer />
-        </InputWrapper>
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledInput
+              type="tel"
+              name="resTel"
+              placeholder="매장 전화번호"
+              onChange={onChange}
+              value={form.resTel}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <StyledInput
+              type="text"
+              name="resLocationKeyword"
+              placeholder="위치 키워드"
+              onChange={onChange}
+              value={form.resLocationKeyword}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <StyledInput
+              type="text"
+              name="resFoodKeyword"
+              placeholder="음식 키워드"
+              onChange={onChange}
+              value={form.resFoodKeyword}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <ImgUploadBlock>
+              <StyledButton>
+                <label htmlFor="thumbUpload">썸네일</label>
+              </StyledButton>
+              <StyledInput
+                id="thumbUpload"
+                type="file"
+                name="resThumb"
+                multiple="multiple"
+                onChange={onChangeFile}
+              />
+              {form.resThumb && <Preview url={form.resThumb} />}
+            </ImgUploadBlock>
+          </InputWrapper>
+
+          <ErrBlock>{errorMsg && <Error>{errorMsg}</Error>}</ErrBlock>
+          <ButtonBlock>
+            <ButtonStyle onClick={onCancel}>취소</ButtonStyle>
+            <ButtonStyle>등록</ButtonStyle>
+          </ButtonBlock>
+        </form>
       </FormBlock>
+      {!addressModal ? null : (
+        <AddressModal
+          handleData={handleData}
+          addressModalClose={addressModalClose}
+        />
+      )}
     </>
   );
 };
 
-export default InsertResForm;
+export default withRouter(InsertResForm);

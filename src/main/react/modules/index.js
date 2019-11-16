@@ -15,7 +15,7 @@ import newEat, { newEatSaga } from './newEat';
 import ownerRes, { ownerResSaga } from './ownerRestaurant';
 import ownHeader, { ownHeaderSaga } from './ownerHeader';
 import adminRestaurants, { adminRestuarantsSaga } from './adminRestaurants';
-import adminOwners, { adminOwnersSaga } from './adminOnwers';
+import adminOwners, { adminOwnersSaga } from './adminOwners';
 import adminInsertRes, { adminInsertResSaga } from './adminInsertRes';
 import adminReviews, { adminReviewsSaga } from './adminReviews';
 
