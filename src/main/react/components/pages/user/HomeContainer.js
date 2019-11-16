@@ -8,6 +8,7 @@ import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
 import { listRes, unloadRes } from '../../../modules/restaurants';
+import { logout } from '../../../modules/member';
 
 const Container = styled.div`
   display: flex;
@@ -118,7 +119,7 @@ const HomeContainer = ({ history }) => {
     dispatch(listRes('강남'));
     // 언마운트 시 스토어에서 레스토랑 리스트 데이터 없애기
     return () => dispatch(unloadRes());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

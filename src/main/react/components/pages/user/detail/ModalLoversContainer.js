@@ -31,6 +31,12 @@ const Container = styled.div`
   h3 {
     margin-top: 0;
   }
+  .msg {
+    padding: 70px 10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
 `;
 
 const ModalLoversContainer = ({ title, api, closeModal }) => {
@@ -48,6 +54,16 @@ const ModalLoversContainer = ({ title, api, closeModal }) => {
         {loversArr.map(lover => (
           <ModalLoversItem key={lover.memNo} lover={lover} />
         ))}
+        {loversArr.length == 0 && title == '팔로잉' && (
+          <div className="msg">
+            사람들을 팔로잉하시면 소식을 받아볼 수 있어요! 🤩
+          </div>
+        )}
+        {loversArr.length == 0 && title == '팔로워' && (
+          <div className="msg">
+            회원님을 팔로우하는 모든 사람이 여기에 표시됩니다! 😉
+          </div>
+        )}
       </Container>
     </>
   );

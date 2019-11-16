@@ -34,6 +34,8 @@ const ReviewActionButtonWarn = ({ review }) => {
     member: member.member,
   }));
 
+  const [isMemerCheck, setMemberCheck] = useState(false);
+
   const [isWarnPop, setWarnPop] = useState(false);
   const [isDelPop, setDelPop] = useState(false);
   const [isPointPop, setPointPop] = useState(false);
@@ -73,6 +75,7 @@ const ReviewActionButtonWarn = ({ review }) => {
   });
 
   const onWarn = useCallback(async () => {
+    setMemberCheck(true);
     closeWarnPop();
     await client
       .post(`${path}/api/review/warn/${target}`)
@@ -80,6 +83,7 @@ const ReviewActionButtonWarn = ({ review }) => {
   }, [target]);
 
   const onDel = useCallback(() => {
+    setMemberCheck(true);
     closeDelPop();
     if (member.memPoint < 300) {
       openPointPop();
@@ -91,7 +95,7 @@ const ReviewActionButtonWarn = ({ review }) => {
   // unmount 시 멤버 정보 DB와 크로스 체크
   useEffect(() => {
     return () => {
-      if (member) dispatch(check(member.memNo));
+      if (isMemerCheck && member) dispatch(check(member.memNo));
     };
   }, []);
 

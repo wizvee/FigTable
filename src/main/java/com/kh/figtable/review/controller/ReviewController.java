@@ -47,17 +47,6 @@ public class ReviewController {
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/reviews", method = RequestMethod.POST)
-	private ResponseEntity<List<Review>> getMyReviews(HttpSession session) {
-		Member m = (Member) session.getAttribute("login");
-		List<Review> result = null;
-		if (m != null) {
-			result = service.getMyReviews(m.getMemNo());
-			result = service.isLoved(m.getMemNo(), result);
-		}
-		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/api/files", method = RequestMethod.POST)
 	private ResponseEntity<List<String>> uploadFiles(MultipartHttpServletRequest req) {
 		// 1. 파일저장경로

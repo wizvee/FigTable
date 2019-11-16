@@ -89,17 +89,39 @@ const Section = styled.div`
   padding: 1rem 2rem;
   width: 100%;
   border-top: 1px solid ${palette.borderLightGray};
+  @media (max-width: 426px) {
+    padding: 1rem 0;
+  }
 `;
 
 const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
   const [menu, setMenu] = useState('myReviews');
+  const [followPop, setFollowPop] = useState('');
+
+  function openFollowPop(type) {
+    setFollowPop(type);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFollowPop() {
+    setFollowPop('');
+    document.body.style.overflow = 'unset';
+  }
 
   return (
     <Container>
-      {menu == 'myReviews' && (
+      {followPop == 'following' && (
         <ModalLoversContainer
           title="팔로잉"
           api={`${path}/api/member/follwing`}
+          closeModal={closeFollowPop}
+        />
+      )}
+      {followPop == 'follower' && (
+        <ModalLoversContainer
+          title="팔로워"
+          api={`${path}/api/member/follwer`}
+          closeModal={closeFollowPop}
         />
       )}
       <Profile>
@@ -116,8 +138,10 @@ const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
             <span className={menu == 'myReviews' ? 'selected' : ''}>
               리뷰 {member.memRvCnt}
             </span>
-            <span>팔로워 {member.memFwCnt}</span>
-            <span>팔로잉 0</span>
+            <span onClick={() => openFollowPop('following')}>팔로잉 0</span>
+            <span onClick={() => openFollowPop('follower')}>
+              팔로워 {member.memFwCnt}
+            </span>
             <span className="right">
               😻 {new Intl.NumberFormat().format(member.memPoint)}
             </span>

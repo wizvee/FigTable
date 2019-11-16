@@ -29,4 +29,6 @@ public interface ReviewService {
 
 	int warnReview(String rvNo);
 
+	List<Review> getFeed(List<Member> following);
+
 }
