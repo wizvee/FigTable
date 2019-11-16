@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useSelector } from 'react';
 import RevModal from './RevModal';
 import '../TableStyle.css';
+import moment from 'moment';
 
-const ReviewList = ({ reviews, loading, error }) => {
+const ReviewList = ({ reviews, loading, error, actionButtons }) => {
   //에러 발생시
   if (error) {
     return (
@@ -27,7 +28,7 @@ const ReviewList = ({ reviews, loading, error }) => {
   };
 
   //모달 닫는 function
-  const onClickCloseModal = () => {
+  const onReturn = () => {
     setModal(false);
   };
 
@@ -46,20 +47,31 @@ const ReviewList = ({ reviews, loading, error }) => {
 
   return (
     <>
-      {modal && <RevModal review={rev} closeModal={onClickCloseModal} />}
       {!loading &&
         reviews &&
-        reviews.map((row, index) => {
+        reviews.map((rev, index) => {
           return (
-            <tr key={index} className="revTr" onClick={onClickOpenModal}>
-              <td key={`${index}+name`}>{row.memName}</td>
-              <td key={`${index}+content`}>{row.rvContent}</td>
-              <td key={`${index}+date`}>{row.rvDate}</td>
-              <td key={`${index}+resName`}>{row.resName}</td>
-              <td key={`${index}+resAddr`}>{row.resAddr}</td>
+            <tr
+              key={index}
+              className="revTr"
+              onClick={() => onClickOpenModal(rev)}
+            >
+              <td key={`${index}+name`}>{rev.memName}</td>
+              <td key={`${index}+content`}>{rev.rvContent}</td>
+              <td key={`${index}+date`}>
+                {moment(rev.rvDate).format('YYYY-MM-DD')}
+              </td>
+              <td key={`${index}+resName`}>{rev.resName}</td>
             </tr>
           );
         })}
+      {modal && (
+        <RevModal
+          review={rev}
+          onReturn={onReturn}
+          actionButtons={actionButtons}
+        />
+      )}
     </>
   );
 };

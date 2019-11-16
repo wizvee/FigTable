@@ -13,7 +13,7 @@ import WriteContainer from './components/pages/user/review/WriteContainer';
 import EatdealContainer from './components/pages/eatdeal/EatdealContainer';
 import EatdealDetailContainer from './components/pages/eatdeal/EatdealDetailContainer';
 import EatdealpayContainer from './components/pages/eatdeal/EatdealpayContainer';
-import InsertRestaurant from './components/pages/admin/InsertRestaurant';
+import RestaurantContainer from './components/pages/admin/RestaurantContainer';
 import QnAContainer from './components/pages/admin/QnAContainer';
 import UpdateOwnerRestaurant from './components/pages/owner/UpdateOwnerRestautrant';
 import OwnerEatDealContainer from './components/pages/owner/OwnerEatDealContainer';
@@ -78,7 +78,7 @@ const App = () => {
         />
         <Route path={`${path}/ownerEnroll`} exact component={OwnerEnroll} />
         <Route path={`${path}/admin`} exact component={AdminContainer} />
-        <Route path={`${path}/admin/enroll`} component={InsertRestaurant} />
+        <Route path={`${path}/admin/enroll`} component={RestaurantContainer} />
         <Route path={`${path}/admin/qna`} component={QnAContainer} />
         <Route path={`${path}/admin/owner`} component={ApplyOwnerContainer} />
         <Route path={`${path}/admin/review`} component={ReviewContainer} />

@@ -9,7 +9,11 @@ import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface AdminService {
 	//restaurant
+	//	매장 신청 리스트
 	List<Restaurant> getRestaurantsByApply();
+	//	등록 완료된 매장리스트(owner정보까지 받아야함)
+	List<Restaurant> getResList();
+	int insertRes(Restaurant res);
 	
 	
 	//owner
@@ -18,6 +22,8 @@ public interface AdminService {
 	
 	//review
 	List<AdminReview> getReviews();
+	int removeReview(String rvNo);
+	
 	
 
 }

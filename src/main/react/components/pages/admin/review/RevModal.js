@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../../../lib/styles/Button';
+import ReviewDetail from './ReviewDetail';
+import { removeReview } from '../../../../modules/adminReviews';
 
 const ModalWrap = styled.div`
   position: fixed;
@@ -9,7 +11,7 @@ const ModalWrap = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 90;
+  z-index: 50;
 `;
 
 const Modal = styled.div`
@@ -20,51 +22,40 @@ const Modal = styled.div`
   flex-direction: column;
   background-color: white;
   top: 10rem;
-  width: 24rem;
-  height: 12rem;
+  width: 30rem;
+  height: auto;
+  min-height: 25rem;
   border-radius: 8px;
 `;
 
 const Content = styled.div`
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
-const StyledButton = styled(Button)`
-  padding: 0.5rem;
-  width: 5rem;
-  margin: 0.5rem;
+const FormWrapper = styled.div`
+  display: flex;
 `;
 
-const ButtonWrapper = styled.div`
-  display: inline;
-  margin: 3rem auto;
-  flex-direction: column;
-  text-align: center;
-`;
-
-const RevModal = ({ review, closeModal }) => {
-  const {
-    rvNo,
-    memName,
-    resName,
-    resAddr,
-    rvRating,
-    rvContent,
-    rvImages,
-    rvDate,
-  } = review;
-
+const RevModal = ({ review, actionButtons }) => {
+  const dispatch = useDispatch();
+  const onRemove = useCallback(
+    rvNo => {
+      dispatch(removeReview({ rvNo: review.rvNo, rvNo }));
+      console.log(rvNo);
+    },
+    [dispatch],
+  );
   return (
     <>
       <ModalWrap>
         <Modal>
           <Content>
-            <div>해당 리뷰를 삭제하시겠습니까?</div>
+            <div>리뷰를 삭제하시겠습니까?</div>
           </Content>
-          <ButtonWrapper>
-            <StyledButton onClick={closeModal}>삭제</StyledButton>
-            <StyledButton onClick={closeModal}>복구</StyledButton>
-          </ButtonWrapper>
+          <FormWrapper>
+            <ReviewDetail review={review} actionButtons={actionButtons} />
+          </FormWrapper>
         </Modal>
       </ModalWrap>
     </>

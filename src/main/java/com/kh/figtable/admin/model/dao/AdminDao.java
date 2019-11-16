@@ -12,6 +12,8 @@ public interface AdminDao {
 	
 	//restaurant
 	List<Restaurant> getRestaurantsByApply(SqlSession session);
+	List<Restaurant> getResList(SqlSession session);
+	int insertRes(SqlSession session, Restaurant res);
 	
 	
 	//owner
@@ -20,6 +22,6 @@ public interface AdminDao {
 	
 	//review
 	List<AdminReview> getReviews(SqlSession session);
-	
+	int removeReview(SqlSession session, String rvNo);
 
 }

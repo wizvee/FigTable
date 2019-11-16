@@ -18,34 +18,38 @@ const Modal = styled.div`
   margin: 0px auto;
   flex-direction: column;
   background-color: white;
-  top: 10rem;
-  width: 24rem;
-  height: 12rem;
+  top: 14rem;
+  width: 15rem;
+  height: 9rem;
   border-radius: 8px;
 `;
 const Content = styled.div`
-  margin-top: 3rem;
+  margin-top: 2.5rem;
 `;
 
 const StyledButton = styled(Button)`
   padding: 0.5rem;
   width: 5rem;
-  margin: 0.5rem;
+  margin: 1rem;
 `;
 
 const ButtonWrapper = styled.div`
-  display: inline;
-  margin: 3rem auto;
-  flex-direction: column;
   text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const insertModal = ({ msg, url }) => {
+const insertModal = ({ msg, onCloseModal }) => {
   return (
     <ModalWrap>
       <Modal>
         <Content>{msg}</Content>
-        <StyledButton to={url}>확인</StyledButton>
+        <ButtonWrapper>
+          <StyledButton onClick={onCloseModal}>확인</StyledButton>
+        </ButtonWrapper>
       </Modal>
     </ModalWrap>
   );

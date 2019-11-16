@@ -16,6 +16,7 @@ public class AdminOwner {
 	private String ownStatus;
 	private String ownStatics;
 	private String ownApply;
+	private String ownReturn;
 	private String resNo;
 	private String resName;
 	private String resLocationKeyword;

@@ -17,6 +17,16 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Restaurant> getRestaurantsByApply(SqlSession session) {
 		return session.selectList("admin.getByResApply");
 	}
+	
+	@Override
+	public List<Restaurant> getResList(SqlSession session) {
+		return session.selectList("admin.getResList");
+	}
+	
+	@Override
+	public int insertRes(SqlSession session, Restaurant res) {
+		return session.insert("admin.insertRes", res);
+	}
 
 	
 	//owner
@@ -33,6 +43,10 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.getReviews");
 	}
 	
+	@Override
+	public int removeReview(SqlSession session, String rvNo) {
+		return session.delete("admin.removeReview", rvNo);
+	}
 	
 
 }

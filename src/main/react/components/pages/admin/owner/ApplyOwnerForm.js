@@ -46,7 +46,7 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const ApplyOwner = ({ form, owner, changePage, closeModal, onSubmit }) => {
+const ApplyOwnerForm = ({ owner, onReturn, onSubmit }) => {
   return (
     <>
       <FormBlock>
@@ -54,21 +54,16 @@ const ApplyOwner = ({ form, owner, changePage, closeModal, onSubmit }) => {
           <StyledInput
             type="text"
             name="ownResName"
-            value={owner.ownResName}
+            value={owner.resName}
             readOnly
           />
           <StyledInput
             type="text"
             name="ownResAddress"
-            value={owner.ownResAddress}
+            value={owner.resAddress}
             readOnly
           />
-          <StyledInput
-            type="tel"
-            name="resTel"
-            value={owner.ownResTel}
-            readOnly
-          />
+          <StyledInput type="tel" name="resTel" value={owner.resTel} readOnly />
           <StyledInput
             type="text"
             name="ownName"
@@ -81,11 +76,14 @@ const ApplyOwner = ({ form, owner, changePage, closeModal, onSubmit }) => {
             value={owner.ownEmail}
             readOnly
           />
+          {/* 반려사유 등록할 인풋 */}
+          <StyledInput type="text" name="ownReturn" placeholder="반려사유" />
           <StyledInput type="hidden" name="ownPassword" />
-          <StyledInput type="hidden" name="ownNo" />
+          <StyledInput type="hidden" name="ownNo" value={owner.ownNo} />
+          <StyledInput type="hidden" name="resNo" value={owner.resNo} />
           <ButtonWrapper>
-            <StyledButton onClick={changePage}>네</StyledButton>
-            <StyledButton onClick={closeModal}>아니오</StyledButton>
+            <StyledButton onClick={onReturn}>승인</StyledButton>
+            <StyledButton onClick={onReturn}>반려</StyledButton>
           </ButtonWrapper>
         </form>
       </FormBlock>
@@ -93,4 +91,4 @@ const ApplyOwner = ({ form, owner, changePage, closeModal, onSubmit }) => {
   );
 };
 
-export default ApplyOwner;
+export default ApplyOwnerForm;

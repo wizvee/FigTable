@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import AdminHeader from './AdminHeader';
 import { MdLocalDining, MdFace, MdSpeakerNotes } from 'react-icons/md';
 import { FaComments } from 'react-icons/fa';
@@ -85,7 +85,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdLocalDining />
                 </IconWrapper>
-                매장 신규 등록
+                매장 등록 / 폐업
               </Link>
             </li>
             <li className="li">
@@ -101,7 +101,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdFace />
                 </IconWrapper>
-                사장님 관리
+                사장님 승인
               </Link>
             </li>
             <li className="li">

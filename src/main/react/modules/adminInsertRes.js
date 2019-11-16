@@ -7,14 +7,8 @@ import * as insertAPI from '../lib/api/adminInsertRes';
 import { takeLatest } from 'redux-saga/effects';
 
 //모든 내용 초기화
-const INITIALIZE = 'adminInsertRes/INITIALIZE';
+const INITIALIZE_FORM = 'adminInsertRes/INITIALIZE_FORM';
 const CHANGE_FIELD = 'adminInsertRes/CHANGE_FIELD';
-
-export const intialize = createAction(INITIALIZE);
-export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
-  key,
-  value,
-}));
 
 const [
   INSERT_RES,
@@ -22,28 +16,47 @@ const [
   INSERT_RES_FAILURE,
 ] = createRequestActionTypes('adminInsertRes/INSERT_RES'); //restaurant 등록
 
+const SEL_ADDR = 'adminInsertRes/SEL_ADDR';
+
+export const initializeForm = createAction(INITIALIZE_FORM, form => form);
+export const changeField = createAction(
+  CHANGE_FIELD,
+  ({ form, key, value }) => ({
+    form,
+    key,
+    value,
+  }),
+);
+
 export const insertRes = createAction(
   INSERT_RES,
   ({
     resName,
     resAddress,
     resTel,
-    ownName,
     resLocationKeyword,
     resFoodKeyword,
-    resOpenDay,
-    resCloseTime,
+    resLat,
+    resLong,
     resThumb,
   }) => ({
     resName,
     resAddress,
     resTel,
-    ownName,
     resLocationKeyword,
     resFoodKeyword,
-    resOpenDay,
-    resCloseTime,
+    resLat,
+    resLong,
     resThumb,
+  }),
+);
+
+export const selAddr = createAction(
+  SEL_ADDR,
+  ({ resAddress, resLat, resLong }) => ({
+    resAddress,
+    resLat,
+    resLong,
   }),
 );
 
@@ -54,15 +67,18 @@ export function* adminInsertResSaga() {
 }
 
 const initialState = {
-  resName: '',
-  resAddress: '',
-  resTel: '',
-  ownName: '',
-  resLocationKeyword: '',
-  resFoodKeyword: '',
-  resOpenDay: '',
-  resCloseTime: '',
-  resThumb: '',
+  insertRes: {
+    resName: '',
+    resTel: '',
+    resAddress: '',
+    resLocationKeyword: '',
+    resFoodKeyword: '',
+    resLat: 0,
+    resLong: 0,
+    resOpenDay: '',
+    resCloseTime: '',
+    resThumb: '',
+  },
   restaurant: null,
   restaurantError: null,
 };
@@ -70,25 +86,34 @@ const initialState = {
 const adminInsertRes = handleActions(
   {
     //initialState를 넣어 초기 상태로 바꾸기
-    [INITIALIZE]: state => initialState,
-    [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
-      produce(state, draft => {
-        draft[key] = value;
-      }),
-    [INSERT_RES]: state => ({
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
+      [form]: initialState[form],
+      // 폼을 초기화 할 때 restaurant도 초기화
       restaurant: null,
       restaurantError: null,
     }),
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
+      produce(state, draft => {
+        draft.insertRes[key] = value;
+      }),
+
     //reataurant 등록 성공시
     [INSERT_RES_SUCCESS]: (state, { payload: restaurant }) => ({
       ...state,
-      restaurant,
+      restaurantError: null,
+      restaurant: 1,
     }),
-    [INSERT_RES_FAILURE]: (state, { payload: restaurantError }) => ({
+    [INSERT_RES_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      restaurantError,
+      restaurantError: error,
     }),
+    [SEL_ADDR]: (state, { payload: { resAddress, resLat, resLong } }) =>
+      produce(state, draft => {
+        draft.insertRes.resAddress = resAddress;
+        draft.insertRes.resLat = resLat;
+        draft.insertRes.resLong = resLong;
+      }),
   },
   initialState,
 );

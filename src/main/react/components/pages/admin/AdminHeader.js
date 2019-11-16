@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import Responsive from '../../common/Responsive';
+import Responsive from '../../../components/common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import { MdPerson } from 'react-icons/md';
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import ApplyOwner from './ApplyOwner';
+import ApplyOwnerForm from './ApplyOwnerForm';
 
 const ModalWrap = styled.div`
   position: fixed;
@@ -33,16 +33,8 @@ const FormWrapper = styled.div`
   display: flex;
 `;
 
-const OwnerModal = ({ owner, closeModal, changePage, onSubmit }) => {
-  const {
-    ownNo,
-    ownName,
-    ownEmail,
-    ownPassword,
-    ownResName,
-    ownResTel,
-    ownResAddress,
-  } = owner;
+const OwnerModal = ({ owner, onReturn }) => {
+  const { resName } = owner;
 
   return (
     <>
@@ -50,16 +42,11 @@ const OwnerModal = ({ owner, closeModal, changePage, onSubmit }) => {
         <Modal>
           <Content>
             <div>
-              <b>{ownResName}</b> 매장의 사장님으로 등록하시겠습니까?
+              <b>{resName}</b> 매장의 사장님으로 등록하시겠습니까?
             </div>
           </Content>
           <FormWrapper>
-            <ApplyOwner
-              owner={owner}
-              closeModal={closeModal}
-              changePage={changePage}
-              onSubmit={onSubmit}
-            />
+            <ApplyOwnerForm owner={owner} onReturn={onReturn} />
           </FormWrapper>
         </Modal>
       </ModalWrap>
