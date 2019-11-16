@@ -17,6 +17,11 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	public List<Restaurant> getRestaurantsByKeyword(SqlSession session, String keyword) {
+		return session.selectList("restaurant.getByKeyword", keyword);
+	}
+
+	@Override
 	public Restaurant getRestaurantById(SqlSession session, String resNo) {
 		return session.selectOne("restaurant.getById", resNo);
 	}
@@ -30,8 +35,5 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	public String isLiked(SqlSession session, Map<String, String> info) {
 		return session.selectOne("restaurant.isLiked", info);
 	}
-	
-	
-	
 
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import client, { path } from '../../../../lib/api/client';
+import client from '../../../../lib/api/client';
 import ModalLoversItem from './ModalLoversItem';
 
 // 모달 배경
@@ -33,20 +33,18 @@ const Container = styled.div`
   }
 `;
 
-const ModalLoversContainer = ({ rvNo, closeModal }) => {
+const ModalLoversContainer = ({ title, api, closeModal }) => {
   const [loversArr, setLoversArr] = useState([]);
 
   useEffect(() => {
-    client
-      .get(`${path}/api/review/loves/${rvNo}`)
-      .then(({ data }) => setLoversArr(data));
+    client.get(`${api}`).then(({ data }) => setLoversArr(data));
   }, []);
 
   return (
     <>
       <Overlay onClick={closeModal} />
       <Container>
-        <h3>좋아요</h3>
+        <h3>{title}</h3>
         {loversArr.map(lover => (
           <ModalLoversItem key={lover.memNo} lover={lover} />
         ))}

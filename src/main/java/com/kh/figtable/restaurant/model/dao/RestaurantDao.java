@@ -13,12 +13,12 @@ public interface RestaurantDao {
 
 	List<Restaurant> getRestaurantsByLocal(SqlSession session, String local);
 
+	List<Restaurant> getRestaurantsByKeyword(SqlSession session, String keyword);
+
 	Restaurant getRestaurantById(SqlSession session, String resNo);
 
 	int increaseViews(SqlSession session, String resNo);
 
 	String isLiked(SqlSession session, Map<String, String> info);
-	
-	
 
 }

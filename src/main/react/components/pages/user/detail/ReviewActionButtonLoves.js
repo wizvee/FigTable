@@ -2,10 +2,11 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineHeart, AiFillHeart, AiFillSmile } from 'react-icons/ai';
 import styled from 'styled-components';
-import { lovesRv, unlovesRv } from '../../../../modules/member';
-import palette from '../../../../lib/styles/Palette';
-import ModalLogin from '../ModalLogin';
 import ModalLoversContainer from './ModalLoversContainer';
+import ModalLogin from '../ModalLogin';
+import palette from '../../../../lib/styles/Palette';
+import { path } from '../../../../lib/api/client';
+import { lovesRv, unlovesRv } from '../../../../modules/member';
 
 const Icon = styled.span`
   font-size: 0.95rem;
@@ -76,7 +77,11 @@ const ReviewActionButtonLoves = ({ review }) => {
     <>
       {isModal && <ModalLogin msg="love" closeModal={closeModal} />}
       {isLoverModal && (
-        <ModalLoversContainer rvNo={review.rvNo} closeModal={closeLoverModal} />
+        <ModalLoversContainer
+          title="좋아요"
+          api={`${path}/api/review/loves/${review.rvNo}`}
+          closeModal={closeLoverModal}
+        />
       )}
       {member && review.loved ? (
         <Icon onClick={onUnlove}>

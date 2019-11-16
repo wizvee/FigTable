@@ -26,6 +26,11 @@ public class restaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
+	public List<Restaurant> getRestaurantsByKeyword(String keyword) {
+		return dao.getRestaurantsByKeyword(session, keyword);
+	}
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public Restaurant getRestaurantById(boolean validate, String resNo) {
 		if (validate)
@@ -43,8 +48,5 @@ public class restaurantServiceImpl implements RestaurantService {
 	public String isLiked(Map<String, String> info) {
 		return dao.isLiked(session, info);
 	}
-	
-	
-	
 
 }

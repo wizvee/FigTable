@@ -9,12 +9,12 @@ public interface RestaurantService {
 
 	List<Restaurant> getRestaurantsByLocal(String local);
 
+	List<Restaurant> getRestaurantsByKeyword(String keyword);
+
 	Restaurant getRestaurantById(boolean validate, String resNo);
 
 	int increaseViews(String resNo);
 
 	String isLiked(Map<String, String> info);
-	
-	
 
 }

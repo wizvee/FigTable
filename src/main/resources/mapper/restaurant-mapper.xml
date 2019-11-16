@@ -42,10 +42,11 @@
 	<select id="getByKeyword" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE
-		(RES_ADDRESS LIKE '%'|| #{keyword} || '%' OR RES_LOCATION_KEYWORD LIKE
-		'%'|| #{keyword} || '%' OR RES_FOOD_KEYWORD LIKE '%'|| #{keyword} ||
-		'%') AND RES_APPLY IN ('A', 'C') ORDER BY RES_RATING DESC, RES_LIKES
-		DESC, RES_REVIEWS DESC, RES_VIEWS DESC
+		(RES_NAME LIKE '%'|| #{keyword} || '%' OR RES_ADDRESS LIKE '%'||
+		#{keyword} || '%' OR RES_LOCATION_KEYWORD LIKE '%'|| #{keyword} || '%'
+		OR RES_FOOD_KEYWORD LIKE '%'|| #{keyword} || '%') AND RES_APPLY IN
+		('A', 'C') ORDER BY RES_RATING DESC, RES_LIKES DESC, RES_REVIEWS DESC,
+		RES_VIEWS DESC
 	</select>
 
 	<select id="getById" parameterType="string"

@@ -168,6 +168,19 @@ public class MemberController {
 		return new ResponseEntity<String>(rename, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/api/member/follwing", method = RequestMethod.GET)
+	public ResponseEntity<List<Member>> getFollwoingMembers(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Member> result = null;
+		if (m != null) {
+			result = service.getFollowingList(m.getMemNo());
+			for (Member member : result)
+				member.setFollowing(true);
+		}
+
+		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/api/member/following", method = RequestMethod.POST)
 	public ResponseEntity followingMember(@RequestBody Map<String, String> data) {
 		int r = service.followingMember(data);

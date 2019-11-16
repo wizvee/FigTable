@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiFillSetting } from 'react-icons/ai';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
+import ModalLoversContainer from '../detail/ModalLoversContainer';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -62,7 +63,7 @@ const Name = styled.div`
 
 const Social = styled.div`
   display: flex;
-  margin-right: 0.3rem;
+  margin-right: 0.2rem;
   height: 100%;
   color: ${palette.textGray};
   span {
@@ -74,9 +75,13 @@ const Social = styled.div`
     &.right {
       margin-left: auto;
     }
+    &.selected {
+      color: ${palette.primary};
+      font-weight: 600;
+    }
   }
   span + span {
-    margin-left: 1.5rem;
+    margin-left: 1.3rem;
   }
 `;
 
@@ -87,8 +92,16 @@ const Section = styled.div`
 `;
 
 const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
+  const [menu, setMenu] = useState('myReviews');
+
   return (
     <Container>
+      {menu == 'myReviews' && (
+        <ModalLoversContainer
+          title="팔로잉"
+          api={`${path}/api/member/follwing`}
+        />
+      )}
       <Profile>
         <label>
           <Pic url={member.memProfile} />
@@ -100,7 +113,9 @@ const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
             <AiFillSetting />
           </Name>
           <Social>
-            <span>리뷰 {member.memRvCnt}</span>
+            <span className={menu == 'myReviews' ? 'selected' : ''}>
+              리뷰 {member.memRvCnt}
+            </span>
             <span>팔로워 {member.memFwCnt}</span>
             <span>팔로잉 0</span>
             <span className="right">
@@ -110,7 +125,7 @@ const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
           </Social>
         </Info>
       </Profile>
-      <Section>{myReviews}</Section>
+      {menu == 'myReviews' && <Section>{myReviews}</Section>}
     </Container>
   );
 };

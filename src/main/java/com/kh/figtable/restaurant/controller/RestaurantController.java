@@ -35,6 +35,12 @@ public class RestaurantController {
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/api/restaurantsk", method = RequestMethod.GET)
+	private ResponseEntity<List<Restaurant>> getRestaurantsByKeyword(@RequestParam String keyword) {
+		List<Restaurant> list = service.getRestaurantsByKeyword(keyword);
+		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/api/restaurants/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<Restaurant> getRestaurantById(@PathVariable("resNo") String resNo, HttpServletRequest req,
 			HttpServletResponse res) {
@@ -79,10 +85,5 @@ public class RestaurantController {
 
 		return new ResponseEntity<Restaurant>(result, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
 
 }
