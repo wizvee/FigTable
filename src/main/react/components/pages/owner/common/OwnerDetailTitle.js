@@ -10,15 +10,25 @@ const Title = styled.div`
   background: white;
   height: 50px;
   margin-top: 8px;
-  padding-top: 8px;
+  padding-top: 13px;
+
   padding-left: 15px;
   font-size: 23px;
   font-weight: 900;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 
-  &.waiting,
-  &.statics {
-    padding-top: 13px;
+  &.waiting {
+    margin: 0 auto;
+    width: 90%;
+  }
+  &.restaurant {
+    margin: 0 auto;
+    width: 90%;
+    padding-top: 8px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
 `;
 
@@ -30,14 +40,14 @@ const MenuButton = styled.div`
   border-radius: 50px;
   padding: 5px;
   position: relative;
-  top: -3px;
+  top: -7px;
   font-size: 28px;
   &:hover {
     cursor: pointer;
   }
 
-  &.waiting {
-    top: -7px;
+  &.restaurant {
+    top: -2px;
   }
 `;
 
@@ -50,15 +60,16 @@ const DropDownMenu = styled.div`
   z-index: 1;
   position: relative;
   float: right;
-  top: -8px;
-  &.waiting {
-    top: -13px;
+  top: -0.8rem;
+
+  &.restaurant {
+    top: -0.5rem;
   }
 `;
 
 const MenuItem = styled.div`
   vertical-align: top;
-  width: 100px;
+  width: 90px;
   height: 100%;
   display: inline-block;
   text-align: center;
@@ -90,17 +101,18 @@ const OwnerDetailTitle = ({
             ? 'waiting'
             : pathname == `${path}/owner/${resNo}/statics`
             ? 'statics'
+            : pathname == `${path}/owner/${resNo}/restaurant`
+            ? 'restaurant'
             : ''
         }
       >
         {title}
         {pathname == `${path}/owner/${resNo}/waiting` ||
-        ((pathname == `${path}/owner/${resNo}/statics` ||
-          pathname == `${path}/owner/${resNo}/restaurant`) &&
-          topMenu == true) ? (
+        pathname == `${path}/owner/${resNo}/restaurant` ||
+        (pathname == `${path}/owner/${resNo}/statics` && topMenu == true) ? (
           <MenuButton
             className={
-              pathname == `${path}/owner/${resNo}/waiting` && 'waiting'
+              pathname == `${path}/owner/${resNo}/restaurant` && 'restaurant'
             }
             onClick={showMenu}
           >
@@ -112,7 +124,7 @@ const OwnerDetailTitle = ({
         {visible ? (
           <DropDownMenu
             className={
-              pathname == `${path}/owner/${resNo}/waiting` && 'waiting'
+              pathname == `${path}/owner/${resNo}/restaurant` && 'restaurant'
             }
           >
             <Link to={`${path}/owner/${resNo}`}>

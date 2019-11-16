@@ -40,17 +40,6 @@ const ContainerWrapper = styled(Responsive)`
     clear: both;
   }
 
-  .left {
-    width: auto;
-    height: auto;
-    display: inline-block;
-  }
-
-  @media (max-width: 1024px) {
-    .left {
-      display: none;
-    }
-  }
   @media (max-width: 425px) {
     height: 1500px;
   }
@@ -58,13 +47,9 @@ const ContainerWrapper = styled(Responsive)`
 
 const Right = styled.div`
   padding: 1rem;
-  width: 65%;
+  width: 100%;
   height: 100%;
   float: right;
-
-  @media (max-width: 1024px) {
-    width: 100%;
-  }
 
   @media (max-width: 425px) {
     width: 100%;
@@ -143,11 +128,6 @@ const UpdateOwnerRestautrant = ({ match }) => {
   const [topMenu, setTopMenu] = useState('false');
 
   useEffect(() => {
-    setTopMenu(window.innerWidth <= 1024 ? true : false);
-    const handleResize = () => {
-      setTopMenu(window.innerWidth <= 1024 ? true : false);
-    };
-    window.addEventListener('resize', handleResize);
     dispatch(ownerRes(resNo));
     dispatch(ownHeader('o22'));
   }, []);
@@ -182,12 +162,8 @@ const UpdateOwnerRestautrant = ({ match }) => {
           <HeaderOwner ownerInfo={ownerInfo} />
           <Container>
             <ContainerWrapper>
-              <div className="left">
-                <OwnerInfo store={restaurant} />
-                <OwnerLeftMenu />
-              </div>
               <Right>
-                <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
+                <OwnerDetailTitle title="가게정보 수정" />
                 <OwnerShopForm
                   selectAddr={selectAddr}
                   addressModal={addressModal}

@@ -10,8 +10,17 @@ const FormContainer = styled.div`
   padding-bottom: 20px;
   margin: 0 auto;
   margin-top: 20px;
+  margin-bottom: 20px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+
+  .label {
+    display: inline-block;
+    width: 100%;
+    padding-top: 0.5rem;
+    text-align: right;
+    line-height: 2;
+  }
 `;
 
 const SubTitle = styled.div`
@@ -42,41 +51,56 @@ const OwnerForm = () => {
   return (
     <FormContainer>
       <SubTitle>사장님 정보</SubTitle>
-      <StyledInput
-        style={{ marginLeft: '45px' }}
-        type="text"
-        name="ownEmail"
-        placeholder="이메일"
-        // onChange={onChange}
-      />
-      <StyledInput
-        style={{ marginLeft: '45px' }}
-        type="password"
-        name="ownPassword"
-        placeholder="비밀번호"
-        // onChange={onChange}
-      />
-      <StyledInput
-        style={{ marginLeft: '45px' }}
-        type="password"
-        name="ownPasswordCk"
-        placeholder="비밀번호 확인"
-        // onChange={onChange}
-      />
-      <StyledInput
-        style={{ marginLeft: '45px' }}
-        type="ownPasswordCk"
-        name="ownName"
-        placeholder="이름"
-        // onChange={onChange}
-      />
-      <StyledInput
-        style={{ marginLeft: '45px' }}
-        type="text"
-        name="ownPhone"
-        placeholder="전화번호"
-        // onChange={onChange}
-      />
+      <div className="label">
+        이메일
+        <StyledInput
+          style={{ marginLeft: '45px' }}
+          type="text"
+          name="ownEmail"
+          placeholder="이메일"
+          // onChange={onChange}
+        />
+      </div>
+      <div className="label">
+        비밀번호
+        <StyledInput
+          style={{ marginLeft: '45px' }}
+          type="password"
+          name="ownPassword"
+          placeholder="비밀번호"
+          // onChange={onChange}
+        />
+      </div>
+      <div className="label">
+        비밀번호 확인
+        <StyledInput
+          style={{ marginLeft: '45px' }}
+          type="password"
+          name="ownPasswordCk"
+          placeholder="비밀번호 확인"
+          // onChange={onChange}
+        />
+      </div>
+      <div className="label">
+        이름
+        <StyledInput
+          style={{ marginLeft: '45px' }}
+          type="ownPasswordCk"
+          name="ownName"
+          placeholder="이름"
+          // onChange={onChange}
+        />
+      </div>
+      <div className="label">
+        전화번호
+        <StyledInput
+          style={{ marginLeft: '45px' }}
+          type="text"
+          name="ownPhone"
+          placeholder="전화번호"
+          // onChange={onChange}
+        />
+      </div>
     </FormContainer>
   );
 };

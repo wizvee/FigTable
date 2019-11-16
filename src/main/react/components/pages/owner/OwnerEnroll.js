@@ -3,6 +3,7 @@ import HeaderOwnerSimple from './common/HeaderOwnerSimple';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerForm from './OwnerForm';
+import OwnerEnrollShopForm from './OwnerEnrollShopForm';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -41,6 +42,26 @@ const Title = styled.div`
 `;
 
 const OwnerEnroll = () => {
+  const [addressModal, setAddressModal] = useState(false);
+  const addressModalOpen = () => {
+    setAddressModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const addressModalClose = () => {
+    setAddressModal(false);
+    document.body.style.overflow = 'scroll';
+  };
+
+  const [shopSearchModal, setShopSearchModal] = useState(false);
+  const shopSearchOpen = () => {
+    setShopSearchModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const shopSearchClose = () => {
+    setShopSearchModal(false);
+    document.body.style.overflow = 'scroll';
+  };
+
   return (
     <>
       <HeaderOwnerSimple />
@@ -48,6 +69,14 @@ const OwnerEnroll = () => {
         <ContentWrapper>
           <Title>회원가입</Title>
           <OwnerForm />
+          <OwnerEnrollShopForm
+            addressModal={addressModal}
+            addressModalOpen={addressModalOpen}
+            addressModalClose={addressModalClose}
+            shopSearchModal={shopSearchModal}
+            shopSearchOpen={shopSearchOpen}
+            shopSearchClose={shopSearchClose}
+          />
         </ContentWrapper>
       </Container>
     </>

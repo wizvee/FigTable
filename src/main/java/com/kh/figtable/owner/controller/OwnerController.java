@@ -125,9 +125,7 @@ public class OwnerController {
 	@RequestMapping(value="/api/updateRes", method=RequestMethod.PATCH)
 	public ResponseEntity updateRes(@RequestBody Restaurant restaurant) {
 		
-		System.out.println(restaurant);
 		int r = service.updateRes(restaurant);
-		System.out.println(r);
 		
 		if(r>0) {
 			return new ResponseEntity<Restaurant>(restaurant, HttpStatus.OK);			

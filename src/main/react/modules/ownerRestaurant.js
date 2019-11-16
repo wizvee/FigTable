@@ -5,7 +5,6 @@ import createRequestSaga, {
 import produce, { produceWithPatches } from 'immer';
 import * as restAPI from '../lib/api/ownerRestaurant';
 import { takeLatest } from 'redux-saga/effects';
-import restaurants from './restaurants';
 
 const [
   OWNER_RES,
@@ -73,7 +72,7 @@ export function* ownerResSaga() {
 }
 
 const initialState = {
-  ownRestaurant: null,
+  ownRestaurant: '',
   error: null,
 };
 

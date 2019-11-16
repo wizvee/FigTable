@@ -11,14 +11,19 @@ import Geocode from 'react-geocode';
 import { useDispatch } from 'react-redux';
 
 const FormContainer = styled.div`
-  width: 100%;
+  width: 90%;
   height: auto;
   overflow: hidden;
   display: relative;
   padding-bottom: ${props => props.padding};
+  margin: 0 auto;
   margin-top: 20px;
   background: white;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 
   .label {
     display: inline-block;
@@ -29,7 +34,7 @@ const FormContainer = styled.div`
   }
   .imgLabel {
     text-align: left;
-    margin-left: 4rem;
+    margin-left: 8.6rem;
     @media (max-width: 1024px) {
       margin-left: 5.5rem;
     }
@@ -291,7 +296,6 @@ const OwnerShopForm = ({
     Geocode.fromAddress(data.jibunAddress).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
         selectAddr(data.jibunAddress, lat, lng);
       },
       error => {
