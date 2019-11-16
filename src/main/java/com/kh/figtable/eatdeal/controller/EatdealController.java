@@ -79,25 +79,26 @@ public class EatdealController {
 	}
 
 	@RequestMapping(value = "/api/newEat/register", method = RequestMethod.POST)
-	public ResponseEntity<Member> register(@RequestBody Eatdeal eat, HttpSession session) {
+	public ResponseEntity<Integer> register(@RequestBody Eatdeal eat, HttpSession session) {
 		System.out.println(eat);
-//		int result = service.register(eat);
-//		if (result > 0) {
-//			//잇딜등록 성공했을 경우 eatdeal 반환
-//			Eatdeal e = service.selectEat(eat);
-//			return new ResponseEntity<Eatdeal>(e, HttpStatus.OK);
-//		}
-//		// 실패 시 409 에러 반환
-		return new ResponseEntity<Member>(HttpStatus.CONFLICT);
+		int result = service.register(eat);
+		if (result > 0) {
+			// 성공시 200 반환
+			System.out.println("등록성공");
+			
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+			// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 
 	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.POST)
-	private ResponseEntity<List<String>> uploadFiles(MultipartHttpServletRequest req) {
+	private ResponseEntity<String> uploadFiles(MultipartHttpServletRequest req) {
 		System.out.println("post들어옴");
 		// 1. 파일저장경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/eatdeal");
-		List<String> images = new ArrayList<>();
+		String image = "";
 		// 저장경로가 없으면 생성
 		File dir = new File(saveDir);
 		if (!dir.exists())
@@ -120,10 +121,10 @@ public class EatdealController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			images.add(rename);
+			image=rename;
 		}
 
-		return new ResponseEntity<List<String>>(images, HttpStatus.OK);
+		return new ResponseEntity <String>(image, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.PATCH)

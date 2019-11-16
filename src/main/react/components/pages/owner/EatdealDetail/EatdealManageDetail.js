@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
-import EatdealModal from './EatdealModal';
+import EatdealDateModal from './EatdealDateModal';
+import EatdealDeleteModal from './EatdealDeleteModal';
 import moment from 'moment';
 
 const EatdealCard =styled.div`
@@ -56,7 +58,11 @@ const EatdealButton= styled(Button)`
   font-weight:normal;
   vertical-align:center;
 `;
-const EatdealManageDetail=({eatDeal})=>{
+const EatdealManageDetail=({
+  eatDeal, 
+  onDelete,
+})=>{
+  const path = process.env.PATH;
   const {
     eatNo,
     resNo,
@@ -72,25 +78,33 @@ const EatdealManageDetail=({eatDeal})=>{
     eatEndDate,
     eatContent
   } = eatDeal;
-    
-    const [modal, setIsModal] = useState(false);
-    function openModal(){
-      setIsModal(true);
+  
+  
+    //모달제어
+    const [dateModal, setDateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    function openDateModal(){
+      setDateModal(true);
+    }
+    function openDeleteModal(){
+      setDeleteModal(true);
     }
     function closeModal(){
-      setIsModal(false);
+      setDeleteModal(false);
+      setDateModal(false);
     }
+   
     return (
         <>
         <EatdealCard>
-            <Image url={thumb}/>
+            <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <RightContainer>
                     <Text>메뉴 : <span>{eatFoodName}</span></Text>
-                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{eatDiscount}</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
+                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{Number(eatDiscount)*100}%</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
             
                     <Text>기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Text>
                     <Text>남은 수량 : <span>{eatCount}</span> </Text>
-                    {eatStatus==='N'?
+                    {eatStatus==='P'?
                     (<Text color="#f67280">상태 : <span>New</span></Text>)
                     :(<Text color="#f1c40f">상태 : <span>Sold Out</span></Text>)
                      }
@@ -98,15 +112,25 @@ const EatdealManageDetail=({eatDeal})=>{
         </EatdealCard>
         
         <ButtonArea>
-              <EatdealButton bgColor={palette.textGray}>
-                삭제
+              <EatdealButton bgColor={palette.textGray} onClick={openDeleteModal}>
+                잇딜종료
               </EatdealButton>
-              <EatdealButton onClick={openModal}>
+              <EatdealButton onClick={openDateModal}>
                 기간연장
               </EatdealButton>
             </ButtonArea>
-             {
-                !modal?null:<EatdealModal closeModal={closeModal}/>
+             {  //기간연장
+                !dateModal?null:
+                <EatdealDateModal 
+                closeModal={closeModal}
+                />
+             }    
+             {  //잇딜종료
+                !deleteModal?null:
+                <EatdealDeleteModal 
+                closeModal={closeModal}
+                onDelete={onDelete}
+                eatNo={eatNo}/>
              }    
         
         </>

@@ -36,6 +36,11 @@ public class EatdealDaoImpl implements EatdealDao {
 	public List<Buyer> getBuy(SqlSession session, String resNo) {
 		return session.selectList("eatdeal.getBuy", resNo);
 	}
+
+	@Override
+	public int register(SqlSession session, Eatdeal eat) {
+		return session.insert("eatdeal.register", eat);
+	}
 	
 
 

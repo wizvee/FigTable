@@ -3,9 +3,6 @@ import styled, { css } from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
 import { MdClose } from 'react-icons/md';
-import DatePicker from '../EatdealDetail/DatePicker';
-import moment from 'moment';
-
 const ModalWrap= styled.div`
     position: fixed;
     top: 0;
@@ -48,23 +45,6 @@ const Separator = styled.div`
     background-color:#E9E9E9;
 `;
 
-const EatdealDateInput= styled.div`
-
-    margin:0.5rem 0;
-    padding:0 3rem;
-    .wrap{
-      display:inline-block;
-      border-radius: 5px;
-      border: 1px solid ${palette.borderGray};
-      font-size: 0.8rem;
-      outline: none;
-      :focus{
-        border: 1px solid ${palette.primary};
-        transition-duration:0.5s;
-      }
-    }
-`;
-
 const EatdealButton= styled(Button)`
   padding: 0.5rem 0.5rem;
   margin: 0 0.3rem;
@@ -78,16 +58,7 @@ const ButtonArea= styled.div`
 padding : 0.2rem 1rem;
 text-align:center;
 `;
-
-const EatdealModal =({closeModal})=>{
-    const [start, setStart]= useState(null);
-    const [end, setEnd]= useState(null);
-
-    const onSetValue = (value) =>{
-        setStart(moment(value.startDate).format('YYYY-MM-DD'));
-        setEnd(moment(value.endDate).format('YYYY-MM-DD'));
-
-    }
+const EatdealDeleteModal = ({closeModal, onDelete, eatNo})=>{
     return (
         <>
         <ModalWrap>
@@ -95,19 +66,11 @@ const EatdealModal =({closeModal})=>{
             <ModalX>
                 <MdClose onClick={closeModal}/>
             </ModalX>
-            <ModalTitle>기간 연장</ModalTitle>
-            <Separator/> 
-            
-          
-            <EatdealDateInput>
-                <div className="wrap">
-                    <DatePicker onSetValue={onSetValue}/>
-                </div>
-            </EatdealDateInput>
+                <ModalTitle>잇딜 판매를 종료하시겠습니까?</ModalTitle>
             <Separator/> 
         <ButtonArea>
-              <EatdealButton >
-                수정 완료
+              <EatdealButton onClick={onDelete(eatNo)} >
+                종료하기
               </EatdealButton>
               </ButtonArea>
 
@@ -117,4 +80,4 @@ const EatdealModal =({closeModal})=>{
 
     )
 };
-export default EatdealModal;
+export default EatdealDeleteModal;

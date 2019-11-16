@@ -18,6 +18,7 @@ const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = createRequestActionTypes(
 );
 const [RES_OPEN, RES_OPEN_SUCCESS] = createRequestActionTypes('owner/RES_OPEN');
 const [EDIT_RES] = createRequestActionTypes('owner/EDIT_RES');
+const SEL_ADDR = 'owner/SEL_ADDR';
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -35,11 +36,20 @@ export const resOpen = createAction(RES_OPEN, ({ resNo, open }) => ({
   resNo,
   open,
 }));
+export const selAddr = createAction(
+  SEL_ADDR,
+  ({ resAddress, resLat, resLong }) => ({
+    resAddress,
+    resLat,
+    resLong,
+  }),
+);
 export const editRes = createAction(EDIT_RES, ({ resNo }) => ({ resNo }));
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
 const openSaga = createRequestSaga(RES_OPEN, restAPI.updateOpen);
+
 export function* ownerResSaga() {
   yield takeLatest(OWNER_RES, ownerSaga);
   yield takeLatest(UPDATE_THUMB, thumbSaga);
@@ -69,6 +79,12 @@ const ownerRestaurant = handleActions(
     [RES_OPEN]: (state, { payload: { resNo, open } }) =>
       produce(state, draft => {
         draft.ownRestaurant.open = open;
+      }),
+    [SEL_ADDR]: (state, { payload: { resAddress, resLat, resLong } }) =>
+      produce(state, draft => {
+        draft.ownRestaurant.resAddress = resAddress;
+        draft.ownRestaurant.resLat = resLat;
+        draft.ownRestaurant.resLong = resLong;
       }),
   },
   initialState,

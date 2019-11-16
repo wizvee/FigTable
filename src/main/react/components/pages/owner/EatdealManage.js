@@ -1,24 +1,36 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import palette from '../../../lib/styles/Palette';
-import Button from '../../../lib/styles/Button';
 import EatdealManageDetail from './EatdealDetail/EatdealManageDetail';
+import { deleteEat } from '../../../../react/modules/eatdeals';
 
 const Manage= styled.div`
   width:100%;
 `;
 
 const EatdealManage =({eatdeals})=>{
-
+  const dispatch = useDispatch();
+ 
+  //잇딜종료
+  const onDelete = useCallback(
+    eatNo => {
+      console.log(eatNo);
+      // dispatch(deleteEat({ eatNo }));
+    },
+    [dispatch],
+  );
   if(!eatdeals) {
-    return <div>존재하지 않습니다.</div>
+    return null
 }
     return(
         <>
         <Manage>
         {eatdeals.map(eat=>(
-          <EatdealManageDetail key={eat.eatNo} eatDeal={eat}/>
+          <EatdealManageDetail 
+          key={eat.eatNo} 
+          eatDeal={eat}
+          onDelete={onDelete}
+          />
         ))}
 
         </Manage>

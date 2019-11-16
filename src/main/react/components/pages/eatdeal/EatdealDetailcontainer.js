@@ -39,7 +39,7 @@ const Button= styled.div`
     cursor: pointer;
     position:sticky;
     bottom:0;
-    z-index:9999999;
+    z-index:3;
 `;
 const EatdealDetailContainer=({match})=>{
   const path = process.env.PATH;

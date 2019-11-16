@@ -5,6 +5,10 @@ import { FiPlusCircle } from 'react-icons/Fi';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import TextareaAutosize from 'react-textarea-autosize';
 import { withRouter } from 'react-router-dom';
+import AddressModal from './Modal/AddressModal';
+import Geocode from 'react-geocode';
+
+import { useDispatch } from 'react-redux';
 
 const FormContainer = styled.div`
   width: 100%;
@@ -181,7 +185,15 @@ const Preview = styled.div`
   margin-top: 0.5rem;
 `;
 
-const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
+const OwnerShopForm = ({
+  store,
+  onChange,
+  onChangeFile,
+  addressModal,
+  addressModalOpen,
+  addressModalClose,
+  selectAddr,
+}) => {
   const {
     resNo,
     resName,
@@ -197,24 +209,28 @@ const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
     resCloseTime,
     resMenuTitle,
     resMenuPrice,
+    resLat,
+    resLong,
   } = store;
 
+  const dispatch = useDispatch();
+
   const path = process.env.PATH;
-  const open = resOpenDay.split('#%');
-  const close = resCloseTime.split('#%');
+
   const operation = [];
   {
-    open.map((o, index) => {
-      operation.push({ openDay: open[index], closeTime: close[index] });
+    resOpenDay.map((o, index) => {
+      operation.push({
+        openDay: resOpenDay[index],
+        closeTime: resCloseTime[index],
+      });
     });
   }
 
-  const title = resMenuTitle.split('#%');
-  const price = resMenuPrice.split('#%');
   const menu = [];
   {
-    title.map((m, index) => {
-      menu.push({ title: title[index], price: price[index] });
+    resMenuTitle.map((m, index) => {
+      menu.push({ title: resMenuTitle[index], price: resMenuPrice[index] });
     });
   }
 
@@ -257,9 +273,27 @@ const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
     setAddMn(addMn.filter((o, i) => i !== index));
   };
 
+  Geocode.setApiKey('AIzaSyCKi8T8JWKVOvFwgJGEf61hwpDcFSOBYyI');
+  Geocode.setLanguage('kr');
+  const handleData = data => {
+    Geocode.fromAddress(data.jibunAddress).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+        selectAddr(data.jibunAddress, lat, lng);
+      },
+      error => {
+        console.error(error);
+      },
+    );
+    addressModalClose();
+  };
+
   return (
     <>
       <FormContainer padding="20px">
+        <input type="hidden" name="resLat" value={resLat} />
+        <input type="hidden" name="resLong" value={resLong} />
         <SubTitle>가게정보</SubTitle>
         <div className="label">
           매장명
@@ -277,10 +311,12 @@ const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
           <StyledInput
             style={{ marginLeft: '34px' }}
             type="text"
-            name="resAddr"
+            name="resAddress"
             placeholder="매장 주소"
+            onClick={addressModalOpen}
             onChange={onChange}
-            defaultValue={resAddress}
+            value={resAddress}
+            readOnly
           />
         </div>
         <div className="label">
@@ -403,6 +439,13 @@ const OwnerShopForm = ({ store, onChange, onChangeFile }) => {
       </FormContainer>
 
       <StyledButton type="button" value="수정" />
+
+      {!addressModal ? null : (
+        <AddressModal
+          handleData={handleData}
+          addressModalClose={addressModalClose}
+        />
+      )}
     </>
   );
 };

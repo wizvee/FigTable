@@ -54,5 +54,13 @@
 		WHERE RES_NO = #{resNo}
 		ORDER BY BUY_DATE DESC
 	</select>
+	<insert id="register" parameterType="eatdeal">
+		INSERT INTO FIG_EATDEAL 
+		VALUES('e'||EAT_SEQ.NEXTVAL, #{resNo}, #{thumb}, 
+		#{eatFoodName},'P', #{eatCount}, 
+		#{eatOriginPrice}, #{eatDiscount}, 
+		#{eatStartDate}, #{eatEndDate}, 
+		#{eatContent})
+	</insert>
 
 </mapper>

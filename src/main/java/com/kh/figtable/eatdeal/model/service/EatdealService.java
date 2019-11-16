@@ -13,4 +13,5 @@ public interface EatdealService {
 	String getMemberPoint(String memNo);
 	List<Eatdeal>getByResNo(String resNo);
 	List<Buyer> getBuy(String resNo);
+	int register(Eatdeal eat);
 }

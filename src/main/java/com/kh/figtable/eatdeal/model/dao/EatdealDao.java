@@ -17,5 +17,6 @@ public interface EatdealDao {
 	String getMemberPoint ( SqlSession session, String memNo);
 	List<Eatdeal> getByResNo(SqlSession session, String resNo);
 	List<Buyer> getBuy(SqlSession session, String resNo);
+	int register(SqlSession session, Eatdeal eat);
 
 }

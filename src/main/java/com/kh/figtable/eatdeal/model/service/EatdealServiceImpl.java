@@ -45,5 +45,10 @@ public class EatdealServiceImpl implements EatdealService {
 		return dao.getBuy(session, resNo);
 	}
 
+	@Override
+	public int register(Eatdeal eat) {
+		return dao.register(session, eat);
+	}
+
 
 }

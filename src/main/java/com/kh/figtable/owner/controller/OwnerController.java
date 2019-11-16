@@ -32,7 +32,6 @@ public class OwnerController {
 	@RequestMapping(value = "/api/owner/{resNo}", method = RequestMethod.GET)
 	private ResponseEntity<Restaurant> getOwnerRes(@PathVariable("resNo") String resNo) {
 		Restaurant r = service.getOwnerRes(resNo);
-		System.out.println(r.getResCloseTime());
 		r.setOpen((r.getResWaiting() == null ? false : true));
 		return new ResponseEntity<Restaurant>(r, HttpStatus.OK);
 	}

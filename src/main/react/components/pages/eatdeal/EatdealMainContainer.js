@@ -133,7 +133,7 @@ const EatdealMainContainer = ({eatdeal}) => {
       <Link to={`${path}/eatdeal/${eatNo}`}>
         <EatdealCard>
             <ImageContainer>
-            <Image url={thumb}/>
+            <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
                 <LeftArea>
                     {eatStatus==='P'?
                         (<Status color="#f67280">New</Status>)

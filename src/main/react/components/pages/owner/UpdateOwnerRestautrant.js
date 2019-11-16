@@ -9,7 +9,11 @@ import OwnerShopForm from './OwnerShopForm';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownHeader } from '../../../modules/ownerHeader';
-import { ownerRes, changeField } from '../../../modules/ownerRestaurant';
+import {
+  ownerRes,
+  changeField,
+  selAddr,
+} from '../../../modules/ownerRestaurant';
 import client from '../../../lib/api/client';
 
 const Container = styled.div`
@@ -112,6 +116,12 @@ const UpdateOwnerRestautrant = ({ match }) => {
     [dispatch],
   );
 
+  const selectAddr = useCallback(
+    (resAddress, resLat, resLong) => {
+      dispatch(selAddr({ resAddress, resLat, resLong }));
+    },
+    [dispatch],
+  );
   const [topMenu, setTopMenu] = useState('false');
 
   useEffect(() => {
@@ -123,6 +133,16 @@ const UpdateOwnerRestautrant = ({ match }) => {
     dispatch(ownerRes(resNo));
     dispatch(ownHeader('o22'));
   }, []);
+
+  const [addressModal, setAddressModal] = useState(false);
+  const addressModalOpen = () => {
+    setAddressModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const addressModalClose = () => {
+    setAddressModal(false);
+    document.body.style.overflow = 'scroll';
+  };
 
   return (
     <>
@@ -137,7 +157,14 @@ const UpdateOwnerRestautrant = ({ match }) => {
               </div>
               <Right>
                 <OwnerDetailTitle title="가게정보 수정" topMenu={topMenu} />
-                <OwnerShopForm onChangeFile={onChangeFile} store={restaurant} />
+                <OwnerShopForm
+                  selectAddr={selectAddr}
+                  addressModal={addressModal}
+                  addressModalOpen={addressModalOpen}
+                  addressModalClose={addressModalClose}
+                  onChangeFile={onChangeFile}
+                  store={restaurant}
+                />
               </Right>
             </ContainerWrapper>
           </Container>
