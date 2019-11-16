@@ -42,7 +42,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
-const insertModal = ({ msg, onCloseModal }) => {
+const confirmModal = ({ msg, onCloseModal }) => {
   return (
     <ModalWrap>
       <Modal>
@@ -55,4 +55,4 @@ const insertModal = ({ msg, onCloseModal }) => {
   );
 };
 
-export default insertModal;
+export default confirmModal;

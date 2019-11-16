@@ -27,6 +27,13 @@ public class AdminDaoImpl implements AdminDao {
 	public int insertRes(SqlSession session, Restaurant res) {
 		return session.insert("admin.insertRes", res);
 	}
+	
+	@Override
+	public int closeRes(SqlSession session, String resNo) {
+		return session.update("admin.closeRes", resNo);
+	}
+	
+	
 
 	
 	//owner

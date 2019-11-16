@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import client, { path } from '../../../../lib/api/client';
+import { closeRes } from '../../../../modules/adminInsertRes';
+import { listComRes } from '../../../../modules/adminRestaurants';
 import ResModal from './ResModal';
+import ConfirmModal from './confirmModal';
 import styled from 'styled-components';
 import '../TableStyle.css';
 
@@ -25,6 +30,8 @@ const NoneData = styled.div`
 `;
 
 const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
+  const dispatch = useDispatch();
+
   //에러 발생시
   if (error) {
     return <ErrorBlock>에러가 발생했습니다. 다시 시도해주세요.</ErrorBlock>;
@@ -37,21 +44,32 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
 
   const [modal, setIsModal] = useState(false);
   const [res, setRes] = useState(null);
+  const [target, setTarget] = useState('');
+  const [confirm, setConfirm] = useState(false);
 
   //모달 키는 function
   const onClickOpenModal = res => {
     setRes(res);
+    setTarget(res.resNo);
     setIsModal(true);
   };
 
   //모달 닫는 function
-  const onClickCloseModal = () => {
+  const onSubmit = useCallback(async () => {
+    setIsModal(false);
+    await client
+      .post(`${path}/api/adminCloseRes/${target}`)
+      .then(() => dispatch(closeRes(target)));
+    setConfirm(true);
+  }, [target]);
+
+  const onCancel = () => {
     setIsModal(false);
   };
 
-  const onClcikChangePage = () => {
-    setIsModal(false);
-  };
+  const onCloseModal = useCallback(async () => {
+    setConfirm(false);
+  });
 
   return (
     <>
@@ -70,8 +88,8 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
             {modal && (
               <ResModal
                 restaurant={res}
-                closeModal={onClickCloseModal}
-                changePage={onClcikChangePage}
+                onCancel={onCancel}
+                onSubmit={onSubmit}
               />
             )}
             {!loading &&
@@ -91,6 +109,12 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
                   </tr>
                 );
               })}
+            {confirm && (
+              <ConfirmModal
+                msg="정상적으로 처리되었습니다."
+                ononCloseModal={onCloseModal}
+              />
+            )}
           </tbody>
         </table>
       </TableWrapper>

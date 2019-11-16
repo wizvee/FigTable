@@ -14,6 +14,7 @@ public interface AdminService {
 	//	등록 완료된 매장리스트(owner정보까지 받아야함)
 	List<Restaurant> getResList();
 	int insertRes(Restaurant res);
+	int closeRes(String resNo);
 	
 	
 	//owner
