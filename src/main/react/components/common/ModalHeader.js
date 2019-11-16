@@ -40,4 +40,4 @@ const ModalHeader = ({ menu, select, setSelect }) => {
   );
 };
 
-export default ModalHeader;
+export default React.memo(ModalHeader);

@@ -37,13 +37,24 @@ public class ReviewController {
 	private MemberService memService;
 
 	@RequestMapping(value = "/api/reviews/{resNo}", method = RequestMethod.GET)
-	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo, HttpServletRequest req) {
+	private ResponseEntity<List<Review>> getReviewsById(@PathVariable("resNo") String resNo, HttpSession session) {
 		List<Review> result = service.getReviewsById(resNo);
 		// 로그인 되어 있다면 loved 여부를 판별
-		Member m = (Member) req.getSession().getAttribute("login");
+		Member m = (Member) session.getAttribute("login");
 		if (m != null)
 			result = service.isLoved(m.getMemNo(), result);
 
+		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/reviews", method = RequestMethod.POST)
+	private ResponseEntity<List<Review>> getMyReviews(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Review> result = null;
+		if (m != null) {
+			result = service.getMyReviews(m.getMemNo());
+			result = service.isLoved(m.getMemNo(), result);
+		}
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
 

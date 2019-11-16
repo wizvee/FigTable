@@ -65,4 +65,4 @@ const ModalAlert = ({ title, msg, url, closeModal }) => {
   );
 };
 
-export default ModalAlert;
+export default React.memo(ModalAlert);

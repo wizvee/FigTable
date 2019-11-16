@@ -4,10 +4,15 @@ import client, { path } from '../../../../lib/api/client';
 import HeaderContainer from '../../../common/HeaderContainer';
 import MypagePresenter from './MypagePresenter';
 import { check, changeField } from '../../../../modules/member';
+import { myReviews } from '../../../../modules/reviews';
+import MyReviews from './MyReviews';
 
 const MypageContainer = () => {
   const dispatch = useDispatch();
-  const { member } = useSelector(({ member }) => ({ member: member.member }));
+  const { member, reviews } = useSelector(({ member, reviews }) => ({
+    member: member.member,
+    reviews: reviews.reviews,
+  }));
 
   // event handler to change profile
   const onChangeFile = useCallback(
@@ -29,16 +34,21 @@ const MypageContainer = () => {
   // mount 시마다 member information을 DB와 연동
   useEffect(() => {
     dispatch(check(member.memNo));
+    dispatch(myReviews());
   }, [dispatch]);
 
   return (
     member && (
       <>
         <HeaderContainer />
-        <MypagePresenter member={member} onChangeFile={onChangeFile} />
+        <MypagePresenter
+          member={member}
+          myReviews={<MyReviews reviews={reviews} />}
+          onChangeFile={onChangeFile}
+        />
       </>
     )
   );
 };
 
-export default MypageContainer;
+export default React.memo(MypageContainer);

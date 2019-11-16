@@ -14,6 +14,11 @@ import com.kh.figtable.review.model.vo.Review;
 public class ReviewDaoImpl implements ReviewDao {
 
 	@Override
+	public List<Review> getMyReviews(SqlSession session, String memNo) {
+		return session.selectList("review.getMyReviews", memNo);
+	}
+
+	@Override
 	public List<Review> getReviewsById(SqlSession session, String resNo) {
 		return session.selectList("review.getReviewsById", resNo);
 	}

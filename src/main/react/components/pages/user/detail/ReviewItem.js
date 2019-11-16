@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import palette from '../../../../lib/styles/Palette';
 import RatingIcon from '../RatingIcon';
 import MemberProfile from '../MemberProfile';
@@ -13,13 +14,15 @@ const Container = styled.div`
   padding: 1rem 0;
   width: 100%;
   min-height: 200px;
-  border-bottom: 1px solid ${palette.borderGray};
+  border-bottom: 1px solid ${palette.borderLightGray};
   transition: background 0.2s linear;
   &:hover {
     background: rgba(0, 0, 0, 0.03);
   }
   .warn {
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -84,8 +87,9 @@ const ReviewActionButtons = styled.div`
   width: 100%;
 `;
 
-const ReviewItem = ({ review, openInsta }) => {
+const ReviewItem = ({ review, openInsta, history }) => {
   const {
+    resNo,
     memProfile,
     memName,
     memRvCnt,
@@ -96,6 +100,11 @@ const ReviewItem = ({ review, openInsta }) => {
     rvImages,
     rvWarn,
   } = review;
+
+  // 마이 페이지에서 레스토랑 가는 용도!
+  function toRes() {
+    history.push(`${path}/restaurant/${resNo}`);
+  }
 
   return (
     <Container>
@@ -116,7 +125,11 @@ const ReviewItem = ({ review, openInsta }) => {
         <div className="images">
           {rvImages &&
             rvImages.map((img, index) => (
-              <ImgBlock key={index} url={img} onClick={() => openInsta(img)} />
+              <ImgBlock
+                key={index}
+                url={img}
+                onClick={openInsta ? () => openInsta(img) : toRes}
+              />
             ))}
         </div>
         <ReviewActionButtons>
@@ -130,4 +143,4 @@ const ReviewItem = ({ review, openInsta }) => {
   );
 };
 
-export default React.memo(ReviewItem);
+export default withRouter(React.memo(ReviewItem));

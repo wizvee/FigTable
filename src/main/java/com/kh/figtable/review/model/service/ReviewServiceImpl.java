@@ -26,6 +26,16 @@ public class ReviewServiceImpl implements ReviewService {
 	private MemberDao mDao;
 
 	@Override
+	public List<Review> getMyReviews(String memNo) {
+		List<Review> result = dao.getMyReviews(session, memNo);
+		for (Review review : result) {
+			List<Comment> comments = dao.getCommentsById(session, review.getRvNo());
+			review.setComments(comments);
+		}
+		return result;
+	}
+
+	@Override
 	public List<Review> getReviewsById(String resNo) {
 		List<Review> result = dao.getReviewsById(session, resNo);
 		for (Review review : result) {

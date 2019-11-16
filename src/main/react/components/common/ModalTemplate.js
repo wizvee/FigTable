@@ -79,4 +79,4 @@ const ModalTemplate = ({ isModal, closeModal, children, ...rest }) => {
   );
 };
 
-export default ModalTemplate;
+export default React.memo(ModalTemplate);

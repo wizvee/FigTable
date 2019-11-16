@@ -15,4 +15,4 @@ const Loader = () => {
   return <ScaleLoader css={override} color={palette.primary} margin="4px" />;
 };
 
-export default Loader;
+export default React.memo(Loader);

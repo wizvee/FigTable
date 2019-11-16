@@ -85,4 +85,4 @@ const HeaderContainer = ({ history }) => {
   );
 };
 
-export default withRouter(HeaderContainer);
+export default withRouter(React.memo(HeaderContainer));

@@ -165,4 +165,4 @@ const HeaderPresenter = ({
   );
 };
 
-export default withRouter(HeaderPresenter);
+export default withRouter(React.memo(HeaderPresenter));

@@ -13,6 +13,8 @@ import com.kh.figtable.review.model.vo.Review;
 @Repository
 public interface ReviewDao {
 
+	List<Review> getMyReviews(SqlSession session, String memNo);
+
 	List<Review> getReviewsById(SqlSession session, String resNo);
 
 	List<Comment> getCommentsById(SqlSession session, String rvNo);

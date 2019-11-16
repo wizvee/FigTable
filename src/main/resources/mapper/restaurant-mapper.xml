@@ -10,10 +10,14 @@
 		<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
 		<result property="resThumb" column="RES_THUMB" />
 		<result property="resAddress" column="RES_ADDRESS" />
-		<result property="resOpenDay" column="RES_OPEN_DAY" typeHandler="strArrRes"/>
-		<result property="resCloseTime" column="RES_CLOSE_TIME" typeHandler="strArrRes"/>
-		<result property="resMenuTitle" column="RES_MENU_TITLE" typeHandler="strArrRes"/>
-		<result property="resMenuPrice" column="RES_MENU_PRICE" typeHandler="strArrRes"/>
+		<result property="resOpenDay" column="RES_OPEN_DAY"
+			typeHandler="strArrRes" />
+		<result property="resCloseTime" column="RES_CLOSE_TIME"
+			typeHandler="strArrRes" />
+		<result property="resMenuTitle" column="RES_MENU_TITLE"
+			typeHandler="strArrRes" />
+		<result property="resMenuPrice" column="RES_MENU_PRICE"
+			typeHandler="strArrRes" />
 		<result property="resTel" column="RES_TEL" />
 		<result property="resLat" column="RES_LAT" />
 		<result property="resLong" column="RES_LONG" />
@@ -30,8 +34,18 @@
 	<select id="getByLocal" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_ADDRESS LIKE '%'|| #{local} || '%' ORDER BY RES_RATING DESC,
-		RES_LIKES DESC, RES_REVIEWS DESC, RES_VIEWS DESC
+		RES_ADDRESS LIKE '%'|| #{local} || '%' AND RES_APPLY IN ('A', 'C')
+		ORDER BY RES_RATING DESC, RES_LIKES DESC, RES_REVIEWS DESC, RES_VIEWS
+		DESC
+	</select>
+
+	<select id="getByKeyword" parameterType="string"
+		resultType="restaurant" resultMap="resResult">
+		SELECT * FROM FIG_RESTAURANT WHERE
+		(RES_ADDRESS LIKE '%'|| #{keyword} || '%' OR RES_LOCATION_KEYWORD LIKE
+		'%'|| #{keyword} || '%' OR RES_FOOD_KEYWORD LIKE '%'|| #{keyword} ||
+		'%') AND RES_APPLY IN ('A', 'C') ORDER BY RES_RATING DESC, RES_LIKES
+		DESC, RES_REVIEWS DESC, RES_VIEWS DESC
 	</select>
 
 	<select id="getById" parameterType="string"

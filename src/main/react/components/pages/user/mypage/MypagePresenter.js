@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiFillSetting } from 'react-icons/ai';
 import Responsive from '../../../common/Responsive';
-import Button from '../../../../lib/styles/Button';
 import palette from '../../../../lib/styles/Palette';
 
 const Container = styled(Responsive)`
@@ -12,6 +11,7 @@ const Container = styled(Responsive)`
 
 const Profile = styled.div`
   display: flex;
+  margin-bottom: 1.5rem;
   label {
     cursor: pointer;
   }
@@ -62,6 +62,7 @@ const Name = styled.div`
 
 const Social = styled.div`
   display: flex;
+  margin-right: 0.3rem;
   height: 100%;
   color: ${palette.textGray};
   span {
@@ -71,7 +72,7 @@ const Social = styled.div`
       color: ${palette.text};
     }
     &.right {
-      justify-items: end;
+      margin-left: auto;
     }
   }
   span + span {
@@ -79,7 +80,13 @@ const Social = styled.div`
   }
 `;
 
-const MypagePresenter = ({ member, onChangeFile }) => {
+const Section = styled.div`
+  padding: 1rem 2rem;
+  width: 100%;
+  border-top: 1px solid ${palette.borderLightGray};
+`;
+
+const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
   return (
     <Container>
       <Profile>
@@ -99,9 +106,11 @@ const MypagePresenter = ({ member, onChangeFile }) => {
             <span className="right">
               😻 {new Intl.NumberFormat().format(member.memPoint)}
             </span>
+            <span>🎫 0</span>
           </Social>
         </Info>
       </Profile>
+      <Section>{myReviews}</Section>
     </Container>
   );
 };

@@ -24,3 +24,6 @@ export const writeComment = ({ rvNoRef, memNo, rvcContent }) =>
 // 코멘트 삭제
 export const deleteComment = ({ rvNo, rvcNo }) =>
   client.patch(`${path}/api/comment`, { rvNo, rvcNo });
+
+// 내가 쓴 리뷰 얻기
+export const getMyReviews = () => client.post(`${path}/api/reviews`);

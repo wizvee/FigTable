@@ -16,7 +16,7 @@ const Icon = styled.span`
     color: ${palette.primary};
   }
   svg {
-    margin-right: 0.2rem;
+    margin-right: 0.3rem;
     font-size: 1.2rem;
     transform: translateY(4px);
     &.loves {
@@ -172,11 +172,13 @@ const ReviewActionButtonCmts = ({ review }) => {
     <>
       {member ? (
         <Icon onClick={onCmtToggle}>
-          <AiOutlineMessage /> {review.comments.length}
+          <AiOutlineMessage />
+          {review.comments.length}
         </Icon>
       ) : (
         <Icon onClick={openModal}>
-          <AiOutlineMessage /> {review.comments.length}
+          <AiOutlineMessage />
+          {review.comments.length}
         </Icon>
       )}
       {member && viewInput && (

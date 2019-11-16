@@ -16,7 +16,7 @@ const Icon = styled.span`
     color: ${palette.primary};
   }
   svg {
-    margin-right: 0.2rem;
+    margin-right: 0.3rem;
     font-size: 1.2rem;
     transform: translateY(4px);
     &.loves {
@@ -26,7 +26,7 @@ const Icon = styled.span`
   &.small {
     margin-left: 0.3rem;
     svg {
-      font-size: 0.93rem;
+      font-size: 0.95rem;
       transform: translateY(7px);
     }
     &:hover {
@@ -80,11 +80,13 @@ const ReviewActionButtonLoves = ({ review }) => {
       )}
       {member && review.loved ? (
         <Icon onClick={onUnlove}>
-          <AiFillHeart className="loves" /> {review.rvLove}
+          <AiFillHeart className="loves" />
+          {review.rvLove}
         </Icon>
       ) : (
         <Icon onClick={member ? onLove : openModal}>
-          <AiOutlineHeart /> {review.rvLove}
+          <AiOutlineHeart />
+          {review.rvLove}
         </Icon>
       )}
       {review.rvLove > 0 && (

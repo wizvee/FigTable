@@ -37,4 +37,4 @@ const HeaderSimple = () => {
   );
 };
 
-export default HeaderSimple;
+export default React.memo(HeaderSimple);
