@@ -16,4 +16,5 @@ public interface OwnerDao {
 	int updateThumb(SqlSession session, Map<String, String> data);
 	String getOldThumb(SqlSession session, String resNo);
 	int updateOpen(SqlSession session, Restaurant r);
+	int updateRes(SqlSession session, Restaurant restaurant);
 }

@@ -10,7 +10,7 @@ import {
 } from '../../../../modules/adminInsertRes';
 import styled from 'styled-components';
 import client from '../../../../lib/api/client';
-import InsertModal from './InsertModal';
+import confirmModal from './confirmModal';
 
 const FormWrapper = styled.div`
   height: auto;
@@ -167,7 +167,10 @@ const InsertRestaurant = ({ history }) => {
         />
       </FormWrapper>
       {modal && (
-        <InsertModal msg="등록이 완료되었습니다." onCloseModal={onCloseModal} />
+        <confirmModal
+          msg="등록이 완료되었습니다."
+          onCloseModal={onCloseModal}
+        />
       )}
     </>
   );

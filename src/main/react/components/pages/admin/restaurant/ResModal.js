@@ -42,21 +42,19 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const ResModal = ({ restaurant, closeModal, changePage }) => {
-  const { resNo, resName, resAddr, ownName } = restaurant;
-
+const ResModal = ({ restaurant, onSubmit, onCancel }) => {
   return (
     <>
       <ModalWrap>
         <Modal>
           <Content>
             <div>
-              <b>{resName}</b> 매장을 등록하시겠습니까?
+              <b>{restaurant.resName}</b> 매장을 폐업 처리하시겠습니까?
             </div>
           </Content>
           <ButtonWrapper>
-            <StyledButton onClick={changePage}>네</StyledButton>
-            <StyledButton onClick={closeModal}>아니오</StyledButton>
+            <StyledButton onClick={onSubmit}>네</StyledButton>
+            <StyledButton onClick={onCancel}>아니오</StyledButton>
           </ButtonWrapper>
         </Modal>
       </ModalWrap>

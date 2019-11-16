@@ -35,6 +35,11 @@ public class AdminServiceImpl implements AdminService {
 		return dao.insertRes(session, res);
 	}
 	
+	@Override
+	public int closeRes(String resNo) {
+		return dao.closeRes(session, resNo);
+	}
+	
 
 	
 	//owner

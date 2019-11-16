@@ -75,6 +75,10 @@
 		SELECT * FROM FIG_RESTAURANT WHERE RES_APPLY = 'A'
 	</select>
 	
+	<update id="closeRes" parameterType="string">
+		UPDATE FIG_RESTAURANT SET RES_APPLY = 'C' WHERE RES_NO = #{resNo}
+	</update>
+	
 	 <select id="getByOwnApply" resultType="adminOwner" resultMap="ownResult">
   		SELECT O.OWN_NO, OWN_EMAIL, OWN_PASSWORD, OWN_PHONE, 
   			   OWN_NAME, OWN_STATUS, OWN_APPLY, OWN_RETURN,

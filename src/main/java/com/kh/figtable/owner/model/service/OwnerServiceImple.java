@@ -42,6 +42,10 @@ public class OwnerServiceImple implements OwnerService {
 	public int updateOpen(Restaurant r) {
 		return dao.updateOpen(session, r);
 	}
+	@Override
+	public int updateRes(Restaurant restaurant) {
+		return dao.updateRes(session, restaurant);
+	}
 	
 	
 }

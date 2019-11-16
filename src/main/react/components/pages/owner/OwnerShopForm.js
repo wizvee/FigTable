@@ -193,6 +193,9 @@ const OwnerShopForm = ({
   addressModalOpen,
   addressModalClose,
   selectAddr,
+  onSubmit,
+  onChangeArray,
+  onRemoveArray,
 }) => {
   const {
     resNo,
@@ -221,8 +224,8 @@ const OwnerShopForm = ({
   {
     resOpenDay.map((o, index) => {
       operation.push({
-        openDay: resOpenDay[index],
-        closeTime: resCloseTime[index],
+        resOpenDay: resOpenDay[index],
+        resCloseTime: resCloseTime[index],
       });
     });
   }
@@ -230,23 +233,29 @@ const OwnerShopForm = ({
   const menu = [];
   {
     resMenuTitle.map((m, index) => {
-      menu.push({ title: resMenuTitle[index], price: resMenuPrice[index] });
+      menu.push({
+        resMenuTitle: resMenuTitle[index],
+        resMenuPrice: resMenuPrice[index],
+      });
     });
   }
 
   const [addOp, setAddOp] = useState(operation);
   const [addMn, setAddMn] = useState(menu);
 
-  const appendInput = e => {
-    e.target.getAttribute('name') == 'oper'
-      ? setAddOp(addOp.concat({ openDay: '', closeTime: '' }))
-      : setAddMn(addMn.concat({ title: '', price: '' }));
+  const appendInputOp = () => {
+    setAddOp(addOp.concat({ resOpenDay: '', resCloseTime: '' }));
+  };
+
+  const appendInputMn = () => {
+    setAddMn(addMn.concat({ resMenuTitle: '', resMenuPrice: '' }));
   };
 
   const operationChange = ({ target }, index) => {
     setAddOp(
       addOp.map((op, i) => {
         if (i === index) {
+          onChangeArray(target.name, index, target.value);
           return { ...op, [target.name]: target.value };
         }
         return op;
@@ -258,6 +267,7 @@ const OwnerShopForm = ({
     setAddMn(
       addMn.map((m, i) => {
         if (i === index) {
+          onChangeArray(target.name, index, target.value);
           return { ...m, [target.name]: target.value };
         }
         return m;
@@ -267,10 +277,12 @@ const OwnerShopForm = ({
 
   const opRemove = index => {
     setAddOp(addOp.filter((o, i) => i !== index));
+    onRemoveArray('oper', index);
   };
 
   const mnRemove = index => {
     setAddMn(addMn.filter((o, i) => i !== index));
+    onRemoveArray('menu', index);
   };
 
   Geocode.setApiKey('AIzaSyCKi8T8JWKVOvFwgJGEf61hwpDcFSOBYyI');
@@ -383,17 +395,17 @@ const OwnerShopForm = ({
             <StyledTextArea
               style={{ width: '20%' }}
               type="textArea"
-              name="openDay"
+              name="resOpenDay"
               placeholder="영업일"
-              value={addOp[index].openDay}
+              value={addOp[index].resOpenDay}
               onChange={() => operationChange(event, index)}
             />
             <StyledTextArea
               style={{ width: '65%' }}
               type="textArea"
-              name="closeTime"
+              name="resCloseTime"
               placeholder="운영시간"
-              value={addOp[index].closeTime}
+              value={addOp[index].resCloseTime}
               onChange={() => operationChange(event, index)}
             />
             <IoIosCloseCircleOutline
@@ -403,7 +415,7 @@ const OwnerShopForm = ({
           </InputWrapper>
         ))}
         <IconWrapper>
-          <FiPlusCircle name="oper" onClick={appendInput} />
+          <FiPlusCircle name="oper" onClick={appendInputOp} />
         </IconWrapper>
       </FormContainer>
       <FormContainer padding="5px">
@@ -412,19 +424,19 @@ const OwnerShopForm = ({
           <InputWrapper key={index} style={{ marginTop: '0.5rem' }}>
             <StyledTextArea
               type="textArea"
-              name="title"
+              name="resMenuTitle"
               placeholder="메뉴"
               style={{ width: '40%' }}
               onChange={() => menuChange(event, index)}
-              value={addMn[index].title}
+              value={addMn[index].resMenuTitle}
             />
             <StyledTextArea
               type="textArea"
-              name="price"
+              name="resMenuPrice"
               placeholder="가격"
               style={{ width: '40%', marginRight: '10px' }}
               onChange={() => menuChange(event, index)}
-              value={addMn[index].price}
+              value={addMn[index].resMenuPrice}
             />
             <IoIosCloseCircleOutline
               name="m"
@@ -434,11 +446,11 @@ const OwnerShopForm = ({
           </InputWrapper>
         ))}
         <IconWrapper>
-          <FiPlusCircle name="m" onClick={appendInput} />
+          <FiPlusCircle name="m" onClick={appendInputMn} />
         </IconWrapper>
       </FormContainer>
 
-      <StyledButton type="button" value="수정" />
+      <StyledButton type="button" value="수정" onClick={onSubmit} />
 
       {!addressModal ? null : (
         <AddressModal

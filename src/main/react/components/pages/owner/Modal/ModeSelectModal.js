@@ -24,7 +24,7 @@ const Modal = styled.div`
   top: 16rem;
   width: 24rem;
   height: 8.4rem;
-  border-radius: 8px;
+  border-radius: 5px;
 `;
 
 const ModalTitle = styled.div`

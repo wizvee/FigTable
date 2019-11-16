@@ -13,8 +13,12 @@ import {
   ownerRes,
   changeField,
   selAddr,
+  editRes,
+  changeArray,
+  removeArray,
 } from '../../../modules/ownerRestaurant';
 import client from '../../../lib/api/client';
+import EditSuccessModal from './Modal/EditSuccessModal';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -111,7 +115,21 @@ const UpdateOwnerRestautrant = ({ match }) => {
   const onChange = useCallback(
     ({ target }) => {
       const { value, name } = target;
-      disaptch(changeField({ key: name, value }));
+      dispatch(changeField({ key: name, value }));
+    },
+    [dispatch],
+  );
+
+  const onChangeArray = useCallback(
+    (name, index, value) => {
+      dispatch(changeArray({ name, index, value }));
+    },
+    [dispatch],
+  );
+
+  const onRemoveArray = useCallback(
+    (type, index) => {
+      dispatch(removeArray({ type, index }));
     },
     [dispatch],
   );
@@ -144,6 +162,19 @@ const UpdateOwnerRestautrant = ({ match }) => {
     document.body.style.overflow = 'scroll';
   };
 
+  const [successM, setSuccessM] = useState(false);
+  const successModalOpen = () => {
+    setSuccessM(true);
+  };
+  const successModalClose = () => {
+    setSuccessM(false);
+  };
+
+  const onSubmit = () => {
+    dispatch(editRes(restaurant));
+    successModalOpen();
+  };
+
   return (
     <>
       {!loading && restaurant && (
@@ -162,13 +193,22 @@ const UpdateOwnerRestautrant = ({ match }) => {
                   addressModal={addressModal}
                   addressModalOpen={addressModalOpen}
                   addressModalClose={addressModalClose}
+                  onChange={onChange}
                   onChangeFile={onChangeFile}
                   store={restaurant}
+                  onSubmit={onSubmit}
+                  onChangeArray={onChangeArray}
+                  onRemoveArray={onRemoveArray}
                 />
               </Right>
             </ContainerWrapper>
           </Container>
         </>
+      )}
+      {!successM ? (
+        ''
+      ) : (
+        <EditSuccessModal successModalClose={successModalClose} />
       )}
     </>
   );

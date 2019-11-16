@@ -1,5 +1,6 @@
 import client, { path } from './client';
 
+//매장 등록
 export const insertRes = ({
   resName,
   resAddress,

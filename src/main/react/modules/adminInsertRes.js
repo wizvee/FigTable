@@ -16,6 +16,8 @@ const [
   INSERT_RES_FAILURE,
 ] = createRequestActionTypes('adminInsertRes/INSERT_RES'); //restaurant 등록
 
+const CLOSE_RES = 'adminInsertRes/CLOSE_RES';
+
 const SEL_ADDR = 'adminInsertRes/SEL_ADDR';
 
 export const initializeForm = createAction(INITIALIZE_FORM, form => form);
@@ -59,6 +61,8 @@ export const selAddr = createAction(
     resLong,
   }),
 );
+
+export const closeRes = createAction(CLOSE_RES, resNo => resNo);
 
 //사가 생성
 const insertResSaga = createRequestSaga(INSERT_RES, insertAPI.insertRes);
@@ -113,6 +117,13 @@ const adminInsertRes = handleActions(
         draft.insertRes.resAddress = resAddress;
         draft.insertRes.resLat = resLat;
         draft.insertRes.resLong = resLong;
+      }),
+    [CLOSE_RES]: (state, { payload: resNo }) =>
+      produce(state, draft => {
+        const restaurant = draft.adminInsertRes.find(
+          restaurant => restaurant.resNo == resNo,
+        );
+        restaurant.resApply = 'C';
       }),
   },
   initialState,

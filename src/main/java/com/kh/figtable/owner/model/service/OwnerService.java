@@ -11,4 +11,5 @@ public interface OwnerService {
 	String getOldThumb(String resNo);
 	int updateThumb(Map<String, String> data);
 	int updateOpen(Restaurant r);
+	int updateRes(Restaurant restaurant);
 }

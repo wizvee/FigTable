@@ -14,6 +14,7 @@ public interface AdminDao {
 	List<Restaurant> getRestaurantsByApply(SqlSession session);
 	List<Restaurant> getResList(SqlSession session);
 	int insertRes(SqlSession session, Restaurant res);
+	int closeRes(SqlSession session, String resNo);
 	
 	
 	//owner

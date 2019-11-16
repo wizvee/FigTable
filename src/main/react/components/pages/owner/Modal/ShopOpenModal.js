@@ -23,7 +23,7 @@ const Modal = styled.div`
   top: 14rem;
   width: 24rem;
   height: 10.7rem;
-  border-radius: 8px;
+  border-radius: 5px;
 `;
 
 const ModalContent = styled.div`

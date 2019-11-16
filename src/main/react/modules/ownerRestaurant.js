@@ -13,17 +13,31 @@ const [
   OWNER_RES_FAILURE,
 ] = createRequestActionTypes('owner/OWNER_RES');
 const CHANGE_FIELD = 'owner/CHANGE_FILED';
+const CHANGE_ARRAY = 'owner/CHANGE_ARRAY';
+const REMOVE_ARRAY = 'owner/REMOVE_ARRAY';
 const [UPDATE_THUMB, UPDATE_THUMB_SUCCESS] = createRequestActionTypes(
   'owner/UPDATE_THUMB',
 );
 const [RES_OPEN, RES_OPEN_SUCCESS] = createRequestActionTypes('owner/RES_OPEN');
-const [EDIT_RES] = createRequestActionTypes('owner/EDIT_RES');
+const [EDIT_RES, EDIT_RES_SUCCESS] = createRequestActionTypes('owner/EDIT_RES');
 const SEL_ADDR = 'owner/SEL_ADDR';
 
 export const ownerRes = createAction(OWNER_RES, resNo => resNo);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
+}));
+export const changeArray = createAction(
+  CHANGE_ARRAY,
+  ({ name, index, value }) => ({
+    name,
+    index,
+    value,
+  }),
+);
+export const removeArray = createAction(REMOVE_ARRAY, ({ type, index }) => ({
+  type,
+  index,
 }));
 export const updateThumb = createAction(
   UPDATE_THUMB,
@@ -44,16 +58,18 @@ export const selAddr = createAction(
     resLong,
   }),
 );
-export const editRes = createAction(EDIT_RES, ({ resNo }) => ({ resNo }));
+export const editRes = createAction(EDIT_RES, ownRestaurant => ownRestaurant);
 
 const ownerSaga = createRequestSaga(OWNER_RES, restAPI.getOwnerRes);
 const thumbSaga = createRequestSaga(UPDATE_THUMB, restAPI.updateThumb);
 const openSaga = createRequestSaga(RES_OPEN, restAPI.updateOpen);
+const editSaga = createRequestSaga(EDIT_RES, restAPI.updateRes);
 
 export function* ownerResSaga() {
   yield takeLatest(OWNER_RES, ownerSaga);
   yield takeLatest(UPDATE_THUMB, thumbSaga);
   yield takeLatest(RES_OPEN, openSaga);
+  yield takeLatest(EDIT_RES, editSaga);
 }
 
 const initialState = {
@@ -73,8 +89,30 @@ const ownerRestaurant = handleActions(
     }),
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
-        // draft.ownRestaurant.resThumb = value;
         draft.ownRestaurant[key] = value;
+      }),
+    [CHANGE_ARRAY]: (state, { payload: target }) =>
+      produce(state, draft => {
+        const { name, index, value } = target;
+        draft.ownRestaurant[name][index] = value;
+      }),
+    [REMOVE_ARRAY]: (state, { payload: { type, index } }) =>
+      produce(state, draft => {
+        if (type == 'menu') {
+          draft.ownRestaurant['resMenuTitle'] = draft.ownRestaurant[
+            'resMenuTitle'
+          ].filter((m, i) => i !== index);
+          draft.ownRestaurant['resMenuPrice'] = draft.ownRestaurant[
+            'resMenuPrice'
+          ].filter((m, i) => i !== index);
+        } else {
+          draft.ownRestaurant['resOpenDay'] = draft.ownRestaurant[
+            'resOpenDay'
+          ].filter((m, i) => i !== index);
+          draft.ownRestaurant['resCloseTime'] = draft.ownRestaurant[
+            'resCloseTime'
+          ].filter((m, i) => i !== index);
+        }
       }),
     [RES_OPEN]: (state, { payload: { resNo, open } }) =>
       produce(state, draft => {
@@ -85,6 +123,10 @@ const ownerRestaurant = handleActions(
         draft.ownRestaurant.resAddress = resAddress;
         draft.ownRestaurant.resLat = resLat;
         draft.ownRestaurant.resLong = resLong;
+      }),
+    [EDIT_RES_SUCCESS]: (state, { payload: ownRestaurant }) =>
+      produce(state, draft => {
+        draft.ownRestaurant = ownRestaurant;
       }),
   },
   initialState,
