@@ -33,4 +33,6 @@ public interface ReviewDao {
 
 	int warnReview(SqlSession session, String rvNo);
 
+	List<Review> getFeed(SqlSession session, List<Member> following);
+
 }

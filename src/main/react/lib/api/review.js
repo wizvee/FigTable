@@ -26,4 +26,7 @@ export const deleteComment = ({ rvNo, rvcNo }) =>
   client.patch(`${path}/api/comment`, { rvNo, rvcNo });
 
 // 내가 쓴 리뷰 얻기
-export const getMyReviews = () => client.post(`${path}/api/reviews`);
+export const getMyReviews = () => client.post(`${path}/api/member/reviews`);
+
+// 피드 얻기
+export const getMyFeed = () => client.post(`${path}/api/member/feed`);

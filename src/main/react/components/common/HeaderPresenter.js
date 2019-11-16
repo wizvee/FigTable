@@ -32,10 +32,12 @@ const HeaderWrapper = styled(Responsive)`
   justify-content: space-between;
   height: 4rem;
   .logo,
+  .logo_m,
   .right {
     color: ${props => (props.isHome ? 'white' : palette.primary)};
   }
-  .logo {
+  .logo,
+  .logo_m {
     font-size: 1.4rem;
     font-weight: 900;
     font-family: 'Patua One', cursive;
@@ -46,6 +48,17 @@ const HeaderWrapper = styled(Responsive)`
     justify-content: center;
     align-items: center;
     font-size: 1.8rem;
+  }
+  .logo_m {
+    display: none;
+  }
+  @media (max-width: 426px) {
+    .logo {
+      display: none;
+    }
+    .logo_m {
+      display: block;
+    }
   }
 `;
 
@@ -133,6 +146,9 @@ const HeaderPresenter = ({
         <HeaderWrapper isHome={isHome}>
           <div className="logo">
             <Link to={process.env.PATH}>FIGTABLE</Link>
+          </div>
+          <div className="logo_m">
+            <Link to={process.env.PATH}>FIG</Link>
           </div>
           {!isHome && (
             <form onSubmit={onSubmit}>

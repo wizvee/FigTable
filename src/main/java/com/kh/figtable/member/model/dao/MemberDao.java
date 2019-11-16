@@ -37,9 +37,11 @@ public interface MemberDao {
 	int addPoint(SqlSession session, Map point);
 
 	int followingMember(SqlSession session, Map data);
-	
+
 	int unfollowingMember(SqlSession session, Map data);
 
 	List<Member> getFollowingList(SqlSession session, String memNo);
+
+	List<Member> getFollowerList(SqlSession session, String memNo);
 
 }

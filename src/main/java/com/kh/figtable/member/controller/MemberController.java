@@ -6,14 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +24,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kh.figtable.member.model.service.MemberService;
 import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
+import com.kh.figtable.review.model.service.ReviewService;
+import com.kh.figtable.review.model.vo.Review;
 
 @RestController
 public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	@Autowired
+	private ReviewService rvService;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
 
@@ -169,13 +171,31 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/api/member/follwing", method = RequestMethod.GET)
-	public ResponseEntity<List<Member>> getFollwoingMembers(HttpSession session) {
+	public ResponseEntity<List<Member>> getFollowingMembers(HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
 		List<Member> result = null;
 		if (m != null) {
 			result = service.getFollowingList(m.getMemNo());
 			for (Member member : result)
 				member.setFollowing(true);
+		}
+
+		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/follwer", method = RequestMethod.GET)
+	public ResponseEntity<List<Member>> getFollowerMembers(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Member> result = null;
+		if (m != null) {
+			result = service.getFollowerList(m.getMemNo());
+			for (Member member : result) {
+				List<Member> compare = service.getFollowingList(m.getMemNo());
+				if (compare.contains(member))
+					member.setFollowing(true);
+				else
+					member.setFollowing(false);
+			}
 		}
 
 		return new ResponseEntity<List<Member>>(result, HttpStatus.OK);
@@ -199,6 +219,29 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.OK);
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping(value = "/api/member/feed", method = RequestMethod.POST)
+	public ResponseEntity<List<Review>> getFeed(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Review> result = null;
+		if (m != null) {
+			List<Member> following = service.getFollowingList(m.getMemNo());
+			result = rvService.getFeed(following);
+		}
+
+		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/reviews", method = RequestMethod.POST)
+	private ResponseEntity<List<Review>> getMyReviews(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Review> result = null;
+		if (m != null) {
+			result = rvService.getMyReviews(m.getMemNo());
+			result = rvService.isLoved(m.getMemNo(), result);
+		}
+		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
 	}
 
 }

@@ -8,11 +8,8 @@ import ModalSearch from '../pages/user/ModalSearch';
 import ModalUser from '../pages/user/ModalUser';
 
 const HeaderContainer = ({ history }) => {
-  const { member } = useSelector(({ member }) => ({ member: member.member }));
   const dispatch = useDispatch();
-  const onLogout = () => {
-    dispatch(logout());
-  };
+  const { member } = useSelector(({ member }) => ({ member: member.member }));
 
   const [isSearchModal, setIsSearchModal] = useState(false);
   const [isUserModal, setIsUserModal] = useState(false);
@@ -51,6 +48,12 @@ const HeaderContainer = ({ history }) => {
     },
     [keyword],
   );
+
+  // 로그아웃
+  const onLogout = useCallback(() => {
+    closeUserModal();
+    dispatch(logout());
+  }, []);
 
   return (
     <>

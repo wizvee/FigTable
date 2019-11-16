@@ -37,6 +37,17 @@
 		RV_DATE DESC
 	</select>
 
+	<select id="getFeed" parameterType="list" resultType="review"
+		resultMap="rvResult">
+		SELECT R.*, M.MEM_NAME, M.MEM_PROFILE, M.MEM_RVCNT, M.MEM_FWCNT FROM
+		FIG_REVIEW R JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO) WHERE R.MEM_NO IN
+		<foreach collection="list" item="member" open="("
+			separator="," close=")">
+			#{member.memNo}
+		</foreach>
+		ORDER BY RV_DATE DESC
+	</select>
+
 	<insert id="writeReview" parameterType="review">
 		INSERT INTO FIG_REVIEW
 		VALUES('rv'||RV_SEQ.NEXTVAL, #{memNo}, #{resNo}, #{rvRating},

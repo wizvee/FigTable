@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import client, { path } from '../../../../lib/api/client';
 import HeaderContainer from '../../../common/HeaderContainer';
 import MypagePresenter from './MypagePresenter';
 import { check, changeField } from '../../../../modules/member';
-import { myReviews } from '../../../../modules/reviews';
+import { myReviews, unloadReviews } from '../../../../modules/reviews';
 import MyReviews from './MyReviews';
 
 const MypageContainer = () => {
@@ -31,10 +31,12 @@ const MypageContainer = () => {
     [dispatch],
   );
 
-  // mount 시마다 member information을 DB와 연동
+  // mount 시마다 member information을 DB와 연동,
+  // unmount 할 때 내가 쓴 리뷰 등 초기화
   useEffect(() => {
     dispatch(check(member.memNo));
     dispatch(myReviews());
+    return () => dispatch(unloadReviews());
   }, [dispatch]);
 
   return (

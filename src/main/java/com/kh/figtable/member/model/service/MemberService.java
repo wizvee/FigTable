@@ -36,4 +36,6 @@ public interface MemberService {
 
 	List<Member> getFollowingList(String memNo);
 
+	List<Member> getFollowerList(String memNo);
+
 }

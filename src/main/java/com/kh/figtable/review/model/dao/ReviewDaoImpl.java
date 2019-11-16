@@ -63,4 +63,9 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.update("review.warnReview", rvNo);
 	}
 
+	@Override
+	public List<Review> getFeed(SqlSession session, List<Member> following) {
+		return session.selectList("review.getFeed", following);
+	}
+
 }

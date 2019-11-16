@@ -23,6 +23,7 @@ const [DELETE_REVIEW, DELETE_REVIEW_SUCCESS] = createRequestActionTypes(
   'reviews/DELETE_REVIEW',
 );
 const [MY_RV, MY_RV_SUCCESS] = createRequestActionTypes('reviews/MY_RV');
+const [MY_FEED, MY_FEED_SUCCESS] = createRequestActionTypes('reviews/MY_FEED');
 
 export const listReviews = createAction(LIST_RV, resNo => resNo);
 export const unloadReviews = createAction(UNLOAD_RV);
@@ -42,6 +43,7 @@ export const deleteReview = createAction(DELETE_REVIEW, ({ rvNo, memNo }) => ({
   memNo,
 }));
 export const myReviews = createAction(MY_RV);
+export const myFeed = createAction(MY_FEED);
 
 const listReviewsSaga = createRequestSaga(LIST_RV, reviewAPI.getByResNo);
 const writeCommentSaga = createRequestSaga(
@@ -64,6 +66,7 @@ const deleteReviewSaga = createRequestSaga(
   reviewAPI.deleteReview,
 );
 const myReviewsSaga = createRequestSaga(MY_RV, reviewAPI.getMyReviews);
+const myFeedSaga = createRequestSaga(MY_FEED, reviewAPI.getMyFeed);
 
 export function* reviewsSaga() {
   yield takeLatest(LIST_RV, listReviewsSaga);
@@ -71,6 +74,7 @@ export function* reviewsSaga() {
   yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
   yield takeLatest(DELETE_REVIEW, deleteReviewSaga);
   yield takeLatest(MY_RV, myReviewsSaga);
+  yield takeLatest(MY_FEED, myFeedSaga);
 }
 
 const initialState = {
@@ -123,6 +127,10 @@ const reviews = handleActions(
         draft.reviews = draft.reviews.filter(review => review.rvNo != rvNo);
       }),
     [MY_RV_SUCCESS]: (state, { payload: reviews }) => ({
+      ...state,
+      reviews,
+    }),
+    [MY_FEED_SUCCESS]: (state, { payload: reviews }) => ({
       ...state,
       reviews,
     }),
