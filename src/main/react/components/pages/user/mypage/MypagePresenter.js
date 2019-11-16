@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { AiFillSetting } from 'react-icons/ai';
 import Responsive from '../../../common/Responsive';
 import Button from '../../../../lib/styles/Button';
 import palette from '../../../../lib/styles/Palette';
@@ -11,8 +12,6 @@ const Container = styled(Responsive)`
 
 const Profile = styled.div`
   display: flex;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid ${palette.borderGray};
   label {
     cursor: pointer;
   }
@@ -26,7 +25,7 @@ const Profile = styled.div`
 
 const path = process.env.PATH;
 const Pic = styled.div`
-  margin: 0 2rem;
+  margin: 0 1.5rem;
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -49,15 +48,32 @@ const Name = styled.div`
   align-items: center;
   height: 100%;
   font-size: 1.5rem;
-`;
-
-const ButtonWithMarginLeft = styled(Button)`
-  margin-left: 1.5rem;
-  border-radius: 30px;
+  svg {
+    margin-left: 0.5rem;
+    color: ${palette.textGray};
+    transform: translateY(-1px);
+    transition: color 0.2s linear;
+    cursor: pointer;
+    &:hover {
+      color: ${palette.text};
+    }
+  }
 `;
 
 const Social = styled.div`
+  display: flex;
   height: 100%;
+  color: ${palette.textGray};
+  span {
+    transition: color 0.2s linear;
+    cursor: pointer;
+    &:hover {
+      color: ${palette.text};
+    }
+    &.right {
+      justify-items: end;
+    }
+  }
   span + span {
     margin-left: 1.5rem;
   }
@@ -74,12 +90,15 @@ const MypagePresenter = ({ member, onChangeFile }) => {
         <Info>
           <Name>
             {member.memName}
-            <ButtonWithMarginLeft>수정</ButtonWithMarginLeft>
+            <AiFillSetting />
           </Name>
           <Social>
             <span>리뷰 {member.memRvCnt}</span>
-            <span>팔로워 0</span>
+            <span>팔로워 {member.memFwCnt}</span>
             <span>팔로잉 0</span>
+            <span className="right">
+              😻 {new Intl.NumberFormat().format(member.memPoint)}
+            </span>
           </Social>
         </Info>
       </Profile>

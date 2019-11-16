@@ -70,11 +70,11 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  @media (max-width: 426px) {
-    flex-direction: row;
-  }
   .profile {
     margin-top: 0.2rem;
+    @media (max-width: 426px) {
+      display: none;
+    }
   }
   .review {
     width: 100%;

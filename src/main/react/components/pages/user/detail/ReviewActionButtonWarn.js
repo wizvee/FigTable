@@ -90,7 +90,9 @@ const ReviewActionButtonWarn = ({ review }) => {
 
   // unmount 시 멤버 정보 DB와 크로스 체크
   useEffect(() => {
-    return () => dispatch(check(member.memNo));
+    return () => {
+      if (member) dispatch(check(member.memNo));
+    };
   }, []);
 
   return (
