@@ -58,4 +58,11 @@
 <update id="updateOpen" parameterType="restaurant">
 		UPDATE FIG_RESTAURANT SET RES_WAITING=#{resWaiting} WHERE RES_NO=#{resNo} 
 	</update>
+	<update id="updateRes" parameterType="restaurant">
+		UPDATE FIG_RESTAURANT SET RES_NAME=#{resName}, RES_LOCATION_KEYWORD=#{resLocationKeyword}, RES_FOOD_KEYWORD=#{resFoodKeyword},
+		RES_THUMB=#{resThumb}, RES_ADDRESS=#{resAddress}, RES_OPEN_DAY=#{resOpenDay, typeHandler=strArrRes},
+		RES_CLOSE_TIME=#{resCloseTime, typeHandler=strArrRes}, RES_MENU_TITLE=#{resMenuTitle, typeHandler=strArrRes},
+		RES_MENU_PRICE=#{resMenuPrice, typeHandler=strArrRes}, RES_TEL=#{resTel}, RES_LAT=#{resLat}, RES_LONG=#{resLong}
+		WHERE RES_NO=#{resNo}
+	</update>
 </mapper>

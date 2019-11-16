@@ -35,4 +35,8 @@ public class OwnerDaoImpl implements OwnerDao {
 	public int updateOpen(SqlSession session, Restaurant r) {
 		return session.update("owner.updateOpen", r);
 	}
+	@Override
+	public int updateRes(SqlSession session, Restaurant restaurant) {
+		return session.update("owner.updateRes", restaurant);
+	}
 }
