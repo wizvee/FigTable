@@ -47,6 +47,7 @@ const RegisterContainer = ({ history }) => {
       policies,
       privacy,
     } = form;
+
     const reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
     if (
       [memEmail, memPassword, passwordConfirm, memPhone, memName].includes('')

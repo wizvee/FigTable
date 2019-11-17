@@ -6,6 +6,7 @@ import HeaderPresenter from './HeaderPresenter';
 import ModalTemplate from './ModalTemplate';
 import ModalSearch from '../pages/user/ModalSearch';
 import ModalUser from '../pages/user/ModalUser';
+import QuestionContainer from '../pages/user/question/QuestionContainer';
 
 const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ const HeaderContainer = ({ history }) => {
           />
         </ModalTemplate>
       </HeaderPresenter>
+      <QuestionContainer />
     </>
   );
 };

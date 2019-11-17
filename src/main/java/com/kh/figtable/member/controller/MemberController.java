@@ -59,7 +59,6 @@ public class MemberController {
 	@RequestMapping(value = "/api/auth/login", method = RequestMethod.POST)
 	public ResponseEntity<Member> login(@RequestBody Member mem, HttpSession session) {
 		Member compare = service.login(mem);
-
 		if (pwEncoder.matches(mem.getMemPassword(), compare.getMemPassword())) {
 			// 로그인에 성공했을 경우 member 반환
 			compare.setMemPassword(null);
@@ -171,6 +170,30 @@ public class MemberController {
 		return new ResponseEntity<String>(rename, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/api/member/profile", method = RequestMethod.PATCH)
+	public ResponseEntity editMemberProfile(@RequestBody Member member, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		if (m != null)
+			service.update(member);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/password", method = RequestMethod.PATCH)
+	public ResponseEntity editMemberPassword(@RequestBody Map<String, String> data, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		if (m != null) {
+			Member compare = service.login(m);
+			if (pwEncoder.matches(data.get("oldPassword"), compare.getMemPassword())) {
+				Member member = new Member();
+				member.setMemNo(m.getMemNo());
+				member.setMemPassword(pwEncoder.encode(data.get("memPassword")));
+				service.update(member);
+			} else
+				return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/api/member/follwing", method = RequestMethod.GET)
 	public ResponseEntity<List<Member>> getFollowingMembers(HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
@@ -255,7 +278,7 @@ public class MemberController {
 		}
 		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/member/coupon", method = RequestMethod.POST)
 	private ResponseEntity<List<Map>> getMyCoupon(@RequestBody Map<String, Object> data, HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
