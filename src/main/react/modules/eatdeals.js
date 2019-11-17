@@ -17,6 +17,9 @@ const[LIST_BUY_EAT,LIST_BUY_EAT_SUCCESS, LIST_BUY_EAT_FAILURE ]
 const[DELETE_EAT, DELETE_EAT_SUCCESS]
 = createRequestActionTypes('eatdeals/DELETE_EAT',);
 
+const[EXTEND_EAT, EXTEND_EAT_SUCCESS]
+= createRequestActionTypes('eatdeals/EXTEND_EAT',);
+
 
 const UNLOAD_EAT = 'eatdeals/UNLOAD_EAT'; // 상세 페이지에서 벗어날 때 데이터 비우기
 
@@ -25,21 +28,29 @@ export const listOwnEat = createAction(LIST_OWN_EAT, resNo => resNo);
 export const listBuyEat = createAction(LIST_BUY_EAT, resNo => resNo);
 export const unloadEat = createAction(UNLOAD_EAT);
 export const deleteEat = createAction(DELETE_EAT, eatNo => eatNo);
+export const extendEat = createAction(
+  EXTEND_EAT,
+   ({eatNo, eatStartDate, eatEndDate}) =>({eatNo, eatStartDate, eatEndDate}) 
+   );
 
 const listEatSaga = createRequestSaga(LIST_EAT, restAPI.getEatdeals);
 const listOwnEatSaga = createRequestSaga(LIST_OWN_EAT, restAPI.getByResNo);
 const listBuyEatSaga = createRequestSaga(LIST_BUY_EAT, restAPI.getBuy);
 const deleteEatSaga = createRequestSaga(DELETE_EAT, restAPI.deleteEat);
+const extendEatSaga = createRequestSaga(EXTEND_EAT, restAPI.extendEat);
+
 export function* eatdealsSaga() {
   yield takeLatest(LIST_EAT, listEatSaga);
   yield takeLatest(LIST_OWN_EAT, listOwnEatSaga);
   yield takeLatest(LIST_BUY_EAT, listBuyEatSaga);
   yield takeLatest(DELETE_EAT, deleteEatSaga);
+  yield takeLatest(EXTEND_EAT, extendEatSaga);
 }
 const initialState = {
   eatdeals: null,
   ownEatdeals:null,
   buyers:null,
+  result:null,
   error: null,
 };
 
@@ -69,9 +80,15 @@ const eatdeals = handleActions(
       ...state,
       error,
     }),
-    [DELETE_EAT_SUCCESS]: (state, { payload: eatdeals }) =>({
+    [DELETE_EAT_SUCCESS]: (state, { payload: result }) =>({
       ...state,
-      eatdeals,
+      result:1,
+      
+    }),
+    [EXTEND_EAT_SUCCESS]: (state, { payload: result }) =>({
+      ...state,
+      result:1,
+      
     }),
     [UNLOAD_EAT]: () => initialState,
   },

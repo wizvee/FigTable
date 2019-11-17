@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
@@ -16,7 +16,7 @@ margin: 0 1rem;
 margin-top: 1rem;
 border-radius: 0.3rem;
     
-    `;
+`;
     
 const Image = styled.div`
     float:left;
@@ -44,6 +44,16 @@ const Text=styled.div`
     }
 `;
 
+const TextS=styled.div`
+    display:block;
+    font-size:0.8rem;
+    
+    color: ${palette.textGray};
+    span{
+        color:${props => props.color||palette.textGray};
+        font-weight:bold;
+    }
+`;
 const ButtonArea= styled.div`
 padding : 0.2rem 1rem;
 text-align:right;
@@ -58,10 +68,48 @@ const EatdealButton= styled(Button)`
   font-weight:normal;
   vertical-align:center;
 `;
+
+const Warrapper= styled.div`
+  position:absolute;
+  width:100%;
+  height:8rem;
+  background-color:rgba(0,0,0,0.5);
+  cursor:not-allowed;
+  z-index:2;
+`;
+
 const EatdealManageDetail=({
   eatDeal, 
+  onDateExtend,
   onDelete,
+  result
 })=>{
+  
+    //모달제어
+    const [dateModal, setDateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    function openDateModal(){
+      setDateModal(true);
+    }
+    function openDeleteModal(){
+      setDeleteModal(true);
+    }
+    function closeModal(){
+      setDeleteModal(false);
+      setDateModal(false);
+    }
+
+    
+  //수정될 때 디스패치
+  
+ //수정될 때 디스패치
+//  useEffect(() => {
+//   setDeleteModal(false);
+// }, [result])
+
+  //result>=1? setDeleteModal(false):null
+
+  const dispatch= useDispatch();
   const path = process.env.PATH;
   const {
     eatNo,
@@ -80,22 +128,10 @@ const EatdealManageDetail=({
   } = eatDeal;
   
   
-    //모달제어
-    const [dateModal, setDateModal] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
-    function openDateModal(){
-      setDateModal(true);
-    }
-    function openDeleteModal(){
-      setDeleteModal(true);
-    }
-    function closeModal(){
-      setDeleteModal(false);
-      setDateModal(false);
-    }
    
     return (
-        <>
+        <> 
+         
         <EatdealCard>
             <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <RightContainer>
@@ -105,24 +141,35 @@ const EatdealManageDetail=({
                     <Text>기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Text>
                     <Text>남은 수량 : <span>{eatCount}</span> </Text>
                     {eatStatus==='P'?
-                    (<Text color="#f67280">상태 : <span>New</span></Text>)
-                    :(<Text color="#f1c40f">상태 : <span>Sold Out</span></Text>)
+                    (<TextS >상태 : <span>New</span></TextS>)
+                    :(<TextS color="#f67280">상태 : <span>Sold Out/종료됨</span></TextS>)
                      }
             </RightContainer>
         </EatdealCard>
         
         <ButtonArea>
+        {eatStatus==='P'?(
+          <>
               <EatdealButton bgColor={palette.textGray} onClick={openDeleteModal}>
                 잇딜종료
               </EatdealButton>
               <EatdealButton onClick={openDateModal}>
                 기간연장
               </EatdealButton>
+          </>
+              ):(
+                <EatdealButton onClick={openDateModal}>
+                기간연장
+              </EatdealButton>
+              )
+        }
             </ButtonArea>
              {  //기간연장
                 !dateModal?null:
                 <EatdealDateModal 
                 closeModal={closeModal}
+                onDateExtend={onDateExtend}
+                eatNo={eatNo}
                 />
              }    
              {  //잇딜종료

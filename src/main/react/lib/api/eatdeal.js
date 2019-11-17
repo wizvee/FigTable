@@ -23,3 +23,11 @@ client.get(`${path}/api/owner/eatdeal/buy/?resNo=${resNo}`);
 //owner잇딜 삭제
 export const deleteEat= eatNo =>
 client.patch(`${path}/api/owner/eatdeal/delete`, eatNo);
+
+//잇딜날짜수정
+export const extendEat = ({ eatNo, eatStartDate, eatEndDate })=>
+client.patch(`${path}/api/owner/eatdeal/extend`, {
+  eatNo,
+	eatStartDate,
+	eatEndDate,
+});

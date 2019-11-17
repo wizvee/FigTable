@@ -2,6 +2,7 @@ package com.kh.figtable.eatdeal.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
@@ -14,4 +15,6 @@ public interface EatdealService {
 	List<Eatdeal>getByResNo(String resNo);
 	List<Buyer> getBuy(String resNo);
 	int register(Eatdeal eat);
+	int deleteEat(Map<String, String> data);
+	int extendEat(Map<String, String> data);
 }

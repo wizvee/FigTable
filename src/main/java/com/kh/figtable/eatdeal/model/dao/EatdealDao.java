@@ -2,6 +2,7 @@ package com.kh.figtable.eatdeal.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,6 @@ public interface EatdealDao {
 	List<Eatdeal> getByResNo(SqlSession session, String resNo);
 	List<Buyer> getBuy(SqlSession session, String resNo);
 	int register(SqlSession session, Eatdeal eat);
-
+	int deleteEat(SqlSession session, Map<String, String> data);
+	int extendEat(SqlSession session, Map<String, String> data);
 }

@@ -59,6 +59,7 @@ padding : 0.2rem 1rem;
 text-align:center;
 `;
 const EatdealDeleteModal = ({closeModal, onDelete, eatNo})=>{
+    console.log("모달"+eatNo);
     return (
         <>
         <ModalWrap>
@@ -69,7 +70,7 @@ const EatdealDeleteModal = ({closeModal, onDelete, eatNo})=>{
                 <ModalTitle>잇딜 판매를 종료하시겠습니까?</ModalTitle>
             <Separator/> 
         <ButtonArea>
-              <EatdealButton onClick={onDelete(eatNo)} >
+              <EatdealButton onClick={()=>{onDelete(eatNo), closeModal()}} >
                 종료하기
               </EatdealButton>
               </ButtonArea>
