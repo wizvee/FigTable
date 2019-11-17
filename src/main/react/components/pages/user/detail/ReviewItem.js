@@ -46,10 +46,6 @@ const Content = styled.div`
     font-size: 0.9rem;
     color: ${palette.textGray};
   }
-  .comment {
-    flex: 1;
-    margin-bottom: 1rem;
-  }
   .images {
     display: flex;
     flex-direction: row;
@@ -84,7 +80,6 @@ const ImgBlock = styled.div`
 
 const ReviewActionButtons = styled.div`
   position: relative;
-  display: flex;
   padding-top: 0.8rem;
   width: 100%;
 `;

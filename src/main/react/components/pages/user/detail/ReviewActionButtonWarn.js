@@ -11,7 +11,7 @@ import { check } from '../../../../modules/member';
 
 const Icon = styled.span`
   position: absolute;
-  bottom: 0;
+  top: 12px;
   right: 0;
   font-size: 0.95rem;
   color: ${palette.textGray};

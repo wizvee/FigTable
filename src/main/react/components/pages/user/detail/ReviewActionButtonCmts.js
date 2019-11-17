@@ -8,7 +8,6 @@ import ModalLogin from '../ModalLogin';
 
 const Icon = styled.span`
   margin-left: 1rem;
-  margin-right: auto;
   font-size: 0.95rem;
   color: ${palette.textGray};
   transition: color 0.2s linear;
@@ -40,7 +39,7 @@ const Comment = styled.div`
   font-size: 0.95rem;
   color: ${palette.text};
   & + & {
-    margin: 0.1rem 0;
+    margin: 0.5rem 0 0;
   }
   span + span {
     margin-left: 1.5rem;
@@ -48,6 +47,7 @@ const Comment = styled.div`
   .delBtn {
     position: absolute;
     right: 1.5rem;
+    bottom: 0;
     margin-left: 3rem;
     color: ${palette.textGray};
     font-size: 0.8rem;
