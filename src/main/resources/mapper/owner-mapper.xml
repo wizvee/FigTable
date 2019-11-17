@@ -65,4 +65,10 @@
 		RES_MENU_PRICE=#{resMenuPrice, typeHandler=strArrRes}, RES_TEL=#{resTel}, RES_LAT=#{resLat}, RES_LONG=#{resLong}
 		WHERE RES_NO=#{resNo}
 	</update>
+	
+	<select id="searchRes" parameterType="string"
+		resultType="restaurant" resultMap="ownRes">
+		SELECT * FROM FIG_RESTAURANT WHERE
+		RES_NAME LIKE '%'|| #{keyword} || '%'
+	</select>
 </mapper>

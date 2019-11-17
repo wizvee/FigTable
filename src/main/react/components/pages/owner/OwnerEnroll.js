@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import HeaderOwnerSimple from './common/HeaderOwnerSimple';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import OwnerForm from './OwnerForm';
 import OwnerEnrollShopForm from './OwnerEnrollShopForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { enrollOwner, searchRes } from '../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -42,6 +44,15 @@ const Title = styled.div`
 `;
 
 const OwnerEnroll = () => {
+  const dispatch = useDispatch();
+  const { /* owner, restaurant, */ restaurants } = useSelector(
+    ({ enrollOwner }) => ({
+      // restaurant: ownerEnroll.restaurant,
+      // owner: ownerEnroll.owner,
+      restaurants: enrollOwner.restaurants,
+    }),
+  );
+
   const [addressModal, setAddressModal] = useState(false);
   const addressModalOpen = () => {
     setAddressModal(true);
@@ -62,6 +73,20 @@ const OwnerEnroll = () => {
     document.body.style.overflow = 'scroll';
   };
 
+  const [isSearch, setIsSearch] = useState(false);
+  const onSearch = useCallback(
+    keyword => {
+      setIsSearch(true);
+      dispatch(searchRes(keyword));
+    },
+    [dispatch],
+  );
+
+  const selectRes = useCallback(resNo => {
+    shopSearchClose();
+    // dispatch(selectRes(resNo));
+  });
+
   return (
     <>
       <HeaderOwnerSimple />
@@ -76,6 +101,9 @@ const OwnerEnroll = () => {
             shopSearchModal={shopSearchModal}
             shopSearchOpen={shopSearchOpen}
             shopSearchClose={shopSearchClose}
+            onSearch={onSearch}
+            isSearch={isSearch}
+            restaurants={restaurants}
           />
         </ContentWrapper>
       </Container>

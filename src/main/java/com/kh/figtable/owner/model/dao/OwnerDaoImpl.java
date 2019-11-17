@@ -1,5 +1,6 @@
 package com.kh.figtable.owner.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,5 +39,10 @@ public class OwnerDaoImpl implements OwnerDao {
 	@Override
 	public int updateRes(SqlSession session, Restaurant restaurant) {
 		return session.update("owner.updateRes", restaurant);
+	}
+	
+	@Override
+	public List<Restaurant> searchRes(SqlSession session, String keyword) {
+		return session.selectList("owner.searchRes", keyword);
 	}
 }

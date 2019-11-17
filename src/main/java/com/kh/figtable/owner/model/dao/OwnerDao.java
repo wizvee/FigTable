@@ -1,5 +1,6 @@
 package com.kh.figtable.owner.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,4 +18,5 @@ public interface OwnerDao {
 	String getOldThumb(SqlSession session, String resNo);
 	int updateOpen(SqlSession session, Restaurant r);
 	int updateRes(SqlSession session, Restaurant restaurant);
+	List<Restaurant> searchRes(SqlSession session, String keyword);
 }

@@ -95,6 +95,10 @@ const OwnerEnrollShopForm = ({
   shopSearchModal,
   shopSearchOpen,
   shopSearchClose,
+  onSearch,
+  isSearch,
+  restaurants,
+  selectRes,
 }) => {
   const path = process.env.PATH;
 
@@ -209,7 +213,13 @@ const OwnerEnrollShopForm = ({
         />
       )}
       {!shopSearchModal ? null : (
-        <ShopSearchModal shopSearchClose={shopSearchClose} />
+        <ShopSearchModal
+          shopSearchClose={shopSearchClose}
+          onSearch={onSearch}
+          isSearch={isSearch}
+          restaurants={restaurants}
+          selectRes={selectRes}
+        />
       )}
     </>
   );
