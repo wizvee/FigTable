@@ -62,7 +62,7 @@ const Message = styled.div`
   text-align: center;
 `;
 
-const MyCoupon = () => {
+const MyCoupon = ({ currentCoupon }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(moment());
   const [focused, setFocused] = useState({ start: null, end: null });
@@ -90,8 +90,7 @@ const MyCoupon = () => {
       <h3>나의 잇딜 내역</h3>
       <Total>
         <div className="header">
-          <span>현재 내 포인트는 </span>
-          <b>2</b>
+          현재 보유한 잇딜은 <b>{currentCoupon}</b>매
         </div>
         <div className="datePicker">
           <SingleDatePicker

@@ -7,6 +7,7 @@ import ModalLoversContainer from '../detail/ModalLoversContainer';
 import MyReviews from './MyReviews';
 import MyPoint from './MyPoint';
 import MyCoupon from './MyCoupon';
+import EditProfileContainer from './EditProfileContainer';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -110,6 +111,7 @@ const MypagePresenter = ({
   onMyReviews,
   onMyPoint,
   onMyCoupon,
+  onEdit,
 }) => {
   const [followPop, setFollowPop] = useState('');
 
@@ -147,7 +149,7 @@ const MypagePresenter = ({
         <Info>
           <Name>
             {member.memName}
-            <AiFillSetting />
+            <AiFillSetting onClick={onEdit} />
           </Name>
           <Social>
             <span
@@ -183,7 +185,8 @@ const MypagePresenter = ({
           />
         )}
         {menu == 'myPoint' && <MyPoint currentPoint={member.memPoint} />}
-        {menu == 'myCoupon' && <MyCoupon />}
+        {menu == 'myCoupon' && <MyCoupon currentCoupon={member.eatdealCnt} />}
+        {menu == 'edit' && <EditProfileContainer member={member} />}
       </Section>
     </Container>
   );
