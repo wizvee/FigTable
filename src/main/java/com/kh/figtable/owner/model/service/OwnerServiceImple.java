@@ -1,5 +1,6 @@
 package com.kh.figtable.owner.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.owner.model.dao.OwnerDao;
+import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -51,6 +53,33 @@ public class OwnerServiceImple implements OwnerService {
 	@Override
 	public List<Restaurant> searchRes(String keyword) {
 		return dao.searchRes(session, keyword);
+	}
+	@Override
+	public Restaurant selectRes(String resNo) {
+		return dao.selectRes(session, resNo);
+	}
+	@Override
+	public int enrollOwn(Owner o, Restaurant r, String authFile) {
+		int result = 0;
+		result = dao.insertOwner(session, o);
+		result = 0;
+		
+		if(r.getResNo().length()==0) {
+			result = dao.insertNewRes(session,r);	
+		}else {
+			result = dao.insertOldRes(session,r);	
+		}
+		
+		Map<String, String> ownerAuth = new HashMap();
+		ownerAuth.put("ownNo", o.getOwnNo());
+		System.out.println(r.getResNo());
+		ownerAuth.put("resNo", r.getResNo());
+		ownerAuth.put("authFile", authFile);
+		
+		result=0;
+		result = dao.insertOwnerAuth(session, ownerAuth);
+		
+		return result;
 	}
 	
 	

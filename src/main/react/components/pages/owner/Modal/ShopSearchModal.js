@@ -138,14 +138,14 @@ const ShopSearchModal = ({
   onSearch,
   restaurants,
   isSearch,
-  selectRes,
+  onSelectRes,
+  newInput,
 }) => {
   const [keyword, setKeyword] = useState('');
   const onChange = useCallback(({ target: { value } }) => {
     setKeyword(value);
   }, []);
 
-  console.log(isSearch);
   return (
     <ModalWrapper>
       <Modal>
@@ -169,7 +169,7 @@ const ShopSearchModal = ({
           <>
             <ModalContent>
               {restaurants.map((r, index) => (
-                <ResItem key={r.resNo} onClick={selectRes}>
+                <ResItem key={r.resNo} onClick={() => onSelectRes(r.resNo)}>
                   <div className="resNm">{r.resName}</div>
                   <div className="resAddr">{r.resAddress}</div>
                 </ResItem>
@@ -180,7 +180,7 @@ const ShopSearchModal = ({
         {isSearch && restaurants.length === 0 && (
           <>
             <div style={{ paddingTop: '10px' }}>검색 결과가 없습니다.</div>
-            <NewButton>새로입력하기</NewButton>
+            <NewButton onClick={newInput}>새로입력하기</NewButton>
           </>
         )}
       </Modal>

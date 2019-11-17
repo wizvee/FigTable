@@ -200,7 +200,7 @@ const OwnerContainer = ({ match }) => {
     form.append('thumbnail', file);
     let thumb;
     await client
-      .post(`${path}/api/ownerThumb/${resNo}`, form, {
+      .post(`${path}/api/ownerThumb`, form, {
         headers: { 'content-type': 'multipart/form-data' },
       })
       .then(({ data }) => {

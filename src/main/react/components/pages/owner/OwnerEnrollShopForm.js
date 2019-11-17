@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/Palette';
 import AddressModal from './Modal/AddressModal';
 import Geocode from 'react-geocode';
 import ShopSearchModal from './Modal/ShopSearchModal';
 
-const FormConatiner = styled.div`
+const FormContainer = styled.div`
   width: 80%;
   height: auto;
   overflow: hidden;
@@ -31,6 +31,13 @@ const FormConatiner = styled.div`
       margin-left: 3.5rem;
     }
   }
+  .fileLabel {
+    text-align: left;
+    margin-left: 4.5rem;
+    @media (max-width: 1024px) {
+      margin-left: 1rem;
+    }
+  }
   .thumbButton {
     width: 150px;
     height: 100px;
@@ -40,6 +47,7 @@ const FormConatiner = styled.div`
     color: white;
     padding: 0.4rem 1.5rem 0.4rem 1.5rem;
     margin-left: 3rem;
+    letter-spacing: 1px;
   }
 
   input[type='file'] {
@@ -50,6 +58,13 @@ const FormConatiner = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+
+  .fileNameSpan {
+    padding-top: 10px;
+    position: relative;
+    left: -30px;
+    font-size: 13px;
   }
 `;
 
@@ -89,6 +104,8 @@ const Preview = styled.div`
 `;
 
 const OwnerEnrollShopForm = ({
+  restaurant,
+  selectAddr,
   addressModal,
   addressModalClose,
   addressModalOpen,
@@ -98,7 +115,13 @@ const OwnerEnrollShopForm = ({
   onSearch,
   isSearch,
   restaurants,
-  selectRes,
+  onSelectRes,
+  newInput,
+  isNewInput,
+  onChange,
+  onChangeFile,
+  onChangeAuthFile,
+  fileName,
 }) => {
   const path = process.env.PATH;
 
@@ -117,9 +140,15 @@ const OwnerEnrollShopForm = ({
     addressModalClose();
   };
 
+  useEffect(() => {
+    if (isNewInput) {
+      document.getElementById('resN').readOnly = false;
+    }
+  }, [isNewInput]);
+
   return (
     <>
-      <FormConatiner>
+      <FormContainer>
         <SubTitle>가게 정보</SubTitle>
         <input type="hidden" name="resLat" /*  value={resLat} */ />
         <input type="hidden" name="resLong" /* value={resLong} */ />
@@ -130,10 +159,11 @@ const OwnerEnrollShopForm = ({
             type="text"
             name="resName"
             placeholder="매장명"
-            onClick={shopSearchOpen}
+            id="resN"
             readOnly={true}
-            //   onChange={onChange}
-            //   defaultValue={resName}
+            onClick={() => !isNewInput && shopSearchOpen()}
+            onChange={onChange}
+            defaultValue={restaurant.resName}
           />
         </div>
         <div className="label">
@@ -144,8 +174,8 @@ const OwnerEnrollShopForm = ({
             name="resAddress"
             placeholder="매장 주소"
             onClick={addressModalOpen}
-            //   onChange={onChange}
-            //   value={resAddress}
+            onChange={onChange}
+            value={restaurant.resAddress}
             readOnly
           />
         </div>
@@ -155,9 +185,9 @@ const OwnerEnrollShopForm = ({
             style={{ marginLeft: '45px' }}
             type="tel"
             name="resTel"
-            placeholder="매장 전화번호"
-            //   onChange={onChange}
-            //   defaultValue={resTel}
+            placeholder="매장 전화번호(- 포함하여 입력)"
+            onChange={onChange}
+            defaultValue={restaurant.resTel}
           />
         </div>
 
@@ -168,8 +198,8 @@ const OwnerEnrollShopForm = ({
             type="text"
             name="resLocationKeyword"
             placeholder="위치 키워드"
-            //   onChange={onChange}
-            //   defaultValue={resLocationKeyword}
+            onChange={onChange}
+            defaultValue={restaurant.resLocationKeyword}
           />
         </div>
         <div className="label">
@@ -179,8 +209,8 @@ const OwnerEnrollShopForm = ({
             type="text"
             name="resFoodKeyword"
             placeholder="음식 키워드"
-            //   onChange={onChange}
-            //   defaultValue={resFoodKeyword}
+            onChange={onChange}
+            defaultValue={restaurant.resFoodKeyword}
           />
         </div>
         <div className="label imgLabel">
@@ -194,18 +224,35 @@ const OwnerEnrollShopForm = ({
             type="file"
             name="resThumb"
             multiple="multiple"
-            //   onChange={onChangeFile}
+            onChange={onChangeFile}
           />
           <Preview
             url={
-              `${path}/resources/images/ownerDefault.png`
-              // resThumb.substring(0, 4) == 'http'
-              //   ? resThumb
-              //   : `${path}/resources/upload/restaurant/${resThumb}`
+              restaurant.resThumb == ''
+                ? `${path}/resources/images/ownerDefault.png`
+                : restaurant.resThumb.substring(0, 4) == 'http'
+                ? restaurant.resThumb
+                : `${path}/resources/upload/restaurant/${restaurant.resThumb}`
             }
           />
         </div>
-      </FormConatiner>
+        <div className="label fileLabel">
+          사업자등록증
+          <label htmlFor="authFileUpload" className="thumbButton">
+            등록
+          </label>
+          <input
+            id="authFileUpload"
+            style={{ marginLeft: '45px' }}
+            type="file"
+            name="authFile"
+            multiple="multiple"
+            onChange={onChangeAuthFile}
+          />
+          <span className="fileNameSpan">{fileName}</span>
+        </div>
+      </FormContainer>
+
       {!addressModal ? null : (
         <AddressModal
           handleData={handleData}
@@ -218,7 +265,8 @@ const OwnerEnrollShopForm = ({
           onSearch={onSearch}
           isSearch={isSearch}
           restaurants={restaurants}
-          selectRes={selectRes}
+          onSelectRes={onSelectRes}
+          newInput={newInput}
         />
       )}
     </>

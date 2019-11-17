@@ -16,6 +16,6 @@ public class Owner {
 	private String ownStatus;
 	private String ownStatics;
 	private String ownApply;
-	
+	private String ownReturn;
 
 }

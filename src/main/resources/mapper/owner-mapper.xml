@@ -71,4 +71,32 @@
 		SELECT * FROM FIG_RESTAURANT WHERE
 		RES_NAME LIKE '%'|| #{keyword} || '%'
 	</select>
+	
+	<insert id="insertOwner" parameterType="com.kh.figtable.owner.model.vo.Owner">
+		INSERT INTO FIG_OWNER VALUES ('o'||MEM_SEQ.NEXTVAL, #{ownEmail}, #{ownPassword}, #{ownPhone}, #{ownName}, DEFAULT, #{ownStatics}, DEFAULT, NULL)
+	<selectKey keyProperty="ownNo" resultType="string" order="AFTER">
+		SELECT 'o'||MEM_SEQ.CURRVAL FROM DUAL
+	</selectKey>
+	</insert>
+	
+	<insert id="insertNewRes" parameterType="restaurant">
+		INSERT INTO FIG_RESTAURANT VALUES('r'||RES_SEQ.NEXTVAL, NULL, #{resName}, #{resLocationKeyword}, 
+  		#{resFoodKeyword}, #{resThumb}, #{resAddress}, NULL, NULL, 
+  		NULL, NULL, #{resTel}, #{resLat}, #{resLong}, 0, 0, 0, 0, NULL, 0, DEFAULT)
+  		<selectKey keyProperty="resNo" resultType="string" order="AFTER">
+  			SELECT 'r'||RES_SEQ.CURRVAL FROM DUAL
+  		</selectKey>
+	</insert>
+	
+	<update id="insertOldRes" parameterType="restaurant">
+		UPDATE FIG_RESTAURANT SET RES_NAME=#{resName}, RES_LOCATION_KEYWORD=#{resLocationKeyword}, RES_FOOD_KEYWORD=#{resFoodKeyword},
+		RES_THUMB=#{resThumb}, RES_ADDRESS=#{resAddress},RES_TEL=#{resTel}, RES_LAT=#{resLat}, RES_LONG=#{resLong}
+		WHERE RES_NO=#{resNo}
+	</update>
+	
+	<insert id="insertOwnerAuth" parameterType="map">
+		INSERT INTO FIG_OWN_LICENSE VALUES (#{ownNo}, #{resNo}, #{authFile})
+	</insert>
+	
+	
 </mapper>

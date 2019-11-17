@@ -47,7 +47,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const OwnerForm = () => {
+const OwnerForm = ({ owner, onChange }) => {
   return (
     <FormContainer>
       <SubTitle>사장님 정보</SubTitle>
@@ -58,7 +58,8 @@ const OwnerForm = () => {
           type="text"
           name="ownEmail"
           placeholder="이메일"
-          // onChange={onChange}
+          defaultValue={owner.ownEmail}
+          onChange={onChange}
         />
       </div>
       <div className="label">
@@ -68,7 +69,8 @@ const OwnerForm = () => {
           type="password"
           name="ownPassword"
           placeholder="비밀번호"
-          // onChange={onChange}
+          defaultValue={owner.ownPassword}
+          onChange={onChange}
         />
       </div>
       <div className="label">
@@ -78,7 +80,8 @@ const OwnerForm = () => {
           type="password"
           name="ownPasswordCk"
           placeholder="비밀번호 확인"
-          // onChange={onChange}
+          defaultValue={owner.ownPasswordCk}
+          onChange={onChange}
         />
       </div>
       <div className="label">
@@ -88,7 +91,8 @@ const OwnerForm = () => {
           type="ownPasswordCk"
           name="ownName"
           placeholder="이름"
-          // onChange={onChange}
+          defaultValue={owner.ownName}
+          onChange={onChange}
         />
       </div>
       <div className="label">
@@ -98,7 +102,8 @@ const OwnerForm = () => {
           type="text"
           name="ownPhone"
           placeholder="전화번호"
-          // onChange={onChange}
+          defaultValue={owner.ownPhone}
+          onChange={onChange}
         />
       </div>
     </FormContainer>
