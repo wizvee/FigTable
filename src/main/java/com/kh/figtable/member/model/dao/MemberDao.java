@@ -46,4 +46,6 @@ public interface MemberDao {
 
 	List<Map> getMyPoint(SqlSession session, Map data);
 
+	List<Map> getMyCoupon(SqlSession session, Map data);
+
 }

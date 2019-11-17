@@ -1,10 +1,8 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/Palette';
 import { MdRemoveRedEye, MdCreate } from 'react-icons/md';
-import { insertRecentAsync } from '../../modules/guest';
 
 const Image = styled.div`
   background: url(${props => `${props.url}`});
@@ -101,14 +99,10 @@ const Poster = ({ restaurant }) => {
     resWaiting,
     resWaitCnt,
   } = restaurant;
-  const dispatch = useDispatch();
-  const onInsert = useCallback(view => dispatch(insertRecentAsync(view)), [
-    dispatch,
-  ]);
 
   return (
     <Link to={`${process.env.PATH}/restaurant/${resNo}`}>
-      <Container onClick={() => onInsert(restaurant)}>
+      <Container>
         <ImageContainer>
           <Image
             url={

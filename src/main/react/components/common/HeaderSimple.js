@@ -20,7 +20,7 @@ const Wrapper = styled(Responsive)`
     color: ${palette.primary};
     font-size: 1.4rem;
     font-weight: 900;
-    font-family: 'Patua One', cursive;
+    font-family: 'Patua One';
     letter-spacing: 4px;
   }
 `;

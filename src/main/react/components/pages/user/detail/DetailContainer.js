@@ -10,6 +10,7 @@ import DetailPresenter from './DetailPresenter';
 import ReviewPresenter from './ReviewPresenter';
 import InstaViewer from './InstaViewer';
 import { check } from '../../../../modules/member';
+import { insertRecentAsync } from '../../../../modules/guest';
 
 const Container = styled(Responsive)`
   margin-bottom: 4rem;
@@ -54,6 +55,10 @@ const DetailContainer = ({ match }) => {
       dispatch(unloadReviews());
     };
   }, [resNo]);
+
+  useEffect(() => {
+    if (restaurant) dispatch(insertRecentAsync(restaurant));
+  }, [restaurant]);
 
   // 이미지 있는 리뷰 필터
   const imgReviews = reviews ? reviews.filter(review => review.rvImages) : null;

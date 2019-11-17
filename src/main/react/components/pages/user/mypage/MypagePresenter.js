@@ -6,6 +6,7 @@ import palette from '../../../../lib/styles/Palette';
 import ModalLoversContainer from '../detail/ModalLoversContainer';
 import MyReviews from './MyReviews';
 import MyPoint from './MyPoint';
+import MyCoupon from './MyCoupon';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -108,6 +109,7 @@ const MypagePresenter = ({
   onMyFeed,
   onMyReviews,
   onMyPoint,
+  onMyCoupon,
 }) => {
   const [followPop, setFollowPop] = useState('');
 
@@ -169,7 +171,7 @@ const MypagePresenter = ({
             <span onClick={onMyPoint} className="right">
               😻 {new Intl.NumberFormat().format(member.memPoint)}
             </span>
-            <span>🎫 {member.eatdealCnt}</span>
+            <span onClick={onMyCoupon}>🎫 {member.eatdealCnt}</span>
           </Social>
         </Info>
       </Profile>
@@ -181,6 +183,7 @@ const MypagePresenter = ({
           />
         )}
         {menu == 'myPoint' && <MyPoint currentPoint={member.memPoint} />}
+        {menu == 'myCoupon' && <MyCoupon />}
       </Section>
     </Container>
   );

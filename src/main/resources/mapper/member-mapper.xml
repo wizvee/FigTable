@@ -152,4 +152,15 @@
 		ORDER BY PO_DATE DESC
 	</select>
 
+	<select id="getMyCoupon" parameterType="map" resultType="map">
+		SELECT P.*, E.*, R.RES_NAME FROM FIG_EATDEAL_PAY P JOIN FIG_EATDEAL E
+		ON(P.EAT_NO = E.EAT_NO) JOIN FIG_RESTAURANT R ON(E.RES_NO = R.RES_NO)
+		WHERE MEM_NO = #{memNo}
+		<if test="startDate != null and endDate != null">
+			AND BUY_DATE BETWEEN #{startDate} AND TO_DATE(#{endDate},
+			'YY-MM-DD') + 1
+		</if>
+		ORDER BY BUY_DATE DESC
+	</select>
+
 </mapper>

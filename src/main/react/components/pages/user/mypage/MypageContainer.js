@@ -13,7 +13,7 @@ const MypageContainer = () => {
     reviews: reviews.reviews,
   }));
 
-  const [menu, setMenu] = useState('myPoint');
+  const [menu, setMenu] = useState('myCoupon');
 
   // event handler to change profile
   const onChangeFile = useCallback(
@@ -36,13 +36,12 @@ const MypageContainer = () => {
     setMenu('myFeed');
     dispatch(myFeed());
   }, []);
-
   const onMyReviews = useCallback(() => {
     setMenu('myReviews');
     dispatch(myReviews());
   }, []);
-
   const onMyPoint = useCallback(() => setMenu('myPoint'), []);
+  const onMyCoupon = useCallback(() => setMenu('myCoupon'), []);
 
   // mount 시마다 member information을 DB와 연동,
   // unmount 할 때 내가 쓴 리뷰 등 초기화
@@ -64,6 +63,7 @@ const MypageContainer = () => {
           onMyFeed={onMyFeed}
           onMyReviews={onMyReviews}
           onMyPoint={onMyPoint}
+          onMyCoupon={onMyCoupon}
         />
       </>
     )

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import client from '../../../../lib/api/client';
 import ModalLoversItem from './ModalLoversItem';
+import Loader from '../../../common/Loader';
 
 // 모달 배경
 const Overlay = styled.div`
@@ -41,9 +42,17 @@ const Container = styled.div`
 
 const ModalLoversContainer = ({ title, api, closeModal }) => {
   const [loversArr, setLoversArr] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getDataFromApi = useCallback(async () => {
+    await client
+      .get(`${api}`)
+      .then(({ data }) => setLoversArr(data))
+      .then(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
-    client.get(`${api}`).then(({ data }) => setLoversArr(data));
+    getDataFromApi();
   }, []);
 
   return (
@@ -51,15 +60,16 @@ const ModalLoversContainer = ({ title, api, closeModal }) => {
       <Overlay onClick={closeModal} />
       <Container>
         <h3>{title}</h3>
+        {loading && <Loader />}
         {loversArr.map(lover => (
           <ModalLoversItem key={lover.memNo} lover={lover} />
         ))}
-        {loversArr.length == 0 && title == '팔로잉' && (
+        {!loading && loversArr.length == 0 && title == '팔로잉' && (
           <div className="msg">
             사람들을 팔로잉하시면 소식을 받아볼 수 있어요! 🤩
           </div>
         )}
-        {loversArr.length == 0 && title == '팔로워' && (
+        {!loading && loversArr.length == 0 && title == '팔로워' && (
           <div className="msg">
             회원님을 팔로우하는 모든 사람이 여기에 표시됩니다! 😉
           </div>

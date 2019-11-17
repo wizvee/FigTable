@@ -53,6 +53,7 @@ const PosterSmall = props => {
     setLikesArr,
     closeModal,
   } = props;
+
   return (
     <Container>
       <FlexLink to={`${process.env.PATH}/restaurant/${resNo}`}>

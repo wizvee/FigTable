@@ -8,7 +8,6 @@ import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
 import { listRes, unloadRes } from '../../../modules/restaurants';
-import { logout } from '../../../modules/member';
 
 const Container = styled.div`
   display: flex;
@@ -66,6 +65,7 @@ const AdBlock = styled(Responsive)`
   .eatDeal {
     font-size: 1.4rem;
     font-weight: 600;
+    cursor: pointer;
     span {
       z-index: 1;
       position: relative;
@@ -140,7 +140,10 @@ const HomeContainer = ({ history }) => {
         </div>
         <div className="ad">
           <AdBlock>
-            <div className="eatDeal">
+            <div
+              className="eatDeal"
+              onClick={() => history.push(`${process.env.PATH}/eatdeal`)}
+            >
               EAT딜 <span>최대 50%</span> 할인!
             </div>
           </AdBlock>

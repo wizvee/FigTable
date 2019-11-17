@@ -40,4 +40,6 @@ public interface MemberService {
 
 	List<Map> getMyPoint(Map data);
 
+	List<Map> getMyCoupon(Map data);
+
 }

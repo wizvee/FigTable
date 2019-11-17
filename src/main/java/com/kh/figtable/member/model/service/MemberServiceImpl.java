@@ -109,4 +109,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getMyPoint(session, data);
 	}
 
+	@Override
+	public List<Map> getMyCoupon(Map data) {
+		return dao.getMyCoupon(session, data);
+	}
+
 }

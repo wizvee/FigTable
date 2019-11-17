@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { TiArrowRightThick } from 'react-icons/ti';
-import PointItem from './PointItem';
 import client, { path } from '../../../../lib/api/client';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
@@ -9,6 +8,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker, isInclusivelyBeforeDay } from 'react-dates';
 import moment from 'moment';
+import CouponItem from './CouponItem';
 
 const Total = styled.div`
   display: flex;
@@ -62,36 +62,36 @@ const Message = styled.div`
   text-align: center;
 `;
 
-const MyPoint = ({ currentPoint }) => {
+const MyCoupon = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(moment());
   const [focused, setFocused] = useState({ start: null, end: null });
 
   const [loading, setLoading] = useState(true);
-  const [history, SetHistory] = useState([]);
+  const [coupons, setCoupons] = useState([]);
 
-  // 마운트 시 포인트 내역 불러오기
+  // 마운트 시 쿠폰 내역 불러오기
   useEffect(() => {
     onSubmit();
   }, []);
 
   const onSubmit = useCallback(async () => {
     await client
-      .post(`${path}/api/member/point`, {
+      .post(`${path}/api/member/coupon`, {
         startDate: startDate && startDate.format('YYYY-MM-DD'),
         endDate: endDate && endDate.format('YYYY-MM-DD'),
       })
-      .then(({ data }) => SetHistory(data));
+      .then(({ data }) => setCoupons(data));
     setLoading(false);
   }, [startDate, endDate]);
 
   return (
     <div>
-      <h3>나의 포인트 내역</h3>
+      <h3>나의 잇딜 내역</h3>
       <Total>
         <div className="header">
           <span>현재 내 포인트는 </span>
-          <b>{new Intl.NumberFormat().format(currentPoint)}😻</b>
+          <b>2</b>
         </div>
         <div className="datePicker">
           <SingleDatePicker
@@ -128,11 +128,13 @@ const MyPoint = ({ currentPoint }) => {
           <Button onClick={onSubmit}>조회</Button>
         </div>
       </Total>
-      {history.length > 0
-        ? history.map((point, index) => <PointItem key={index} point={point} />)
+      {coupons.length > 0
+        ? coupons.map((coupon, index) => (
+            <CouponItem key={index} coupon={coupon} />
+          ))
         : !loading && <Message>조회 결과가 없습니다. 😥</Message>}
     </div>
   );
 };
 
-export default React.memo(MyPoint);
+export default React.memo(MyCoupon);

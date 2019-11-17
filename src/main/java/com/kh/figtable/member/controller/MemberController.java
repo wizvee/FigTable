@@ -255,5 +255,16 @@ public class MemberController {
 		}
 		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/member/coupon", method = RequestMethod.POST)
+	private ResponseEntity<List<Map>> getMyCoupon(@RequestBody Map<String, Object> data, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Map> result = null;
+		if (m != null) {
+			data.put("memNo", m.getMemNo());
+			result = service.getMyCoupon(data);
+		}
+		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
+	}
 
 }

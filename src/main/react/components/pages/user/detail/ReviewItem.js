@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
 import palette from '../../../../lib/styles/Palette';
 import RatingIcon from '../RatingIcon';
 import MemberProfile from '../MemberProfile';
@@ -46,6 +45,36 @@ const Content = styled.div`
     font-size: 0.9rem;
     color: ${palette.textGray};
   }
+`;
+
+const Detail = styled.div`
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  &:hover {
+    .toRes {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  .toRes {
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1.5px dashed ${palette.borderGray};
+    background: rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
+    cursor: pointer;
+    strong {
+      font-size: 1.1rem;
+    }
+  }
   .images {
     display: flex;
     flex-direction: row;
@@ -84,7 +113,7 @@ const ReviewActionButtons = styled.div`
   width: 100%;
 `;
 
-const ReviewItem = ({ review, openInsta, history }) => {
+const ReviewItem = ({ review, openInsta, toRes }) => {
   const {
     resNo,
     memProfile,
@@ -97,11 +126,6 @@ const ReviewItem = ({ review, openInsta, history }) => {
     rvImages,
     rvWarn,
   } = review;
-
-  // 마이 페이지에서 레스토랑 가는 용도!
-  function toRes() {
-    history.push(`${path}/restaurant/${resNo}`);
-  }
 
   return (
     <Container>
@@ -118,17 +142,24 @@ const ReviewItem = ({ review, openInsta, history }) => {
       />
       <Content>
         <div className="date">{rvDate}</div>
-        <div className="comment">{rvContent}</div>
-        <div className="images">
-          {rvImages &&
-            rvImages.map((img, index) => (
-              <ImgBlock
-                key={index}
-                url={img}
-                onClick={openInsta ? () => openInsta(img) : toRes}
-              />
-            ))}
-        </div>
+        <Detail>
+          {toRes && (
+            <div onClick={() => toRes(resNo)} className="toRes">
+              <strong>맛집 정보 보러 가기</strong>&nbsp;👉
+            </div>
+          )}
+          <div>{rvContent}</div>
+          <div className="images">
+            {rvImages &&
+              rvImages.map((img, index) => (
+                <ImgBlock
+                  key={index}
+                  url={img}
+                  onClick={openInsta ? () => openInsta(img) : undefined}
+                />
+              ))}
+          </div>
+        </Detail>
         <ReviewActionButtons>
           <ReviewActionButtonLoves review={review} />
           <ReviewActionButtonCmts review={review} />
@@ -140,4 +171,4 @@ const ReviewItem = ({ review, openInsta, history }) => {
   );
 };
 
-export default withRouter(React.memo(ReviewItem));
+export default React.memo(ReviewItem);
