@@ -107,7 +107,14 @@ const InfoBody = styled.div`
   }
 `;
 
-const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
+const DetailPresenter = ({
+  info,
+  error,
+  loading,
+  rvLoading,
+  imgReviews,
+  openInsta,
+}) => {
   if (error) return null;
   if (loading || !info || !imgReviews)
     return (
@@ -145,7 +152,7 @@ const DetailPresenter = ({ info, error, loading, imgReviews, openInsta }) => {
   return (
     <>
       <ImageWrapper>
-        {images.length == 0 ? (
+        {!rvLoading && images.length == 0 ? (
           <>
             <ThumbBlock
               url={

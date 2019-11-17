@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 		Map point = new HashMap();
 		point.put("memNo", mem.getMemNo());
 		point.put("poHistory", 1000);
-		point.put("poContent", "회원가입 1,000냥 지급");
+		point.put("poContent", "회원 가입");
 		dao.addPoint(session, point);
 		return r;
 	}
@@ -102,6 +102,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> getFollowerList(String memNo) {
 		return dao.getFollowerList(session, memNo);
+	}
+
+	@Override
+	public List<Map> getMyPoint(Map data) {
+		return dao.getMyPoint(session, data);
 	}
 
 }

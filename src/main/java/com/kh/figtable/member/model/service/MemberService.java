@@ -38,4 +38,6 @@ public interface MemberService {
 
 	List<Member> getFollowerList(String memNo);
 
+	List<Map> getMyPoint(Map data);
+
 }

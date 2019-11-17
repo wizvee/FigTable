@@ -28,6 +28,8 @@ public class Member {
 
 	private boolean isFollowing;
 	private int memPoint;
+	private int followingCnt;
+	private int eatdealCnt;
 
 	@Override
 	public int hashCode() {

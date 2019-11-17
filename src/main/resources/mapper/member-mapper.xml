@@ -14,6 +14,15 @@
 		<result property="memStatus" column="MEM_STATUS" />
 
 		<result property="memPoint" column="MEM_POINT" />
+		<result property="followingCnt" column="FOLLOWING_CNT" />
+		<result property="eatdealCnt" column="EATDEAL_CNT" />
+	</resultMap>
+
+	<resultMap type="point" id="poResult">
+		<result property="memNo" column="MEM_NO" />
+		<result property="poHistory" column="PO_HISTORY" />
+		<result property="poContent" column="PO_CONTENT" />
+		<result property="poDate" column="PO_DATE" />
 	</resultMap>
 
 	<insert id="register" parameterType="member">
@@ -62,9 +71,13 @@
 
 	<select id="check" parameterType="string" resultType="member"
 		resultMap="memResult">
-		SELECT M.*, P.MEM_POINT FROM FIG_MEMBER M JOIN (SELECT
-		MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM FIG_POINT GROUP BY MEM_NO) P
-		ON(M.MEM_NO = P.MEM_NO) WHERE M.MEM_NO = #{memNo}
+		SELECT M.*, P.MEM_POINT, F.FOLLOWING_CNT, E.EATDEAL_CNT FROM
+		FIG_MEMBER M JOIN (SELECT MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM
+		FIG_POINT GROUP BY MEM_NO) P ON(M.MEM_NO = P.MEM_NO) JOIN (SELECT
+		MEM_NO, COUNT(*) AS FOLLOWING_CNT FROM FIG_FOLLOWING GROUP BY MEM_NO)
+		F ON(M.MEM_NO = F.MEM_NO) JOIN (SELECT MEM_NO, COUNT(*) AS EATDEAL_CNT
+		FROM FIG_EATDEAL_PAY GROUP BY MEM_NO) E ON(M.MEM_NO = E.MEM_NO) WHERE
+		M.MEM_NO = #{memNo}
 	</select>
 
 	<update id="update" parameterType="member">
@@ -127,6 +140,16 @@
 		resultType="member" resultMap="memResult">
 		SELECT M.* FROM FIG_FOLLOWING F JOIN
 		FIG_MEMBER M ON(F.MEM_NO = M.MEM_NO) WHERE F.TARGET_MEM_NO = #{memNo}
+	</select>
+
+	<select id="getMyPoint" parameterType="map" resultType="point"
+		resultMap="poResult">
+		SELECT * FROM FIG_POINT WHERE MEM_NO = #{memNo}
+		<if test="startDate != null and endDate != null">
+			AND PO_DATE BETWEEN #{startDate} AND TO_DATE(#{endDate},
+			'YY-MM-DD') + 1
+		</if>
+		ORDER BY PO_DATE DESC
 	</select>
 
 </mapper>

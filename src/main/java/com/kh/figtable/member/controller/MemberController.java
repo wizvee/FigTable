@@ -3,6 +3,7 @@ package com.kh.figtable.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -242,6 +243,17 @@ public class MemberController {
 			result = rvService.isLoved(m.getMemNo(), result);
 		}
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/point", method = RequestMethod.POST)
+	private ResponseEntity<List<Map>> getMyPoint(@RequestBody Map<String, Object> data, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Map> result = null;
+		if (m != null) {
+			data.put("memNo", m.getMemNo());
+			result = service.getMyPoint(data);
+		}
+		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
 	}
 
 }

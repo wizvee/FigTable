@@ -83,6 +83,7 @@ const DetailContainer = ({ match }) => {
           info={restaurant}
           error={resError}
           loading={resLoading}
+          rvLoading={rvLoading}
           imgReviews={imgReviews ? imgReviews : []}
           openInsta={openInsta}
         />

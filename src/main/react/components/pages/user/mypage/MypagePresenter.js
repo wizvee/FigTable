@@ -4,6 +4,8 @@ import { AiFillSetting } from 'react-icons/ai';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import ModalLoversContainer from '../detail/ModalLoversContainer';
+import MyReviews from './MyReviews';
+import MyPoint from './MyPoint';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -63,10 +65,14 @@ const Name = styled.div`
 
 const Social = styled.div`
   display: flex;
+  align-items: center;
   margin-right: 0.2rem;
   height: 100%;
   color: ${palette.textGray};
   span {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
     transition: color 0.2s linear;
     cursor: pointer;
     &:hover {
@@ -94,8 +100,15 @@ const Section = styled.div`
   }
 `;
 
-const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
-  const [menu, setMenu] = useState('myReviews');
+const MypagePresenter = ({
+  member,
+  menu,
+  reviews,
+  onChangeFile,
+  onMyFeed,
+  onMyReviews,
+  onMyPoint,
+}) => {
   const [followPop, setFollowPop] = useState('');
 
   function openFollowPop(type) {
@@ -135,21 +148,40 @@ const MypagePresenter = ({ member, myReviews, onChangeFile }) => {
             <AiFillSetting />
           </Name>
           <Social>
-            <span className={menu == 'myReviews' ? 'selected' : ''}>
+            <span
+              onClick={onMyFeed}
+              className={menu == 'myFeed' ? 'selected' : ''}
+            >
+              피드
+            </span>
+            <span
+              onClick={onMyReviews}
+              className={menu == 'myReviews' ? 'selected' : ''}
+            >
               리뷰 {member.memRvCnt}
             </span>
-            <span onClick={() => openFollowPop('following')}>팔로잉 0</span>
+            <span onClick={() => openFollowPop('following')}>
+              팔로잉 {member.followingCnt}
+            </span>
             <span onClick={() => openFollowPop('follower')}>
               팔로워 {member.memFwCnt}
             </span>
-            <span className="right">
+            <span onClick={onMyPoint} className="right">
               😻 {new Intl.NumberFormat().format(member.memPoint)}
             </span>
-            <span>🎫 0</span>
+            <span>🎫 {member.eatdealCnt}</span>
           </Social>
         </Info>
       </Profile>
-      {menu == 'myReviews' && <Section>{myReviews}</Section>}
+      <Section>
+        {(menu == 'myReviews' || menu == 'myFeed') && (
+          <MyReviews
+            title={menu == 'myReviews' ? '내가 쓴 리뷰' : '나의 피드'}
+            reviews={reviews}
+          />
+        )}
+        {menu == 'myPoint' && <MyPoint currentPoint={member.memPoint} />}
+      </Section>
     </Container>
   );
 };

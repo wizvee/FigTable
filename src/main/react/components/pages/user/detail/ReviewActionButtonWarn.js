@@ -10,7 +10,9 @@ import ModalAlert from '../../../common/ModalAlert';
 import { check } from '../../../../modules/member';
 
 const Icon = styled.span`
-  margin-left: auto;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   font-size: 0.95rem;
   color: ${palette.textGray};
   cursor: pointer;

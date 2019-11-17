@@ -4,8 +4,7 @@ import client, { path } from '../../../../lib/api/client';
 import HeaderContainer from '../../../common/HeaderContainer';
 import MypagePresenter from './MypagePresenter';
 import { check, changeField } from '../../../../modules/member';
-import { myReviews, unloadReviews } from '../../../../modules/reviews';
-import MyReviews from './MyReviews';
+import { myReviews, unloadReviews, myFeed } from '../../../../modules/reviews';
 
 const MypageContainer = () => {
   const dispatch = useDispatch();
@@ -13,6 +12,8 @@ const MypageContainer = () => {
     member: member.member,
     reviews: reviews.reviews,
   }));
+
+  const [menu, setMenu] = useState('myPoint');
 
   // event handler to change profile
   const onChangeFile = useCallback(
@@ -31,11 +32,23 @@ const MypageContainer = () => {
     [dispatch],
   );
 
+  const onMyFeed = useCallback(() => {
+    setMenu('myFeed');
+    dispatch(myFeed());
+  }, []);
+
+  const onMyReviews = useCallback(() => {
+    setMenu('myReviews');
+    dispatch(myReviews());
+  }, []);
+
+  const onMyPoint = useCallback(() => setMenu('myPoint'), []);
+
   // mount 시마다 member information을 DB와 연동,
   // unmount 할 때 내가 쓴 리뷰 등 초기화
   useEffect(() => {
     dispatch(check(member.memNo));
-    dispatch(myReviews());
+    dispatch(myFeed());
     return () => dispatch(unloadReviews());
   }, [dispatch]);
 
@@ -45,8 +58,12 @@ const MypageContainer = () => {
         <HeaderContainer />
         <MypagePresenter
           member={member}
-          myReviews={<MyReviews reviews={reviews} />}
+          menu={menu}
+          reviews={reviews}
           onChangeFile={onChangeFile}
+          onMyFeed={onMyFeed}
+          onMyReviews={onMyReviews}
+          onMyPoint={onMyPoint}
         />
       </>
     )

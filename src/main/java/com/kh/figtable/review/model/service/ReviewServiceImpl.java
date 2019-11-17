@@ -79,7 +79,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Map point = new HashMap();
 		point.put("memNo", review.getMemNo());
 		point.put("poHistory", 300);
-		point.put("poContent", "리뷰 작성 300냥 지급");
+		point.put("poContent", "리뷰 작성");
 		mDao.addPoint(session, point);
 		return r;
 	}
@@ -91,7 +91,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Map point = new HashMap();
 		point.put("memNo", data.get("memNo"));
 		point.put("poHistory", -300);
-		point.put("poContent", "리뷰 삭제 300냥 차감");
+		point.put("poContent", "리뷰 삭제");
 		mDao.addPoint(session, point);
 		return r;
 	}

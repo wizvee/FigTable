@@ -44,4 +44,6 @@ public interface MemberDao {
 
 	List<Member> getFollowerList(SqlSession session, String memNo);
 
+	List<Map> getMyPoint(SqlSession session, Map data);
+
 }

@@ -37,6 +37,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -82,6 +83,7 @@ const ImgBlock = styled.div`
 `;
 
 const ReviewActionButtons = styled.div`
+  position: relative;
   display: flex;
   padding-top: 0.8rem;
   width: 100%;

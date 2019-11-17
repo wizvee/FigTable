@@ -8,6 +8,7 @@ import ModalLogin from '../ModalLogin';
 
 const Icon = styled.span`
   margin-left: 1rem;
+  margin-right: auto;
   font-size: 0.95rem;
   color: ${palette.textGray};
   transition: color 0.2s linear;
@@ -23,6 +24,12 @@ const Icon = styled.span`
       color: ${palette.primary};
     }
   }
+`;
+
+const CommentBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 const Comment = styled.div`
@@ -181,61 +188,63 @@ const ReviewActionButtonCmts = ({ review }) => {
           {review.comments.length}
         </Icon>
       )}
-      {member && viewInput && (
-        <CommentForm onSubmit={onSubmit}>
-          <Profile url={member.memProfile} />
-          <StyledInput
-            type="text"
-            value={cmtInput}
-            onChange={onChange}
-            placeholder="댓글 달기..."
-          />
-          <button>게시</button>
-        </CommentForm>
-      )}
-      {isViewAllCmt
-        ? review.comments.map(comment => (
-            <Comment key={comment.rvcNo}>
-              <span>
-                <b>{comment.memName}</b>
-              </span>
-              <span>{comment.rvcContent}</span>
-              {member && member.memNo == comment.memNo && (
-                <span
-                  className="delBtn"
-                  onClick={() => onDelete(comment.rvcNo)}
-                >
-                  삭제
+      <CommentBlock>
+        {member && viewInput && (
+          <CommentForm onSubmit={onSubmit}>
+            <Profile url={member.memProfile} />
+            <StyledInput
+              type="text"
+              value={cmtInput}
+              onChange={onChange}
+              placeholder="댓글 달기..."
+            />
+            <button>게시</button>
+          </CommentForm>
+        )}
+        {isViewAllCmt
+          ? review.comments.map(comment => (
+              <Comment key={comment.rvcNo}>
+                <span>
+                  <b>{comment.memName}</b>
                 </span>
-              )}
-            </Comment>
-          ))
-        : review.comments.map((comment, index) => {
-            if (index < 2)
-              return (
-                <Comment key={comment.rvcNo}>
-                  <span>
-                    <b>{comment.memName}</b>
+                <span>{comment.rvcContent}</span>
+                {member && member.memNo == comment.memNo && (
+                  <span
+                    className="delBtn"
+                    onClick={() => onDelete(comment.rvcNo)}
+                  >
+                    삭제
                   </span>
-                  <span>{comment.rvcContent}</span>
-                  {member && member.memNo == comment.memNo && (
-                    <span
-                      className="delBtn"
-                      onClick={() => onDelete(comment.rvcNo)}
-                    >
-                      삭제
+                )}
+              </Comment>
+            ))
+          : review.comments.map((comment, index) => {
+              if (index < 2)
+                return (
+                  <Comment key={comment.rvcNo}>
+                    <span>
+                      <b>{comment.memName}</b>
                     </span>
-                  )}
-                </Comment>
-              );
-          })}
-      {review.comments.length > 2 && !isViewAllCmt && (
-        <AllCmtView>
-          <span onClick={onViewAllCmt}>
-            댓글 <b>{review.comments.length}</b>개 모두 보기
-          </span>
-        </AllCmtView>
-      )}
+                    <span>{comment.rvcContent}</span>
+                    {member && member.memNo == comment.memNo && (
+                      <span
+                        className="delBtn"
+                        onClick={() => onDelete(comment.rvcNo)}
+                      >
+                        삭제
+                      </span>
+                    )}
+                  </Comment>
+                );
+            })}
+        {review.comments.length > 2 && !isViewAllCmt && (
+          <AllCmtView>
+            <span onClick={onViewAllCmt}>
+              댓글 <b>{review.comments.length}</b>개 모두 보기
+            </span>
+          </AllCmtView>
+        )}
+      </CommentBlock>
       {isModal && <ModalLogin msg="comment" closeModal={closeModal} />}
     </>
   );
