@@ -25,6 +25,7 @@ import WaitingPublicContainer from './components/pages/owner/waiting/WaitingPubl
 import ReviewContainer from './components/pages/admin/ReviewContainer';
 import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 import MypageContainer from './components/pages/user/mypage/MypageContainer';
+import OwnerLoginContainer from './components/pages/owner/OwnerLoginContainer';
 
 const App = () => {
   const path = process.env.PATH;
@@ -77,6 +78,12 @@ const App = () => {
           component={WaitingPublicContainer}
         />
         <Route path={`${path}/ownerEnroll`} exact component={OwnerEnroll} />
+        <Route
+          path={`${path}/ownerMain`}
+          exact
+          component={OwnerLoginContainer}
+        />
+
         <Route path={`${path}/admin`} exact component={AdminContainer} />
         <Route path={`${path}/admin/enroll`} component={RestaurantContainer} />
         <Route path={`${path}/admin/qna`} component={QnAContainer} />
