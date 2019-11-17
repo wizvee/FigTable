@@ -3,10 +3,9 @@ package com.kh.figtable.eatdeal.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,8 +25,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kh.figtable.eatdeal.model.service.EatdealService;
 import com.kh.figtable.eatdeal.model.vo.Buyer;
 import com.kh.figtable.eatdeal.model.vo.Eatdeal;
-import com.kh.figtable.member.model.vo.Member;
-import com.kh.figtable.review.model.vo.Review;
 
 @RestController
 public class EatdealController {
@@ -80,12 +77,9 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/newEat/register", method = RequestMethod.POST)
 	public ResponseEntity<Integer> register(@RequestBody Eatdeal eat, HttpSession session) {
-		System.out.println(eat);
 		int result = service.register(eat);
 		if (result > 0) {
 			// 성공시 200 반환
-			System.out.println("등록성공");
-			
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
 			// 실패 시 400 에러 반환
@@ -95,7 +89,6 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.POST)
 	private ResponseEntity<String> uploadFiles(MultipartHttpServletRequest req) {
-		System.out.println("post들어옴");
 		// 1. 파일저장경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/eatdeal");
 		String image = "";
@@ -137,7 +130,33 @@ public class EatdealController {
 			f.delete();
 		}
 	}
+
+	@RequestMapping(value = "/api/owner/eatdeal/delete", method = RequestMethod.PATCH)
+	private ResponseEntity<Integer> deleteEat(@RequestBody Map<String, String> data) {
+		int result=service.deleteEat(data);
+		if (result > 0) {
+			// 성공시 200 반환
+			return new ResponseEntity(HttpStatus.OK);
+		}
+			// 실패 시 400 에러 반환
+		return new ResponseEntity<Integer>(result, HttpStatus.BAD_REQUEST);
+	}
 	
+
+	@RequestMapping(value = "/api/owner/eatdeal/extend", method = RequestMethod.PATCH)
+	public ResponseEntity<Integer> extendEat(@RequestBody Map<String, String> data) {
+		System.out.println(data);
+		int result = service.extendEat(data);
+		if (result > 0) {
+			// 성공시 200 반환
+			System.out.println("등록성공");
+			
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+			// 실패 시 400 에러 반환
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.kh.figtable.owner.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.kh.figtable.owner.model.vo.OwnerInfo;
@@ -12,4 +13,5 @@ public interface OwnerService {
 	int updateThumb(Map<String, String> data);
 	int updateOpen(Restaurant r);
 	int updateRes(Restaurant restaurant);
+	List<Restaurant> searchRes(String keyword);
 }

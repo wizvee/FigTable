@@ -62,7 +62,7 @@ const initialState = {
   restaurants: [],
 };
 
-const ownerEnroll = handleActions(
+const enrollOwner = handleActions(
   {
     [SEARCH_RES_SUCCESS]: (state, { payload: restaurants }) => ({
       ...state,
@@ -72,4 +72,4 @@ const ownerEnroll = handleActions(
   initialState,
 );
 
-export default ownerEnroll;
+export default enrollOwner;

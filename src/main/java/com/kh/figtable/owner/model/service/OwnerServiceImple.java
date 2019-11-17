@@ -1,5 +1,6 @@
 package com.kh.figtable.owner.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,6 +46,11 @@ public class OwnerServiceImple implements OwnerService {
 	@Override
 	public int updateRes(Restaurant restaurant) {
 		return dao.updateRes(session, restaurant);
+	}
+	
+	@Override
+	public List<Restaurant> searchRes(String keyword) {
+		return dao.searchRes(session, keyword);
 	}
 	
 	

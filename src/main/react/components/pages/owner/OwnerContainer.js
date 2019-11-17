@@ -216,10 +216,13 @@ const OwnerContainer = ({ match }) => {
     dispatch(ownerRes(resNo));
     //나중에 변경
     dispatch(ownHeader('o22'));
+
+    // init();
   }, [resNo]);
 
-  const [shopModal, setIsShopModal] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
+  const [openState, setOpenState] = useState('');
+
+  const [shopModal, setIsShopModal] = useState('');
   const [modeSelModal, setModeSelModal] = useState(false);
 
   const shopOpenM = () => {
@@ -230,7 +233,6 @@ const OwnerContainer = ({ match }) => {
   const shopCloseM = o => {
     if (o) {
       document.getElementsByTagName('label')[1].click();
-      setShopOpen(!shopOpen);
       dispatch(resOpen({ resNo, open: !restaurant.open }));
     }
     setIsShopModal(false);
@@ -252,7 +254,10 @@ const OwnerContainer = ({ match }) => {
             <ContentWrapper>
               <OwnerInfo store={restaurant} onChangeFile={onChangeFile} />
               <Button>
-                <ButtonInput id="buttonInput" />
+                <ButtonInput
+                  id="buttonInput"
+                  defaultChecked={restaurant.resWaiting == 'T' && true}
+                />
                 <ButtonLabel htmlFor="buttonInput" onClick={shopOpenM}>
                   <ButtonSpan></ButtonSpan>
                 </ButtonLabel>
@@ -272,7 +277,7 @@ const OwnerContainer = ({ match }) => {
       )}
 
       {!shopModal ? null : (
-        <ShopOpenModal shopOpen={shopOpen} shopCloseM={shopCloseM} />
+        <ShopOpenModal shopOpen={restaurant.open} shopCloseM={shopCloseM} />
       )}
     </>
   );

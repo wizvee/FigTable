@@ -79,9 +79,9 @@ padding : 0.2rem 1rem;
 text-align:center;
 `;
 
-const EatdealDateModal =({closeModal})=>{
-    const [start, setStart]= useState(null);
-    const [end, setEnd]= useState(null);
+const EatdealDateModal =({closeModal, onDateExtend, eatNo})=>{
+    const [startDate, setStart]= useState(null);
+    const [endDate, setEnd]= useState(null);
 
     const onSetValue = (value) =>{
         setStart(moment(value.startDate).format('YYYY-MM-DD'));
@@ -104,7 +104,7 @@ const EatdealDateModal =({closeModal})=>{
                 </EatdealDateInput>
             <Separator/> 
         <ButtonArea>
-              <EatdealButton >
+              <EatdealButton onClick={()=>{onDateExtend(eatNo, startDate, endDate), closeModal()}}>
                 수정 완료
               </EatdealButton>
               </ButtonArea>

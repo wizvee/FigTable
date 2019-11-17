@@ -62,5 +62,13 @@
 		#{eatStartDate}, #{eatEndDate}, 
 		#{eatContent})
 	</insert>
-
+	
+	<update id="deleteEat" parameterType="map">
+		UPDATE FIG_EATDEAL SET EAT_STATUS = 'S' WHERE EAT_NO = #{eatNo}
+	</update>
+	
+	<update id="extendEat" parameterType="map">
+		UPDATE FIG_EATDEAL SET EAT_STATUS = 'P', EAT_STARTDATE = #{eatStartDate}, EAT_ENDDATE= #{eatEndDate} WHERE EAT_NO = #{eatNo}
+	</update>
+	
 </mapper>

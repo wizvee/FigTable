@@ -18,7 +18,7 @@ import adminRestaurants, { adminRestuarantsSaga } from './adminRestaurants';
 import adminOwners, { adminOwnersSaga } from './adminOwners';
 import adminInsertRes, { adminInsertResSaga } from './adminInsertRes';
 import adminReviews, { adminReviewsSaga } from './adminReviews';
-import searchRes, { ownerEnrollSaga } from './ownerEnroll';
+import enrollOwner, { ownerEnrollSaga } from './enrollOwner';
 
 const rootReducer = combineReducers({
   guest,
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
   adminOwners,
   adminInsertRes,
   adminReviews,
-  searchRes,
+  enrollOwner,
 });
 
 export function* rootSaga() {
