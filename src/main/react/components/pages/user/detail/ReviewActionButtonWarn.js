@@ -99,7 +99,7 @@ const ReviewActionButtonWarn = ({ review }) => {
     return () => {
       if (isMemerCheck && member) dispatch(check(member.memNo));
     };
-  }, []);
+  }, [isMemerCheck]);
 
   return (
     member && (

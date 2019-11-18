@@ -40,7 +40,8 @@
 	<select id="getFeed" parameterType="list" resultType="review"
 		resultMap="rvResult">
 		SELECT R.*, M.MEM_NAME, M.MEM_PROFILE, M.MEM_RVCNT, M.MEM_FWCNT FROM
-		FIG_REVIEW R JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO) WHERE R.MEM_NO IN
+		FIG_REVIEW R JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO) WHERE R.MEM_NO
+		IN
 		<foreach collection="list" item="member" open="("
 			separator="," close=")">
 			#{member.memNo}
@@ -53,6 +54,10 @@
 		VALUES('rv'||RV_SEQ.NEXTVAL, #{memNo}, #{resNo}, #{rvRating},
 		#{rvContent}, #{rvImages, typeHandler=strArr}, DEFAULT, NULL, DEFAULT)
 	</insert>
+
+	<delete id="deleteReviewLovers" parameterType="string">
+		DELETE FIG_RV_LOVES WHERE RV_NO = #{rvNo}
+	</delete>
 
 	<delete id="deleteReview" parameterType="map">
 		DELETE FIG_REVIEW WHERE

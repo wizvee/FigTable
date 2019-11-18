@@ -51,5 +51,7 @@ public interface MemberDao {
 	List<Map> getQeustionMsgs(SqlSession session, Map data);
 	
 	int writeQuestion(SqlSession session, Map data);
+	
+	int deleteWarns(SqlSession session, Map data);
 
 }

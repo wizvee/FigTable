@@ -309,5 +309,17 @@ public class MemberController {
 		service.writeQuestion(data);
 		return new ResponseEntity(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/member/warn", method = RequestMethod.PATCH)
+	private ResponseEntity deleteWarns(@RequestParam("warns") String warns, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		if (m != null) {
+			Map<String, String> data = new HashMap<>();
+			data.put("memNo", m.getMemNo());
+			data.put("count", warns);
+			service.deleteWarns(data);
+		}
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 }

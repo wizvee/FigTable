@@ -112,4 +112,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.writeQuestion", data);
 	}
 
+	@Override
+	public int deleteWarns(SqlSession session, Map data) {
+		return session.update("member.deleteWarns", data);
+	}
+
 }

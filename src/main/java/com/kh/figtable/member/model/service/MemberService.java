@@ -45,5 +45,7 @@ public interface MemberService {
 	List<Map> getQeustionMsgs(Map data);
 	
 	int writeQuestion(Map data);
+	
+	int deleteWarns(Map data);
 
 }

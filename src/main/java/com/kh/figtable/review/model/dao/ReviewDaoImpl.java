@@ -68,4 +68,9 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectList("review.getFeed", following);
 	}
 
+	@Override
+	public int deleteReviewLovers(SqlSession session, String rvNo) {
+		return session.delete("review.deleteReviewLovers", rvNo);
+	}
+
 }

@@ -124,4 +124,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.writeQuestion(session, data);
 	}
 
+	@Override
+	public int deleteWarns(Map data) {
+		int r = dao.deleteWarns(session, data);
+		// 경고 수만큼 포인트 차감
+		Map point = new HashMap();
+		point.put("memNo", data.get("memNo"));
+		point.put("poHistory", -(Integer.parseInt((String) data.get("count")) * 600));
+		point.put("poContent", "경고 해제");
+		dao.addPoint(session, point);
+		return r;
+	}
+
 }

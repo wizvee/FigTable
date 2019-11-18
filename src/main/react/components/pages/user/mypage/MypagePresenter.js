@@ -8,6 +8,7 @@ import MyReviews from './MyReviews';
 import MyPoint from './MyPoint';
 import MyCoupon from './MyCoupon';
 import EditProfileContainer from './EditProfileContainer';
+import MyWarn from './MyWarn';
 
 const Container = styled(Responsive)`
   padding: 2rem;
@@ -68,6 +69,7 @@ const Name = styled.div`
   }
   .warn {
     font-size: 1rem;
+    cursor: pointer;
   }
 `;
 
@@ -120,6 +122,7 @@ const MypagePresenter = ({
   onMyPoint,
   onMyCoupon,
   onEdit,
+  onWarn,
 }) => {
   const [followPop, setFollowPop] = useState('');
 
@@ -135,7 +138,11 @@ const MypagePresenter = ({
   const setWarnIcon = useCallback(() => {
     let arr = [];
     for (let i = 0; i < member.memWrCnt; i++) {
-      arr.push(<span className="warn">🚨</span>);
+      arr.push(
+        <span key={i} onClick={onWarn} className="warn">
+          🚨
+        </span>,
+      );
     }
     return arr;
   }, [member]);
@@ -162,7 +169,7 @@ const MypagePresenter = ({
           <input type="file" name="memProfile" onChange={onChangeFile} />
         </label>
         <Info>
-          <Name className={member.memWrCnt == 3 ? 'stop' : ''}>
+          <Name className={member.memWrCnt >= 3 ? 'stop' : ''}>
             {member.memName}
             <AiFillSetting onClick={onEdit} />
             {setWarnIcon()}
@@ -205,6 +212,7 @@ const MypagePresenter = ({
         {menu == 'myPoint' && <MyPoint currentPoint={member.memPoint} />}
         {menu == 'myCoupon' && <MyCoupon currentCoupon={member.eatdealCnt} />}
         {menu == 'edit' && <EditProfileContainer member={member} />}
+        {menu == 'warn' && <MyWarn member={member} />}
       </Section>
     </Container>
   );

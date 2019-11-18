@@ -171,8 +171,15 @@
 	</select>
 
 	<insert id="writeQuestion" parameterType="map">
-		INSERT INTO FIG_QUESTION VALUES(#{memNo}, #{targetMemNo}, #{content},
-		DEFAULT, #{category})
+		INSERT INTO
+		FIG_QUESTION VALUES(#{memNo}, #{targetMemNo}, #{content},
+		DEFAULT,
+		#{category})
 	</insert>
+
+	<update id="deleteWarns" parameterType="map">
+		UPDATE FIG_MEMBER SET MEM_WRCNT = MEM_WRCNT - #{count} WHERE MEM_NO =
+		#{memNo}
+	</update>
 
 </mapper>

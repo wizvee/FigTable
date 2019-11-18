@@ -47,6 +47,7 @@ const MypageContainer = () => {
   const onMyPoint = useCallback(() => setMenu('myPoint'), []);
   const onMyCoupon = useCallback(() => setMenu('myCoupon'), []);
   const onEdit = useCallback(() => setMenu('edit'), []);
+  const onWarn = useCallback(() => setMenu('warn'), []);
 
   // mount 시마다 member information을 DB와 연동,
   // unmount 할 때 내가 쓴 리뷰 등 초기화
@@ -72,6 +73,7 @@ const MypageContainer = () => {
           onMyPoint={onMyPoint}
           onMyCoupon={onMyCoupon}
           onEdit={onEdit}
+          onWarn={onWarn}
         />
       </>
     )

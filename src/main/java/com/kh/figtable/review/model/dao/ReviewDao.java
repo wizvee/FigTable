@@ -22,6 +22,8 @@ public interface ReviewDao {
 	String isLoved(SqlSession session, Map<String, String> info);
 
 	int writeReview(SqlSession session, Review review);
+	
+	int deleteReviewLovers(SqlSession session, String rvNo);
 
 	int deleteReview(SqlSession session, Map<String, String> data);
 
