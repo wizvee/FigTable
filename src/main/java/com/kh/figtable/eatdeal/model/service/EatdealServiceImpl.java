@@ -57,7 +57,12 @@ public class EatdealServiceImpl implements EatdealService {
 
 	@Override
 	public int extendEat(Map<String, String> data) {
-		return dao.deleteEat(session, data);
+		return dao.extendEat(session, data);
+	}
+
+	@Override
+	public int confirmEat(Map<String, String> data) {
+		return dao.confirmEat(session, data);
 	}
 
 

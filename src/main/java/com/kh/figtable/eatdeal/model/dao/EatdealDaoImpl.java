@@ -50,7 +50,12 @@ public class EatdealDaoImpl implements EatdealDao {
 
 	@Override
 	public int extendEat(SqlSession session, Map<String, String> data) {
-		return session.update("eatdeal.extend", data);
+		return session.update("eatdeal.extendEat", data);
+	}
+
+	@Override
+	public int confirmEat(SqlSession session, Map<String, String> data) {
+		return session.update("eatdeal.confirmEat", data);
 	}
 	
 

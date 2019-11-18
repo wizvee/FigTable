@@ -17,4 +17,5 @@ public interface EatdealService {
 	int register(Eatdeal eat);
 	int deleteEat(Map<String, String> data);
 	int extendEat(Map<String, String> data);
+	int confirmEat(Map<String, String> data);
 }

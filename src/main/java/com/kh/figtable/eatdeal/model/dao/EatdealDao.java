@@ -21,4 +21,5 @@ public interface EatdealDao {
 	int register(SqlSession session, Eatdeal eat);
 	int deleteEat(SqlSession session, Map<String, String> data);
 	int extendEat(SqlSession session, Map<String, String> data);
+	int confirmEat(SqlSession session, Map<String, String> data);
 }

@@ -70,7 +70,7 @@ const OwnerEatdealForm = ({restaurant}) => {
         {/* 카테고리별로 컴포넌트 불러옴 */}
         {category==='enroll'&& <EatdealEnrollContainer  restaurant={restaurant}/>||
          category==='manage'&&<EatdealManage restaurant={restaurant}/>||
-         category==='buy'&&<EatdealBuy buyers={buyers}/> }
+         category==='buy'&&<EatdealBuy buyers={buyers} restaurant={restaurant}/> }
          
          
         </FormContainer>

@@ -31,3 +31,7 @@ client.patch(`${path}/api/owner/eatdeal/extend`, {
 	eatStartDate,
 	eatEndDate,
 });
+
+//owner잇딜 사용확인
+export const confirmEat= payNo =>
+client.patch(`${path}/api/owner/eatdeal/confirm`, payNo);

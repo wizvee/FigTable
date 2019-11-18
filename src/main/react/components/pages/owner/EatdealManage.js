@@ -31,8 +31,6 @@ const EatdealManage =({restaurant})=>{
  //수정될 때 디스패치
  useEffect(() => {
   dispatch(listOwnEat(resNo));
-  //setDeleteModal(false);
-  console.log('잇딜디스패치됨')
 }, [result])
 
 
