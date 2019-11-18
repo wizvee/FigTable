@@ -48,4 +48,8 @@ public interface MemberDao {
 
 	List<Map> getMyCoupon(SqlSession session, Map data);
 
+	List<Map> getQeustionMsgs(SqlSession session, Map data);
+	
+	int writeQuestion(SqlSession session, Map data);
+
 }

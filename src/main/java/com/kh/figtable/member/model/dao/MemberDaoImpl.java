@@ -102,4 +102,14 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.getMyCoupon", data);
 	}
 
+	@Override
+	public List<Map> getQeustionMsgs(SqlSession session, Map data) {
+		return session.selectList("member.getQeustionMsgs", data);
+	}
+
+	@Override
+	public int writeQuestion(SqlSession session, Map data) {
+		return session.insert("member.writeQuestion", data);
+	}
+
 }

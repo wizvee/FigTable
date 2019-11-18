@@ -114,4 +114,14 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getMyCoupon(session, data);
 	}
 
+	@Override
+	public List<Map> getQeustionMsgs(Map data) {
+		return dao.getQeustionMsgs(session, data);
+	}
+
+	@Override
+	public int writeQuestion(Map data) {
+		return dao.writeQuestion(session, data);
+	}
+
 }

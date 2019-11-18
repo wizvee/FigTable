@@ -3,7 +3,7 @@ package com.kh.figtable.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -288,6 +288,26 @@ public class MemberController {
 			result = service.getMyCoupon(data);
 		}
 		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/question/{category}", method = RequestMethod.GET)
+	private ResponseEntity<List<Map>> getMyCoupon(@PathVariable("category") String category, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		List<Map> result = null;
+		if (m != null) {
+			Map<String, String> data = new HashMap<>();
+			data.put("memNo", m.getMemNo());
+			data.put("category", category);
+			result = service.getQeustionMsgs(data);
+		}
+		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/question", method = RequestMethod.POST)
+	private ResponseEntity writeQuestion(@RequestBody Map<String, Object> data) {
+		// memNo(당사자), targetMemNo(받는 사람), content(내용), category(카테고리) E등록 D폐업 O기타
+		service.writeQuestion(data);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 }
