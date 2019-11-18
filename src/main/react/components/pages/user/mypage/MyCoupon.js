@@ -9,6 +9,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker, isInclusivelyBeforeDay } from 'react-dates';
 import moment from 'moment';
 import CouponItem from './CouponItem';
+import Loader from '../../../common/Loader';
 
 const Total = styled.div`
   display: flex;
@@ -127,6 +128,7 @@ const MyCoupon = ({ currentCoupon }) => {
           <Button onClick={onSubmit}>조회</Button>
         </div>
       </Total>
+      {loading && <Loader />}
       {coupons.length > 0
         ? coupons.map((coupon, index) => (
             <CouponItem key={index} coupon={coupon} />

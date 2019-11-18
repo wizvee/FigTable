@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { AiFillSetting } from 'react-icons/ai';
 import Responsive from '../../../common/Responsive';
@@ -53,8 +53,11 @@ const Name = styled.div`
   align-items: center;
   height: 100%;
   font-size: 1.5rem;
+  &.stop {
+    color: #fa5252;
+  }
   svg {
-    margin-left: 0.5rem;
+    margin: 0 0.6rem 0 0.3rem;
     color: ${palette.textGray};
     transform: translateY(-1px);
     transition: color 0.2s linear;
@@ -62,6 +65,9 @@ const Name = styled.div`
     &:hover {
       color: ${palette.text};
     }
+  }
+  .warn {
+    font-size: 1rem;
   }
 `;
 
@@ -106,6 +112,8 @@ const MypagePresenter = ({
   member,
   menu,
   reviews,
+  rvLoading,
+  fdLoading,
   onChangeFile,
   onMyFeed,
   onMyReviews,
@@ -115,15 +123,22 @@ const MypagePresenter = ({
 }) => {
   const [followPop, setFollowPop] = useState('');
 
-  function openFollowPop(type) {
+  const openFollowPop = useCallback(type => {
     setFollowPop(type);
     document.body.style.overflow = 'hidden';
-  }
-
-  function closeFollowPop() {
+  }, []);
+  const closeFollowPop = useCallback(() => {
     setFollowPop('');
     document.body.style.overflow = 'unset';
-  }
+  });
+
+  const setWarnIcon = useCallback(() => {
+    let arr = [];
+    for (let i = 0; i < member.memWrCnt; i++) {
+      arr.push(<span className="warn">🚨</span>);
+    }
+    return arr;
+  }, [member]);
 
   return (
     <Container>
@@ -147,9 +162,10 @@ const MypagePresenter = ({
           <input type="file" name="memProfile" onChange={onChangeFile} />
         </label>
         <Info>
-          <Name>
+          <Name className={member.memWrCnt == 3 ? 'stop' : ''}>
             {member.memName}
             <AiFillSetting onClick={onEdit} />
+            {setWarnIcon()}
           </Name>
           <Social>
             <span
@@ -182,6 +198,8 @@ const MypagePresenter = ({
           <MyReviews
             title={menu == 'myReviews' ? '내가 쓴 리뷰' : '나의 피드'}
             reviews={reviews}
+            rvLoading={rvLoading}
+            fdLoading={fdLoading}
           />
         )}
         {menu == 'myPoint' && <MyPoint currentPoint={member.memPoint} />}

@@ -12,7 +12,7 @@ const override = css`
 `;
 
 const Loader = () => {
-  return <ScaleLoader css={override} color={palette.primary} margin="4px" />;
+  return <ScaleLoader css={override} color={palette.primary} margin="3px" />;
 };
 
 export default React.memo(Loader);

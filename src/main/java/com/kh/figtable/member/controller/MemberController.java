@@ -290,8 +290,8 @@ public class MemberController {
 		return new ResponseEntity<List<Map>>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/member/question/{category}", method = RequestMethod.GET)
-	private ResponseEntity<List<Map>> getMyCoupon(@PathVariable("category") String category, HttpSession session) {
+	@RequestMapping(value = "/api/member/question", method = RequestMethod.GET)
+	private ResponseEntity<List<Map>> getMyCoupon(@RequestParam("category") String category, HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
 		List<Map> result = null;
 		if (m != null) {

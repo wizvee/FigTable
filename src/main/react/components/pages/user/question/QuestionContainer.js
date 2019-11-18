@@ -79,7 +79,7 @@ const QuestionContainer = () => {
         <>
           <Overlay onClick={onStatus} />
           <Container>
-            <QuestionPresenter />
+            <QuestionPresenter memNo={member.memNo} />
           </Container>
         </>
       ) : (

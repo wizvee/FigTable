@@ -8,10 +8,14 @@ import { myReviews, unloadReviews, myFeed } from '../../../../modules/reviews';
 
 const MypageContainer = () => {
   const dispatch = useDispatch();
-  const { member, reviews } = useSelector(({ member, reviews }) => ({
-    member: member.member,
-    reviews: reviews.reviews,
-  }));
+  const { member, reviews, rvLoading, fdLoading } = useSelector(
+    ({ member, reviews, loading }) => ({
+      member: member.member,
+      reviews: reviews.reviews,
+      rvLoading: loading['reviews/MY_RV'],
+      fdLoading: loading['reviews/MY_FEED'],
+    }),
+  );
 
   const [menu, setMenu] = useState('myFeed');
 
@@ -60,6 +64,8 @@ const MypageContainer = () => {
           member={member}
           menu={menu}
           reviews={reviews}
+          rvLoading={rvLoading}
+          fdLoading={fdLoading}
           onChangeFile={onChangeFile}
           onMyFeed={onMyFeed}
           onMyReviews={onMyReviews}

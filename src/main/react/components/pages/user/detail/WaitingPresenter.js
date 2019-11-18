@@ -21,11 +21,9 @@ const WaitingPresenter = ({ resWaitCnt }) => {
   return (
     <Wating>
       <div>
-        최근 일주일간 대기 <strong>{resWaitCnt}</strong>건 예약{' '}
-        <strong>{resWaitCnt}</strong>건이 있습니다.
+        최근 일주일간 대기 <strong>{resWaitCnt}</strong>건이 있습니다.
       </div>
       <Button>줄서기</Button>
-      <Button>예약하기</Button>
     </Wating>
   );
 };

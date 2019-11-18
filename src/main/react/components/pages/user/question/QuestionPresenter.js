@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { IoIosArrowBack, IoMdSend } from 'react-icons/io';
 import styled from 'styled-components';
 import palette from '../../../../lib/styles/Palette';
+import client, { path } from '../../../../lib/api/client';
+import Loader from '../../../common/Loader';
 
 const Header = styled.div`
   display: flex;
@@ -24,6 +26,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 1rem;
+  overflow-y: auto;
   span {
     display: inline-block;
     padding: 0.5rem 0.7rem;
@@ -47,6 +50,10 @@ const Container = styled.div`
     align-self: flex-start;
     text-align: left;
     background: ${palette.borderLightGray};
+  }
+  .msg {
+    background: #14cbb2;
+    color: #fff;
   }
 `;
 
@@ -83,12 +90,41 @@ const StyledInput = styled.input`
   font-size: 0.9rem;
 `;
 
-const QuestionPresenter = () => {
+const QuestionPresenter = ({ memNo }) => {
   const [category, setCategory] = useState('all');
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState('');
 
-  const onSelect = useCallback(type => {
-    setCategory(type);
+  const onSelect = useCallback(async category => {
+    setCategory(category);
+    await client
+      .get(`${path}/api/member/question/?category=${category}`)
+      .then(({ data }) => setMessages(data));
+    setLoading(false);
   }, []);
+
+  const onChange = useCallback(({ target }) => {
+    setInput(target.value);
+  }, []);
+
+  const onSubmit = useCallback(
+    async e => {
+      e.preventDefault();
+      await client
+        .post(`${path}/api/member/question`, {
+          memNo,
+          targetMemNo: 'admin',
+          content: input,
+          category,
+        })
+        .then(() => {
+          setMessages(messages.concat({ MEM_NO: memNo, Q_CONTENT: input }));
+          setInput('');
+        });
+    },
+    [memNo, category, input, messages],
+  );
 
   return (
     <>
@@ -101,18 +137,19 @@ const QuestionPresenter = () => {
       <Container>
         {category == 'all' && (
           <>
-            <span className="category" onClick={() => onSelect('enroll')}>
+            <span className="category" onClick={() => onSelect('E')}>
               맛집을 등록해주세요! 🤩
             </span>
-            <span className="category" onClick={() => onSelect('delete')}>
+            <span className="category" onClick={() => onSelect('D')}>
               폐업한 맛집이 있어요. 😭
             </span>
-            <span className="category" onClick={() => onSelect('etc')}>
+            <span className="category" onClick={() => onSelect('O')}>
               다른 문의가 있어요. 😮
             </span>
           </>
         )}
-        {category == 'enroll' && (
+        {loading && category != 'all' && <Loader />}
+        {!loading && category == 'E' && (
           <>
             <span className="admin">
               안녕하세요, 피그테이블에 방문해주셔서 감사합니다. 😊
@@ -122,7 +159,7 @@ const QuestionPresenter = () => {
             </span>
           </>
         )}
-        {category == 'delete' && (
+        {!loading && category == 'D' && (
           <>
             <span className="admin">
               안녕하세요, 피그테이블에 방문해주셔서 감사합니다. 😊
@@ -132,7 +169,7 @@ const QuestionPresenter = () => {
             </span>
           </>
         )}
-        {category == 'etc' && (
+        {!loading && category == 'O' && (
           <>
             <span className="admin">
               안녕하세요, 피그테이블에 방문해주셔서 감사합니다. 😊
@@ -142,10 +179,20 @@ const QuestionPresenter = () => {
             </span>
           </>
         )}
+        {!loading &&
+          category != 'all' &&
+          messages.map((msg, index) => (
+            <span
+              key={index}
+              className={msg.MEM_NO == 'admin' ? 'admin' : 'msg'}
+            >
+              {msg.Q_CONTENT}
+            </span>
+          ))}
       </Container>
       {category != 'all' && (
-        <StyledForm>
-          <StyledInput />
+        <StyledForm onSubmit={onSubmit}>
+          <StyledInput value={input} onChange={onChange} />
           <button>
             <IoMdSend />
           </button>

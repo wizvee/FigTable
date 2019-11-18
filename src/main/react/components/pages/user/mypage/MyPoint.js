@@ -9,6 +9,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker, isInclusivelyBeforeDay } from 'react-dates';
 import moment from 'moment';
+import Loader from '../../../common/Loader';
 
 const Total = styled.div`
   display: flex;
@@ -128,6 +129,7 @@ const MyPoint = ({ currentPoint }) => {
           <Button onClick={onSubmit}>조회</Button>
         </div>
       </Total>
+      {loading && <Loader />}
       {history.length > 0
         ? history.map((point, index) => <PointItem key={index} point={point} />)
         : !loading && <Message>조회 결과가 없습니다. 😥</Message>}
