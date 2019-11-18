@@ -178,8 +178,14 @@
 	</insert>
 
 	<update id="deleteWarns" parameterType="map">
-		UPDATE FIG_MEMBER SET MEM_WRCNT = MEM_WRCNT - #{count} WHERE MEM_NO =
+		UPDATE FIG_MEMBER SET
+		MEM_WRCNT = MEM_WRCNT - #{count} WHERE MEM_NO =
 		#{memNo}
 	</update>
+
+	<insert id="setWaiting" parameterType="map">
+		INSERT INTO FIG_WAITING VALUES (#{memNo}, #{memName},
+		#{resNo}, ${people}, SYSDATE, DEFAULT, NULL, NULL)
+	</insert>
 
 </mapper>

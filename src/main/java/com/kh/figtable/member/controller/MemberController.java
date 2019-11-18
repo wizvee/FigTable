@@ -309,7 +309,7 @@ public class MemberController {
 		service.writeQuestion(data);
 		return new ResponseEntity(HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/member/warn", method = RequestMethod.PATCH)
 	private ResponseEntity deleteWarns(@RequestParam("warns") String warns, HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
@@ -319,6 +319,14 @@ public class MemberController {
 			data.put("count", warns);
 			service.deleteWarns(data);
 		}
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/waiting", method = RequestMethod.POST)
+	private ResponseEntity setWaiting(@RequestBody Map<String, Object> data, HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		if (m != null)
+			service.setWaiting(data);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 

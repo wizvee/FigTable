@@ -73,6 +73,10 @@ const MyWarn = ({ member }) => {
   }, [warns]);
 
   const onSubmit = useCallback(async () => {
+    if (warns == 0) {
+      setError('0개는 줄일 수 없어요! 😥');
+      return;
+    }
     await client
       .patch(`${path}/api/member/warn/?warns=${warns}`)
       .then(() => dispatch(check(member.memNo)))

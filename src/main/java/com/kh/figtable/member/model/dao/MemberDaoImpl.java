@@ -117,4 +117,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.deleteWarns", data);
 	}
 
+	@Override
+	public int setWaiting(SqlSession session, Map data) {
+		return session.insert("member.setWaiting", data);
+	}
+
 }

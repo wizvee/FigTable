@@ -136,4 +136,9 @@ public class MemberServiceImpl implements MemberService {
 		return r;
 	}
 
+	@Override
+	public int setWaiting(Map data) {
+		return dao.setWaiting(session, data);
+	}
+
 }

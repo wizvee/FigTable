@@ -43,9 +43,11 @@ public interface MemberService {
 	List<Map> getMyCoupon(Map data);
 
 	List<Map> getQeustionMsgs(Map data);
-	
+
 	int writeQuestion(Map data);
-	
+
 	int deleteWarns(Map data);
+
+	int setWaiting(Map data);
 
 }

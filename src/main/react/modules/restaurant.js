@@ -1,5 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
