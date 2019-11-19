@@ -15,6 +15,8 @@ const [GET_RES, GET_RES_SUCCESS, GET_RES_FAILURE] = createRequestActionTypes(
   'recent/GET_RES',
 );
 
+const SET_POSITION = 'guest/SET_POSITION';
+
 export const insertRecent = createAction(INSERT_RECENT, view => view);
 export const removeRecent = createAction(REMOVE_RECENT);
 export const constraint = createAction(CONSTRAINT);
@@ -29,6 +31,8 @@ export const removeRecentAsync = createAction(
 );
 
 export const getRes = createAction(GET_RES, resList => resList);
+
+export const setPosition = createAction(SET_POSITION, position => position);
 
 function* insertRecentSaga({ payload }) {
   // 현재 최근 본 맛집에 등록된 맛집들의 id값
@@ -65,6 +69,7 @@ export function* guestSaga() {
 const initialState = {
   recent: [],
   searchKey: [],
+  position: null,
   recentError: null,
 };
 
@@ -86,6 +91,10 @@ const guest = handleActions(
     [GET_RES_FAILURE]: (state, { payload: error }) => ({
       ...state,
       recentError: error,
+    }),
+    [SET_POSITION]: (state, { payload: position }) => ({
+      ...state,
+      position,
     }),
   },
   initialState,

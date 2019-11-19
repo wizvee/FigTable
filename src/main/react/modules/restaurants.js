@@ -13,7 +13,7 @@ const [SEARCH_RES, SEARCH_RES_SUCCESS] = createRequestActionTypes(
 );
 const UNLOAD_RES = 'restaurants/UNLOAD_RES'; // 상세 페이지에서 벗어날 때 데이터 비우기
 
-export const listRes = createAction(LIST_RES, local => local);
+export const listRes = createAction(LIST_RES, position => position);
 export const searchRes = createAction(SEARCH_RES, keyword => keyword);
 export const unloadRes = createAction(UNLOAD_RES);
 
