@@ -14,8 +14,8 @@ const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background: #14cbb2;
   font-size: 1.5rem;

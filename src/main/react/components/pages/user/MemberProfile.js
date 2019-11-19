@@ -8,6 +8,9 @@ const User = styled.div`
   align-items: center;
   flex-direction: column;
   width: 110px;
+  @media (max-width: 426px) {
+    width: 80px;
+  }
 `;
 
 const path = process.env.PATH;

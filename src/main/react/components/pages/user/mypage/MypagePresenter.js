@@ -13,13 +13,22 @@ import MyWarn from './MyWarn';
 const Container = styled(Responsive)`
   padding: 2rem;
   min-height: calc(100vh - 12rem);
+  @media (max-width: 426px) {
+    padding: 1rem;
+  }
 `;
 
 const Profile = styled.div`
   display: flex;
   margin-bottom: 1.5rem;
   label {
+    display: inline-flex;
+    justify-content: center;
+    margin: 0 1.5rem;
     cursor: pointer;
+    @media (max-width: 426px) {
+      margin: 0;
+    }
   }
   input[type='file'] {
     display: none;
@@ -31,13 +40,16 @@ const Profile = styled.div`
 
 const path = process.env.PATH;
 const Pic = styled.div`
-  margin: 0 1.5rem;
   width: 90px;
   height: 90px;
   border-radius: 50%;
   background: url(${props => `${path}/resources/upload/profiles/${props.url}`});
   background-size: cover;
   background-position: center center;
+  @media (max-width: 426px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const Info = styled.div`
