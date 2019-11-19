@@ -11,7 +11,7 @@ const Container = styled(Responsive)`
   padding-top: 1rem;
   span {
     display: inline-block;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 0.7rem;
     border-radius: 30px;
     background: ${palette.borderLightGray};
     font-size: 0.9rem;
