@@ -126,7 +126,7 @@ const Image = styled.div`
     border-radius:0.75rem;
 `;
 
-const Purchaser =({buyer, onConfirm})=>{
+const Purchaser =({buyer, onConfirm, resNo})=>{
     
   const{payNo,eatNo,eatFoodName,memName,memNo,thumb,buyDate,buyStatus
   }=buyer;
@@ -168,7 +168,7 @@ const Purchaser =({buyer, onConfirm})=>{
                     <ModalTitle>사용확인합니다.</ModalTitle>
                 <Separator/> 
             <ButtonArea>
-                  <EatdealButton onClick={()=>{onConfirm(payNo), closeModal()}} >
+                  <EatdealButton onClick={()=>{onConfirm(payNo, resNo), closeModal()}} >
                     확인
                   </EatdealButton>
                   </ButtonArea>

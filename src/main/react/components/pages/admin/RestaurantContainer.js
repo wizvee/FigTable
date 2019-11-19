@@ -9,7 +9,7 @@ import ApplyResContainer from './restaurant/ApplyResContainer';
 
 const BodyHeight = styled.div`
   height: 'auto';
-  min-height: 450px;
+  min-height: 260px;
 `;
 
 const Categories = styled.div`

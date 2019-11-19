@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listRestaurants } from '../../../modules/adminRestaurants';
 import AdminHeader from './AdminHeader';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import RestaurantApplyList from './restaurant/RestaurantApplyList';
 import RestaurantDelList from './restaurant/RestaurantDelList';
 import QnaCategories from './qna/QnaCategories';
+import QnaResApplyList from './qna/QnaResApplyList';
 
 const BodyHeight = styled.div`
   height: 'auto';
@@ -33,43 +34,22 @@ const QnAContainer = () => {
     dispatch(listRestaurants());
   }, [dispatch]);
 
-  const [searchKeyword, setSearchKeyword] = useState('');
-
   const [category, setCategory] = useState('applyRes');
   const onSelect = useCallback(category => setCategory(category), []);
-
-  const input = useRef(null);
-
-  const onSubmit = e => {
-    e.preventDefault();
-    setSearchKeyword(input.current.value);
-  };
-
-  const onReset = e => {
-    e.preventDefault();
-    setSearchKeyword('');
-    input.current.value = '';
-  };
 
   return (
     <>
       <AdminHeader />
       <BodyHeight>
-        <MenuNavi
-          subTitle="문의 내역"
-          onSubmit={onSubmit}
-          input={input}
-          onReset={onReset}
-        />
+        <MenuNavi subTitle="문의 내역" />
         <Categories>
           <QnaCategories category={category} onSelect={onSelect} />
         </Categories>
         {/* 카테고리별로 컴포넌트 불러오기 */}
         {category === 'applyRes' && (
-          <RestaurantApplyList
+          <QnaResApplyList
             loading={loading}
             error={error}
-            keyword={searchKeyword}
             restaurants={restaurants}
           />
         )}
@@ -77,7 +57,6 @@ const QnAContainer = () => {
           <RestaurantApplyList
             loading={loading}
             error={error}
-            keyword={searchKeyword}
             restaurants={restaurants}
           />
         )}

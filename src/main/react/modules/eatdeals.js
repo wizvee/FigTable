@@ -88,20 +88,18 @@ const eatdeals = handleActions(
       ...state,
       error,
     }),
-    [DELETE_EAT_SUCCESS]: (state, { payload: result }) =>({
+    [DELETE_EAT_SUCCESS]: (state, { payload: eatdeals }) =>({
       ...state,
-      result:1,
+      eatdeals,
       
     }),
-    [EXTEND_EAT_SUCCESS]: (state, { payload: result }) =>({
+    [EXTEND_EAT_SUCCESS]: (state, { payload: eatdeals }) =>({
       ...state,
-      result:1,
-      
+      eatdeals,
     }),
-    [CONFIRM_EAT_SUCCESS]: (state, { payload: result }) =>({
+    [CONFIRM_EAT_SUCCESS]: (state, { payload: buyers }) =>({
       ...state,
-      result:1,
-      
+      buyers,
     }),
     [UNLOAD_EAT]: () => initialState,
   },

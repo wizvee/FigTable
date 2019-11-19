@@ -156,13 +156,6 @@ const MenuNavi = ({
             <h3>{subTitle}</h3>
           </TitleWrapper>
           <SearchWrapper>
-            {isQnaList && (
-              <SearchTemplate
-                onSubmit={onSubmit}
-                input={input}
-                onReset={onReset}
-              />
-            )}
             {isOwnList && (
               <SearchTemplate
                 onSubmit={onSubmit}

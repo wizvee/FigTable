@@ -62,6 +62,7 @@ public class EatdealServiceImpl implements EatdealService {
 
 	@Override
 	public int confirmEat(Map<String, String> data) {
+		System.out.println("service들어옴");
 		return dao.confirmEat(session, data);
 	}
 

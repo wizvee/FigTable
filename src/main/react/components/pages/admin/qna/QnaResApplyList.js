@@ -1,15 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import client, { path } from '../../../../lib/api/client';
-import { applyRes } from '../../../../modules/adminInsertRes';
-import ApplyResModal from './ApplyResModal';
-import ConfirmModal from './confirmModal';
+import React, { useState } from 'react';
+
 import styled from 'styled-components';
 import '../TableStyle.css';
 
 const TableWrapper = styled.div`
-  margin-top: 2.7rem;
+  margin-top: 5rem;
   margin-bottom: 2rem;
+  min-height: 490px;
 `;
 
 const ErrorBlock = styled.div`
@@ -21,15 +18,12 @@ const ErrorBlock = styled.div`
 
 const NoneData = styled.div`
   margin-top: 10rem;
-  margin-bottom: -10rem;
   text-align: center;
   color: #868e96;
   font-size: 1.3em;
 `;
 
-const ApplyRestaurantList = ({ restaurants, loading, error }) => {
-  const dispatch = useDispatch();
-
+const RestaurantApplyList = ({ restaurants, loading, error }) => {
   //에러 발생시
   if (error) {
     return <ErrorBlock>에러가 발생했습니다. 다시 시도해주세요.</ErrorBlock>;
@@ -41,32 +35,17 @@ const ApplyRestaurantList = ({ restaurants, loading, error }) => {
 
   const [modal, setIsModal] = useState(false);
   const [res, setRes] = useState(null);
-  const [target, setTarget] = useState('');
-  const [confirm, setConfirm] = useState(false);
 
   //모달 키는 function
-  const onOpenModal = res => {
+  const onClickOpenModal = res => {
     setRes(res);
-    setTarget(res.resNo);
     setIsModal(true);
   };
 
-  const onCloseModal = () => {
-    setConfirm(false);
-  };
-
   //모달 닫는 function
-  const onCancel = () => {
+  const onClickCloseModal = () => {
     setIsModal(false);
   };
-
-  const onSubmit = useCallback(async () => {
-    setIsModal(false);
-    setConfirm(true);
-    await client
-      .post(`${path}/api/adminApplyRes/${target}`)
-      .then(() => dispatch(applyRes(target)));
-  }, [target]);
 
   return (
     <>
@@ -74,27 +53,20 @@ const ApplyRestaurantList = ({ restaurants, loading, error }) => {
         <table>
           <thead>
             <tr>
-              <th>매장명</th>
-              <th>매장주소</th>
+              <th>문의자</th>
+              <th>문의내용</th>
               <th>전화번호</th>
               <th>대표자</th>
             </tr>
           </thead>
           <tbody>
-            {modal && (
-              <ApplyResModal
-                restaurant={res}
-                onCancel={onCancel}
-                onSubmit={onSubmit}
-              />
-            )}
             {!loading &&
               restaurants &&
               restaurants.map((row, index) => {
                 return (
                   <tr
                     key={index}
-                    onClick={() => onOpenModal(row)}
+                    onClick={() => onClickOpenModal(row)}
                     className="resTr"
                   >
                     <td key={`${index}+name`}>{row.resName}</td>
@@ -104,9 +76,6 @@ const ApplyRestaurantList = ({ restaurants, loading, error }) => {
                   </tr>
                 );
               })}
-            {confirm && (
-              <ConfirmModal msg="승인되었습니다." onCloseModal={onCloseModal} />
-            )}
           </tbody>
         </table>
       </TableWrapper>
@@ -114,4 +83,4 @@ const ApplyRestaurantList = ({ restaurants, loading, error }) => {
   );
 };
 
-export default ApplyRestaurantList;
+export default RestaurantApplyList;
