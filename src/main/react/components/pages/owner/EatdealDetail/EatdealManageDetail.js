@@ -82,7 +82,6 @@ const EatdealManageDetail=({
   eatDeal, 
   onDateExtend,
   onDelete,
-  result
 })=>{
   
     //모달제어
@@ -170,6 +169,7 @@ const EatdealManageDetail=({
                 closeModal={closeModal}
                 onDateExtend={onDateExtend}
                 eatNo={eatNo}
+                resNo={resNo}
                 />
              }    
              {  //잇딜종료
@@ -177,7 +177,9 @@ const EatdealManageDetail=({
                 <EatdealDeleteModal 
                 closeModal={closeModal}
                 onDelete={onDelete}
-                eatNo={eatNo}/>
+                eatNo={eatNo}
+                resNo={resNo}
+                />
              }    
         
         </>

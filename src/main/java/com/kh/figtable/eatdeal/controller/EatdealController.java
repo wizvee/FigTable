@@ -132,24 +132,33 @@ public class EatdealController {
 	}
 
 	@RequestMapping(value = "/api/owner/eatdeal/delete", method = RequestMethod.PATCH)
-	private ResponseEntity<Integer> deleteEat(@RequestBody Map<String, String> data) {
-		
+	private ResponseEntity<List<Eatdeal>> deleteEat(@RequestBody Map<String, String> data) {
+		System.out.println(data);
 		int result=service.deleteEat(data);
 		if (result > 0) {
+			System.out.println("삭제"+result);
+			
 			// 성공시 200 반환
-			return new ResponseEntity(HttpStatus.OK);
+			String resNo=data.get("resNo");
+			List<Eatdeal> list = service.getByResNo(resNo);
+			System.out.println(list);
+			return new ResponseEntity <List<Eatdeal>>(list, HttpStatus.OK);
 		}
 			// 실패 시 400 에러 반환
-		return new ResponseEntity<Integer>(result, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 	
 
 	@RequestMapping(value = "/api/owner/eatdeal/extend", method = RequestMethod.PATCH)
-	public ResponseEntity<Integer> extendEat(@RequestBody Map<String, String> data) {
+	public ResponseEntity<List<Eatdeal>> extendEat(@RequestBody Map<String, String> data) {
+		System.out.println(data);
 		int result = service.extendEat(data);
+		System.out.println("연장"+result);
 		if (result > 0) {
-			System.out.println(result);
-			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+			String resNo=data.get("resNo");
+			List<Eatdeal> list = service.getByResNo(resNo);
+			System.out.println(list);
+			return new ResponseEntity<List<Eatdeal>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}

@@ -79,7 +79,7 @@ padding : 0.2rem 1rem;
 text-align:center;
 `;
 
-const EatdealDateModal =({closeModal, onDateExtend, eatNo})=>{
+const EatdealDateModal =({closeModal, onDateExtend, eatNo, resNo})=>{
     const [startDate, setStart]= useState(null);
     const [endDate, setEnd]= useState(null);
 
@@ -104,7 +104,7 @@ const EatdealDateModal =({closeModal, onDateExtend, eatNo})=>{
                 </EatdealDateInput>
             <Separator/> 
         <ButtonArea>
-              <EatdealButton onClick={()=>{onDateExtend(eatNo, startDate, endDate), closeModal()}}>
+              <EatdealButton onClick={()=>{onDateExtend(eatNo, resNo, startDate, endDate), closeModal()}}>
                 수정 완료
               </EatdealButton>
               </ButtonArea>

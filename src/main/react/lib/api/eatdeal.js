@@ -25,9 +25,10 @@ export const deleteEat= eatNo =>
 client.patch(`${path}/api/owner/eatdeal/delete`, eatNo);
 
 //잇딜날짜수정
-export const extendEat = ({ eatNo, eatStartDate, eatEndDate })=>
+export const extendEat = ({ eatNo, resNo, eatStartDate, eatEndDate })=>
 client.patch(`${path}/api/owner/eatdeal/extend`, {
   eatNo,
+  resNo,
 	eatStartDate,
 	eatEndDate,
 });

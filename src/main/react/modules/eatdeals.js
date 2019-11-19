@@ -30,13 +30,13 @@ export const listEat = createAction(LIST_EAT);
 export const listOwnEat = createAction(LIST_OWN_EAT, resNo => resNo);
 export const listBuyEat = createAction(LIST_BUY_EAT, resNo => resNo);
 export const unloadEat = createAction(UNLOAD_EAT);
-export const deleteEat = createAction(DELETE_EAT, eatNo => eatNo);
+export const deleteEat = createAction(DELETE_EAT, ({eatNo, resNo}) => ({eatNo, resNo}));
 export const extendEat = createAction(
   EXTEND_EAT,
-   ({eatNo, eatStartDate, eatEndDate}) =>({eatNo, eatStartDate, eatEndDate}) 
+   ({eatNo, resNo, eatStartDate, eatEndDate}) =>({eatNo, resNo, eatStartDate, eatEndDate}) 
    );
    
-export const confirmEat = createAction(CONFIRM_EAT, payNo => payNo);
+export const confirmEat = createAction(CONFIRM_EAT, ({payNo, resNo}) =>({payNo, resNo}));
 
 
 const listEatSaga = createRequestSaga(LIST_EAT, restAPI.getEatdeals);
@@ -88,14 +88,14 @@ const eatdeals = handleActions(
       ...state,
       error,
     }),
-    [DELETE_EAT_SUCCESS]: (state, { payload: eatdeals }) =>({
+    [DELETE_EAT_SUCCESS]: (state, { payload: ownEatdeals }) =>({
       ...state,
-      eatdeals,
+      ownEatdeals,
       
     }),
-    [EXTEND_EAT_SUCCESS]: (state, { payload: eatdeals }) =>({
+    [EXTEND_EAT_SUCCESS]: (state, { payload: ownEatdeals }) =>({
       ...state,
-      eatdeals,
+      ownEatdeals,
     }),
     [CONFIRM_EAT_SUCCESS]: (state, { payload: buyers }) =>({
       ...state,
