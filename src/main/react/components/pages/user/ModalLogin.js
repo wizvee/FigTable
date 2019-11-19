@@ -57,6 +57,7 @@ const ModalLogin = ({ msg, closeModal }) => {
           {msg == 'love' && '로그인하시면 리뷰에 공감할 수 있어요. 😘'}
           {msg == 'comment' && '로그인하시면 리뷰에 댓글을 달 수 있어요. 😘'}
           {msg == 'payment' && '로그인하시면 잇딜을 구매할 수 있어요. 😘'}
+          {msg == 'waiting' && '로그인하시면 원격 줄서기를 할 수 있어요. 😘'}
           {msg == 'question' && '로그인하시면 문의를 남기실 수 있어요. 😊'}
           <ButtonWithMarginTop to={`${process.env.PATH}/login`} fullwidth>
             로그인
