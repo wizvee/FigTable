@@ -65,6 +65,7 @@ const HeaderWrapper = styled(Responsive)`
     }
     input {
       padding: 4px 0;
+      width: 172px;
     }
     button {
       padding: 0.3rem;
