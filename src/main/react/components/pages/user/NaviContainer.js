@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
-import { setPosition } from '../../../modules/guest';
-import client from '../../../lib/api/client';
 import palette from '../../../lib/styles/Palette';
 
 const Container = styled(Responsive)`
@@ -21,52 +19,9 @@ const Container = styled(Responsive)`
 `;
 
 const NaviContainer = () => {
-  const dispatch = useDispatch();
   const { position } = useSelector(({ guest }) => ({
     position: guest.position,
   }));
-
-  const API = 'https://maps.googleapis.com/maps/api/geocode/json';
-  const KEY = process.env.GOOGLE_APIKEY;
-  const getPosition = useCallback(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          await client
-            .get(`${API}?latlng=${latitude},${longitude}&key=${KEY}`)
-            .then(
-              ({
-                data: {
-                  results: [
-                    {
-                      address_components: [
-                        ,
-                        ,
-                        { long_name: name },
-                        { long_name: searchKey },
-                      ],
-                    },
-                  ],
-                },
-              }) => {
-                dispatch(
-                  setPosition({
-                    lat: latitude,
-                    lon: longitude,
-                    name,
-                    searchKey,
-                  }),
-                );
-              },
-            );
-        },
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    getPosition();
-  }, []);
 
   return (
     <Container>

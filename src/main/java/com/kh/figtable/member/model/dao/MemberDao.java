@@ -56,4 +56,6 @@ public interface MemberDao {
 
 	int setWaiting(SqlSession session, Map data);
 
+	Map getWaiting(SqlSession session, String memNo);
+
 }

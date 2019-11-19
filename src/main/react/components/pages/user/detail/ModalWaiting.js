@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { MdRemoveCircleOutline, MdAddCircleOutline } from 'react-icons/md';
 import palette from '../../../../lib/styles/Palette';
 import Button from '../../../../lib/styles/Button';
-import client from '../../../../lib/api/client';
-import { setPosition } from '../../../../modules/guest';
+import { waiting } from '../../../../modules/member';
 
 // 모달 배경
 const Overlay = styled.div`
@@ -31,6 +30,7 @@ const Container = styled.div`
   border-radius: 5px;
   background: white;
   transform: translate(-50%, -50%);
+  overflow: hidden;
   h3 {
     margin: 0;
   }
@@ -107,7 +107,7 @@ const ModalWaiting = ({ onModal }) => {
     if (error) setError('');
   }, [people, error]);
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = useCallback(() => {
     if (people == 0) {
       setError('0명은 줄을 설 수 없어요! 😥');
       return;
@@ -120,10 +120,18 @@ const ModalWaiting = ({ onModal }) => {
         restaurant.resLong,
       ) > 3
     ) {
-      setError('너무 먼 맛집이에요! 😱');
+      setError('너무 먼 맛집이라 줄을 설 수 없어요! 😱');
       return;
     }
-  });
+    dispatch(
+      waiting({
+        memNo: member.memNo,
+        memName: member.memName,
+        resNo: restaurant.resNo,
+        people,
+      }),
+    );
+  }, [people, position, member]);
 
   function calDistance(lat1, lon1, lat2, lon2) {
     const theta = lon1 - lon2;
@@ -151,55 +159,13 @@ const ModalWaiting = ({ onModal }) => {
     return (rad * 180) / Math.PI;
   }
 
-  const API = 'https://maps.googleapis.com/maps/api/geocode/json';
-  const KEY = process.env.GOOGLE_APIKEY;
-  const getPosition = useCallback(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          await client
-            .get(`${API}?latlng=${latitude},${longitude}&key=${KEY}`)
-            .then(
-              ({
-                data: {
-                  results: [
-                    {
-                      address_components: [
-                        ,
-                        ,
-                        { long_name: name },
-                        { long_name: searchKey },
-                      ],
-                    },
-                  ],
-                },
-              }) => {
-                dispatch(
-                  setPosition({
-                    lat: latitude,
-                    lon: longitude,
-                    name,
-                    searchKey,
-                  }),
-                );
-              },
-            );
-        },
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!position) getPosition();
-  }, []);
-
   return (
     <>
       <Overlay onClick={onModal} />
       <Container>
         <h3>원격 줄서기</h3>
         <small>3km 이내에 있는 매장만 대기가 가능합니다.</small>
-        <div className="waited">현재 0팀 대기</div>
+        <div className="waited">현재 {restaurant.wtRemining}팀 대기</div>
         {position ? (
           <>
             <SetPeople>

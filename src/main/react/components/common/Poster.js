@@ -97,7 +97,7 @@ const Poster = ({ restaurant }) => {
     resReviews,
     resRating,
     resWaiting,
-    resWaitCnt,
+    wtRemining,
   } = restaurant;
 
   return (
@@ -111,7 +111,7 @@ const Poster = ({ restaurant }) => {
                 : `${process.env.PATH}/resources/upload/restaurant/${resThumb}`
             }
           />
-          {resWaiting && <Waiting>대기 {resWaitCnt}팀</Waiting>}
+          {resWaiting && <Waiting>대기 {wtRemining}팀</Waiting>}
         </ImageContainer>
         <Title>
           {resName.length > 9 ? `${resName.substring(0, 9)}...` : resName}

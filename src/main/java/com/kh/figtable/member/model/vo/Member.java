@@ -30,6 +30,7 @@ public class Member {
 	private int memPoint;
 	private int followingCnt;
 	private int eatdealCnt;
+	private boolean isWaiting;
 
 	@Override
 	public int hashCode() {

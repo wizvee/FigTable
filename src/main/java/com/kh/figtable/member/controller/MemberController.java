@@ -62,12 +62,27 @@ public class MemberController {
 		if (pwEncoder.matches(mem.getMemPassword(), compare.getMemPassword())) {
 			// 로그인에 성공했을 경우 member 반환
 			compare.setMemPassword(null);
+			if (service.getWaiting(compare.getMemNo()) != null)
+				compare.setWaiting(true);
+			else
+				compare.setWaiting(false);
 			// session에 login member server side auth
 			session.setAttribute("login", compare);
 			return new ResponseEntity<Member>(compare, HttpStatus.OK);
 		}
 		// 실패 시 401 에러 반환
 		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(value = "/api/member/{memNo}", method = RequestMethod.POST)
+	public ResponseEntity<Member> checkMember(@PathVariable("memNo") String memNo) {
+		Member m = service.check(memNo);
+		m.setMemPassword(null);
+		if (service.getWaiting(m.getMemNo()) != null)
+			m.setWaiting(true);
+		else
+			m.setWaiting(false);
+		return new ResponseEntity<Member>(m, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/member/likes", method = RequestMethod.GET)
@@ -120,13 +135,6 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.OK);
 		// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-	}
-
-	@RequestMapping(value = "/api/member/{memNo}", method = RequestMethod.POST)
-	public ResponseEntity<Member> checkMember(@PathVariable("memNo") String memNo) {
-		Member m = service.check(memNo);
-		m.setMemPassword(null);
-		return new ResponseEntity<Member>(m, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/member/profile", method = RequestMethod.POST)
@@ -328,6 +336,16 @@ public class MemberController {
 		if (m != null)
 			service.setWaiting(data);
 		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/member/waiting", method = RequestMethod.GET)
+	private ResponseEntity<Map> getWaiting(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		Map result = new HashMap();
+		if (m != null)
+			result = service.getWaiting(m.getMemNo());
+
+		return new ResponseEntity<Map>(result, HttpStatus.OK);
 	}
 
 }

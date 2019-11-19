@@ -40,7 +40,7 @@ const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  .date {
+  small {
     height: 1.5rem;
     font-size: 0.9rem;
     color: ${palette.textGray};
@@ -78,6 +78,7 @@ const Detail = styled.div`
   .images {
     display: flex;
     flex-direction: row;
+    margin-top: 0.5rem;
     width: 100%;
     height: 120px;
     overflow-x: auto;
@@ -141,7 +142,7 @@ const ReviewItem = ({ review, openInsta, toRes }) => {
         fwCnt={memFwCnt}
       />
       <Content>
-        <div className="date">{rvDate}</div>
+        <small>{rvDate}</small>
         <Detail>
           {toRes && (
             <div onClick={() => toRes(resNo)} className="toRes">

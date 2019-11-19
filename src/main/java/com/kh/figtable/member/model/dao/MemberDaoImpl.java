@@ -122,4 +122,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.setWaiting", data);
 	}
 
+	@Override
+	public Map getWaiting(SqlSession session, String memNo) {
+		return session.selectOne("member.getWaiting", memNo);
+	}
+
 }

@@ -25,6 +25,8 @@ const [GET_LOVES, GET_LOVES_SUCCESS] = createRequestActionTypes(
 const [LOVES_RV] = createRequestActionTypes('member/LOVES_RV');
 const [UNLOVES_RV] = createRequestActionTypes('member/UNLOVES_RV');
 
+const [WAITING, WAITING_SUCCESS] = createRequestActionTypes('member/WAITING');
+
 export const setMember = createAction(SET_MEMBER, member => member);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
@@ -58,6 +60,16 @@ export const unlovesRv = createAction(UNLOVES_RV, ({ member, review }) => ({
   rvNo: review.rvNo,
 }));
 
+export const waiting = createAction(
+  WAITING,
+  ({ memNo, memName, resNo, people }) => ({
+    memNo,
+    memName,
+    resNo,
+    people,
+  }),
+);
+
 // 사가 생성
 function* logoutSaga() {
   try {
@@ -90,6 +102,13 @@ function* unlovesRvSaga({ payload }) {
     console.log(e);
   }
 }
+function* waitingSaga({ payload }) {
+  try {
+    yield call(memberAPI.waiting, payload);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function* memberSaga() {
   yield takeLatest(LOGOUT, logoutSaga);
@@ -102,6 +121,8 @@ export function* memberSaga() {
   yield takeLatest(GET_LOVES, getLovesSaga);
   yield takeLatest(LOVES_RV, lovesRvSaga);
   yield takeLatest(UNLOVES_RV, unlovesRvSaga);
+
+  yield takeLatest(WAITING, waitingSaga);
 }
 
 const initialState = {
@@ -137,6 +158,10 @@ export default handleActions(
       ...state,
       loves,
     }),
+    [WAITING_SUCCESS]: state =>
+      produce(state, draft => {
+        draft.member.waiting = true;
+      }),
   },
   initialState,
 );

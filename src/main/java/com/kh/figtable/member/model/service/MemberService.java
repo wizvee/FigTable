@@ -49,5 +49,7 @@ public interface MemberService {
 	int deleteWarns(Map data);
 
 	int setWaiting(Map data);
+	
+	Map getWaiting(String memNo);
 
 }

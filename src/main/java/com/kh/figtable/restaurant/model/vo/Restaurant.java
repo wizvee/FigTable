@@ -30,11 +30,12 @@ public class Restaurant {
 	private String resWaiting;
 	private int resWaitCnt;
 	private String resApply;
-	
+
 	// for member
 	private boolean isLiked;
-	
-	//for owner
+	private int wtRemining;
+
+	// for owner
 	private boolean isOpen;
 
 }
