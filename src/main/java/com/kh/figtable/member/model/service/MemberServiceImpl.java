@@ -146,4 +146,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getWaiting(session, memNo);
 	}
 
+	@Override
+	public int unWaiting(String memNo) {
+		return dao.unWaiting(session, memNo);
+	}
+
 }

@@ -13,11 +13,14 @@ const Icon = styled.div`
   align-items: center;
   width: ${props => props.width};
   color: ${palette.primary};
-  svg {
-    font-size: ${props => props.fontSize};
-    @media (max-width: 426px) {
+  @media (max-width: 426px) {
+    width: 60px;
+    svg {
       font-size: 50px;
     }
+  }
+  svg {
+    font-size: ${props => props.fontSize};
   }
   span {
     font-size: 0.8rem;

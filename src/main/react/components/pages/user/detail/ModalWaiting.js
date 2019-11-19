@@ -123,6 +123,7 @@ const ModalWaiting = ({ onModal }) => {
       setError('너무 먼 맛집이라 줄을 설 수 없어요! 😱');
       return;
     }
+    onModal();
     dispatch(
       waiting({
         memNo: member.memNo,

@@ -51,5 +51,7 @@ public interface MemberService {
 	int setWaiting(Map data);
 	
 	Map getWaiting(String memNo);
+	
+	int unWaiting(String memNo);
 
 }

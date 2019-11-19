@@ -36,3 +36,6 @@ export const unlovesRv = ({ memNo, rvNo }) =>
 // waiting 줄서기
 export const waiting = ({ memNo, memName, resNo, people }) =>
   client.post(`${path}/api/member/waiting`, { memNo, memName, resNo, people });
+
+// waiting 줄서기 취소
+export const unWaiting = () => client.delete(`${path}/api/member/waiting`);
