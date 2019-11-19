@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.figtable.member.model.vo.Member;
@@ -29,9 +30,9 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService service;
 
-	@RequestMapping(value = "/api/restaurants", method = RequestMethod.GET)
-	private ResponseEntity<List<Restaurant>> getRestaurantsByLocal(@RequestParam String local) {
-		List<Restaurant> list = service.getRestaurantsByLocal(local);
+	@RequestMapping(value = "/api/restaurants", method = RequestMethod.POST)
+	private ResponseEntity<List<Restaurant>> getRestaurantsByLocal(@RequestBody Map<String, Object> data) {
+		List<Restaurant> list = service.getRestaurantsByLocal(data);
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 

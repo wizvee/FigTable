@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.figtable.common.DistanceHandler;
 import com.kh.figtable.restaurant.model.dao.RestaurantDao;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -21,8 +22,16 @@ public class restaurantServiceImpl implements RestaurantService {
 	private RestaurantDao dao;
 
 	@Override
-	public List<Restaurant> getRestaurantsByLocal(String local) {
-		return dao.getRestaurantsByLocal(session, local);
+	public List<Restaurant> getRestaurantsByLocal(Map<String, Object> data) {
+		List<Restaurant> result = dao.getRestaurantsByLocal(session, (String) data.get("searchKey"));
+		List<Restaurant> filter = new ArrayList<>();
+		for (Restaurant res : result) {
+			double distance = DistanceHandler.calDistance((Double) data.get("lat"), (Double) data.get("lon"),
+					res.getResLat(), res.getResLong());
+			if (distance <= 3)
+				filter.add(res);
+		}
+		return filter;
 	}
 
 	@Override

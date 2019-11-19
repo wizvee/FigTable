@@ -7,7 +7,7 @@ import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface RestaurantService {
 
-	List<Restaurant> getRestaurantsByLocal(String local);
+	List<Restaurant> getRestaurantsByLocal(Map<String, Object> data);
 
 	List<Restaurant> getRestaurantsByKeyword(String keyword);
 

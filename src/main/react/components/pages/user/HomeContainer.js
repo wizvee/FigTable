@@ -8,12 +8,13 @@ import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import HeaderContainer from '../../common/HeaderContainer';
 import { listRes, unloadRes } from '../../../modules/restaurants';
+import NaviContainer from './NaviContainer';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  height: 29rem;
+  height: calc(29rem - 35.2px);
   background: url(${process.env.PATH}/resources/images/title.png);
   background-size: cover;
   background-position: center center;
@@ -34,7 +35,6 @@ const Container = styled.div`
         padding: 0.5rem 1.5rem;
         border: 3px solid ${palette.primary};
         border-radius: 1.5rem;
-        /* color: white; */
         background: white;
         font-size: 1.3rem;
         &::placeholder {
@@ -91,8 +91,9 @@ const AdBlock = styled(Responsive)`
 
 const HomeContainer = ({ history }) => {
   const dispatch = useDispatch();
-  const { restaurants, error, loading } = useSelector(
-    ({ restaurants, loading }) => ({
+  const { position, restaurants, error, loading } = useSelector(
+    ({ guest, restaurants, loading }) => ({
+      position: guest.position,
       restaurants: restaurants.restaurants,
       error: restaurants.error,
       loading: loading['restaurant/LIST_RES'],
@@ -116,10 +117,25 @@ const HomeContainer = ({ history }) => {
 
   // 마운트 시 GPS 기준으로 레스토랑 리스트 가져오기
   useEffect(() => {
-    dispatch(listRes('강남'));
+    if (position)
+      dispatch(
+        listRes({
+          lat: position.lat,
+          lon: position.lon,
+          searchKey: position.searchKey,
+        }),
+      );
+    else
+      dispatch(
+        listRes({
+          lat: 37.498203,
+          lon: 127.027725,
+          searchKey: '서울특별시',
+        }),
+      );
     // 언마운트 시 스토어에서 레스토랑 리스트 데이터 없애기
     return () => dispatch(unloadRes());
-  }, []);
+  }, [position]);
 
   return (
     <>
@@ -149,6 +165,7 @@ const HomeContainer = ({ history }) => {
           </AdBlock>
         </div>
       </Container>
+      <NaviContainer />
       <HomePresenter
         restaurants={restaurants}
         error={error}
