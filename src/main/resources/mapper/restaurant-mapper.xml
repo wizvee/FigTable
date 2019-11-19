@@ -75,6 +75,9 @@
 		MEM_NO FROM FIG_RES_LIKES WHERE MEM_NO = #{memNo} AND RES_NO =
 		#{resNo}
 	</select>
-
+	
+	<select id="getEatdealArr" parameterType="string" resultType="map">
+		SELECT * FROM FIG_EATDEAL WHERE EAT_STATUS = 'P' AND RES_NO = #{resNo}
+	</select>
 
 </mapper>

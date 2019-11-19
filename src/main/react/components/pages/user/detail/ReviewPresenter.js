@@ -14,7 +14,8 @@ const Title = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   span {
     color: ${palette.textGray};
   }
@@ -25,6 +26,7 @@ const CtgItem = styled.div`
   justify-content: center;
   align-items: center;
   color: ${palette.textGray};
+  font-size: 0.93rem;
   transition: color 0.2s linear;
   cursor: pointer;
   &.disabled {
@@ -50,7 +52,7 @@ const Message = styled.div`
   height: 200px;
   color: ${palette.textGray};
   div {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 `;
 

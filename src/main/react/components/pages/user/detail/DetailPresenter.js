@@ -8,6 +8,7 @@ import WaitingPresenter from './WaitingPresenter';
 import RestaurantInfo from './RestaurantInfo';
 import ActionButtons from './ActionButtons';
 import Loader from '../../../common/Loader';
+import EatdealPresenter from './EatdealPresenter';
 
 const FullHeight = styled.div`
   width: 100%;
@@ -136,6 +137,7 @@ const DetailPresenter = ({
     resLikes,
     resWaiting,
     resWaitCnt,
+    eatdealArr,
   } = info;
   const [likesCount, setLikesCount] = useState(resLikes);
   // 리뷰의 이미지url만 따온 배열 생성
@@ -207,6 +209,7 @@ const DetailPresenter = ({
           <GoogleMap lat={resLat} lng={resLong} />
         </InfoBody>
       </InfoWrapper>
+      {eatdealArr.length > 0 && <EatdealPresenter eatdealArr={eatdealArr} />}
     </>
   );
 };

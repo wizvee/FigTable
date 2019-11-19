@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import Poster from '../../../common/Poster';
+import Loader from '../../../common/Loader';
 
 const Container = styled(Responsive)`
   min-height: calc(100vh - 12rem);
@@ -22,11 +23,18 @@ const Header = styled.div`
 
 const Body = styled.div`
   display: grid;
-  grid-template-columns: 1fr 300px;
-  grid-gap: 0.5rem;
+  grid-template-columns: 1fr 280px;
+  grid-gap: 1rem;
   .ad {
-    padding: 0.5rem;
-    background: red;
+    h4 {
+      margin-top: 0;
+    }
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    a + a {
+      margin-top: 1rem;
+    }
   }
 `;
 
@@ -57,7 +65,7 @@ const Section = styled.div`
   padding: 1rem 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
 `;
 
 const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
@@ -75,7 +83,13 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
   ];
 
   if (error) return null;
-  if (loading || !restaurants) return null;
+  if (loading || !restaurants) return <Loader />;
+
+  const recommend =
+    restaurants &&
+    restaurants.filter(
+      restaurant => restaurant.eatdealArr.length > 0 || restaurant.resWaiting,
+    );
 
   return (
     <Container>
@@ -83,14 +97,14 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
         <h3>{keyword} 맛집 인기 검색순위</h3>
       </Header>
       <Body>
-        {restaurants.length === 0 && (
+        {restaurants.length == 0 && (
           <div className="none">
             <h4>'{keyword}'에 대한 검색 결과가 없습니다.</h4>
             <span>검색한 식당이 피그테이블에 보이지 않을 땐?</span>
             <span>등록할 식당의 정보를 입력한 후 등록 완료!</span>
           </div>
         )}
-        {restaurants.length !== 0 && (
+        {restaurants.length != 0 && (
           <div>
             <Menu>
               {menus.map(menu => (
@@ -105,7 +119,9 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
           </div>
         )}
         <div className="ad">
-          <h4>관련콘텐츠</h4>
+          <h4>추천 콘텐츠</h4>
+          {recommend.length != 0 &&
+            recommend.map(r => <Poster key={r.resNo} restaurant={r} imgOnly />)}
         </div>
       </Body>
     </Container>

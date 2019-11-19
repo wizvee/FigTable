@@ -36,4 +36,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return session.selectOne("restaurant.isLiked", info);
 	}
 
+	@Override
+	public List<Map<String, Object>> getEatdealArr(SqlSession session, String resNo) {
+		return session.selectList("restaurant.getEatdealArr", resNo);
+	}
+
 }

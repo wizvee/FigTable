@@ -28,15 +28,23 @@ public class restaurantServiceImpl implements RestaurantService {
 		for (Restaurant res : result) {
 			double distance = DistanceHandler.calDistance((Double) data.get("lat"), (Double) data.get("lon"),
 					res.getResLat(), res.getResLong());
-			if (distance <= 3)
+			if (distance <= 3) {
+				List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, res.getResNo());
+				res.setEatdealArr(eatdealArr);
 				filter.add(res);
+			}
 		}
 		return filter;
 	}
 
 	@Override
 	public List<Restaurant> getRestaurantsByKeyword(String keyword) {
-		return dao.getRestaurantsByKeyword(session, keyword);
+		List<Restaurant> result = dao.getRestaurantsByKeyword(session, keyword);
+		for (Restaurant res : result) {
+			List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, res.getResNo());
+			res.setEatdealArr(eatdealArr);
+		}
+		return result;
 	}
 
 	@Override
@@ -45,6 +53,8 @@ public class restaurantServiceImpl implements RestaurantService {
 		if (validate)
 			dao.increaseViews(session, resNo);
 		Restaurant result = dao.getRestaurantById(session, resNo);
+		List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, result.getResNo());
+		result.setEatdealArr(eatdealArr);
 		return result;
 	}
 
