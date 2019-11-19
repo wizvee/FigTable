@@ -71,4 +71,8 @@
 		UPDATE FIG_EATDEAL SET EAT_STATUS = 'P', EAT_STARTDATE = #{eatStartDate}, EAT_ENDDATE= #{eatEndDate} WHERE EAT_NO = #{eatNo}
 	</update>
 	
+	<update id="confirmEat" parameterType="map">
+		UPDATE FIG_EATDEAL_PAY SET BUY_STATUS = 'U' WHERE PAY_NO = #{payNo}
+	</update>
+	
 </mapper>

@@ -133,6 +133,7 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/owner/eatdeal/delete", method = RequestMethod.PATCH)
 	private ResponseEntity<Integer> deleteEat(@RequestBody Map<String, String> data) {
+		
 		int result=service.deleteEat(data);
 		if (result > 0) {
 			// 성공시 200 반환
@@ -145,17 +146,24 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/owner/eatdeal/extend", method = RequestMethod.PATCH)
 	public ResponseEntity<Integer> extendEat(@RequestBody Map<String, String> data) {
-		System.out.println(data);
 		int result = service.extendEat(data);
 		if (result > 0) {
-			// 성공시 200 반환
-			System.out.println("등록성공");
-			
+			System.out.println(result);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
-			// 실패 시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
+
+		@RequestMapping(value = "/api/owner/eatdeal/confirm", method = RequestMethod.PATCH)
+		public ResponseEntity<Integer> confirmEat(@RequestBody Map<String, String> data) {
+			
+			int result = service.confirmEat(data);
+			if (result > 0) {
+				return new ResponseEntity<Integer>(result, HttpStatus.OK);
+			}
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+
 
 
 
