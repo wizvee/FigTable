@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,53 +45,20 @@ public class AdminController {
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/api/adminCloseRes/{resNo}", method = RequestMethod.POST)
-	public ResponseEntity CloseReview(@PathVariable("resNo") String resNo) {
-		service.closeRes(resNo);
-		return new ResponseEntity(HttpStatus.OK);
-	}
-	
-	
-	//owner
-	@RequestMapping(value="/api/adminOwners", method=RequestMethod.GET)
-	private ResponseEntity<List<AdminOwner>> getOwnersByApply(){
-		List<AdminOwner> list = service.getOwnersByApply();
-	
-		return new ResponseEntity<List<AdminOwner>>(list, HttpStatus.OK);
-	}
-	
-	
-	
-//	@RequestMapping(value="/api/adminInsertRes", method = RequestMethod.GET)
-//	private ResponseEntity<Integer> insertRes(@RequestBody Restaurant res) {
-//		int result = service.insertRes(res);
-//		System.out.println(result);
-//		
-//		return new ResponseEntity<Integer>(result, HttpStatus.OK);
-//	}
-	
-	
-	//review
-	@RequestMapping(value="/api/adminReviews", method=RequestMethod.GET)
-	private ResponseEntity<List<AdminReview>> getReviews(){
-		List<AdminReview> list = service.getReviews();
-		return new ResponseEntity<List<AdminReview>>(list, HttpStatus.OK);
-	}
-	
+
 	//매장 썸네일 등록
 	@RequestMapping(value="/api/adminFile", method=RequestMethod.POST)
 	private ResponseEntity<String> uploadFile(MultipartHttpServletRequest req){
 		//파일 저장 경로
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
 		String image = "";
-		
+
 		// 저장경로가 없으면 생성
 		File dir = new File(saveDir);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
-		
-		
+
 		//multipart request에서 fileNames 가져오기
 		Iterator<String> fileNames = req.getFileNames();
 		while(fileNames.hasNext()){
@@ -111,8 +79,8 @@ public class AdminController {
 		}
 		return new ResponseEntity<String>(image, HttpStatus.OK);
 	}
-	
-	
+
+
 	@RequestMapping(value="/api/adminFile", method=RequestMethod.PATCH)
 	private void insertResFile(@RequestBody Restaurant res, HttpServletRequest req) {
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/restaurant");
@@ -122,7 +90,7 @@ public class AdminController {
 			f.delete();
 		}
 	}
-	
+
 	@RequestMapping(value="/api/adminInsertRes", method=RequestMethod.POST)
 	public ResponseEntity<Integer> insertRes(@RequestBody Restaurant res){
 		int result = service.insertRes(res);
@@ -133,23 +101,104 @@ public class AdminController {
 		//실패시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
 	}
+
+	@RequestMapping(value="/api/adminCloseRes/{resNo}", method = RequestMethod.POST)
+	public ResponseEntity<List<Restaurant>> CloseRes(@PathVariable("resNo") String resNo) {
+		int result = service.closeRes(resNo);
+		List<Restaurant> list = null;
+		if(result > 0) {
+			list = service.getResList();
+			return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
+		}
+		//실패시 400에러
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
 	
-	
-	
-	@RequestMapping(value="/api/adminReview", method = RequestMethod.PATCH)
-	private ResponseEntity<List<AdminReview>> removeReview(@RequestBody String rvNo){
-		System.out.println("매장 번호 : " + rvNo);
+	@RequestMapping(value="/api/adminApplyRes/{resNo}", method = RequestMethod.POST)
+	public ResponseEntity<List<Restaurant>> applyRes(@PathVariable("resNo") String resNo) {
 		
-		int r = service.removeReview(rvNo);
+		int result = service.applyRes(resNo);
+		List<Restaurant> list = null;
+		if(result > 0) {
+			list = service.getResList();
+			return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
+		}
+		//실패시 400에러
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+
+
+	
+	
+	//owner
+	@RequestMapping(value="/api/adminOwners", method=RequestMethod.GET)
+	private ResponseEntity<List<AdminOwner>> getOwnersByApply(){
+		List<AdminOwner> list = service.getOwnersByApply();
+
+		return new ResponseEntity<List<AdminOwner>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/adminOwner/apply", method=RequestMethod.POST)
+	private ResponseEntity<Integer> applyOwner(@RequestBody AdminOwner owner){
+		if(!owner.getOwnApply().equals('A')) {
+			int updateOwnApply = service.updateOwnApply(owner.getOwnNo());
+		}
+		int insertResOwn = service.insertResOwn(owner);
+		if(insertResOwn > 0) {
+			return new ResponseEntity<Integer>(insertResOwn, HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
+	}
+	
+	@RequestMapping(value="/api/adminOwner/return", method=RequestMethod.POST)
+	private ResponseEntity returnOwner(@RequestBody Map<String, String> data){
+		System.out.println(data);
+		if(!data.get("ownerApply").equals('A')) {
+			int updateOwnApply = service.updateOwnApply(data.get("ownerNo"));
+		}
+		int returnResOwn = service.returnResOwn(data);
+		if(returnResOwn > 0) {
+			int delLicense = service.delLicense(data);
+			return new ResponseEntity<Integer>(returnResOwn, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
+	}
+
+
+
+
+	//review
+	@RequestMapping(value="/api/adminReviews", method=RequestMethod.GET)
+	private ResponseEntity<List<AdminReview>> getReviews(){
 		List<AdminReview> list = service.getReviews();
-		
-		if(r>0) {
-			return new ResponseEntity<List<AdminReview>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<AdminReview>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/adminReturnReview/{rvNo}", method = RequestMethod.POST)
+	public ResponseEntity returnReview(@PathVariable("rvNo") String rvNo) {
+		service.returnReview(rvNo);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/adminRemoveReview/{rvNo}", method = RequestMethod.PATCH)
+	private ResponseEntity<List<AdminReview>> removeReview(@PathVariable("rvNo") String rvNo){
+		AdminReview r = service.getMember(rvNo);
+		//경고 수 3회 미만이면 경고 +1 
+		if(r.getMemWrCnt() < 3) {
+			int wcIncrese = service.wcIncrease(r.getMemNo());
+		}
+		if(r.getRvLove() > 0 ) {
+			int removeLv = service.removeLv(rvNo);
+		}
+		int remove = service.removeReview(rvNo);
+		if(remove>0) {
+			List<AdminReview> reviews = service.getReviews();
+			return new ResponseEntity<List<AdminReview>>(reviews, HttpStatus.OK);
 		}
 		//실패시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		
 	}
-	
+
 	
 }

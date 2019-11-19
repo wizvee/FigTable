@@ -6,7 +6,6 @@ import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import ReviewList from './review/ReviewList';
 import styled from 'styled-components';
-import ActionButtons from './review/ActionButtons';
 
 import './TableStyle.css';
 
@@ -14,12 +13,6 @@ const BodyHeight = styled.div`
   height: auto;
   min-height: 500px;
   margin: auto;
-`;
-
-const TableWrapper = styled.div`
-  margin-top: 5rem;
-  margin-bottom: 2rem;
-  min-height: 460px;
 `;
 
 const ReviewContainer = () => {
@@ -40,26 +33,7 @@ const ReviewContainer = () => {
       <AdminHeader />
       <BodyHeight>
         <MenuNavi subTitle="신고 리뷰" />
-        <TableWrapper>
-          <table>
-            <thead>
-              <tr>
-                <th>작성자</th>
-                <th>내용</th>
-                <th>작성일</th>
-                <th>매장명</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ReviewList
-                reviews={reviews}
-                loading={loading}
-                error={error}
-                actionButtons={<ActionButtons />}
-              />
-            </tbody>
-          </table>
-        </TableWrapper>
+        <ReviewList reviews={reviews} loading={loading} error={error} />
       </BodyHeight>
     </>
   );

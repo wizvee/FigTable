@@ -85,7 +85,7 @@ const AdminContainer = () => {
                 <IconWrapper>
                   <MdLocalDining />
                 </IconWrapper>
-                매장 등록 / 폐업
+                매장 관리
               </Link>
             </li>
             <li className="li">

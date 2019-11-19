@@ -11,7 +11,7 @@ const MenuBlock = styled.div`
   position: fixed;
   background-color: rgba(255, 255, 255, 0.1);
   top: 60px;
-  z-index: 9999;
+  z-index: 9998;
   ${props =>
     !props.isHome &&
     css`

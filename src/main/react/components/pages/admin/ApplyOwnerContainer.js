@@ -58,27 +58,12 @@ const ApplyOwnerContainer = () => {
           input={input}
           onReset={onReset}
         />
-
-        <TableWrapper>
-          <table>
-            <thead>
-              <tr>
-                <th>매장명</th>
-                <th>매장주소</th>
-                <th>대표자</th>
-                <th>이메일</th>
-              </tr>
-            </thead>
-            <tbody>
-              <OwnersList
-                loading={loading}
-                error={error}
-                owners={owners}
-                keyword={searchKeyword}
-              />
-            </tbody>
-          </table>
-        </TableWrapper>
+        <OwnersList
+          loading={loading}
+          error={error}
+          owners={owners}
+          keyword={searchKeyword}
+        />
       </BodyHeight>
     </>
   );

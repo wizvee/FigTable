@@ -1,6 +1,7 @@
 package com.kh.figtable.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminReview;
@@ -15,14 +16,23 @@ public interface AdminService {
 	List<Restaurant> getResList();
 	int insertRes(Restaurant res);
 	int closeRes(String resNo);
+	int applyRes(String resNo);
 	
 	
 	//owner
 	List<AdminOwner> getOwnersByApply();
+	int updateOwnApply(String ownNo);
+	int insertResOwn(AdminOwner owner);
+	int returnResOwn(Map data);
+	int delLicense(Map data);
 	
 	
 	//review
 	List<AdminReview> getReviews();
+	int returnReview(String rvNo);
+	AdminReview getMember(String rvNo);
+	int wcIncrease(String memNo);
+	int removeLv(String rvNo);
 	int removeReview(String rvNo);
 	
 	

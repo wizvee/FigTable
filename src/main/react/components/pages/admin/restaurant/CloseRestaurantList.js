@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import client, { path } from '../../../../lib/api/client';
 import { closeRes } from '../../../../modules/adminInsertRes';
-import { listComRes } from '../../../../modules/adminRestaurants';
 import ResModal from './ResModal';
 import ConfirmModal from './confirmModal';
 import styled from 'styled-components';
@@ -57,19 +56,19 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
   //모달 닫는 function
   const onSubmit = useCallback(async () => {
     setIsModal(false);
+    setConfirm(true);
     await client
       .post(`${path}/api/adminCloseRes/${target}`)
       .then(() => dispatch(closeRes(target)));
-    setConfirm(true);
   }, [target]);
 
   const onCancel = () => {
     setIsModal(false);
   };
 
-  const onCloseModal = useCallback(async () => {
+  const onCloseModal = () => {
     setConfirm(false);
-  });
+  };
 
   return (
     <>
@@ -112,7 +111,7 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
             {confirm && (
               <ConfirmModal
                 msg="정상적으로 처리되었습니다."
-                ononCloseModal={onCloseModal}
+                onCloseModal={onCloseModal}
               />
             )}
           </tbody>

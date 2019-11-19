@@ -1,6 +1,7 @@
 package com.kh.figtable.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,34 @@ public class AdminServiceImpl implements AdminService {
 		return dao.closeRes(session, resNo);
 	}
 	
+	@Override
+	public int applyRes(String resNo) {
+		return dao.applyRes(session, resNo);
+	}
+	
 
 	
 	//owner
 	@Override
 	public List<AdminOwner> getOwnersByApply() {
 		return dao.getOwnersByApply(session);
+	}
+	@Override
+	public int updateOwnApply(String ownNo) {
+		return dao.updateOwnApply(session, ownNo);
+	}
+	@Override
+	public int insertResOwn(AdminOwner owner) {
+		return dao.insertResOwn(session, owner);
+	}
+	
+	@Override
+	public int returnResOwn(Map data) {
+		return dao.returnResOwn(session, data);
+	}
+	@Override
+	public int delLicense(Map data) {
+		return dao.delLicense(session, data);
 	}
 	
 	
@@ -57,7 +80,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public int returnReview(String rvNo) {
+		return dao.returnReview(session, rvNo);
+	}
+	
+	@Override
 	public int removeReview(String rvNo) {
 		return dao.removeReview(session, rvNo);
 	}
+	@Override
+	public AdminReview getMember(String rvNo) {
+		return dao.getMember(session, rvNo);
+	}
+	@Override
+	public int wcIncrease(String memNo) {
+		return dao.wcIncrease(session, memNo);
+	}
+	
+	@Override
+	public int removeLv(String rvNo) {
+		return dao.removeLv(session, rvNo);
+	}
+
+
 }

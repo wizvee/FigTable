@@ -10,7 +10,6 @@ import {
 } from '../../../../modules/adminInsertRes';
 import styled from 'styled-components';
 import client from '../../../../lib/api/client';
-import confirmModal from './confirmModal';
 
 const FormWrapper = styled.div`
   height: auto;

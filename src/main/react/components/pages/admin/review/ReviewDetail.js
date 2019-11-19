@@ -16,7 +16,7 @@ const FormBlock = styled(Responsive)`
   bottom: 0;
   right: 0;
   position: relative;
-  height: 23rem;
+  height: auto;
 
   form {
     width: 280px;
@@ -35,6 +35,26 @@ const StyledInput = styled.input`
   }
 `;
 
+const ImageBlock = styled.div`
+  margin-top: 0.5rem;
+`;
+
+const path = process.env.PATH;
+const ImgItem = styled.div`
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 2px;
+  background: url(${props => `${path}/resources/upload/reviews/${props.url}`});
+  background-size: cover;
+  background-position: center center;
+  transition: opacity 0.2s linear;
+  @media (max-width: 426px) {
+    width: 70px;
+    height: 70px;
+  }
+`;
+
 const StyledTextarea = styled(TextareaAutosize)`
   margin-top: 0.5rem;
   padding: 1rem;
@@ -49,7 +69,24 @@ const StyledTextarea = styled(TextareaAutosize)`
   }
 `;
 
-const ReviewDetail = ({ review, actionButtons }) => {
+const ActionButtonBlock = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: inline;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 0.5rem;
+  width: 5rem;
+  margin: 0.5rem;
+  margin-top: 1rem;
+`;
+
+const ReviewDetail = ({ review, onReturn, onRemove }) => {
   const {
     rvNo,
     memName,
@@ -84,8 +121,16 @@ const ReviewDetail = ({ review, actionButtons }) => {
           value={rvContent}
           readOnly
         />
-        <StyledInput type="hidden" name="rvNo" value={rvNo} readOnly />
-        {actionButtons}
+        {rvImages &&
+          rvImages.map((img, index) => (
+            <ImageBlock>
+              <ImgItem key={`${index}+${index}+img`} url={img} />
+            </ImageBlock>
+          ))}
+        <ActionButtonBlock>
+          <StyledButton onClick={onReturn}>복구</StyledButton>
+          <StyledButton onClick={onRemove}>삭제</StyledButton>
+        </ActionButtonBlock>
       </FormBlock>
     </>
   );
