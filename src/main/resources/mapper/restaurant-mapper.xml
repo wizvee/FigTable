@@ -29,30 +29,39 @@
 		<result property="resWaiting" column="RES_WAITING" />
 		<result property="resWaitCnt" column="RES_WAITCNT" />
 		<result property="resApply" column="RES_APPLY" />
+
+		<result property="wtRemining" column="WT_REMAINING" />
 	</resultMap>
 
 	<select id="getByLocal" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_ADDRESS LIKE '%'|| #{local} || '%' AND RES_APPLY IN ('A', 'C')
-		ORDER BY RES_RATING DESC, RES_LIKES DESC, RES_REVIEWS DESC, RES_VIEWS
-		DESC
+		SELECT R.*, NVL(W.WT, 0) AS
+		WT_REMAINING FROM FIG_RESTAURANT R LEFT JOIN (SELECT RES_NO, COUNT(*)
+		AS WT FROM FIG_WAITING GROUP BY RES_NO) W ON (R.RES_NO = W.RES_NO)
+		WHERE R.RES_ADDRESS LIKE '%'|| #{local} || '%' AND R.RES_APPLY IN
+		('A',
+		'C') ORDER BY RES_RATING DESC, RES_LIKES DESC, RES_REVIEWS DESC,
+		RES_VIEWS DESC
 	</select>
 
 	<select id="getByKeyword" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE
-		(RES_NAME LIKE '%'|| #{keyword} || '%' OR RES_ADDRESS LIKE '%'||
-		#{keyword} || '%' OR RES_LOCATION_KEYWORD LIKE '%'|| #{keyword} || '%'
-		OR RES_FOOD_KEYWORD LIKE '%'|| #{keyword} || '%') AND RES_APPLY IN
-		('A', 'C') ORDER BY RES_RATING DESC, RES_LIKES DESC, RES_REVIEWS DESC,
-		RES_VIEWS DESC
+		SELECT R.*, NVL(W.WT, 0) FROM
+		FIG_RESTAURANT R LEFT JOIN (SELECT RES_NO, COUNT(*) AS WT FROM
+		FIG_WAITING GROUP BY RES_NO) W ON (R.RES_NO = W.RES_NO) WHERE
+		(R.RES_NAME LIKE '%'|| #{keyword} || '%' OR R.RES_ADDRESS LIKE '%'||
+		#{keyword} || '%' OR R.RES_LOCATION_KEYWORD LIKE '%'|| #{keyword} ||
+		'%' OR R.RES_FOOD_KEYWORD LIKE '%'|| #{keyword} || '%') AND
+		R.RES_APPLY IN ('A', 'C') ORDER BY RES_RATING DESC, RES_LIKES DESC,
+		RES_REVIEWS DESC, RES_VIEWS DESC
 	</select>
 
 	<select id="getById" parameterType="string"
 		resultType="restaurant" resultMap="resResult">
-		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_NO = #{resNo}
+		SELECT R.*, NVL(W.WT, 0) AS
+		WT_REMAINING FROM FIG_RESTAURANT R LEFT JOIN (SELECT RES_NO, COUNT(*)
+		AS WT FROM FIG_WAITING GROUP BY RES_NO) W ON (R.RES_NO = W.RES_NO)
+		WHERE R.RES_NO = #{resNo}
 	</select>
 
 	<update id="increaseViews" parameterType="string">

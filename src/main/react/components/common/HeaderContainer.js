@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { logout } from '../../modules/member';
@@ -7,6 +7,8 @@ import ModalTemplate from './ModalTemplate';
 import ModalSearch from '../pages/user/ModalSearch';
 import ModalUser from '../pages/user/ModalUser';
 import QuestionContainer from '../pages/user/question/QuestionContainer';
+import { setPosition } from '../../modules/guest';
+import client from '../../lib/api/client';
 
 const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -54,6 +56,49 @@ const HeaderContainer = ({ history }) => {
   const onLogout = useCallback(() => {
     closeUserModal();
     dispatch(logout());
+  }, []);
+
+  // 위치 정보 얻기
+  const API = 'https://maps.googleapis.com/maps/api/geocode/json';
+  const KEY = process.env.GOOGLE_APIKEY;
+  const getPosition = useCallback(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async ({ coords: { latitude, longitude } }) => {
+          await client
+            .get(`${API}?latlng=${latitude},${longitude}&key=${KEY}`)
+            .then(
+              ({
+                data: {
+                  results: [
+                    {
+                      address_components: [
+                        ,
+                        ,
+                        { long_name: name },
+                        { long_name: searchKey },
+                      ],
+                    },
+                  ],
+                },
+              }) => {
+                dispatch(
+                  setPosition({
+                    lat: latitude,
+                    lon: longitude,
+                    name,
+                    searchKey,
+                  }),
+                );
+              },
+            );
+        },
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    getPosition();
   }, []);
 
   return (

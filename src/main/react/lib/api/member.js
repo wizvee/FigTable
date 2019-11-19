@@ -32,3 +32,7 @@ export const lovesRv = ({ memNo, rvNo }) =>
 // unloves review
 export const unlovesRv = ({ memNo, rvNo }) =>
   client.patch(`${path}/api/member/love`, { memNo, rvNo });
+
+// waiting 줄서기
+export const waiting = ({ memNo, memName, resNo, people }) =>
+  client.post(`${path}/api/member/waiting`, { memNo, memName, resNo, people });

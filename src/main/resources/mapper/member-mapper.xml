@@ -173,7 +173,8 @@
 	<insert id="writeQuestion" parameterType="map">
 		INSERT INTO
 		FIG_QUESTION VALUES(#{memNo}, #{targetMemNo}, #{content},
-		DEFAULT, #{category}, DEFAULT)
+		DEFAULT,
+		#{category}, DEFAULT)
 	</insert>
 
 	<update id="deleteWarns" parameterType="map">
@@ -183,8 +184,17 @@
 	</update>
 
 	<insert id="setWaiting" parameterType="map">
-		INSERT INTO FIG_WAITING VALUES (#{memNo}, #{memName},
-		#{resNo}, ${people}, SYSDATE, DEFAULT, NULL, NULL)
+		INSERT INTO FIG_WAITING
+		VALUES (#{memNo}, #{memName},
+		#{resNo}, ${people}, SYSDATE, DEFAULT,
+		NULL, NULL)
 	</insert>
+
+	<select id="getWaiting" parameterType="string" resultType="map">
+		SELECT W.*, M.WT_REMAINING, R.RES_NAME FROM FIG_WAITING W JOIN (SELECT
+		RES_NO, COUNT(*) AS WT_REMAINING FROM FIG_WAITING WHERE WT_STATUS =
+		'S' GROUP BY RES_NO) M ON(W.RES_NO = M.RES_NO) JOIN FIG_RESTAURANT R
+		ON(W.RES_NO = R.RES_NO) WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
+	</select>
 
 </mapper>
