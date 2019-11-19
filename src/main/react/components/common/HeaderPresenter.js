@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { FiStar, FiSmile } from 'react-icons/fi';
 import Responsive from './Responsive';
 import palette from '../../lib/styles/Palette';
+import Button from '../../lib/styles/Button';
 
 const HeaderBlock = styled.div`
   z-index: 50;
@@ -14,7 +15,7 @@ const HeaderBlock = styled.div`
   ${props =>
     !props.isHome &&
     css`
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     `}
   ${props =>
@@ -59,6 +60,15 @@ const HeaderWrapper = styled(Responsive)`
     .logo_m {
       display: block;
     }
+    .right {
+      font-size: 1.5rem;
+    }
+    input {
+      padding: 4px 0;
+    }
+    button {
+      padding: 0.3rem;
+    }
   }
 `;
 
@@ -72,6 +82,13 @@ const IconWrapper = styled.div`
   cursor: pointer;
   & + & {
     margin-left: 0.5rem;
+  }
+  @media (max-width: 426px) {
+    width: 30px;
+    height: 30px;
+    & + & {
+      margin-left: 0.5rem;
+    }
   }
 `;
 
@@ -90,6 +107,11 @@ const Badge = styled.div`
   height: 1.4rem;
   color: white !important;
   font-size: 0.75rem;
+  @media (max-width: 426px) {
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: 0.7rem;
+  }
 `;
 
 /* 헤더가 fixed로 되어있기 때문에 페이지의 콘텐츠가 4rem 아래에 나타나도록 */
@@ -155,11 +177,11 @@ const HeaderPresenter = ({
               <input
                 type="text"
                 value={keyword}
-                onClick={openSearchModal}
+                // onClick={openSearchModal}
                 onChange={onChange}
                 placeholder="지역, 식당 또는 음식"
               />
-              <button type="submit">검색</button>
+              <Button type="submit">검색</Button>
             </form>
           )}
           <div className="right">

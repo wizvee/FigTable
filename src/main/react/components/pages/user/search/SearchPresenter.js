@@ -25,13 +25,16 @@ const Body = styled.div`
   display: grid;
   grid-template-columns: 1fr 280px;
   grid-gap: 1rem;
+  @media (max-width: 426px) {
+    grid-template-columns: 1fr;
+  }
   .ad {
     h4 {
       margin-top: 0;
     }
     display: flex;
     flex-direction: column;
-    padding: 0 1rem;
+    padding: 0 1rem 1rem;
     a + a {
       margin-top: 1rem;
     }
@@ -83,7 +86,12 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
   ];
 
   if (error) return null;
-  if (loading || !restaurants) return <Loader />;
+  if (loading || !restaurants)
+    return (
+      <Container>
+        <Loader />
+      </Container>
+    );
 
   const recommend =
     restaurants &&
@@ -119,9 +127,14 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
           </div>
         )}
         <div className="ad">
-          <h4>추천 콘텐츠</h4>
-          {recommend.length != 0 &&
-            recommend.map(r => <Poster key={r.resNo} restaurant={r} imgOnly />)}
+          {recommend.length != 0 && (
+            <>
+              <h4>추천 콘텐츠</h4>
+              {recommend.map(r => (
+                <Poster key={r.resNo} restaurant={r} imgOnly />
+              ))}
+            </>
+          )}
         </div>
       </Body>
     </Container>

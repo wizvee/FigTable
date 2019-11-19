@@ -58,28 +58,6 @@ const Comment = styled.div`
   }
 `;
 
-const CommentForm = styled.form`
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 1rem 0 0;
-  width: 100%;
-  max-width: 400px;
-  button {
-    position: absolute;
-    right: 1rem;
-    margin-left: 0.3rem;
-    border: none;
-    background: transparent;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: ${palette.textGray};
-    font-size: 1rem;
-    outline: none;
-    transition: color 0.2s linear;
-    cursor: pointer;
-  }
-`;
-
 const path = process.env.PATH;
 const Profile = styled.div`
   margin-right: 0.5rem;
@@ -97,6 +75,33 @@ const StyledInput = styled.input`
   border-radius: 2rem;
   border: 1px solid ${palette.borderGray};
   font-size: 0.95rem;
+`;
+
+const CommentForm = styled.form`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 0;
+  width: 100%;
+  max-width: 400px;
+  @media (max-width: 426px) {
+    ${Profile} {
+      display: none;
+    }
+  }
+  button {
+    position: absolute;
+    right: 1rem;
+    margin-left: 0.3rem;
+    border: none;
+    background: transparent;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: ${palette.textGray};
+    font-size: 1rem;
+    outline: none;
+    transition: color 0.2s linear;
+    cursor: pointer;
+  }
 `;
 
 const AllCmtView = styled.div`

@@ -70,6 +70,9 @@ const InfoHeader = styled.div`
 
 const Title = styled.div`
   font-size: 1.7rem;
+  @media (max-width: 426px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Rating = styled.span`
@@ -79,6 +82,9 @@ const Rating = styled.span`
   font-size: 1.5rem;
   color: ${palette.primary};
   transform: translateY(-5px);
+  @media (max-width: 426px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const Location = styled.span`
