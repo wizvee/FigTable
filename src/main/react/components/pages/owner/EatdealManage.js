@@ -8,7 +8,7 @@ import { listOwnEat} from '../../../modules/eatdeals';
 const Manage= styled.div`
   width:100%;
 `;
-const EatdealManage =({restaurant})=>{
+const EatdealManage =({history, restaurant})=>{
   const {
     resNo,
   }=restaurant;
@@ -28,16 +28,11 @@ const EatdealManage =({restaurant})=>{
     dispatch(listOwnEat(resNo));
   }, [resNo]);
 
- //수정될 때 디스패치
- useEffect(() => {
-  dispatch(listOwnEat(resNo));
-}, [result])
-
 
   //잇딜종료
   const onDelete = useCallback(
-    eatNo => {
-      dispatch(deleteEat({ eatNo }));
+    (eatNo, resNo) => {
+      dispatch(deleteEat({ eatNo, resNo }));
     },
     [dispatch],
   );
@@ -45,9 +40,9 @@ const EatdealManage =({restaurant})=>{
   
   //잇딜 연장
   const onDateExtend = useCallback(
-    (eatNo, eatStartDate, eatEndDate)=> {
-      console.log({eatNo, eatStartDate, eatEndDate});
-      dispatch(extendEat({eatNo, eatStartDate, eatEndDate}));
+    (eatNo, resNo, eatStartDate, eatEndDate)=> {
+      console.log({eatNo, resNo, eatStartDate, eatEndDate});
+      dispatch(extendEat({eatNo, resNo, eatStartDate, eatEndDate}));
     },
     [dispatch],
   );
@@ -65,7 +60,6 @@ const EatdealManage =({restaurant})=>{
           eatDeal={eat}
           onDelete={onDelete}
           onDateExtend={onDateExtend}
-          result={result}
           />
         ))}
 

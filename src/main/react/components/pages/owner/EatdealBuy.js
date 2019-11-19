@@ -29,15 +29,8 @@ const EatdealBuy =({restaurant, history})=>{
   
   useEffect(() => {
     dispatch(listBuyEat(resNo));
+    console.log('이건가')
   }, [resNo]);
-
- //수정될 때 디스패치
- useEffect(() => {
-    dispatch(listBuyEat(resNo));
-  console.log('buyer디스패치됨');
-
-}, [ history, dispatch])
-
 
   //구매확인
   const onConfirm = useCallback(
@@ -63,10 +56,7 @@ const onSubmit = e => {
   searchKeyword != '' ? buyers.filter(buyer=> buyer.memName.includes(searchKeyword)) : buyers;
 
   if (buyers.length <= 0) {
-    return (
-          <span >구매자가 존재하지 않습니다.</span>
-      
-    );
+    return null;
   }
 
   if(!buyers) {

@@ -173,8 +173,7 @@
 	<insert id="writeQuestion" parameterType="map">
 		INSERT INTO
 		FIG_QUESTION VALUES(#{memNo}, #{targetMemNo}, #{content},
-		DEFAULT,
-		#{category})
+		DEFAULT, #{category}, DEFAULT)
 	</insert>
 
 	<update id="deleteWarns" parameterType="map">
