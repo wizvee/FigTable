@@ -9,7 +9,7 @@ const Manage = styled.div`
   width:100%;
 `;
 
-const EatdealBuy =({restaurant})=>{
+const EatdealBuy =({restaurant, history})=>{
   const {
     resNo,
   }=restaurant;
@@ -33,17 +33,17 @@ const EatdealBuy =({restaurant})=>{
 
  //수정될 때 디스패치
  useEffect(() => {
-  dispatch(listBuyEat(resNo));
-  console.log('잇딜디스패치됨');
+    dispatch(listBuyEat(resNo));
+  console.log('buyer디스패치됨');
 
-}, [result])
+}, [ history, dispatch])
 
 
   //구매확인
   const onConfirm = useCallback(
-    payNo => {
-      console.log({payNo});
-      dispatch(confirmEat({payNo}));
+    (payNo, resNo) => {
+      console.log({payNo, resNo});
+      dispatch(confirmEat({payNo, resNo}));
     },
     [dispatch],
   );
@@ -64,9 +64,8 @@ const onSubmit = e => {
 
   if (buyers.length <= 0) {
     return (
-       <Wrapper>
           <span >구매자가 존재하지 않습니다.</span>
-        </Wrapper>
+      
     );
   }
 
@@ -85,6 +84,7 @@ const onSubmit = e => {
               key={buyer.payNo}
               buyer={buyer} 
               onConfirm={onConfirm}
+              resNo={resNo}
               />
            ))}
         </Manage>

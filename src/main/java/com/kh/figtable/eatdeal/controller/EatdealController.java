@@ -155,11 +155,13 @@ public class EatdealController {
 	}
 
 		@RequestMapping(value = "/api/owner/eatdeal/confirm", method = RequestMethod.PATCH)
-		public ResponseEntity<Integer> confirmEat(@RequestBody Map<String, String> data) {
+		public ResponseEntity<List<Buyer>> confirmEat(@RequestBody Map<String, String> data) {
 			
 			int result = service.confirmEat(data);
 			if (result > 0) {
-				return new ResponseEntity<Integer>(result, HttpStatus.OK);
+				String resNo=data.get("resNo");
+				List<Buyer> list = service.getBuy(resNo);
+				return new ResponseEntity<List<Buyer>>(list, HttpStatus.OK);
 			}
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
