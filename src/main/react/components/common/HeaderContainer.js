@@ -9,6 +9,7 @@ import ModalUser from '../pages/user/ModalUser';
 import QuestionContainer from '../pages/user/floatIcon/QuestionContainer';
 import { setPosition } from '../../modules/guest';
 import client from '../../lib/api/client';
+import WaitingContainer from '../pages/user/floatIcon/WaitingContainer';
 
 const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
@@ -130,6 +131,7 @@ const HeaderContainer = ({ history }) => {
           />
         </ModalTemplate>
       </HeaderPresenter>
+      {member && member.waiting && <WaitingContainer />}
       <QuestionContainer />
     </>
   );

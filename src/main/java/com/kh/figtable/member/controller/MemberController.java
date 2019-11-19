@@ -347,5 +347,13 @@ public class MemberController {
 
 		return new ResponseEntity<Map>(result, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/member/waiting", method = RequestMethod.DELETE)
+	private ResponseEntity unWaiting(HttpSession session) {
+		Member m = (Member) session.getAttribute("login");
+		if (m != null)
+			service.unWaiting(m.getMemNo());
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 }

@@ -17,7 +17,6 @@ const buttonStyle = css`
   transition: opacity 0.2s linear;
   cursor: pointer;
   &:hover {
-    /* background: #ff8787; */
     opacity: 1;
   }
   ${props =>

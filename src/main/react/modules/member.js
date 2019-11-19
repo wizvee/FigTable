@@ -25,7 +25,8 @@ const [GET_LOVES, GET_LOVES_SUCCESS] = createRequestActionTypes(
 const [LOVES_RV] = createRequestActionTypes('member/LOVES_RV');
 const [UNLOVES_RV] = createRequestActionTypes('member/UNLOVES_RV');
 
-const [WAITING, WAITING_SUCCESS] = createRequestActionTypes('member/WAITING');
+const WAITING = 'member/WAITING';
+const UNWAITING = 'member/UNWAITING';
 
 export const setMember = createAction(SET_MEMBER, member => member);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -69,6 +70,7 @@ export const waiting = createAction(
     people,
   }),
 );
+export const unWaiting = createAction(UNWAITING);
 
 // 사가 생성
 function* logoutSaga() {
@@ -79,7 +81,15 @@ function* logoutSaga() {
     console.log(e);
   }
 }
-const checkSaga = createRequestSaga(CHECK, memberAPI.check);
+function* checkSaga({ payload }) {
+  try {
+    const { data } = yield call(memberAPI.check, payload);
+    yield put({ type: CHECK_SUCCESS, payload: data });
+    sessionStorage.setItem('member', JSON.stringify(data));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 const getLikesSaga = createRequestSaga(GET_LIKES, memberAPI.getLikes);
 const likesResSaga = createRequestSaga(LIKES_RES, memberAPI.likesRes);
@@ -102,9 +112,22 @@ function* unlovesRvSaga({ payload }) {
     console.log(e);
   }
 }
+
 function* waitingSaga({ payload }) {
   try {
     yield call(memberAPI.waiting, payload);
+    yield put({ type: CHANGE_FIELD, payload: { key: 'waiting', value: true } });
+  } catch (e) {
+    console.log(e);
+  }
+}
+function* unWaitingSaga(action) {
+  try {
+    yield call(memberAPI.unWaiting);
+    yield put({
+      type: CHANGE_FIELD,
+      payload: { key: 'waiting', value: false },
+    });
   } catch (e) {
     console.log(e);
   }
@@ -123,6 +146,7 @@ export function* memberSaga() {
   yield takeLatest(UNLOVES_RV, unlovesRvSaga);
 
   yield takeLatest(WAITING, waitingSaga);
+  yield takeLatest(UNWAITING, unWaitingSaga);
 }
 
 const initialState = {
@@ -158,10 +182,6 @@ export default handleActions(
       ...state,
       loves,
     }),
-    [WAITING_SUCCESS]: state =>
-      produce(state, draft => {
-        draft.member.waiting = true;
-      }),
   },
   initialState,
 );

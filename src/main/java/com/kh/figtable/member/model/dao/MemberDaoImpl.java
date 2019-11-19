@@ -127,4 +127,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.getWaiting", memNo);
 	}
 
+	@Override
+	public int unWaiting(SqlSession session, String memNo) {
+		return session.update("member.unWaiting", memNo);
+	}
+
 }

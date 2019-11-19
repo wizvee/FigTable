@@ -32,11 +32,6 @@ const Overlay = styled.div`
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
-  ${props =>
-    props.tooltip &&
-    css`
-      z-index: 55;
-    `}
 `;
 
 const Container = styled.div`
