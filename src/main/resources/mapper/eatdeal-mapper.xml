@@ -64,7 +64,7 @@
 	</insert>
 	
 	<update id="deleteEat" parameterType="map">
-		UPDATE FIG_EATDEAL SET EAT_STATUS = 'S' WHERE EAT_NO = #{eatNo}
+		UPDATE FIG_EATDEAL SET EAT_STATUS = 'E' WHERE EAT_NO = #{eatNo}
 	</update>
 	
 	<update id="extendEat" parameterType="map">

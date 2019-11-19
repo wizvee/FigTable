@@ -6,6 +6,10 @@
 
 # Eclipse
 /target/
+.settings/
+.classpath
+.factorypath
+.project
 
 # # Directories #
 # /build/
@@ -23,10 +27,8 @@
 # *.db
       
 # # Eclipse #
-# # .project
 # .metadata
-# .classpath
-# .settings/
+
 # .loadpath
  
 # bin/**
