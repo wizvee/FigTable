@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -10,6 +10,7 @@ import {
 import { setMember } from '../../../modules/member';
 import LoginPresenter from './LoginPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
+import client from '../../../lib/api/client';
 
 const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
@@ -37,6 +38,10 @@ const LoginContainer = ({ history }) => {
     const { memEmail, memPassword } = form;
     dispatch(login({ memEmail, memPassword }));
   };
+
+  const onKakao = useCallback(() => {
+    location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_RESTKEY}&redirect_uri=http://localhost:9090${process.env.PATH}/api/auth/kakao&response_type=code`;
+  }, []);
 
   // 컴포넌트가 처음 렌더링 될 때 form을 초기화
   useEffect(() => {
@@ -73,6 +78,7 @@ const LoginContainer = ({ history }) => {
         onChange={onChange}
         onToggle={onToggle}
         onSubmit={onSubmit}
+        onKakao={onKakao}
         error={error}
       />
     </>
