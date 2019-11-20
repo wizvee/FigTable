@@ -12,7 +12,7 @@ import LoginPresenter from './LoginPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
 import client from '../../../lib/api/client';
 
-const LoginContainer = ({ history }) => {
+const LoginContainer = ({ history, location: { search } }) => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
@@ -69,6 +69,32 @@ const LoginContainer = ({ history }) => {
       console.log('sessionStorage is not working');
     }
   }, [history, member]);
+
+  useEffect(() => {
+    const token = search.substring(6);
+    if (token.length > 0) {
+      client
+        .post(
+          `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_RESTKEY}&redirect_uri=http://localhost:9090${process.env.PATH}/api/auth/kakao&code=${token}`,
+        )
+        .then(({ request: { response } }) => {
+          const accessToken = JSON.parse(response).access_token;
+          console.log(accessToken);
+          client
+            .post(
+              'https://kapi.kakao.com/v2/user/me?property_keys=["properties.nickname"]',
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  'content-type':
+                    'application/x-www-form-urlencoded;charset=utf-8',
+                },
+              },
+            )
+            .then(resp => console.log(resp));
+        });
+    }
+  }, [search]);
 
   return (
     <>
