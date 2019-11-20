@@ -3,13 +3,16 @@ package com.kh.figtable.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.figtable.admin.model.vo.Admin;
 import com.kh.figtable.admin.model.vo.AdminOwner;
-import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 
 public interface AdminService {
+	
+	Admin login(Admin admin);
+	
 	//restaurant
 	//	매장 신청 리스트
 	List<Restaurant> getRestaurantsByApply();

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.figtable.admin.model.vo.Admin;
 import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
@@ -13,6 +14,12 @@ import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
+	
+	
+	@Override
+	public Admin login(SqlSession session, Admin admin) {
+		return session.selectOne("admin.login", admin);
+	}
 	
 	//restaurant
 	@Override

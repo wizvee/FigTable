@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.admin.model.service.AdminService;
+import com.kh.figtable.admin.model.vo.Admin;
 import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
+import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 
@@ -33,6 +36,19 @@ public class AdminController {
 
 	@Autowired
 	private AdminService service;
+	
+	@RequestMapping(value="api/adminLogin",  method=RequestMethod.POST)
+	private ResponseEntity<Admin> login(@RequestBody Admin admin, HttpSession session){
+		Admin a = service.login(admin);
+		
+		if(a.getAdminPassword().equals(admin.getAdminPassword())) {
+			session.setAttribute("login", a);
+			return new ResponseEntity<Admin>(a, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+	}
+	
 	
 	//restaurant 등록 신청 내역 가져오기
 	@RequestMapping(value = "/api/adminRestaurnats", method = RequestMethod.GET)

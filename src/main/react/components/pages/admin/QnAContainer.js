@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import AdminHeader from './AdminHeader';
 import MenuNavi from './MenuNavi';
 import styled from 'styled-components';
@@ -9,7 +8,6 @@ import Loader from '../../common/Loader';
 import moment from 'moment';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import Button from '../../../lib/styles/Button';
-import Responsive from '../../common/Responsive';
 import palette from '../../../lib/styles/Palette';
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -203,10 +201,6 @@ const QnAContainer = () => {
   const [loading, setLoading] = useState(true);
   const [memNo, setMemNo] = useState('');
   const [content, setContent] = useState('');
-
-  if (!loading && (qnas == null || qnas == '')) {
-    return <NoneData>신청내역이 존재하지 않습니다.</NoneData>;
-  }
 
   useEffect(() => {
     onSelect('E');

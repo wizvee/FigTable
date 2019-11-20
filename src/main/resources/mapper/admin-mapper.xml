@@ -58,6 +58,11 @@
 		<result property="rvLove" column="RV_LOVE" />
 	</resultMap>
 	
+	<resultMap type="adminLogin" id="adminLogin">
+		<result property="memNo" column="MEM_NO" />
+		<result property="adminEmail" column="MEM_EMAIL" />
+		<result property="adminPassword" column="MEM_PASSWORD" />
+	</resultMap>
 	
 	<resultMap type="adminQna" id="qnaResult">
 		<result property="memNo" column="MEM_NO" />
@@ -174,5 +179,10 @@
   		UPDATE FIG_QUESTION SET Q_ANSWER='Y' 
   		WHERE MEM_NO = #{memNo} AND Q_CONTENT = #{content} AND Q_CATEGORY=#{category}
   	</update>
+  	
+  	<select id="login" parameterType="com.kh.figtable.admin.model.vo.Admin" resultMap="adminLogin">
+  		SELECT MEM_NO, MEM_EMAIL, MEM_PASSWORD 
+  		FROM FIG_MEMBER WHERE MEM_EMAIL = #{adminEmail} AND MEM_PASSWORD = #{adminPassword}
+  	</select>
   	
 </mapper>

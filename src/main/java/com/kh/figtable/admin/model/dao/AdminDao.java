@@ -5,12 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.figtable.admin.model.vo.Admin;
 import com.kh.figtable.admin.model.vo.AdminOwner;
-import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface AdminDao {
+	
+	
+	Admin login(SqlSession session, Admin admin);
 	
 	//restaurant
 	List<Restaurant> getRestaurantsByApply(SqlSession session);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.figtable.admin.model.dao.AdminDao;
+import com.kh.figtable.admin.model.vo.Admin;
 import com.kh.figtable.admin.model.vo.AdminOwner;
 import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
@@ -20,6 +21,12 @@ public class AdminServiceImpl implements AdminService {
 	private SqlSessionTemplate session;
 	@Autowired
 	private AdminDao dao;
+	
+	
+	@Override
+	public Admin login(Admin admin) {
+		return dao.login(session, admin);
+	}
 	
 	//restaurant
 	@Override
