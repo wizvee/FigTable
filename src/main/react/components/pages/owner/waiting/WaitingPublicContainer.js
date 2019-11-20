@@ -9,6 +9,7 @@ import {
   changeField,
   initializeForm,
   register,
+  getWaitings,
 } from '../../../../modules/waiting';
 
 const Container = styled.div`
@@ -95,8 +96,9 @@ const WaitingPublicContainer = ({ match }) => {
   const path = process.env.PATH;
 
   const dispatch = useDispatch();
-  const { wait } = useSelector(({ ownerWaiting }) => ({
+  const { wait, waitings } = useSelector(({ ownerWaiting }) => ({
     wait: ownerWaiting.waiting,
+    waitings: ownerWaiting.waitings,
   }));
 
   const onChange = ({ target }) => {
@@ -108,6 +110,7 @@ const WaitingPublicContainer = ({ match }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     dispatch(initializeForm('waiting'));
+    dispatch(getWaitings(resNo.resNo));
   }, [dispatch]);
 
   const onIncrease = () => {
@@ -121,49 +124,57 @@ const WaitingPublicContainer = ({ match }) => {
     }
   };
 
+  const [error, setError] = useState('');
   const onSubmit = () => {
     const { wtName, wtPeople, wtPhone } = wait;
-    dispatch(register({ wtName, resNo: resNo.resNo, wtPeople, wtPhone }));
+    if ([wtName, wtPeople, wtPhone].includes('')) {
+      setError('빈칸을 모두 입력하세요');
+    } else {
+      dispatch(register({ wtName, resNo: resNo.resNo, wtPeople, wtPhone }));
+      setError('');
+    }
   };
 
   return (
     <>
-      <Container>
-        <Left imgUrl={`${path}/resources/images/publicWtThumb.jpg`}>
-          <Back>
-            <Count>
-              <div
-                style={{
-                  fontSize: '30px',
-                  fontWeight: '500',
-                  paddingBottom: '2.5rem',
-                }}
-              >
-                현재 웨이팅
-              </div>
-              2팀
-            </Count>
-          </Back>
-        </Left>
-        <Right>
-          <Link to={`${path}/owner/${resNo}`}>
-            <Logo>
-              <div className="logoMain">FIGTABLE</div>
-              &nbsp;&nbsp;
-              <div className="logoSide">
-                <b>파트너</b>
-              </div>
-            </Logo>
-          </Link>
-          <WaitingForm
-            wait={wait}
-            onChange={onChange}
-            onSubmit={onSubmit}
-            onIncrease={onIncrease}
-            onDecrease={onDecrease}
-          />
-        </Right>
-      </Container>
+      {waitings && (
+        <Container>
+          <Left imgUrl={`${path}/resources/images/publicWtThumb.jpg`}>
+            <Back>
+              <Count>
+                <div
+                  style={{
+                    fontSize: '30px',
+                    fontWeight: '500',
+                    paddingBottom: '2.5rem',
+                  }}
+                >
+                  현재 웨이팅
+                </div>
+                {waitings != null ? waitings.length : 0} 팀
+              </Count>
+            </Back>
+          </Left>
+          <Right>
+            <Link to={`${path}/owner/${resNo}`}>
+              <Logo>
+                <div className="logoMain">FIGTABLE</div>
+                &nbsp;&nbsp;
+                <div className="logoSide">
+                  <b>파트너</b>
+                </div>
+              </Logo>
+            </Link>
+            <WaitingForm
+              wait={wait}
+              onChange={onChange}
+              onSubmit={onSubmit}
+              onIncrease={onIncrease}
+              onDecrease={onDecrease}
+            />
+          </Right>
+        </Container>
+      )}
     </>
   );
 };

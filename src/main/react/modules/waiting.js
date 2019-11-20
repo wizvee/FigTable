@@ -11,7 +11,12 @@ const [REGISTER, REGISTER_SUCCESS] = createRequestActionTypes(
 );
 const INITIALIZE_FORM = 'waiting/INITIALIZE_FORM';
 const CHANGE_FIELD = 'waiting/CHANGE_FIELD';
-const [DELETE_WT, DELETE_WT_SUCCESS] = 'waiting/DELETE_WT';
+const [DELETE_WT, DELETE_WT_SUCCESS] = createRequestActionTypes(
+  'waiting/DELETE_WT',
+);
+const [GET_WAITINGS, GET_WAITINGS_SUCCESS] = createRequestActionTypes(
+  'waiting/GET_WAITINGS',
+);
 
 export const register = createAction(
   REGISTER,
@@ -31,13 +36,16 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
 }));
 
 export const deleteWt = createAction(DELETE_WT, wtNo => wtNo);
+export const getWaitings = createAction(GET_WAITINGS, resNo => resNo);
 
 const registerSaga = createRequestSaga(REGISTER, restAPI.register);
 const deleteSaga = createRequestSaga(DELETE_WT, restAPI.delete);
+const getSaga = createRequestSaga(GET_WAITINGS, restAPI.getWaitings);
 
 export function* ownerWaitingSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(DELETE_WT, deleteSaga);
+  yield takeLatest(GET_WAITINGS, getSaga);
 }
 
 const initialState = {
@@ -52,6 +60,7 @@ const initialState = {
     wtStatus: '',
   },
   waitings: [],
+  wtSuccess: false,
 };
 
 const waiting = handleActions(
@@ -67,11 +76,16 @@ const waiting = handleActions(
     [REGISTER_SUCCESS]: (state, { payload: waiting }) =>
       produce(state, draft => {
         draft.waitings.push(waiting);
+        draft.wtSuccess = true;
       }),
     [DELETE_WT_SUCCESS]: (state, { payload: wtNo }) =>
       produce(state, draft => {
         draft.waitings = draft.waitings.filter(wait => wait.wtNo != wtNo);
       }),
+    [GET_WAITINGS_SUCCESS]: (state, { payload: waitings }) => ({
+      ...state,
+      waitings,
+    }),
   },
   initialState,
 );

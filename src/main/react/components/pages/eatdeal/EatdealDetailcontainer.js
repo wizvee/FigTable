@@ -100,14 +100,14 @@ const EatdealDetailContainer=({match})=>{
                 <Separator/>
                 <EatDealIntroduce eat={eatdeal}/>
             </TextContainer >
-             {!member?(
+             {eatdeal.eatCount>0&&(
+             !member?(
              <Button onClick={() => openLoginModal('payment')}>구매하기</Button> 
             ):(
               <Link to={`${path}/payment/${eatNo}`}>
               <Button>구매하기</Button> 
             </Link>
-            )
-
+            ))
             }
         </EatdealCard>
         </>

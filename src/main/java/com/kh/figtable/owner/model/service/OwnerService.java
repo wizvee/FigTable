@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.owner.model.vo.Waiting;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 public interface OwnerService {
@@ -19,4 +20,7 @@ public interface OwnerService {
 	int enrollOwn(Owner o, Restaurant r, String authFile);
 	Owner login(Owner o);
 	String getResList(String ownNo);
+	int insertWt(Waiting wt);
+	Waiting getWaiting(String wtNo);
+	List<Waiting> getWaitings(String resNo);
 }
