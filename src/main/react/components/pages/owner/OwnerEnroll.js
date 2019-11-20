@@ -237,7 +237,6 @@ const OwnerEnroll = () => {
       resFoodKeyword,
       resThumb,
     } = restaurant;
-    console.log(authFile);
 
     const reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
     if (

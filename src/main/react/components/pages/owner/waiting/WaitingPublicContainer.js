@@ -4,6 +4,12 @@ import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
 import WaitingForm from './WaitingForm';
 import { Link, withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeField,
+  initializeForm,
+  register,
+} from '../../../../modules/waiting';
 
 const Container = styled.div`
   height: 100vmax;
@@ -13,8 +19,7 @@ const Left = styled(Responsive)`
   float: left;
   width: 50%;
   height: 100%;
-  background: url(https://images.unsplash.com/photo-1478145046317-39f10e56b5e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80)
-    no-repeat;
+  background: url(${props => `${props.imgUrl}`}) no-repeat;
   top: 0;
   padding: 0;
   background-size: 50vmax;
@@ -85,16 +90,46 @@ const Logo = styled.div`
 `;
 
 const WaitingPublicContainer = ({ match }) => {
-  const { resNo } = match.params;
+  const resNo = match.params;
+
   const path = process.env.PATH;
+
+  const dispatch = useDispatch();
+  const { wait } = useSelector(({ ownerWaiting }) => ({
+    wait: ownerWaiting.waiting,
+  }));
+
+  const onChange = ({ target }) => {
+    const { value, name } = target;
+    dispatch(changeField({ key: name, value }));
+  };
+
   const [pNumber, setPNumber] = useState();
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-  });
+    dispatch(initializeForm('waiting'));
+  }, [dispatch]);
+
+  const onIncrease = () => {
+    let value = wait.wtPeople + 1;
+    dispatch(changeField({ key: 'wtPeople', value }));
+  };
+  const onDecrease = () => {
+    if (wait.wtPeople > 0) {
+      let value = wait.wtPeople - 1;
+      dispatch(changeField({ key: 'wtPeople', value }));
+    }
+  };
+
+  const onSubmit = () => {
+    const { wtName, wtPeople, wtPhone } = wait;
+    dispatch(register({ wtName, resNo: resNo.resNo, wtPeople, wtPhone }));
+  };
+
   return (
     <>
       <Container>
-        <Left>
+        <Left imgUrl={`${path}/resources/images/publicWtThumb.jpg`}>
           <Back>
             <Count>
               <div
@@ -120,7 +155,13 @@ const WaitingPublicContainer = ({ match }) => {
               </div>
             </Logo>
           </Link>
-          <WaitingForm />
+          <WaitingForm
+            wait={wait}
+            onChange={onChange}
+            onSubmit={onSubmit}
+            onIncrease={onIncrease}
+            onDecrease={onDecrease}
+          />
         </Right>
       </Container>
     </>

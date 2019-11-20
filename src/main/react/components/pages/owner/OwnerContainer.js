@@ -17,7 +17,7 @@ import ListContainer from './ListContainer';
 import ShopOpenModal from './Modal/ShopOpenModal';
 import { ownHeader } from '../../../modules/ownerHeader';
 import client from '../../../lib/api/client';
-import enrollOwner from '../../../modules/enrollOwner';
+import { setOwner } from '../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -164,15 +164,14 @@ const ButtonSpan = styled.span`
   }
 `;
 
-////////// 임시데이터//////////////////////////
+////////////임시데이터////////////////
 
 const waiting = [
   { name: '김손님', count: '2', phone: '010-1111-1111' },
   { name: '이손님', count: '1', phone: '010-2222-2222' },
   { name: '박손님', count: '5', phone: '010-3333-3333' },
 ];
-
-//////////////////////////////////////////////
+////////////////////////////////////
 
 const OwnerContainer = ({ match }) => {
   const { resNo } = match.params;
@@ -187,14 +186,14 @@ const OwnerContainer = ({ match }) => {
     ownError,
     ownLoading,
     owner,
-  } = useSelector(({ ownerRes, ownHeader, loading, owner }) => ({
+  } = useSelector(({ ownerRes, ownHeader, loading, enrollOwner }) => ({
     restaurant: ownerRes.ownRestaurant,
     error: ownerRes.error,
     loading: loading['owner/OWNER_RES'],
     ownerInfo: ownHeader.ownerInfo,
     ownError: ownHeader.error,
     loading: loading['owner/OWN_HEADER'],
-    owner: owner.owner,
+    owner: enrollOwner.owner,
   }));
 
   const onChangeFile = useCallback(async ({ target: { files, name } }) => {
@@ -217,12 +216,12 @@ const OwnerContainer = ({ match }) => {
   useEffect(() => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
-    //나중에 변경
-
-    dispatch(ownHeader('o22'));
-
-    // init();
+    dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
   }, [resNo]);
+
+  useEffect(() => {
+    if (owner) dispatch(ownHeader(owner.ownNo));
+  }, [owner]);
 
   const [openState, setOpenState] = useState('');
 

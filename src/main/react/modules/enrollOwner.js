@@ -12,6 +12,7 @@ const CHANGE_AUTH_FILE = 'ownerEnroll/CHANGE_AUTH_FILE';
 const TOGGLE_FIELD = 'ownerEnroll/TOGGLE_FIELD';
 const INITIALIZE_FORM = 'ownerEnroll/INITIALIZE_FORM';
 const SEL_ADDR = 'ownerEnroll/SEL_ADDR';
+const SET_OWNER = 'owner/SET_OWNER';
 
 const [SEARCH_RES, SEARCH_RES_SUCCESS] = createRequestActionTypes(
   'ownerEnroll/SEARCH_RES',
@@ -90,6 +91,7 @@ export const register = createAction(
     authFile,
   }),
 );
+export const setOwner = createAction(SET_OWNER, owner => owner);
 
 const searchSaga = createRequestSaga(SEARCH_RES, restAPI.searchRes);
 const selectSaga = createRequestSaga(SELECT_RES, restAPI.selectRes);
@@ -183,6 +185,10 @@ const enrollOwner = handleActions(
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       loginE: error,
+    }),
+    [SET_OWNER]: (state, { payload: owner }) => ({
+      ...state,
+      owner,
     }),
   },
   initialState,

@@ -132,7 +132,7 @@ const WaitingItem = ({ waiting, location: { pathname }, match }) => {
         )}
       </div>
       <ButtonWrapper className={pathname == `${path}/owner/${resNo}` && 'main'}>
-        <MdNotifications className="noti" />
+        <MdNotifications className="noti" /* onClick={notiModalOpen} */ />
         <FaChair className="seat" />
         <MdClose className="cancel" />
       </ButtonWrapper>

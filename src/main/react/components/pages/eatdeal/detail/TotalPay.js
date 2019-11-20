@@ -103,11 +103,11 @@ const TotalPay
                 </span>
             </Emph>
         <PayContents>
-            내 냥
+            내 😻
             <Point>
                 {memPoint}
             </Point>
-            <Title>사용 냥</Title>
+            <Title>사용 😻</Title>
                 <Point>
                     <input type="text" name="partPoint" value={usePoint} onChange={onChange}/>
                 </Point>
@@ -118,7 +118,7 @@ const TotalPay
             
         </PayContents>
         <PayContents>
-              적용 포인트<span>{adPoint} p</span>
+              적용 😻<span>{adPoint} p</span>
         </PayContents>
 
               <Emph>총 결제금액<span className="cost">\ {finalCost}</span></Emph>

@@ -52,14 +52,12 @@ const OwnerEatdealForm = ({restaurant}) => {
   
   useEffect(() => {
     dispatch(listOwnEat(resNo));
-    dispatch(listBuyEat(resNo));
   }, [resNo]);
   
   //카테고리
   const [category, setCategory]=useState('manage');
   const onSelect=useCallback(category=>setCategory(category),[]);
 
-  
   if(eatError) return null;
   return (
     <>
@@ -70,7 +68,7 @@ const OwnerEatdealForm = ({restaurant}) => {
         {/* 카테고리별로 컴포넌트 불러옴 */}
         {category==='enroll'&& <EatdealEnrollContainer  restaurant={restaurant}/>||
          category==='manage'&&<EatdealManage restaurant={restaurant}/>||
-         category==='buy'&&<EatdealBuy buyers={buyers} restaurant={restaurant}/> }
+         category==='buy'&&<EatdealBuy restaurant={restaurant} /> }
          
          
         </FormContainer>
