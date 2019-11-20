@@ -1,15 +1,20 @@
 package com.kh.figtable.member.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kh.figtable.member.model.service.MemberService;
 import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
@@ -40,6 +48,8 @@ public class MemberController {
 	private ReviewService rvService;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+
+	public static final String URL = "http://localhost:9090/figtable";
 
 	@RequestMapping(value = "/api/auth/register", method = RequestMethod.POST)
 	public ResponseEntity<Member> register(@RequestBody Member mem, HttpSession session) {
@@ -72,6 +82,78 @@ public class MemberController {
 			// session에 login member server side auth
 			session.setAttribute("login", compare);
 			return new ResponseEntity<Member>(compare, HttpStatus.OK);
+		}
+		// 실패 시 401 에러 반환
+		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(value = "/api/auth/kakao", method = RequestMethod.POST)
+	public ResponseEntity<Member> kakaoLogin(@RequestBody String access_Token, HttpSession session) {
+		String reqURL = "https://kapi.kakao.com/v2/user/me";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			// 요청에 필요한 Header에 포함될 내용
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+
+			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+
+			String id = element.getAsJsonObject().get("id").getAsString();
+			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+			String profile = properties.getAsJsonObject().get("profile_image").getAsString();
+
+			br.close();
+
+			Member m = service.check(id);
+			if (m == null) {
+				// 프로필 다운로드
+				// 파일저장경로
+				String saveDir = session.getServletContext().getRealPath("/resources/upload/profiles");
+				// 저장경로가 없으면 생성
+				File dir = new File(saveDir);
+				if (!dir.exists())
+					dir.mkdirs();
+				// rename 규칙 설정
+				String ext = profile.substring(profile.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
+				String rename = "profile_" + sdf.format(System.currentTimeMillis()) + "_" + id + "." + ext;
+				// rename으로 파일 저장
+				URL imgURL = new URL(profile);
+				BufferedImage bi = ImageIO.read(imgURL);
+				ImageIO.write(bi, ext, new File(saveDir + "/" + rename));
+
+				m = new Member();
+				m.setMemNo(id);
+				m.setMemName(nickname);
+				m.setMemProfile(rename);
+
+				service.registerKakao(m);
+				// session에 login member server side auth
+				session.setAttribute("login", m);
+				return new ResponseEntity<Member>(m, HttpStatus.OK);
+			} else {
+				if (service.getWaiting(m.getMemNo()) != null)
+					m.setWaiting(true);
+				else
+					m.setWaiting(false);
+				// session에 login member server side auth
+				session.setAttribute("login", m);
+				return new ResponseEntity<Member>(m, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		// 실패 시 401 에러 반환
 		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
@@ -265,7 +347,8 @@ public class MemberController {
 		List<Review> result = null;
 		if (m != null) {
 			List<Member> following = service.getFollowingList(m.getMemNo());
-			result = rvService.getFeed(following);
+			if (!following.isEmpty())
+				result = rvService.getFeed(following);
 		}
 
 		return new ResponseEntity<List<Review>>(result, HttpStatus.OK);

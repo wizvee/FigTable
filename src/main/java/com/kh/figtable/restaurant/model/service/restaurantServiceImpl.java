@@ -30,7 +30,7 @@ public class restaurantServiceImpl implements RestaurantService {
 		for (Restaurant res : result) {
 			double distance = DistanceHandler.calDistance((Double) data.get("lat"), (Double) data.get("lon"),
 					res.getResLat(), res.getResLong());
-			if (distance <= 3) {
+			if (distance < 6) {
 				List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, res.getResNo());
 				res.setEatdealArr(eatdealArr);
 				filter.add(res);

@@ -68,7 +68,6 @@ export function* guestSaga() {
 
 const initialState = {
   recent: [],
-  searchKey: [],
   position: null,
   recentError: null,
 };

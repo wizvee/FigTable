@@ -10,9 +10,9 @@ import {
 import { setMember } from '../../../modules/member';
 import LoginPresenter from './LoginPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
-import client from '../../../lib/api/client';
+import client, { path } from '../../../lib/api/client';
 
-const LoginContainer = ({ history, location: { search } }) => {
+const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
@@ -40,7 +40,24 @@ const LoginContainer = ({ history, location: { search } }) => {
   };
 
   const onKakao = useCallback(() => {
-    location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_RESTKEY}&redirect_uri=http://localhost:9090${process.env.PATH}/api/auth/kakao&response_type=code`;
+    const kakaoScript = document.createElement('script');
+    kakaoScript.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+    window.document.body.appendChild(kakaoScript);
+
+    kakaoScript.addEventListener('load', () => {
+      Kakao.init(`${process.env.KAKAO_APIKEY}`);
+
+      Kakao.Auth.login({
+        success: function({ access_token }) {
+          client
+            .post(`${path}/api/auth/kakao`, access_token)
+            .then(({ data }) => dispatch(setMember(data)));
+        },
+        fail: function(err) {
+          console.log(err);
+        },
+      });
+    });
   }, []);
 
   // 컴포넌트가 처음 렌더링 될 때 form을 초기화
@@ -69,32 +86,6 @@ const LoginContainer = ({ history, location: { search } }) => {
       console.log('sessionStorage is not working');
     }
   }, [history, member]);
-
-  useEffect(() => {
-    const token = search.substring(6);
-    if (token.length > 0) {
-      client
-        .post(
-          `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_RESTKEY}&redirect_uri=http://localhost:9090${process.env.PATH}/api/auth/kakao&code=${token}`,
-        )
-        .then(({ request: { response } }) => {
-          const accessToken = JSON.parse(response).access_token;
-          console.log(accessToken);
-          client
-            .post(
-              'https://kapi.kakao.com/v2/user/me?property_keys=["properties.nickname"]',
-              {
-                headers: {
-                  Authorization: `Bearer ${accessToken}`,
-                  'content-type':
-                    'application/x-www-form-urlencoded;charset=utf-8',
-                },
-              },
-            )
-            .then(resp => console.log(resp));
-        });
-    }
-  }, [search]);
 
   return (
     <>

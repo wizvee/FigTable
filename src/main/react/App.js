@@ -40,7 +40,6 @@ const App = () => {
         <Route path={`${path}/search/:keyword`} component={SearchContainer} />
         <Route path={`${path}/register`} component={RegisterContainer} />
         <Route path={`${path}/login`} component={LoginContainer} />
-        <Route path={`${path}/api/auth/kakao`} component={LoginContainer} />
         <Route
           path={`${path}/@:memName`}
           render={() => (member ? <MypageContainer /> : <Redirect to={path} />)}

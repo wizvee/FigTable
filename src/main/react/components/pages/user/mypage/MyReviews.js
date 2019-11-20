@@ -14,8 +14,13 @@ const MyReviews = ({ title, reviews, rvLoading, fdLoading, history }) => {
       <h3>{title}</h3>
       {rvLoading || fdLoading ? (
         <Loader />
-      ) : (
+      ) : reviews ? (
         reviews.map(r => <ReviewItem key={r.rvNo} toRes={toRes} review={r} />)
+      ) : (
+        <div>사람들을 팔로잉하시면 소식을 받아볼 수 있어요! 🤩</div>
+      )}
+      {reviews && reviews.length == 0 && (
+        <div>아직 작성한 리뷰가 없어요! ✍</div>
       )}
     </>
   );

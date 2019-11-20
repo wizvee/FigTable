@@ -35,6 +35,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int registerKakao(Member mem) {
+		int r = dao.registerKakao(session, mem);
+		// 회원가입 성공 시 1,000냥 지급
+		Map point = new HashMap();
+		point.put("memNo", mem.getMemNo());
+		point.put("poHistory", 1000);
+		point.put("poContent", "회원 가입");
+		dao.addPoint(session, point);
+		return r;
+	}
+
+	@Override
 	public Member login(Member mem) {
 		return dao.login(session, mem);
 	}

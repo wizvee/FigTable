@@ -37,6 +37,12 @@
 		</selectKey>
 	</insert>
 
+	<insert id="registerKakao" parameterType="member">
+		INSERT INTO FIG_MEMBER
+		VALUES(#{memNo}, 'kakaoEmail'||#{memNo}, 'kakaoPassword'||#{memNo}, 'kakaoTel',
+		#{memName}, #{memProfile}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
 	<select id="login" parameterType="member" resultType="member"
 		resultMap="memResult">
 		SELECT M.* FROM FIG_MEMBER M WHERE M.MEM_EMAIL = #{memEmail}
@@ -69,11 +75,15 @@
 
 	<select id="check" parameterType="string" resultType="member"
 		resultMap="memResult">
-		SELECT M.*, P.MEM_POINT, F.FOLLOWING_CNT, E.EATDEAL_CNT FROM FIG_MEMBER M
-        LEFT JOIN (SELECT MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM FIG_POINT GROUP BY MEM_NO) P ON(M.MEM_NO = P.MEM_NO)
-        LEFT JOIN (SELECT MEM_NO, COUNT(*) AS FOLLOWING_CNT FROM FIG_FOLLOWING GROUP BY MEM_NO) F ON(M.MEM_NO = F.MEM_NO)
-        LEFT JOIN (SELECT MEM_NO, COUNT(*) AS EATDEAL_CNT FROM FIG_EATDEAL_PAY WHERE BUY_STATUS ='A' GROUP BY MEM_NO) E ON(M.MEM_NO = E.MEM_NO)
-        WHERE M.MEM_NO = #{memNo}
+		SELECT M.*, P.MEM_POINT, F.FOLLOWING_CNT, E.EATDEAL_CNT FROM
+		FIG_MEMBER M
+		LEFT JOIN (SELECT MEM_NO, SUM(PO_HISTORY) AS MEM_POINT FROM FIG_POINT
+		GROUP BY MEM_NO) P ON(M.MEM_NO = P.MEM_NO)
+		LEFT JOIN (SELECT MEM_NO, COUNT(*) AS FOLLOWING_CNT FROM FIG_FOLLOWING
+		GROUP BY MEM_NO) F ON(M.MEM_NO = F.MEM_NO)
+		LEFT JOIN (SELECT MEM_NO, COUNT(*) AS EATDEAL_CNT FROM FIG_EATDEAL_PAY
+		WHERE BUY_STATUS ='A' GROUP BY MEM_NO) E ON(M.MEM_NO = E.MEM_NO)
+		WHERE M.MEM_NO = #{memNo}
 	</select>
 
 	<update id="update" parameterType="member">
@@ -180,21 +190,29 @@
 	</update>
 
 	<insert id="setWaiting" parameterType="map">
-		INSERT INTO FIG_WAITING VALUES ('w'||WT_SEQ.NEXTVAL, #{memNo}, #{memName},
-		#{memPhone}, #{resNo}, ${people}, DEFAULT, 'S', NULL, NULL)
+		INSERT INTO FIG_WAITING
+		VALUES ('w'||WT_SEQ.NEXTVAL, #{memNo}, #{memName},
+		#{memPhone},
+		#{resNo}, ${people}, DEFAULT, 'S', NULL, NULL)
 	</insert>
 
 	<select id="getWaiting" parameterType="string" resultType="map">
-		SELECT W.*, NVL(M.WT, 0) AS WT_REMAINING, R.RES_NAME FROM FIG_WAITING W
-		LEFT JOIN (SELECT RES_NO, COUNT(*) AS WT FROM (SELECT * FROM FIG_WAITING WHERE WT_TIME
-		<![CDATA[<]]> (SELECT WT_TIME FROM FIG_WAITING WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S')
+		SELECT W.*, NVL(M.WT, 0) AS WT_REMAINING, R.RES_NAME FROM FIG_WAITING
+		W
+		LEFT JOIN (SELECT RES_NO, COUNT(*) AS WT FROM (SELECT * FROM
+		FIG_WAITING WHERE WT_TIME
+		<![CDATA[<]]>
+		(SELECT WT_TIME FROM FIG_WAITING WHERE MEM_NO = #{memNo} AND WT_STATUS
+		= 'S')
 		AND WT_STATUS = 'S') GROUP BY RES_NO) M ON(W.RES_NO = M.RES_NO)
 		JOIN FIG_RESTAURANT R ON(W.RES_NO = R.RES_NO)
-		WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
+		WHERE MEM_NO = #{memNo}
+		AND WT_STATUS = 'S'
 	</select>
 
 	<delete id="unWaiting" parameterType="string">
-		UPDATE FIG_WAITING SET WT_STATUS = 'C' WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
+		UPDATE FIG_WAITING SET
+		WT_STATUS = 'C' WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
 	</delete>
 
 </mapper>

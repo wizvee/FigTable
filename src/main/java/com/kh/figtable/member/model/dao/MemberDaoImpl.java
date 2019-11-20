@@ -18,6 +18,11 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int registerKakao(SqlSession session, Member mem) {
+		return session.insert("member.registerKakao", mem);
+	}
+
+	@Override
 	public Member login(SqlSession session, Member mem) {
 		return session.selectOne("member.login", mem);
 	}

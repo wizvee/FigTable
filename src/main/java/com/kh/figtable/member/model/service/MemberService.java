@@ -10,6 +10,8 @@ public interface MemberService {
 
 	int register(Member mem);
 
+	int registerKakao(Member mem);
+
 	Member login(Member mem);
 
 	int likesRes(Map<String, String> data);
@@ -49,9 +51,9 @@ public interface MemberService {
 	int deleteWarns(Map data);
 
 	int setWaiting(Map data);
-	
+
 	Map getWaiting(String memNo);
-	
+
 	int unWaiting(String memNo);
 
 }

@@ -14,6 +14,8 @@ public interface MemberDao {
 
 	int register(SqlSession session, Member mem);
 
+	int registerKakao(SqlSession session, Member mem);
+
 	Member login(SqlSession session, Member mem);
 
 	int likesRes(SqlSession session, Map<String, String> data);
