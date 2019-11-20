@@ -9,7 +9,7 @@ import PayInfo from './detail/PayInfo';
 import Separator from './detail/Separator';
 import EatPayWay from './detail/EatPayWay';
 import TotalPay from './detail/TotalPay';
-import { readEat } from '../../../modules/eatdeal';
+import { readEat,payEat } from '../../../modules/eatdeal';
 import { getPoint } from '../../../modules/point';
 
 import { withUserAgent } from 'react-useragent';
@@ -116,6 +116,14 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
 const [finalCost, setFinalCost]=useState(0);
 //사용한 포인트
 const [usedPoint, setUsedPoint]=useState(0);
+//사용한 포인트용함수
+const onSetUsedPoint=(p)=>{
+  setUsedPoint(p);
+}
+//최종가격
+const onSetFinalCost=(p)=>{
+  setFinalCost(p);
+}
 
 
 //결제 핸들러
@@ -137,10 +145,13 @@ const [usedPoint, setUsedPoint]=useState(0);
           setError('결제수단을 선택하세요');
           return;
         }
+        
+        afterPay(eatNo, member.memNo, usedPoint);
           /* 웹 환경일때 */
-          const { IMP } = window;
-          IMP.init(userCode);
-          IMP.request_pay(data, callback);
+          // const { IMP } = window;
+          // IMP.init(userCode);
+          // IMP.request_pay(data, callback);
+
       
       }
     //결제 콜백함수
@@ -163,20 +174,20 @@ const [usedPoint, setUsedPoint]=useState(0);
   const afterPay = useCallback(
     (eatNo, memNo, poHistory ) => {
       console.log('afterpay함수')
+      console.log({ eatNo, memNo, poHistory });
       //잇딜개수수정
-      dispatch(afterPayEat({ eatNo }));
       //구매테이블생성
-      dispatch(insertPay({ eatNo, memNo }));
-      if(poHistory){
       //사용자 포인트 수정
-      dispatch(afterPayPoint({ memNo, poHistory }))
-    }
+      dispatch(payEat({ eatNo, memNo, poHistory }));
+      // dispatch(insertPay({ eatNo, memNo }));
+      // if(poHistory){
+      // dispatch(afterPayPoint({ memNo, poHistory }))
+    
     },
     [dispatch],
   );
-  
-  
   ///여기까지 결제
+
 
     //에러메세지
     const [error, setError] = useState(null);
@@ -196,7 +207,13 @@ const [usedPoint, setUsedPoint]=useState(0);
         <EatdealCard>
             <PayInfo eat={eatdeal}/>
             <Separator/>
-              <TotalPay eat={eatdeal} memPoint={point}/>
+              <TotalPay 
+                eat={eatdeal} 
+                memPoint={point} 
+                usedPoint={usedPoint} 
+                onSetUsedPoint={onSetUsedPoint}
+                finalCost={finalCost}
+              />
             <Separator/>
              <EatPayWay onPayway={onPayway}/>
             <ButtonArea>
@@ -222,7 +239,6 @@ const [usedPoint, setUsedPoint]=useState(0);
                     확인
                   </EatdealButton>
                   </ButtonArea>
-    
             </Modal>
             </ModalWrap>
         )}

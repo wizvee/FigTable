@@ -62,8 +62,27 @@ public class EatdealServiceImpl implements EatdealService {
 
 	@Override
 	public int confirmEat(Map<String, String> data) {
-		System.out.println("service들어옴");
 		return dao.confirmEat(session, data);
+	}
+
+	@Override
+	public int afterPayEat(Map<String, String> data) {
+		return dao.afterPayEat(session, data);
+	}
+
+	@Override
+	public int setBuyer(Map<String, String> data) {
+		return dao.setBuyer(session, data);
+	}
+
+	@Override
+	public int setPoint(Map<String, String> data) {
+		return dao.setPoint(session, data);
+	}
+
+	@Override
+	public Eatdeal getEatdeal(Map<String, String> data) {
+		return dao.getEatdeal(session, data);
 	}
 
 

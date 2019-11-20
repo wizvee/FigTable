@@ -22,4 +22,9 @@ public interface EatdealDao {
 	int deleteEat(SqlSession session, Map<String, String> data);
 	int extendEat(SqlSession session, Map<String, String> data);
 	int confirmEat(SqlSession session, Map<String, String> data);
+	Eatdeal getEatdeal(SqlSession session, Map<String, String> data);
+	int afterPayEat(SqlSession session, Map<String, String> data);
+	int setBuyer(SqlSession session, Map<String, String> data);
+	int setPoint(SqlSession session, Map<String, String> data);
+
 }

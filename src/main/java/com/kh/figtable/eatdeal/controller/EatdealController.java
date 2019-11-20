@@ -153,9 +153,8 @@ public class EatdealController {
 	public ResponseEntity<List<Eatdeal>> extendEat(@RequestBody Map<String, String> data) {
 		System.out.println(data);
 		int result = service.extendEat(data);
-		System.out.println("연장"+result);
 		if (result > 0) {
-			String resNo=data.get("resNo");
+			String resNo= data.get("resNo");
 			List<Eatdeal> list = service.getByResNo(resNo);
 			System.out.println(list);
 			return new ResponseEntity<List<Eatdeal>>(list, HttpStatus.OK);
@@ -171,6 +170,29 @@ public class EatdealController {
 				String resNo=data.get("resNo");
 				List<Buyer> list = service.getBuy(resNo);
 				return new ResponseEntity<List<Buyer>>(list, HttpStatus.OK);
+			}
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+
+		@RequestMapping(value = "/api/eatdeal/payeat", method = RequestMethod.PATCH)
+		public ResponseEntity<Integer> payEat(@RequestBody Map<String, String> data) {
+			System.out.println(data);
+			int result=0;
+	        //잇딜 개수 -1 처리
+			Eatdeal eat=service.getEatdeal(data);//잇딜가져와서 개수 -1해주기
+			int count=eat.getEatCount()-1;
+			System.out.println(count);////////////
+			data.put("eatCount", (count+""));
+			result=service.afterPayEat(data);
+			System.out.println(data);////////////
+			//구매테이블에 넣기
+			result=service.setBuyer(data);
+			System.out.println(result);////////////
+			
+	        //포인트차감
+			if(data.get("poHistory")!=null&&data.get("poHistory")!="") {
+				result=service.setPoint(data);
+				
 			}
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
