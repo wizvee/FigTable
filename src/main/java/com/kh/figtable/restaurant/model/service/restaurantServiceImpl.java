@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,11 +40,27 @@ public class restaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public List<Restaurant> getRestaurantsByKeyword(String keyword) {
-		List<Restaurant> result = dao.getRestaurantsByKeyword(session, keyword);
+	public List<Restaurant> getRestaurantsByKeyword(Map<String, Object> data) {
+		List<Restaurant> result = dao.getRestaurantsByKeyword(session, (String) data.get("keyword"));
+		double lat = (Double) data.get("lat");
+		double lon = (Double) data.get("lon");
+
 		for (Restaurant res : result) {
 			List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, res.getResNo());
 			res.setEatdealArr(eatdealArr);
+		}
+		for (int i = 0; i < result.size(); i++) {
+			for (int j = i + 1; j < result.size(); j++) {
+				double dist1 = DistanceHandler.calDistance(lat, lon, result.get(i).getResLat(),
+						result.get(i).getResLong());
+				double dist2 = DistanceHandler.calDistance(lat, lon, result.get(j).getResLat(),
+						result.get(j).getResLong());
+				if (dist1 > dist2) {
+					Restaurant temp = result.get(i);
+					result.set(i, result.get(j));
+					result.set(j, temp);
+				}
+			}
 		}
 		return result;
 	}

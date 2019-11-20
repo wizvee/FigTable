@@ -47,7 +47,7 @@ const HeaderContainer = ({ history }) => {
     e => {
       e.preventDefault();
       setIsSearchModal(false);
-      document.body.style.overflow = 'unset';
+      // document.body.style.overflow = 'unset';
       history.push(`${process.env.PATH}/search/${keyword}`);
     },
     [keyword],

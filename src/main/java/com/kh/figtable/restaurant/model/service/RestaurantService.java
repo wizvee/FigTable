@@ -9,7 +9,7 @@ public interface RestaurantService {
 
 	List<Restaurant> getRestaurantsByLocal(Map<String, Object> data);
 
-	List<Restaurant> getRestaurantsByKeyword(String keyword);
+	List<Restaurant> getRestaurantsByKeyword(Map<String, Object> data);
 
 	Restaurant getRestaurantById(boolean validate, String resNo);
 

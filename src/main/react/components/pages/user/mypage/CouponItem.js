@@ -137,7 +137,7 @@ const CouponItem = ({ coupon, history }) => {
         url={
           coupon.THUMB.substring(0, 4) == 'http'
             ? coupon.THUMB
-            : `${process.env.PATH}/resources/upload/eatdeal/${resThumb}`
+            : `${process.env.PATH}/resources/upload/eatdeal/${coupon.THUMB}`
         }
       />
       <div className="discount">-{coupon.EAT_DISCOUNT * 100}%</div>

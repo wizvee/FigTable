@@ -117,11 +117,11 @@ const SearchPresenter = ({ keyword, restaurants, error, loading }) => {
         )}
         {restaurants.length != 0 && (
           <div>
-            <Menu>
+            {/* <Menu>
               {menus.map(menu => (
                 <div key={menu}>{menu}</div>
               ))}
-            </Menu>
+            </Menu> */}
             <Section>
               {restaurants.map(r => (
                 <Poster key={r.resNo} restaurant={r} />
