@@ -50,6 +50,7 @@ const LoginContainer = ({ history }) => {
     if (member) history.goBack();
     try {
       sessionStorage.setItem('member', JSON.stringify(member));
+      if (form.isKeep) localStorage.setItem('member', JSON.stringify(member));
     } catch (e) {
       console.log('sessionStorage is not working');
     }

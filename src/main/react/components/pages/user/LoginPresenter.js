@@ -26,6 +26,9 @@ const Container = styled(Responsive)`
     width: ${width};
     font-size: 0.9rem;
     color: ${palette.textGray};
+    label {
+      cursor: pointer;
+    }
   }
   .divider {
     position: relative;
@@ -107,7 +110,10 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
         <ButtonWithMarginTop fullwidth>로그인</ButtonWithMarginTop>
       </form>
       <div className="option">
-        <span>로그인 유지</span>
+        <label>
+          <input type="checkbox" />
+          로그인 유지
+        </label>
         <span>비밀번호 찾기</span>
       </div>
       <div className="divider">

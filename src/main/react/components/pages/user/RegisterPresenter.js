@@ -18,6 +18,9 @@ const Container = styled(Responsive)`
   }
   form {
     width: ${width};
+    label {
+      cursor: pointer;
+    }
     .check {
       margin-top: 0.5rem;
       font-size: 0.9rem;
