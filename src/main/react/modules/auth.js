@@ -37,10 +37,14 @@ export const register = createAction(
     memName,
   }),
 );
-export const login = createAction(LOGIN, ({ memEmail, memPassword }) => ({
-  memEmail,
-  memPassword,
-}));
+export const login = createAction(
+  LOGIN,
+  ({ memEmail, memPassword, isKeep }) => ({
+    memEmail,
+    memPassword,
+    isKeep,
+  }),
+);
 
 // 사가 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
@@ -60,7 +64,7 @@ const initialState = {
     policies: false,
     privacy: false,
   },
-  login: { memEmail: '', memPassword: '' },
+  login: { memEmail: '', memPassword: '', isKeep: false },
   auth: null,
   authError: null,
 };

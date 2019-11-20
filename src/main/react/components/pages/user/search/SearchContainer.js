@@ -10,8 +10,9 @@ const SearchContainer = ({ match }) => {
   const { keyword } = match.params;
   // redux store
   const dispatch = useDispatch();
-  const { restaurants, error, loading } = useSelector(
-    ({ restaurants, loading }) => ({
+  const { position, restaurants, error, loading } = useSelector(
+    ({ guest, restaurants, loading }) => ({
+      position: guest.position,
       restaurants: restaurants.restaurants,
       error: restaurants.error,
       loading: loading['restaurant/LIST_RES'],
@@ -20,7 +21,13 @@ const SearchContainer = ({ match }) => {
 
   // 최초 마운트 시 검색 키워드로 DB검색 결과 반영
   useEffect(() => {
-    dispatch(searchRes(keyword));
+    dispatch(
+      searchRes({
+        lat: position ? position.lat : 0,
+        lon: position ? position.lon : 0,
+        keyword,
+      }),
+    );
   }, [keyword]);
 
   return (

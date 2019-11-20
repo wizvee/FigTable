@@ -13,8 +13,14 @@ const Container = styled(Responsive)`
   flex-direction: column;
   padding-top: 2rem;
   min-height: calc(100vh - 12rem);
+  @media (max-width: 426px) {
+    padding-top: 1rem;
+  }
   form {
     width: ${width};
+    label {
+      cursor: pointer;
+    }
     .check {
       margin-top: 0.5rem;
       font-size: 0.9rem;

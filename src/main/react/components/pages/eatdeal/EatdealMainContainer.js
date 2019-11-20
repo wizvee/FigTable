@@ -152,10 +152,15 @@ const EatdealMainContainer = ({eatdeal}) => {
                     <RestauNameTitle>
                     [ {resRocationKeyword}]  {resName}
                     </RestauNameTitle> 
-                    {eatCount<=3&& //3개 이하면 표시해줌
-                    <RemainFood>
+                    {eatCount<=0&& 
+                    (<RemainFood>
+                        sold-out
+                    </RemainFood>)||
+                     eatCount<=3&& //3개 이하면 표시해줌
+                     (<RemainFood>
                         {eatCount}개 남음
-                    </RemainFood>
+                    </RemainFood>)
+
                     }
                     </RestauName>
                 <DiscountFoodName>{eatFoodName}</DiscountFoodName>

@@ -36,9 +36,9 @@ public class RestaurantController {
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/restaurantsk", method = RequestMethod.GET)
-	private ResponseEntity<List<Restaurant>> getRestaurantsByKeyword(@RequestParam String keyword) {
-		List<Restaurant> list = service.getRestaurantsByKeyword(keyword);
+	@RequestMapping(value = "/api/restaurantsk", method = RequestMethod.POST)
+	private ResponseEntity<List<Restaurant>> getRestaurantsByKeyword(@RequestBody Map<String, Object> data) {
+		List<Restaurant> list = service.getRestaurantsByKeyword(data);
 		return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
 	}
 
