@@ -25,5 +25,8 @@ public interface OwnerDao {
 	int insertNewRes(SqlSession session, Restaurant r);
 	int insertOldRes(SqlSession session, Restaurant r);
 	int insertOwnerAuth(SqlSession session, Map<String,String> ownerAuth);
+	Owner login(SqlSession session, Owner o);
+	String getResList(SqlSession session, String ownNo);
+	
 	
 }

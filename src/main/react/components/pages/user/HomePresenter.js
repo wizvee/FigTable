@@ -16,6 +16,9 @@ const HomePresenter = ({ restaurants, error, loading }) => {
 
   const recommend =
     restaurants && restaurants.filter(restaurant => restaurant.resWaiting);
+  const eatdeal =
+    restaurants &&
+    restaurants.filter(restaurant => restaurant.eatdealArr.length > 0);
 
   return (
     <Container>
@@ -23,11 +26,20 @@ const HomePresenter = ({ restaurants, error, loading }) => {
         <Loader />
       ) : (
         <>
-          <Section title="내 주변 추천">
-            {recommend.map(r => (
-              <Poster key={r.resNo} restaurant={r} />
-            ))}
-          </Section>
+          {recommend.length > 0 && (
+            <Section title="내 주변 추천">
+              {recommend.map(r => (
+                <Poster key={r.resNo} restaurant={r} />
+              ))}
+            </Section>
+          )}
+          {eatdeal.length > 0 && (
+            <Section title="내 주변 잇딜">
+              {eatdeal.map(r => (
+                <Poster key={r.resNo} restaurant={r} />
+              ))}
+            </Section>
+          )}
           <Section title="내 주변 맛집">
             {restaurants.map(r => (
               <Poster key={r.resNo} restaurant={r} />

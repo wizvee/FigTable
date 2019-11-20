@@ -59,6 +59,11 @@ padding : 0.2rem 1rem;
 text-align:right;
 position:relative;
 top:-2rem;
+span{
+  font-size:0.8rem;
+  color:red;
+  margin-right:1rem;
+}
 `;
 
 const EatdealButton= styled(Button)`
@@ -69,14 +74,6 @@ const EatdealButton= styled(Button)`
   vertical-align:center;
 `;
 
-const Warrapper= styled.div`
-  position:absolute;
-  width:100%;
-  height:8rem;
-  background-color:rgba(0,0,0,0.5);
-  cursor:not-allowed;
-  z-index:2;
-`;
 
 const EatdealManageDetail=({
   eatDeal, 
@@ -141,13 +138,13 @@ const EatdealManageDetail=({
                     <Text>남은 수량 : <span>{eatCount}</span> </Text>
                     {eatStatus==='P'?
                     (<TextS >상태 : <span>New</span></TextS>)
-                    :(<TextS color="#f67280">상태 : <span>Sold Out/종료됨</span></TextS>)
+                    :(<TextS color="#f67280">상태 : <span>Sold Out</span></TextS>)
                      }
             </RightContainer>
         </EatdealCard>
         
         <ButtonArea>
-        {eatStatus==='P'?(
+        {eatStatus==='P'&&(
           <>
               <EatdealButton bgColor={palette.textGray} onClick={openDeleteModal}>
                 잇딜종료
@@ -156,11 +153,16 @@ const EatdealManageDetail=({
                 기간연장
               </EatdealButton>
           </>
-              ):(
+              )||
+          eatStatus==='S'&&(
                 <EatdealButton onClick={openDateModal}>
                 기간연장
-              </EatdealButton>
-              )
+                 </EatdealButton>
+              )||
+          
+          eatStatus==='E'&&(
+              <span>종료됨</span>
+             )
         }
             </ButtonArea>
              {  //기간연장

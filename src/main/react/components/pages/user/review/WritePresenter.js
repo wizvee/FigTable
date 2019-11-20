@@ -30,7 +30,7 @@ const Title = styled.div`
   align-items: center;
   width: 100%;
   @media (max-width: 426px) {
-    flex-direction: row;
+    flex-direction: column;
   }
   .resInfo {
     display: flex;

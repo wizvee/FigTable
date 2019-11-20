@@ -39,7 +39,7 @@ const Title = styled.div`
   justify-content: space-between;
   margin-top: 5px;
   padding: 0 3px;
-  font-size: 1.23rem;
+  font-size: 1.17rem;
   @media (max-width: 426px) {
     font-size: 1.13rem;
   }
@@ -87,7 +87,7 @@ const Container = styled.div`
   }
 `;
 
-const Poster = ({ restaurant }) => {
+const Poster = ({ restaurant, imgOnly }) => {
   const {
     resNo,
     resThumb,
@@ -121,15 +121,19 @@ const Poster = ({ restaurant }) => {
               : (resRating / resReviews).toFixed(1)}
           </Rating>
         </Title>
-        <Location>{resLocationKeyword}</Location>
-        <Icon>
-          <MdRemoveRedEye />
-          {resViews}
-        </Icon>
-        <Icon>
-          <MdCreate />
-          {resReviews}
-        </Icon>
+        {!imgOnly && (
+          <>
+            <Location>{resLocationKeyword}</Location>
+            <Icon>
+              <MdRemoveRedEye />
+              {resViews}
+            </Icon>
+            <Icon>
+              <MdCreate />
+              {resReviews}
+            </Icon>
+          </>
+        )}
       </Container>
     </Link>
   );

@@ -1,5 +1,8 @@
 package com.kh.figtable.restaurant.model.vo;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
@@ -34,6 +37,7 @@ public class Restaurant {
 	// for member
 	private boolean isLiked;
 	private int wtRemining;
+	private List<Map<String, Object>> eatdealArr;
 
 	// for owner
 	private boolean isOpen;

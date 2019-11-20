@@ -81,6 +81,14 @@ public class OwnerServiceImple implements OwnerService {
 		
 		return result;
 	}
+	@Override
+	public Owner login(Owner o) {
+		return dao.login(session, o);
+	}
+	@Override
+	public String getResList(String ownNo) {
+		return dao.getResList(session, ownNo);
+	}
 	
 	
 }

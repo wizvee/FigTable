@@ -56,6 +56,7 @@ const App = () => {
           path={`${path}/payment/:eatNo`}
           component={EatdealpayContainer}
         />
+
         <Route path={`${path}/owner/:resNo`} exact component={OwnerContainer} />
         <Route
           path={`${path}/owner/:resNo/restaurant`}

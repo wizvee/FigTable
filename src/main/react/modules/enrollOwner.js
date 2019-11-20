@@ -20,8 +20,11 @@ const [SELECT_RES, SELECT_RES_SUCCESS] = createRequestActionTypes(
   'ownerEnroll/SELECT_RES',
 );
 
-const [REGISTER, REGISTER_SUCCESS, REGISTER_FAULURE] = createRequestActionTypes(
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
   'ownerEnroll/REGISTER',
+);
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
+  'ownerEnroll/LOGIN',
 );
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
@@ -45,6 +48,10 @@ export const selAddr = createAction(
     resLong,
   }),
 );
+export const login = createAction(LOGIN, ({ ownEmail, ownPassword }) => ({
+  ownEmail,
+  ownPassword,
+}));
 export const register = createAction(
   REGISTER,
   ({
@@ -87,10 +94,13 @@ export const register = createAction(
 const searchSaga = createRequestSaga(SEARCH_RES, restAPI.searchRes);
 const selectSaga = createRequestSaga(SELECT_RES, restAPI.selectRes);
 const registerSaga = createRequestSaga(REGISTER, restAPI.enrollOwn);
+const loginSaga = createRequestSaga(LOGIN, restAPI.login);
+
 export function* ownerEnrollSaga() {
   yield takeLatest(SEARCH_RES, searchSaga);
   yield takeLatest(SELECT_RES, selectSaga);
   yield takeLatest(REGISTER, registerSaga);
+  yield takeLatest(LOGIN, loginSaga);
 }
 
 const initialState = {
@@ -113,9 +123,12 @@ const initialState = {
     ownName: '',
     ownStatics: false,
   },
+  resList: [],
   restaurants: [],
   authFile: '',
   enrollSuccess: false,
+  loginE: null,
+  loginS: null,
 };
 
 const enrollOwner = handleActions(
@@ -157,6 +170,19 @@ const enrollOwner = handleActions(
     [REGISTER_SUCCESS]: (state, { payload: enrollSuccess }) => ({
       ...state,
       enrollSuccess,
+    }),
+    [REGISTER_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+    }),
+    [LOGIN_SUCCESS]: (state, { payload: data }) =>
+      produce(state, draft => {
+        draft.owner = data.owner;
+        draft.resList = data.resList;
+        draft.loginS = true;
+      }),
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      loginE: error,
     }),
   },
   initialState,

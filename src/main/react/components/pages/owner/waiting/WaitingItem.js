@@ -57,7 +57,7 @@ const ButtonWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   position: relative;
   top: -45px;
-  left: 792px;
+  left: 677px;
   width: 140px;
   height: 100%;
 

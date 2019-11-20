@@ -28,11 +28,16 @@ const Container = styled.div`
     font-size: 2rem;
     font-weight: 600;
     color: white;
+    @media (max-width: 426px) {
+      font-size: 1.5rem;
+    }
     form {
       position: relative;
       margin-top: 2rem;
+      width: 320px;
       input {
         padding: 0.5rem 1.5rem;
+        width: 100%;
         border: 3px solid ${palette.primary};
         border-radius: 1.5rem;
         background: white;
@@ -52,7 +57,7 @@ const Container = styled.div`
   }
   .ad {
     width: 100%;
-    height: 6rem;
+    height: 5rem;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
     color: white;
   }

@@ -17,4 +17,6 @@ public interface OwnerService {
 	List<Restaurant> searchRes(String keyword);
 	Restaurant selectRes(String resNo);
 	int enrollOwn(Owner o, Restaurant r, String authFile);
+	Owner login(Owner o);
+	String getResList(String ownNo);
 }

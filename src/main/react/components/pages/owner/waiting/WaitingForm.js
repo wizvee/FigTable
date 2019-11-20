@@ -5,11 +5,14 @@ import palette from '../../../../lib/styles/Palette';
 
 const FormContainer = styled.div`
   width: 80%;
-  height: 200px;
+  height: auto;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   margin-left: 10%;
-  margin-top: 6%;
+  margin-top: 22%;
   text-align: center;
+  padding-bottom: 37px;
+  padding-top: 45px;
+  overflow: hidden;
 `;
 
 const StyledInput = styled.input`
@@ -45,9 +48,28 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const WaitingForm = () => {
+const Button = styled.div`
+  width: 20%;
+  height: 35px;
+  float: right;
+  margin-right: 111px;
+  margin-top: 45px;
+  color: white;
+  letter-spacing: 2px;
+  padding-top: 6px;
+  border-radius: 5px;
+  background: ${palette.primary};
+`;
+
+const WaitingForm = ({ onSubmit }) => {
   return (
     <FormContainer>
+      <StyledInput
+        placeholder="이름"
+        name="wtName"
+        width="60%"
+        style={{ display: 'block', margin: '0 auto' }}
+      />
       <ButtonWrapper>
         <FiMinusCircle className="minus" />
       </ButtonWrapper>
@@ -55,7 +77,8 @@ const WaitingForm = () => {
       <ButtonWrapper>
         <FiPlusCircle className="plus" />
       </ButtonWrapper>
-      <StyledInput placeholder="전화번호" name="wtPhone" readOnly width="60%" />
+      <StyledInput placeholder="전화번호" name="wtPhone" width="60%" />
+      <Button onClick={onSubmit}>등록</Button>
     </FormContainer>
   );
 };

@@ -71,12 +71,12 @@ const Label=styled.div`
 `;
 const payway = [
   {
-      name:'card',
+      name:'html5_inicis',
       text:'카드결제'
   },
   
   {
-      name:'kakao',
+      name:'kakaopay',
       text:'카카오페이'
   },
 ]
@@ -90,7 +90,7 @@ const EatPayWay =({onPayway})=>{
               onClick={()=>{onPayway(p.name)}}>
 
               <label className="container">{p.text}
-              <input type="radio" name="pay" value="card"/>
+              <input type="radio" name="pay" />
               <span className="checkmark"></span>
             </label>
               </Label>
