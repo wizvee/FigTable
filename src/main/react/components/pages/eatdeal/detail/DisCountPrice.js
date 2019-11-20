@@ -6,24 +6,37 @@ const DiscountContainer= styled.div`
 text-align: right;
 right:0;
 bottom:0;
+  @media (max-width: 426px) {
+      margin-top:1rem;
+  }
 `;
 const OriginFoodPrice=styled.div`
     color: black;
     font-size: 1.0rem;
     margin-bottom:0.5rem;
     text-decoration:line-through;
+  @media (max-width: 426px) {
+    font-size: 0.8rem;
+    margin-bottom:0;
+  }
 `;
 const FoodPrice=styled.span`
     color: black;
     font-size: 1.5rem;
     font-weight:bold;
     margin-bottom:0.5rem;
+  @media (max-width: 426px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Percentage= styled.span`
     font-size:1.5rem;
     font-weight:bold;
     color:#14CBB2;
+  @media (max-width: 426px) {
+    font-size: 1.2rem;
+  }
 `;
 const Remaining = styled.span`
     background-color:#FF5C5C;
@@ -33,6 +46,9 @@ const Remaining = styled.span`
     font-size:0.8rem;
     margin-bottom:0.3rem;
     justify-content:center;
+  @media (max-width: 426px) {
+    font-size: 0.8rem;
+  }
 `;
 const DiscountPrice=({eat})=>{
     const {

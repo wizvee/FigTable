@@ -19,7 +19,10 @@ import ModalLogin from '../../pages/user/ModalLogin';
   text-align:center; 
   margin:0px auto;
   flex-direction: column;
-  width: 50rem;
+  width: 80%;
+  @media (max-width: 426px) {
+    width: 90%;
+  }
   
   `;
   
@@ -40,6 +43,10 @@ const Button= styled.div`
     position:sticky;
     bottom:0;
     z-index:3;
+    width:100%;
+  @media (max-width: 426px) {
+    width: 100%;
+  }
 `;
 const EatdealDetailContainer=({match})=>{
   const path = process.env.PATH;

@@ -90,10 +90,16 @@ const Msg=styled.div`
     display:inline-block;
     color:red;
     font-size:0.8rem;
+  @media (max-width: 426px) {
+    display:block;
+  }
     
 `;
 const Title=styled.div`
     display:inline-block;
+  @media (max-width: 426px) {
+    display:block;
+  }
     
 `;
 const TotalPay
@@ -138,7 +144,7 @@ const TotalPay
             </Emph>
 
         <PayContents>
-            내 냥
+            <Title>내 냥</Title>
             <Point>
                 {memPoint}
             </Point>

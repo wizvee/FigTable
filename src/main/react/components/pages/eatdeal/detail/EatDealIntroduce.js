@@ -11,6 +11,9 @@ const IntroTitle = styled.div`
         display:block;
         margin:0.2rem;
     }
+  @media (max-width: 426px) {
+    font-size: 1rem;
+  }
 `;
 const TextContents= styled.ul`
     text-align:left;
@@ -21,6 +24,10 @@ const TextContents= styled.ul`
     li{
         list-style:symbols();
         font-size:0.8rem;
+        
+        @media (max-width: 426px) {
+            font-size: 0.7rem;
+        }
     }
 `;
 const EatDealIntroduce =({eat})=>{
@@ -35,7 +42,7 @@ const EatDealIntroduce =({eat})=>{
         <>
             <IntroTitle>
                 <FaQuoteLeft/>
-                제목입니다.
+                Figtable에서 추천하는 Eatdeal!
             </IntroTitle>
             <TextContents>
                 <p>식당소개</p>
