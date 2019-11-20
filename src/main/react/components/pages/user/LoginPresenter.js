@@ -86,7 +86,14 @@ const ErrorMsg = styled.div`
   font-size: 0.875rem;
 `;
 
-const LoginPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
+const LoginPresenter = ({
+  form,
+  onChange,
+  onToggle,
+  onSubmit,
+  onKakao,
+  error,
+}) => {
   return (
     <Container>
       <h3>로그인</h3>
@@ -125,7 +132,7 @@ const LoginPresenter = ({ form, onChange, onToggle, onSubmit, error }) => {
         <span>또는</span>
       </div>
       <div className="other">
-        <ButtonWithMarginTop fullwidth bgColor="#fed330">
+        <ButtonWithMarginTop fullwidth bgColor="#fed330" onClick={onKakao}>
           카카오톡으로 로그인
         </ButtonWithMarginTop>
       </div>
