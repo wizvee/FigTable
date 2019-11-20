@@ -80,40 +80,42 @@ const WaitingForm = ({
 }) => {
   const { resNo } = match.params;
   return (
-    <FormContainer>
-      <input type="hidden" name="resNo" value={wait.resNo} />
-      <StyledInput
-        placeholder="이름"
-        name="wtName"
-        width="60%"
-        value={wait.wtName}
-        onChange={onChange}
-        style={{ display: 'block', margin: '0 auto' }}
-      />
-      <ButtonWrapper>
-        <FiMinusCircle className="minus" onClick={onDecrease} />
-      </ButtonWrapper>
-      <StyledInput
-        placeholder="인원 수"
-        name="wtPeople"
-        value={wait.wtPeople}
-        onChange={onChange}
-        width="35%"
-      />
-      <ButtonWrapper>
-        <FiPlusCircle className="plus" onClick={onIncrease} />
-      </ButtonWrapper>
-      <br />
-      <StyledInput
-        placeholder="핸드폰번호"
-        name="wtPhone"
-        value={wait.wtPhone}
-        onChange={onChange}
-        width="60%"
-      />
+    <>
+      <FormContainer>
+        <input type="hidden" name="resNo" value={wait.resNo} />
+        <StyledInput
+          placeholder="이름"
+          name="wtName"
+          width="60%"
+          value={wait.wtName}
+          onChange={onChange}
+          style={{ display: 'block', margin: '0 auto' }}
+        />
+        <ButtonWrapper>
+          <FiMinusCircle className="minus" onClick={onDecrease} />
+        </ButtonWrapper>
+        <StyledInput
+          placeholder="인원 수"
+          name="wtPeople"
+          value={wait.wtPeople}
+          onChange={onChange}
+          width="35%"
+        />
+        <ButtonWrapper>
+          <FiPlusCircle className="plus" onClick={onIncrease} />
+        </ButtonWrapper>
+        <br />
+        <StyledInput
+          placeholder="핸드폰번호"
+          name="wtPhone"
+          value={wait.wtPhone}
+          onChange={onChange}
+          width="60%"
+        />
 
-      <Button onClick={onSubmit}>등록</Button>
-    </FormContainer>
+        <Button onClick={onSubmit}>등록</Button>
+      </FormContainer>
+    </>
   );
 };
 
