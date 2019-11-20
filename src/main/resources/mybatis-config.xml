@@ -37,5 +37,6 @@
 			type="com.kh.figtable.admin.model.vo.Admin" />
 		<typeAlias alias="strArrRes"
 			type="com.kh.figtable.common.StringArrayResHandler" />
+		<typeAlias alias="waiting" type="com.kh.figtable.owner.model.vo.Waiting"/>
 	</typeAliases>
 </configuration>
