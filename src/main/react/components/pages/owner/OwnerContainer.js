@@ -17,6 +17,7 @@ import ListContainer from './ListContainer';
 import ShopOpenModal from './Modal/ShopOpenModal';
 import { ownHeader } from '../../../modules/ownerHeader';
 import client from '../../../lib/api/client';
+import enrollOwner from '../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -185,13 +186,15 @@ const OwnerContainer = ({ match }) => {
     ownerInfo,
     ownError,
     ownLoading,
-  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    owner,
+  } = useSelector(({ ownerRes, ownHeader, loading, owner }) => ({
     restaurant: ownerRes.ownRestaurant,
     error: ownerRes.error,
     loading: loading['owner/OWNER_RES'],
     ownerInfo: ownHeader.ownerInfo,
     ownError: ownHeader.error,
     loading: loading['owner/OWN_HEADER'],
+    owner: owner.owner,
   }));
 
   const onChangeFile = useCallback(async ({ target: { files, name } }) => {
@@ -215,6 +218,7 @@ const OwnerContainer = ({ match }) => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
     //나중에 변경
+
     dispatch(ownHeader('o22'));
 
     // init();

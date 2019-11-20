@@ -38,6 +38,10 @@ const Modal = styled.div`
   z-index: 100;
   color: white;
 
+  @media (max-width: 1024px) {
+    left: 9.2rem;
+  }
+
   &::before {
     content: '';
     position: absolute;

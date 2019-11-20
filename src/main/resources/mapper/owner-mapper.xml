@@ -32,8 +32,19 @@
 		<result property="ownStatics" column="OWN_STATICS"/>
 		<result property="resCount" column="CNT"/>
 		<result property="no" column="NO"/>
-		<result property="name" column="NAME"/>
-		
+		<result property="name" column="NAME"/>		
+	</resultMap>
+	
+	<resultMap type="com.kh.figtable.owner.model.vo.Owner" id="ownerMap">
+		<result property="ownNo" column="OWN_NO"/>
+		<result property="ownEmail" column="OWN_EMAIL"/>
+		<result property="ownPassword" column="OWN_PASSWORD"/>
+		<result property="ownPhone" column="OWN_PHONE"/>
+		<result property="ownName" column="OWN_NAME"/>
+		<result property="ownStatus" column="OWN_STATUS"/>
+		<result property="ownStatics" column="OWN_STATICS"/>
+		<result property="ownApply" column="OWN_APPLY"/>
+		<result property="ownReturn" column="OWN_RETURN"/>
 	</resultMap>
 
 	<select id="ownRestaurant" parameterType="string" resultType="restaurant" resultMap="ownRes">
@@ -69,7 +80,7 @@
 	<select id="searchRes" parameterType="string"
 		resultType="restaurant" resultMap="ownRes">
 		SELECT * FROM FIG_RESTAURANT WHERE
-		RES_NAME LIKE '%'|| #{keyword} || '%'
+		RES_NAME LIKE '%'|| #{keyword} || '%' AND OWN_NO IS NULL
 	</select>
 	
 	<insert id="insertOwner" parameterType="com.kh.figtable.owner.model.vo.Owner">
@@ -98,5 +109,12 @@
 		INSERT INTO FIG_OWN_LICENSE VALUES (#{ownNo}, #{resNo}, #{authFile})
 	</insert>
 	
+	<select id="login" parameterType="com.kh.figtable.owner.model.vo.Owner" resultMap="ownerMap">
+		SELECT * FROM FIG_OWNER WHERE OWN_EMAIL=#{ownEmail}
+	</select>
+	<select id="getResList" parameterType="string" resultType="string">
+		SELECT LISTAGG(RES_NO,',') WITHIN GROUP (ORDER BY RES_NO) NO FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}
+	</select>
+
 	
 </mapper>

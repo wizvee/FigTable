@@ -39,9 +39,9 @@ const Title = styled.div`
   }
 
   &.waiting {
-    width: 100%;
+    width: 90%;
     @media (max-width: 1024px) {
-      margin-left: 0;
+      margin-left: 100%;
     }
   }
 
@@ -96,8 +96,12 @@ const Content = styled.div`
   }
 
   &.waiting {
-    width: 100%;
+    width: 90%;
     height: 550px;
+    margin: 0 auto;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
 
   .closeMsg {

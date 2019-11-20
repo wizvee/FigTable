@@ -1,9 +1,18 @@
-import React from 'react';
-import HeaderOwnerSimple from './common/HeaderOwnerSimple';
-import styled from 'styled-components';
-import Responsive from '../../common/Responsive';
-import palette from '../../../lib/styles/Palette';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import palette from '../../../lib/styles/Palette';
+import {
+  changeField,
+  initializeForm,
+  login,
+} from '../../../modules/enrollOwner';
+import { setOwner } from '../../../modules/owner';
+import Responsive from '../../common/Responsive';
+import HeaderOwnerSimple from './common/HeaderOwnerSimple';
+import ApplyReadyModal from './Modal/ApplyReadyModal';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -82,8 +91,73 @@ const EnrollButton = styled.div`
   }
 `;
 
-const OwnerLoginContainer = () => {
+const ErrorMsg = styled.div`
+  text-align: center;
+  color: #fa5252;
+  font-weight: 900;
+  padding-top: 20px;
+`;
+
+const OwnerLoginContainer = ({ history }) => {
   const path = process.env.PATH;
+  const dispatch = useDispatch();
+  const { owner, resList, loginE, loginS } = useSelector(({ enrollOwner }) => ({
+    owner: enrollOwner.owner,
+    resList: enrollOwner.resList,
+    loginE: enrollOwner.loginE,
+    loginS: enrollOwner.loginS,
+  }));
+
+  const onChange = useCallback(
+    ({ target }) => {
+      const { value, name } = target;
+      dispatch(changeField({ key: name, value }));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    dispatch(initializeForm('owner'));
+  }, [dispatch]);
+
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (loginE) {
+      setError(true);
+      return;
+    }
+    if (loginS) {
+      // dispatch(setOwner(owner));
+      setError(false);
+      if (owner.ownApply == 'S') {
+        setReady(true);
+      }
+      if (owner.ownApply == 'A') {
+        location.href = `${path}/owner/${resList[0]}`;
+      }
+    }
+  }, [loginE, loginS, resList, dispatch]);
+
+  // useEffect(() => {
+  //   if (owner) history.goBack();
+  //   try {
+  //     sessionStorage.setItem('owner', JSON.stringify(owner));
+  //   } catch (e) {
+  //     console.log('sessionStorage is not working');
+  //   }
+  // }, [history, owner]);
+
+  const onSubmit = e => {
+    e.preventDefault();
+    const { ownEmail, ownPassword } = owner;
+    dispatch(login({ ownEmail, ownPassword }));
+  };
+
+  const [ready, setReady] = useState(false);
+  const readyClose = () => {
+    setReady(false);
+  };
+
   return (
     <>
       <HeaderOwnerSimple />
@@ -95,18 +169,19 @@ const OwnerLoginContainer = () => {
               autoComplete="ownEmail"
               name="ownEmail"
               placeholder="이메일 입력"
-              // value={form.memEmail}
-              // onChange={onChange}
+              value={owner.ownEmail}
+              onChange={onChange}
             />
             <StyledInput
               autoComplate="new-password"
               name="ownPassword"
               placeholder="비밀번호 입력"
               type="password"
-              // value={form.memPassword}
-              // onChange={onChange}
+              value={owner.ownPassword}
+              onChange={onChange}
             />
-            <Button>로그인</Button>
+            <Button onClick={onSubmit}>로그인</Button>
+            {error && <ErrorMsg>로그인 실패</ErrorMsg>}
             <EnrollContainer>
               <b>회원이 아니신가요?</b>
               <br />
@@ -122,8 +197,9 @@ const OwnerLoginContainer = () => {
           </LoginContainer>
         </ContainerWrapper>
       </Container>
+      {!ready ? '' : <ApplyReadyModal readyClose={readyClose} />}
     </>
   );
 };
 
-export default OwnerLoginContainer;
+export default withRouter(OwnerLoginContainer);
