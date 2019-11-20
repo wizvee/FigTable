@@ -52,12 +52,12 @@ const onSubmit = e => {
   console.log(searchKeyword);
 };
 
-  const buy =
-  searchKeyword != '' ? buyers.filter(buyer=> buyer.memName.includes(searchKeyword)) : buyers;
+  const buyer =
+  searchKeyword != '' 
+  ? buyers.filter(b=> b.memName.includes(searchKeyword)) 
+  : buyers;
 
-  if (buyers.length <= 0) {
-    return null;
-  }
+  
 
   if(!buyers) {
     return null
@@ -69,10 +69,10 @@ const onSubmit = e => {
           onSubmit={onSubmit}
           input={input}/>
           
-          {buyers.map(buyer=>(
+          {buyer.map(bu=>(
             <Purchaser 
-              key={buyer.payNo}
-              buyer={buyer} 
+              key={bu.payNo}
+              buyer={bu} 
               onConfirm={onConfirm}
               resNo={resNo}
               />

@@ -150,7 +150,7 @@ const EatdealManageDetail=({
                 잇딜종료
               </EatdealButton>
               <EatdealButton onClick={openDateModal}>
-                기간연장
+                기간수정
               </EatdealButton>
           </>
               )||

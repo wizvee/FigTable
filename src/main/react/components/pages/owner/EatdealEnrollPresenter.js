@@ -146,7 +146,6 @@ const EatdealEnrollPresenter =({
   const {
     resNo,
   } = restaurant;
-  console.log(resNo);
   const path = process.env.PATH;
 
     return(
