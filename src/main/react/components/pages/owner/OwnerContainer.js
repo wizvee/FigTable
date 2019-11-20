@@ -18,6 +18,7 @@ import ShopOpenModal from './Modal/ShopOpenModal';
 import { ownHeader } from '../../../modules/ownerHeader';
 import client from '../../../lib/api/client';
 import { setOwner } from '../../../modules/enrollOwner';
+import { getWaitings } from '../../../modules/waiting';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -164,15 +165,6 @@ const ButtonSpan = styled.span`
   }
 `;
 
-////////////임시데이터////////////////
-
-const waiting = [
-  { name: '김손님', count: '2', phone: '010-1111-1111' },
-  { name: '이손님', count: '1', phone: '010-2222-2222' },
-  { name: '박손님', count: '5', phone: '010-3333-3333' },
-];
-////////////////////////////////////
-
 const OwnerContainer = ({ match }) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
@@ -186,15 +178,19 @@ const OwnerContainer = ({ match }) => {
     ownError,
     ownLoading,
     owner,
-  } = useSelector(({ ownerRes, ownHeader, loading, enrollOwner }) => ({
-    restaurant: ownerRes.ownRestaurant,
-    error: ownerRes.error,
-    loading: loading['owner/OWNER_RES'],
-    ownerInfo: ownHeader.ownerInfo,
-    ownError: ownHeader.error,
-    loading: loading['owner/OWN_HEADER'],
-    owner: enrollOwner.owner,
-  }));
+    waitings,
+  } = useSelector(
+    ({ ownerRes, ownHeader, loading, enrollOwner, ownerWaiting }) => ({
+      restaurant: ownerRes.ownRestaurant,
+      error: ownerRes.error,
+      loading: loading['owner/OWNER_RES'],
+      ownerInfo: ownHeader.ownerInfo,
+      ownError: ownHeader.error,
+      loading: loading['owner/OWN_HEADER'],
+      owner: enrollOwner.owner,
+      waitings: ownerWaiting.waitings,
+    }),
+  );
 
   const onChangeFile = useCallback(async ({ target: { files, name } }) => {
     const file = files[0];
@@ -217,6 +213,7 @@ const OwnerContainer = ({ match }) => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
     dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
+    dispatch(getWaitings(resNo));
   }, [resNo]);
 
   useEffect(() => {
@@ -249,7 +246,7 @@ const OwnerContainer = ({ match }) => {
 
   return (
     <>
-      {!loading && restaurant && (
+      {!loading && restaurant && waitings && (
         <>
           <HeaderOwner ownerInfo={ownerInfo} />
 
@@ -272,7 +269,7 @@ const OwnerContainer = ({ match }) => {
                   modeSelCloseM={modeSelCloseM}
                   resNo={restaurant.resNo}
                 />
-                <ListContainer resOpen={restaurant.open} list={waiting} />
+                <ListContainer resOpen={restaurant.open} list={waitings} />
               </RightContent>
             </ContentWrapper>
           </Container>

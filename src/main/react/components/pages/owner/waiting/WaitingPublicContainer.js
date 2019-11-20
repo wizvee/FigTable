@@ -177,7 +177,7 @@ const WaitingPublicContainer = ({ match }) => {
             </Back>
           </Left>
           <Right>
-            <Link to={`${path}/owner/${resNo}`}>
+            <Link to={`${path}/owner/${resNo.resNo}`}>
               <Logo>
                 <div className="logoMain">FIGTABLE</div>
                 &nbsp;&nbsp;

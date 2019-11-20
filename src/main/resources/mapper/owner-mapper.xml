@@ -52,6 +52,7 @@
 		<result property="memNo" column="MEM_NO"/>
 		<result property="wtName" column="WT_NAME"/>
 		<result property="resNo" column="RES_NO"/>
+		<result property="wtPhone" column="WT_PHONE"/>
 		<result property="wtPeople" column="WT_PEOPLE"/>
 		<result property="wtTime" column="WT_TIME"/>
 		<result property="wtStatus" column="WT_STATUS"/>
