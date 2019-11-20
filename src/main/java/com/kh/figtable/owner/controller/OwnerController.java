@@ -28,6 +28,7 @@ import com.kh.figtable.member.model.vo.Member;
 import com.kh.figtable.owner.model.service.OwnerService;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.owner.model.vo.Waiting;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @RestController
@@ -244,8 +245,23 @@ public class OwnerController {
 		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
 	}
-//	
-//	@RequestMapping(value="/api/owner/wtRegister", method=RequestMethod.POST)
-//	public ResponseEntity<>
+	
+	@RequestMapping(value="/api/owner/wtRegister", method=RequestMethod.POST)
+	public ResponseEntity<Waiting> insertWt (@RequestBody Waiting wt){
+		int result = service.insertWt(wt);
+		
+		if(result>0) {
+			Waiting send = service.getWaiting(wt.getWtNo());
+			return new ResponseEntity<Waiting>(send, HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/owner/getWaitings/{resNo}", method=RequestMethod.GET)
+	private ResponseEntity<List<Waiting>> getWaitings(@PathVariable("resNo") String resNo) {
+		List<Waiting> list = service.getWaitings(resNo);
+		
+		return new ResponseEntity<List<Waiting>>(list, HttpStatus.OK);
+	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.owner.model.vo.Waiting;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
@@ -74,5 +75,17 @@ public class OwnerDaoImpl implements OwnerDao {
 	@Override
 	public String getResList(SqlSession session, String ownNo) {
 		return session.selectOne("owner.getResList", ownNo);
+	}
+	@Override
+	public int insertWt(SqlSession session, Waiting wt) {
+		return session.insert("owner.insertWt", wt);
+	}
+	@Override
+	public Waiting getWaiting(SqlSession session, String wtNo) {
+		return session.selectOne("owner.getWaiting", wtNo);
+	}
+	@Override
+	public List<Waiting> getWaitings(SqlSession session, String resNo) {
+		return session.selectList("owner.getWaitings", resNo);
 	}
 }

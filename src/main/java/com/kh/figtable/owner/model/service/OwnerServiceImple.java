@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.figtable.owner.model.dao.OwnerDao;
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.owner.model.vo.Waiting;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Service
@@ -88,6 +89,18 @@ public class OwnerServiceImple implements OwnerService {
 	@Override
 	public String getResList(String ownNo) {
 		return dao.getResList(session, ownNo);
+	}
+	@Override
+	public int insertWt(Waiting wt) {
+		return dao.insertWt(session, wt);
+	}
+	@Override
+	public Waiting getWaiting(String wtNo) {
+		return dao.getWaiting(session, wtNo);
+	}
+	@Override
+	public List<Waiting> getWaitings(String resNo) {
+		return dao.getWaitings(session, resNo);
 	}
 	
 	

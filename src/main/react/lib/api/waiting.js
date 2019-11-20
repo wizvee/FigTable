@@ -7,3 +7,6 @@ export const register = ({ wtName, resNo, wtPeople, wtPhone }) =>
     wtPeople,
     wtPhone,
   });
+
+export const getWaitings = resNo =>
+  client.get(`${path}/api/owner/getWaitings/${resNo}`);

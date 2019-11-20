@@ -46,6 +46,18 @@
 		<result property="ownApply" column="OWN_APPLY"/>
 		<result property="ownReturn" column="OWN_RETURN"/>
 	</resultMap>
+	
+	<resultMap type="waiting" id="wtMap">
+		<result property="wtNo" column="WT_NO"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="wtName" column="WT_NAME"/>
+		<result property="resNo" column="RES_NO"/>
+		<result property="wtPeople" column="WT_PEOPLE"/>
+		<result property="wtTime" column="WT_TIME"/>
+		<result property="wtStatus" column="WT_STATUS"/>
+		<result property="wtAge" column="WT_AGE"/>
+		<result property="wtGender" column="WT_GENDER"/>
+	</resultMap>
 
 	<select id="ownRestaurant" parameterType="string" resultType="restaurant" resultMap="ownRes">
 		SELECT *
@@ -66,7 +78,7 @@
 		resultType="string">
 		SELECT RES_THUMB FROM FIG_RESTAURANT WHERE RES_NO = #{resNo}
 	</select>
-<update id="updateOpen" parameterType="restaurant">
+	<update id="updateOpen" parameterType="restaurant">
 		UPDATE FIG_RESTAURANT SET RES_WAITING=#{resWaiting} WHERE RES_NO=#{resNo} 
 	</update>
 	<update id="updateRes" parameterType="restaurant">
@@ -115,6 +127,17 @@
 	<select id="getResList" parameterType="string" resultType="string">
 		SELECT LISTAGG(RES_NO,',') WITHIN GROUP (ORDER BY RES_NO) NO FROM FIG_RESTAURANT WHERE OWN_NO=#{ownNo}
 	</select>
-
+	<insert id="insertWt" parameterType="waiting">
+		INSERT INTO FIG_WAITING VALUES ('w'||WT_SEQ.NEXTVAL, NULL, #{wtName}, #{wtPhone}, #{resNo}, #{wtPeople}, SYSDATE, 'S', null,null)
+		<selectKey keyProperty="wtNo" resultType="string" order="AFTER">
+		SELECT 'w'||WT_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<select id="getWaiting" parameterType="waiting" resultType="waiting" resultMap="wtMap">
+		SELECT * FROM FIG_WAITING WHERE WT_NO=#{wtNo}
+	</select>
+	<select id="getWaitings" parameterType="string" resultType="waiting" resultMap="wtMap">
+		SELECT * FROM FIG_WAITING WHERE RES_NO=#{resNo} AND WT_STATUS='S'
+	</select>
 	
 </mapper>

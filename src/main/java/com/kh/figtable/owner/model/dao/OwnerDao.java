@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.owner.model.vo.Owner;
 import com.kh.figtable.owner.model.vo.OwnerInfo;
+import com.kh.figtable.owner.model.vo.Waiting;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
 @Repository
@@ -27,6 +28,9 @@ public interface OwnerDao {
 	int insertOwnerAuth(SqlSession session, Map<String,String> ownerAuth);
 	Owner login(SqlSession session, Owner o);
 	String getResList(SqlSession session, String ownNo);
+	int insertWt(SqlSession session, Waiting wt);
+	Waiting getWaiting(SqlSession session, String wtNo);
+	List<Waiting> getWaitings(SqlSession session, String resNo);
 	
 	
 }
