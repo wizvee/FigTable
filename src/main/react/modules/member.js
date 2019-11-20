@@ -78,6 +78,7 @@ function* logoutSaga() {
   try {
     yield put(initializeForm());
     yield sessionStorage.removeItem('member');
+    yield localStorage.removeItem('member');
   } catch (e) {
     console.log(e);
   }

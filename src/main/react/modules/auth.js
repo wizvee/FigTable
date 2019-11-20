@@ -25,7 +25,10 @@ export const changeField = createAction(
     value,
   }),
 );
-export const toggleField = createAction(TOGGLE_FIELD, key => key);
+export const toggleField = createAction(TOGGLE_FIELD, ({ form, key }) => ({
+  form,
+  key,
+}));
 export const initializeForm = createAction(INITIALIZE_FORM, form => form);
 
 export const register = createAction(
@@ -75,9 +78,9 @@ const auth = handleActions(
       produce(state, draft => {
         draft[form][key] = value;
       }),
-    [TOGGLE_FIELD]: (state, { payload: key }) =>
+    [TOGGLE_FIELD]: (state, { payload: { form, key } }) =>
       produce(state, draft => {
-        draft.register[key] = !draft.register[key];
+        draft[form][key] = !draft[form][key];
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,

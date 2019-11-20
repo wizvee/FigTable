@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { changeField, initializeForm, login } from '../../../modules/auth';
+import {
+  changeField,
+  initializeForm,
+  login,
+  toggleField,
+} from '../../../modules/auth';
 import { setMember } from '../../../modules/member';
 import LoginPresenter from './LoginPresenter';
 import HeaderSimple from '../../common/HeaderSimple';
@@ -22,6 +27,9 @@ const LoginContainer = ({ history }) => {
     const { value, name } = e.target;
     dispatch(changeField({ form: 'login', key: name, value }));
   };
+
+  const onToggle = ({ target: { name } }) =>
+    dispatch(toggleField({ form: 'login', key: name }));
 
   // 폼 등록 이벤트 핸들러
   const onSubmit = e => {
@@ -50,7 +58,8 @@ const LoginContainer = ({ history }) => {
     if (member) history.goBack();
     try {
       sessionStorage.setItem('member', JSON.stringify(member));
-      if (form.isKeep) localStorage.setItem('member', JSON.stringify(member));
+      if (member && form.isKeep)
+        localStorage.setItem('member', JSON.stringify(member));
     } catch (e) {
       console.log('sessionStorage is not working');
     }
@@ -62,6 +71,7 @@ const LoginContainer = ({ history }) => {
       <LoginPresenter
         form={form}
         onChange={onChange}
+        onToggle={onToggle}
         onSubmit={onSubmit}
         error={error}
       />
