@@ -136,7 +136,6 @@ public class EatdealController {
 		System.out.println(data);
 		int result=service.deleteEat(data);
 		if (result > 0) {
-			System.out.println("삭제"+result);
 			
 			// 성공시 200 반환
 			String resNo=data.get("resNo");
@@ -181,18 +180,17 @@ public class EatdealController {
 	        //잇딜 개수 -1 처리
 			Eatdeal eat=service.getEatdeal(data);//잇딜가져와서 개수 -1해주기
 			int count=eat.getEatCount()-1;
-			System.out.println(count);////////////
 			data.put("eatCount", (count+""));
 			result=service.afterPayEat(data);
-			System.out.println(data);////////////
 			//구매테이블에 넣기
 			result=service.setBuyer(data);
-			System.out.println(result);////////////
 			
 	        //포인트차감
 			if(data.get("poHistory")!=null&&data.get("poHistory")!="") {
 				result=service.setPoint(data);
-				
+			}
+			if (result > 0) {
+				return new ResponseEntity<Integer>(result, HttpStatus.OK);
 			}
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}

@@ -93,11 +93,13 @@ const EatdealpayContainer = ({match, history, form}) => {
     eatdeal,
     member,
     point,
+    result,
     eatError,
     eatLoading
   }=useSelector(({eatdeal, member, point, loading})=>({
     member:member.member,
     point:point.point,
+    result:eatdeal.result,
     eatdeal:eatdeal.eatdeal,
     eatError:eatdeal.error,
     eatLoading:loading['eatdeal/READ_EAT']
@@ -112,19 +114,6 @@ useEffect(() => {
 //결제방법
 const [payway, setPayway]=useState('');
 const onPayway=useCallback(payway=>setPayway(payway),[]);
-//최종가격
-const [finalCost, setFinalCost]=useState(0);
-//사용한 포인트
-const [usedPoint, setUsedPoint]=useState(0);
-//사용한 포인트용함수
-const onSetUsedPoint=(p)=>{
-  setUsedPoint(p);
-}
-//최종가격
-const onSetFinalCost=(p)=>{
-  setFinalCost(p);
-}
-
 
 //결제 핸들러
   function handleSubmit(e) {
@@ -137,7 +126,7 @@ const onSetFinalCost=(p)=>{
         const data = {
           pg:payway,
           name:eatdeal.eatFoodName,
-          amount:250,
+          amount:finalCost,
           buyer_name:member.memName,
         };
 
@@ -146,12 +135,11 @@ const onSetFinalCost=(p)=>{
           return;
         }
         
-        afterPay(eatNo, member.memNo, usedPoint);
+        //afterPay(eatNo, member.memNo, adPoint);
           /* 웹 환경일때 */
-          // const { IMP } = window;
-          // IMP.init(userCode);
-          // IMP.request_pay(data, callback);
-
+          const { IMP } = window;
+          IMP.init(userCode);
+          IMP.request_pay(data, callback);
       
       }
     //결제 콜백함수
@@ -161,8 +149,7 @@ const onSetFinalCost=(p)=>{
       error_msg,
     }=response;
       if (success) {
-        setModal(true);//결제되었습니다 모달
-        afterPay(eatNo, member.memNo, usedPoint);
+        afterPay(eatNo, member.memNo, adPoint);
         //개수 -1 처리
         //포인트차감
         //구매테이블 생성
@@ -171,14 +158,15 @@ const onSetFinalCost=(p)=>{
         
       }
   }
+  
   const afterPay = useCallback(
     (eatNo, memNo, poHistory ) => {
       console.log('afterpay함수')
       console.log({ eatNo, memNo, poHistory });
+      dispatch(payEat({ eatNo, memNo, poHistory }));
       //잇딜개수수정
       //구매테이블생성
       //사용자 포인트 수정
-      dispatch(payEat({ eatNo, memNo, poHistory }));
       // dispatch(insertPay({ eatNo, memNo }));
       // if(poHistory){
       // dispatch(afterPayPoint({ memNo, poHistory }))
@@ -186,17 +174,90 @@ const onSetFinalCost=(p)=>{
     },
     [dispatch],
   );
+
+ // 결제 성공되면 리턴
+useEffect(() => {
+  if(result>0) setModal(true);//결제되었습니다 모달열기
+  else console.log(error);
+}, [result])
+
   ///여기까지 결제
 
 
     //에러메세지
     const [error, setError] = useState(null);
+    const [msg, setMsg] = useState(null);
     //모달제어
+    const [count, setCount] = useState(1);
     const [isModal, setModal] = useState(false);
-    function openModal(){
-        setModal(true);
+
+    //최종가격
+    const final=Number(eatdeal.eatOriginPrice)*(1-Number(eatdeal.eatDiscount));
+    const [finalCost, setFinalCost]=useState(final);
+    
+    
+    //수량*가격
+    const setFinalCostCount=(p)=>{
+      setFinalCost(Number(finalCost)*Number(p))
+    }
+    
+    //수량-냥
+    const setFinalCostPoint=(p)=>{
+      setFinalCost(Number(finalCost)-Number(p))
     }
 
+
+
+    //사용한 포인트
+    const [adPoint, setAdPoint]=useState(0);
+    //총 수량 더하기
+    const onAddCount=count=>{
+      //수량설정
+      setCount(count+1);
+      setFinalCostCount(count+1);
+  }
+  //총 수량 빼기
+  const onRemoveCount=count=>{
+      if(count===1){
+          //수량 누르면 포인트 적용 초기화
+          setCount(1);
+      }else {
+          setCount(count-1);
+          setFinalCostCount(count-1);
+      }
+  }
+  //사용할 포인트
+  const [usePoint, setUsePoint]= useState(0);
+  //입력한 포인트 숫자로 넣어주기
+  const onChange=e=>{
+      setUsePoint(Number(e.target.value));
+  }
+
+    //냥 적용하기 버튼 
+    const onUsePoint=(p)=>{
+      if(point<1000){
+        setMsg('1000냥 이하는 사용할 수 없어요');
+        setAdPoint(0);
+        return;
+      }
+      if(point<p){
+        setMsg('가지고있는 냥보다 큽니다 ');
+        setAdPoint(0);
+        return;
+      }
+      if(finalCost<p){
+        setAdPoint(finalCost);
+        setFinalCostPoint(finalCost);
+        setUsePoint(finalCost);
+        setMsg('');
+      }
+      if(finalCost>=p){
+        setAdPoint(p);
+        setFinalCostPoint(p);
+        setMsg('');
+      } 
+
+  }
 
    
     if(eatError) return null;
@@ -210,9 +271,15 @@ const onSetFinalCost=(p)=>{
               <TotalPay 
                 eat={eatdeal} 
                 memPoint={point} 
-                usedPoint={usedPoint} 
-                onSetUsedPoint={onSetUsedPoint}
+                onUsePoint={onUsePoint}
+                adPoint={adPoint}
                 finalCost={finalCost}
+                onAddCount={onAddCount}
+                onRemoveCount={onRemoveCount}
+                msg={msg}
+                count={count}
+                usePoint={usePoint}
+                onChange={onChange}
               />
             <Separator/>
              <EatPayWay onPayway={onPayway}/>
