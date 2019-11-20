@@ -108,7 +108,9 @@ const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
                 </Link>
               ))
             : ''}
-          <Button>매장 추가</Button>
+          <Link to={`${path}/ownerShop`}>
+            <Button>매장 추가</Button>
+          </Link>
         </Modal>
         <Background onClick={shopModalClose} />
       </ModalWrapper>

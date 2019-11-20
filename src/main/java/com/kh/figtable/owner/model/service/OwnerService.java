@@ -25,4 +25,5 @@ public interface OwnerService {
 	List<Waiting> getWaitings(String resNo);
 	int completeWt(String wtNo);
 	int deleteWt(String wtNo);
+	int addShop(Restaurant r, String ownNo, String authFile);
 }

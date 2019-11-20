@@ -43,3 +43,30 @@ export const enrollOwn = ({
 
 export const login = ({ ownEmail, ownPassword }) =>
   client.post(`${path}/api/ownerLogin`, { ownEmail, ownPassword });
+
+export const addShop = ({
+  ownNo,
+  resNo,
+  resName,
+  resAddress,
+  resTel,
+  resLat,
+  resLong,
+  resLocationKeyword,
+  resFoodKeyword,
+  resThumb,
+  authFile,
+}) =>
+  client.post(`${path}/api/owner/addShop`, {
+    ownNo,
+    resNo,
+    resName,
+    resAddress,
+    resTel,
+    resLat,
+    resLong,
+    resLocationKeyword,
+    resFoodKeyword,
+    resThumb,
+    authFile,
+  });
