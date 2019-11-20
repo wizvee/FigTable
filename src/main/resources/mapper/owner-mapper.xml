@@ -141,4 +141,11 @@
 		SELECT * FROM FIG_WAITING WHERE RES_NO=#{resNo} AND WT_STATUS='S'
 	</select>
 	
+	<update id="completeWt" parameterType="string">
+		UPDATE FIG_WAITING SET WT_STATUS='I' WHERE WT_NO=#{wtNo}
+	</update>
+	<update id="deleteWt" parameterType="string">
+		UPDATE FIG_WAITING SET WT_STATUS='C' WHERE WT_NO=#{wtNo}
+	</update>
+	
 </mapper>

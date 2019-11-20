@@ -17,6 +17,9 @@ const [DELETE_WT, DELETE_WT_SUCCESS] = createRequestActionTypes(
 const [GET_WAITINGS, GET_WAITINGS_SUCCESS] = createRequestActionTypes(
   'waiting/GET_WAITINGS',
 );
+const [COMPLETE, COMPLETE_SUCCESS] = createRequestActionTypes(
+  'waiting/COMPLETE',
+);
 
 export const register = createAction(
   REGISTER,
@@ -35,17 +38,20 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   value,
 }));
 
+export const complete = createAction(COMPLETE, wtNo => wtNo);
 export const deleteWt = createAction(DELETE_WT, wtNo => wtNo);
 export const getWaitings = createAction(GET_WAITINGS, resNo => resNo);
 
 const registerSaga = createRequestSaga(REGISTER, restAPI.register);
-const deleteSaga = createRequestSaga(DELETE_WT, restAPI.delete);
+const deleteSaga = createRequestSaga(DELETE_WT, restAPI.deleteWt);
 const getSaga = createRequestSaga(GET_WAITINGS, restAPI.getWaitings);
+const comSaga = createRequestSaga(COMPLETE, restAPI.complete);
 
 export function* ownerWaitingSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(DELETE_WT, deleteSaga);
   yield takeLatest(GET_WAITINGS, getSaga);
+  yield takeLatest(COMPLETE, comSaga);
 }
 
 const initialState = {
@@ -86,6 +92,10 @@ const waiting = handleActions(
       ...state,
       waitings,
     }),
+    [COMPLETE_SUCCESS]: (state, { payload: wtNo }) =>
+      produce(state, draft => {
+        draft.waitings = draft.waitings.filter(wait => wait.wtNo != wtNo);
+      }),
   },
   initialState,
 );

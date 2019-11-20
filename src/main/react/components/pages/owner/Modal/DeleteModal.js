@@ -58,14 +58,14 @@ const Button = styled.div`
   }
 `;
 
-const SeatModal = ({ wtNo, seatModalClose }) => {
+const SeatModal = ({ deleteModalClose }) => {
   return (
     <>
       <ModalWrapper>
         <Modal>
-          <ModalContent>착석 완료</ModalContent>
+          <ModalContent>대기 취소</ModalContent>
           <ButtonWrapper>
-            <Button onClick={seatModalClose}>확인</Button>
+            <Button onClick={deleteModalClose}>확인</Button>
           </ButtonWrapper>
         </Modal>
       </ModalWrapper>

@@ -31,6 +31,8 @@ public interface OwnerDao {
 	int insertWt(SqlSession session, Waiting wt);
 	Waiting getWaiting(SqlSession session, String wtNo);
 	List<Waiting> getWaitings(SqlSession session, String resNo);
+	int completeWt(SqlSession session, String wtNo);
+	int deleteWt(SqlSession session, String wtNo);
 	
 	
 }

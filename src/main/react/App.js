@@ -27,6 +27,7 @@ import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 import MypageContainer from './components/pages/user/mypage/MypageContainer';
 import OwnerLoginContainer from './components/pages/owner/OwnerLoginContainer';
 import AdminLoginContainer from './components/pages/admin/AdminLoginContainer';
+import AddShopContainer from './components/pages/owner/AddShopContainer';
 
 const App = () => {
   const path = process.env.PATH;
@@ -65,6 +66,7 @@ const App = () => {
         />
         <Route
           path={`${path}/owner/:resNo/eatdeal`}
+          exact
           component={OwnerEatDealContainer}
         />
         <Route
@@ -73,6 +75,7 @@ const App = () => {
         />
         <Route
           path={`${path}/owner/:resNo/waiting`}
+          exact
           component={OwnerWaitingContainer}
         />
         <Route
@@ -85,6 +88,7 @@ const App = () => {
           exact
           component={OwnerLoginContainer}
         />
+        <Route path={`${path}/ownerShop`} exact component={AddShopContainer} />
 
         <Route
           path={`${path}/adminLogin`}

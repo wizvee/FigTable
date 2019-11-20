@@ -263,5 +263,23 @@ public class OwnerController {
 		
 		return new ResponseEntity<List<Waiting>>(list, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/api/owner/completeWt", method=RequestMethod.PATCH)
+	private ResponseEntity<String> completeWt (@RequestBody String wtNo){
+		int result = service.completeWt(wtNo);
+		if(result>0) {
+			return new ResponseEntity<String>(wtNo, HttpStatus.OK);		
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/owner/deleteWt", method=RequestMethod.PATCH)
+	private ResponseEntity<String> deleteWt (@RequestBody String wtNo){
+		int result = service.deleteWt(wtNo);
+		if(result>0) {
+			return new ResponseEntity<String>(wtNo, HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
 
 }

@@ -102,6 +102,14 @@ public class OwnerServiceImple implements OwnerService {
 	public List<Waiting> getWaitings(String resNo) {
 		return dao.getWaitings(session, resNo);
 	}
+	@Override
+	public int completeWt(String wtNo) {
+		return dao.completeWt(session, wtNo);
+	}
+	@Override
+	public int deleteWt(String wtNo) {
+		return dao.deleteWt(session, wtNo);
+	}
 	
 	
 }

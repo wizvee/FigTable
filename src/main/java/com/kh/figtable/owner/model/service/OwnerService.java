@@ -23,4 +23,6 @@ public interface OwnerService {
 	int insertWt(Waiting wt);
 	Waiting getWaiting(String wtNo);
 	List<Waiting> getWaitings(String resNo);
+	int completeWt(String wtNo);
+	int deleteWt(String wtNo);
 }

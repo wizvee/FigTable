@@ -88,4 +88,12 @@ public class OwnerDaoImpl implements OwnerDao {
 	public List<Waiting> getWaitings(SqlSession session, String resNo) {
 		return session.selectList("owner.getWaitings", resNo);
 	}
+	@Override
+	public int completeWt(SqlSession session, String wtNo) {
+		return session.update("owner.completeWt", wtNo);
+	}
+	@Override
+	public int deleteWt(SqlSession session, String wtNo) {
+		return session.update("owner.deleteWt", wtNo);
+	}
 }
