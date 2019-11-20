@@ -19,6 +19,7 @@ import {
 } from '../../../modules/ownerRestaurant';
 import client from '../../../lib/api/client';
 import EditSuccessModal from './Modal/EditSuccessModal';
+import { setOwner } from '../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -71,13 +72,15 @@ const UpdateOwnerRestautrant = ({ match }) => {
     ownerInfo,
     ownError,
     ownLoading,
-  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    owner,
+  } = useSelector(({ ownerRes, ownHeader, loading, enrollOwner }) => ({
     restaurant: ownerRes.ownRestaurant,
     error: ownerRes.error,
     loading: loading['owner/OWNER_RES'],
     ownerInfo: ownHeader.ownerInfo,
     ownError: ownHeader.error,
     loading: loading['owner/OWN_HEADER'],
+    owner: enrollOwner.owner,
   }));
 
   const onChangeFile = useCallback(
@@ -129,8 +132,12 @@ const UpdateOwnerRestautrant = ({ match }) => {
 
   useEffect(() => {
     dispatch(ownerRes(resNo));
-    dispatch(ownHeader('o22'));
+    dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
   }, []);
+
+  useEffect(() => {
+    if (owner) dispatch(ownHeader(owner.ownNo));
+  }, [owner]);
 
   const [addressModal, setAddressModal] = useState(false);
   const addressModalOpen = () => {

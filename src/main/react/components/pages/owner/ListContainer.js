@@ -41,7 +41,8 @@ const Title = styled.div`
   &.waiting {
     width: 90%;
     @media (max-width: 1024px) {
-      margin-left: 100%;
+      margin: 0 auto;
+      width: 100%;
     }
   }
 

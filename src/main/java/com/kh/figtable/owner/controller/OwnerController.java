@@ -232,15 +232,20 @@ public class OwnerController {
 		if(pwEncoder.matches(o.getOwnPassword(), compare.getOwnPassword())){
 			compare.setOwnPassword(null);
 			String list = service.getResList(compare.getOwnNo());
-			String[] resList = list.split(",");
+			if(list != null) {
+				String[] resList = list.split(",");				
+				m.put("resList", resList);
+			}
 			session.setAttribute("login", compare);
 			m.put("owner", compare);
-			m.put("resList", resList);
 			return new ResponseEntity<Map>(m, HttpStatus.OK);
 		}
 		
 		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
 	}
+//	
+//	@RequestMapping(value="/api/owner/wtRegister", method=RequestMethod.POST)
+//	public ResponseEntity<>
 
 }

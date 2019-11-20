@@ -9,7 +9,6 @@ import {
   initializeForm,
   login,
 } from '../../../modules/enrollOwner';
-import { setOwner } from '../../../modules/owner';
 import Responsive from '../../common/Responsive';
 import HeaderOwnerSimple from './common/HeaderOwnerSimple';
 import ApplyReadyModal from './Modal/ApplyReadyModal';
@@ -138,14 +137,13 @@ const OwnerLoginContainer = ({ history }) => {
     }
   }, [loginE, loginS, resList, dispatch]);
 
-  // useEffect(() => {
-  //   if (owner) history.goBack();
-  //   try {
-  //     sessionStorage.setItem('owner', JSON.stringify(owner));
-  //   } catch (e) {
-  //     console.log('sessionStorage is not working');
-  //   }
-  // }, [history, owner]);
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('owner', JSON.stringify(owner));
+    } catch (e) {
+      console.log('sessionStorage is not working');
+    }
+  }, [history, owner]);
 
   const onSubmit = e => {
     e.preventDefault();

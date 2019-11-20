@@ -7,6 +7,7 @@ import OwnerDetailTitle from '../common/OwnerDetailTitle';
 import ListContainer from '../ListContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownHeader } from '../../../../modules/ownerHeader';
+import { setOwner } from '../../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -78,22 +79,26 @@ const waiting = [
 
 const OwnerWaitingContainer = () => {
   const dispatch = useDispatch();
-  const { ownerInfo, ownError, ownLoading } = useSelector(
-    ({ ownHeader, loading }) => ({
+  const { ownerInfo, ownError, ownLoading, owner } = useSelector(
+    ({ ownHeader, loading, enrollOwner }) => ({
       ownerInfo: ownHeader.ownerInfo,
       ownError: ownHeader.error,
       ownLoading: loading['owner/OWN_HEADER'],
+      owner: enrollOwner.owner,
     }),
   );
 
   useEffect(() => {
-    //나중에 변경
-    dispatch(ownHeader('o22'));
+    dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
   }, []);
+
+  useEffect(() => {
+    if (owner) dispatch(ownHeader(owner.ownNo));
+  }, [owner]);
 
   return (
     <>
-      {!ownLoading && (
+      {!ownLoading && ownerInfo && (
         <>
           <HeaderOwner ownerInfo={ownerInfo} />
           <Container>

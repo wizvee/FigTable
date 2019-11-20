@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ownerRes } from '../../../modules/ownerRestaurant';
 import { ownHeader } from '../../../modules/ownerHeader';
 import { withRouter } from 'react-router-dom';
+import { setOwner } from '../../../modules/enrollOwner';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -81,25 +82,30 @@ const OwnerEatDealContainer = ({ match }) => {
     ownerInfo,
     ownError,
     ownLoading,
-  } = useSelector(({ ownerRes, ownHeader, loading }) => ({
+    owner,
+  } = useSelector(({ ownerRes, ownHeader, loading, enrollOwner }) => ({
     restaurant: ownerRes.ownRestaurant,
     error: ownerRes.error,
     loading: loading['owner/OWNER_RES'],
     ownerInfo: ownHeader.ownerInfo,
     ownError: ownHeader.error,
     loading: loading['owner/OWN_HEADER'],
+    owner: enrollOwner.owner,
   }));
 
   useEffect(() => {
     document.body.style.overflow = 'scroll';
     dispatch(ownerRes(resNo));
-    //나중에 변경
-    dispatch(ownHeader('o22'));
+    dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
   }, [resNo]);
+
+  useEffect(() => {
+    if (owner) dispatch(ownHeader(owner.ownNo));
+  }, [owner]);
 
   return (
     <>
-      {!loading && restaurant && (
+      {!loading && restaurant && ownerInfo && (
         <>
           <HeaderOwner ownerInfo={ownerInfo} />
           <Container>
@@ -108,7 +114,7 @@ const OwnerEatDealContainer = ({ match }) => {
               <OwnerLeftMenu />
               <Right>
                 <OwnerDetailTitle title="Eat Deal" />
-                <OwnerEatdealForm restaurant={restaurant}/>
+                <OwnerEatdealForm restaurant={restaurant} />
               </Right>
             </ContainerWrapper>
           </Container>
