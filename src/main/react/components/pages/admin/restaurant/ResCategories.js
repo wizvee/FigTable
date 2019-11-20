@@ -9,6 +9,11 @@ const categories = [
   },
 
   {
+    name: 'applyRes',
+    text: '매장승인',
+  },
+
+  {
     name: 'closeRes',
     text: '매장폐업',
   },

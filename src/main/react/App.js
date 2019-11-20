@@ -26,6 +26,7 @@ import ReviewContainer from './components/pages/admin/ReviewContainer';
 import OwnerEnroll from './components/pages/owner/OwnerEnroll';
 import MypageContainer from './components/pages/user/mypage/MypageContainer';
 import OwnerLoginContainer from './components/pages/owner/OwnerLoginContainer';
+import AdminLoginContainer from './components/pages/admin/AdminLoginContainer';
 
 const App = () => {
   const path = process.env.PATH;
@@ -56,6 +57,7 @@ const App = () => {
           path={`${path}/payment/:eatNo`}
           component={EatdealpayContainer}
         />
+
         <Route path={`${path}/owner/:resNo`} exact component={OwnerContainer} />
         <Route
           path={`${path}/owner/:resNo/restaurant`}
@@ -84,6 +86,11 @@ const App = () => {
           component={OwnerLoginContainer}
         />
 
+        <Route
+          path={`${path}/adminLogin`}
+          exact
+          component={AdminLoginContainer}
+        />
         <Route path={`${path}/admin`} exact component={AdminContainer} />
         <Route path={`${path}/admin/enroll`} component={RestaurantContainer} />
         <Route path={`${path}/admin/qna`} component={QnAContainer} />

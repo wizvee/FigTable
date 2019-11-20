@@ -22,6 +22,7 @@ const PayContent =styled.div`
     }
 `;
 const PayInfo =({eat})=>{
+    const path = process.env.PATH;
     const {
       eatNo,
       resNo,
@@ -41,7 +42,7 @@ const PayInfo =({eat})=>{
         <>
         <PayInfoContainer>
         <h3>주문목록</h3>  
-            <PayImage url={thumb}/>
+            <PayImage url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <PayContent>
             <p>{resName}</p>
             <h3>{eatFoodName}</h3>

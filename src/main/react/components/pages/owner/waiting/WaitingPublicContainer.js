@@ -43,21 +43,13 @@ const Back = styled(Responsive)`
   z-index: 2;
 `;
 
-const Content = styled.div`
-  z-index: 3;
-  font-size: 2rem;
-  color: white;
-  padding-top: 4rem;
-  padding-left: 3rem;
-`;
-
 const Count = styled.div`
   background: rgba(206, 212, 218, 0.8);
   text-align: center;
   width: 60%;
   height: 250px;
   position: relative;
-  top: 17rem;
+  top: 28rem;
   left: 4rem;
   border-radius: 5px;
   font-size: 57px;
@@ -104,10 +96,6 @@ const WaitingPublicContainer = ({ match }) => {
       <Container>
         <Left>
           <Back>
-            <Content>
-              휴대폰 번호를 입력하시면
-              <br /> 카톡으로 알려드립니다
-            </Content>
             <Count>
               <div
                 style={{

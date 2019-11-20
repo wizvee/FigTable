@@ -75,4 +75,22 @@
 		UPDATE FIG_EATDEAL_PAY SET BUY_STATUS = 'U' WHERE PAY_NO = #{payNo}
 	</update>
 	
+	<select id="getEat" resultMap="eatResult" parameterType="map">
+		SELECT EAT_COUNT FROM FIG_EATDEAL WHERE EAT_NO = #{eatNo}
+	</select>
+	<update id="afterPayEat" parameterType="map">
+		UPDATE FIG_EATDEAL SET EAT_COUNT= #{eatCount} WHERE EAT_NO = #{eatNo}
+	</update>
+	<insert id="setBuyer" parameterType="map">
+		INSERT INTO FIG_EATDEAL_PAY 
+		VALUES('p'||PAY_SEQ.NEXTVAL, #{memNo}, 
+		#{eatNo}, DEFAULT, DEFAULT)
+	</insert>
+	<insert id="setPoint" parameterType="map">
+		INSERT INTO FIG_POINT
+		VALUES(#{memNo}, #{poHistory}, 
+		'포인트사용_EATDEAL', SYSDATE)
+	</insert>
+	
+	
 </mapper>

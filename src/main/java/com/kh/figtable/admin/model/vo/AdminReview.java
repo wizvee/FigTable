@@ -13,9 +13,14 @@ public class AdminReview {
 	private String memName;
 	private String rvNo;
 	private String rvContent;
+	private String[] rvImages;
 	private String rvWarn;
 	private String resNo;
 	private Date rvDate;
 	private String resName;
 	private String resAddress;
+	private int memWrCnt;
+	private int rvLove;
+	
+	
 }

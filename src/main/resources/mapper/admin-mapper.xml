@@ -4,28 +4,16 @@
   <resultMap type="adminOwner" id="ownResult">
   	<result property="ownNo" column="OWN_NO" />
   	<result property="ownEmail" column="OWN_EMAIL" />
-  	<result property="ownPassword" column="OWN_PASSWORD" />
   	<result property="ownPhone" column="OWN_PHONE" />
   	<result property="ownName" column="OWN_NAME" />
   	<result property="ownStatus" column="OWN_STATUS" />
-  	<result property="ownStatics" column="OWN_STATICS" />
   	<result property="ownApply" column="OWN_APPLY" />
   	<result property="ownRetrun" column="OWN_RETURN" />
   	<result property="resNo" column="RES_NO" />
   	<result property="resName" column="RES_NAME" />
-  	<result property="resLocationKeyword"
-			column="RES_LOCATION_KEYWORD" />
-	<result property="resFoodKeyword" column="RES_FOOD_KEYWORD" />
-	<result property="resThumb" column="RES_THUMB" />
 	<result property="resAddress" column="RES_ADDRESS" />
-	<result property="resOpenDay" column="RES_OPEN_DAY" />
-	<result property="resCloseTime" column="RES_CLOSE_TIME" />
-	<result property="resMenuTitle" column="RES_MENU_TITLE" />
-	<result property="resMenuPrice" column="RES_MENU_PRICE" />
-	<result property="resTel" column="RES_TEL" />
-	<result property="resLat" column="RES_LAT" />
-	<result property="resLong" column="RES_LONG" />
 	<result property="resApply" column="RES_APPLY" />
+	<result property="license" column="LICENSE" />
   </resultMap>
   
   <resultMap type="restaurant" id="resResult">
@@ -55,17 +43,37 @@
 	</resultMap>
 	
 	<resultMap type="adminReview" id="rvResult">
-		<result property="rvNo" column="RV_NO" />
 		<result property="memNo" column="MEM_NO" />
-		<result property="memName" column="MEM_NAME" />
 		<result property="resNo" column="RES_NO" />
+		<result property="rvNo" column="RV_NO" />
+		<result property="memName" column="MEM_NAME" />
 		<result property="resName" column="RES_NAME" />
 		<result property="resAddress" column="RES_ADDRESS" />
 		<result property="rvContent" column="RV_CONTENT" />
 		<result property="rvWarn" column="RV_WARN" />
 		<result property="rvDate" column="RV_DATE" />
+		<result property="rvImages" column="RV_IMAGES"
+			typeHandler="strArr" />
+		<result property="memWrCnt" column="MEM_WRCNT" />
+		<result property="rvLove" column="RV_LOVE" />
 	</resultMap>
-  
+	
+	<resultMap type="adminLogin" id="adminLogin">
+		<result property="memNo" column="MEM_NO" />
+		<result property="adminEmail" column="MEM_EMAIL" />
+		<result property="adminPassword" column="MEM_PASSWORD" />
+	</resultMap>
+	
+	<resultMap type="adminQna" id="qnaResult">
+		<result property="memNo" column="MEM_NO" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="targetMemNo" column="TARGET_MEM_NO" />
+		<result property="category" column="Q_CATEGORY" />
+		<result property="answer" column="Q_ANSWER" />
+		<result property="qnaDate" column="Q_DATE" />
+		<result property="content" column="Q_CONTENT" />
+	</resultMap>
+	
   
 	<select id="getByResApply" resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE RES_APPLY = 'S'
@@ -79,20 +87,38 @@
 		UPDATE FIG_RESTAURANT SET RES_APPLY = 'C' WHERE RES_NO = #{resNo}
 	</update>
 	
+	<update id="applyRes" parameterType="string">
+		UPDATE FIG_RESTAURANT SET RES_APPLY = 'A' WHERE RES_NO = #{resNo}
+	</update>
+	
 	 <select id="getByOwnApply" resultType="adminOwner" resultMap="ownResult">
-  		SELECT O.OWN_NO, OWN_EMAIL, OWN_PASSWORD, OWN_PHONE, 
-  			   OWN_NAME, OWN_STATUS, OWN_APPLY, OWN_RETURN,
-  			   RES_NO, RES_NAME, RES_LOCATION_KEYWORD, RES_FOOD_KEYWORD, 
-  			   RES_THUMB, RES_ADDRESS, RES_OPEN_DAY, RES_CLOSE_TIME, 
-  			   RES_MENU_TITLE, RES_MENU_PRICE, RES_TEL, RES_LAT, 
-  			   RES_LONG, RES_APPLY
-		FROM FIG_OWNER O
-		JOIN FIG_RESTAURANT R ON(O.OWN_NO = R.OWN_NO)
-		WHERE OWN_APPLY = 'S' OR OWN_APPLY = 'R'
+  		SELECT O.OWN_NO, OWN_EMAIL, OWN_PHONE, OWN_NAME, OWN_STATUS, OWN_APPLY, OWN_RETURN,
+  			   R.RES_NO, RES_NAME, RES_TEL, RES_ADDRESS, RES_APPLY, LICENSE
+		FROM FIG_OWN_LICENSE L
+		JOIN FIG_OWNER O ON(L.OWN_NO = O.OWN_NO)
+		JOIN FIG_RESTAURANT R ON(L.RES_NO = R.RES_NO)
+		WHERE RES_APPLY = 'A' AND OWN_STATUS='L'
   	</select>
   	
-  	<select id="getReviews" resultType="review" resultMap="rvResult">
-  		SELECT RV_NO, RV_CONTENT, RV_WARN, RV_DATE, 
+  	<update id="updateOwnApply" parameterType="string">
+  		UPDATE FIG_OWNER SET OWN_APPLY = 'A' WHERE OWN_NO = #{ownNo}
+  	</update>
+  	
+  	<update id="insertResOwn" parameterType="adminOwner">
+  		UPDATE FIG_RESTAURANT SET OWN_NO = #{ownNo} WHERE RES_NO = #{resNo}
+  	</update>
+  	
+  	<update id="returnResOwn" parameterType="map">
+  		UPDATE FIG_OWNER SET OWN_RETURN = #{ownerReturn} WHERE OWN_NO = #{ownerNo}
+  	</update>
+  	
+  	<delete id="delLicense" parameterType="string">
+  		DELETE FROM FIG_OWN_LICENSE WHERE OWN_NO = #{ownerNo} AND RES_NO = #{restNo}
+  	</delete>
+  	
+  	
+  	<select id="getReviews" resultType="adminReview" resultMap="rvResult">
+  		SELECT RV_NO, RV_CONTENT, RV_WARN, RV_DATE, RV_IMAGES, RV_LOVE,
   			   M.MEM_NO, M.MEM_NAME, 
   		       T.RES_NO, T.RES_NAME, T.RES_ADDRESS
   		  FROM FIG_REVIEW R
@@ -106,4 +132,57 @@
   		#{resFoodKeyword}, #{resThumb}, #{resAddress}, NULL, NULL, 
   		NULL, NULL, #{resTel}, #{resLat}, #{resLong}, 0, 0, 0, 0, NULL, 0, 'A')
   	</insert>
+  	
+  	<update id="returnReview" parameterType="string">
+  		UPDATE FIG_REVIEW SET RV_WARN = NULL WHERE RV_NO = #{rvNo}
+  	</update>
+  	
+  	<select id="getMember" resultType="adminReview" resultMap="rvResult">
+  		SELECT R.RV_NO, R.MEM_NO, MEM_WRCNT, RV_LOVE
+  		FROM FIG_REVIEW R
+  		JOIN FIG_MEMBER M ON(R.MEM_NO = M.MEM_NO)
+  		WHERE R.RV_NO = #{rvNo}
+  	</select>
+  	
+  	<update id="wcIncrease" parameterType="string">
+  		UPDATE FIG_MEMBER SET MEM_WRCNT = MEM_WRCNT+1 
+  		WHERE MEM_NO = #{memNo}
+  	</update>
+  	
+  	
+  	<delete id="removeReview" parameterType="string">
+  		DELETE FROM FIG_REVIEW WHERE RV_NO = #{rvNo}
+  	</delete>
+  	
+  	<delete id="removeLv" parameterType="string">
+  		DELETE FROM FIG_RV_LOVES WHERE RV_NO = #{rvNo}
+  	</delete>
+  	
+  	
+  	<select id="getQnas" resultType="map" parameterType="map">
+  		SELECT Q.*, MEM_NAME
+		FROM FIG_QUESTION Q
+		JOIN FIG_MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+		WHERE Q.MEM_NO != 'admin' AND Q_CATEGORY = #{category} AND Q_ANSWER = 'N' 
+  	</select>
+  	
+  	<update id="qnaCheck" parameterType="map">
+  		UPDATE FIG_QUESTION SET Q_ANSWER='Y' 
+  		WHERE MEM_NO = #{MEM_NO} AND Q_CONTENT = #{Q_CONTENT} AND Q_CATEGORY=#{Q_CATEGORY}
+  	</update>
+  	
+  	<insert id="qnaAnswer" parameterType="map">
+  		INSERT INTO FIG_QUESTION VALUES('admin', #{memNo}, #{input}, SYSDATE, #{category}, 'Y')
+  	</insert>
+  	
+  	<update id="answerCheck" parameterType="map">
+  		UPDATE FIG_QUESTION SET Q_ANSWER='Y' 
+  		WHERE MEM_NO = #{memNo} AND Q_CONTENT = #{content} AND Q_CATEGORY=#{category}
+  	</update>
+  	
+  	<select id="login" parameterType="com.kh.figtable.admin.model.vo.Admin" resultMap="adminLogin">
+  		SELECT MEM_NO, MEM_EMAIL, MEM_PASSWORD 
+  		FROM FIG_MEMBER WHERE MEM_EMAIL = #{adminEmail} AND MEM_PASSWORD = #{adminPassword}
+  	</select>
+  	
 </mapper>

@@ -37,7 +37,7 @@ const Button= styled.div`
     color: white;
     border:none;
     cursor: pointer;
-    position:sticky;
+    position:sticky !important;
     bottom:0;
     z-index:3;
 `;

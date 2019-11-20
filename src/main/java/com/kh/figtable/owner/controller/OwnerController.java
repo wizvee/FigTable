@@ -3,11 +3,13 @@ package com.kh.figtable.owner.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -216,8 +218,29 @@ public class OwnerController {
 		
 		int result = service.enrollOwn(o,r,data.get("authFile"));
 		
+		if(result >0 )
+			return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+		else
+			return new ResponseEntity<Member>(HttpStatus.CONFLICT);
+	}
+	
+	@RequestMapping(value="/api/ownerLogin", method=RequestMethod.POST)
+	public ResponseEntity<Map> login(@RequestBody Owner o, HttpSession session){
+		Map m = new HashMap();
+		Owner compare = service.login(o);
+
+		if(pwEncoder.matches(o.getOwnPassword(), compare.getOwnPassword())){
+			compare.setOwnPassword(null);
+			String list = service.getResList(compare.getOwnNo());
+			String[] resList = list.split(",");
+			session.setAttribute("login", compare);
+			m.put("owner", compare);
+			m.put("resList", resList);
+			return new ResponseEntity<Map>(m, HttpStatus.OK);
+		}
 		
-		return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+
 	}
 
 }

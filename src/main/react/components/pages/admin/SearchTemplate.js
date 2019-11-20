@@ -32,7 +32,7 @@ const SearchTemplate = ({ onSubmit, input, onReset, searchKeyword }) => {
       <form>
         <StyledInput
           type="text"
-          placeholder="검색어 입력"
+          placeholder="매장명 입력"
           name="searchRes"
           value={searchKeyword}
           ref={input}

@@ -46,6 +46,7 @@ const deleteEatSaga = createRequestSaga(DELETE_EAT, restAPI.deleteEat);
 const extendEatSaga = createRequestSaga(EXTEND_EAT, restAPI.extendEat);
 const confirmEatSaga = createRequestSaga(CONFIRM_EAT, restAPI.confirmEat);
 
+
 export function* eatdealsSaga() {
   yield takeLatest(LIST_EAT, listEatSaga);
   yield takeLatest(LIST_OWN_EAT, listOwnEatSaga);

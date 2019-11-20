@@ -18,4 +18,8 @@ public interface EatdealService {
 	int deleteEat(Map<String, String> data);
 	int extendEat(Map<String, String> data);
 	int confirmEat(Map<String, String> data);
+	Eatdeal getEatdeal(Map<String, String> data);
+	int afterPayEat(Map<String, String> data);
+	int setBuyer(Map<String, String> data);
+	int setPoint(Map<String, String> data);
 }

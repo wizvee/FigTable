@@ -55,9 +55,26 @@ public class EatdealDaoImpl implements EatdealDao {
 
 	@Override
 	public int confirmEat(SqlSession session, Map<String, String> data) {
-		System.out.println("dao들어옴");
-		System.out.println(data);
 		return session.update("eatdeal.confirmEat", data);
+	}
+///////////////////////////////////////////
+	@Override
+	public Eatdeal getEatdeal(SqlSession session, Map<String, String> data) {
+		return session.selectOne("eatdeal.getEat", data);
+	}
+	@Override
+	public int afterPayEat(SqlSession session, Map<String, String> data) {
+		return session.update("eatdeal.afterPayEat", data);
+	}
+
+	@Override
+	public int setBuyer(SqlSession session, Map<String, String> data) {
+		return session.insert("eatdeal.setBuyer", data);
+	}
+
+	@Override
+	public int setPoint(SqlSession session, Map<String, String> data) {
+		return session.insert("eatdeal.setPoint", data);
 	}
 	
 

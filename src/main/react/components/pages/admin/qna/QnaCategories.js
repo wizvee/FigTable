@@ -4,16 +4,16 @@ import palette from '../../../../lib/styles/Palette';
 
 const categories = [
   {
-    name: 'applyRes',
+    name: 'E',
     text: '매장신청',
   },
 
   {
-    name: 'closeRes',
+    name: 'D',
     text: '매장폐업',
   },
   {
-    name: 'etc',
+    name: 'O',
     text: '기타',
   },
 ];

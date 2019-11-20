@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaStore, FaRegChartBar } from 'react-icons/fa';
 import { MdNaturePeople, MdRestaurantMenu } from 'react-icons/md';
+import { FaClipboardList } from 'react-icons/fa';
 import palette from '../../../lib/styles/Palette';
 import { Link } from 'react-router-dom';
 import ModeSelectModal from './Modal/ModeSelectModal';
@@ -73,12 +74,6 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             가게정보 수정
           </MenuItem>
         </Link>
-        <MenuItem onClick={modeSelOpenM}>
-          <IconWrapper style={{ marginBottom: '22px' }}>
-            <MdNaturePeople />
-          </IconWrapper>
-          Waiting
-        </MenuItem>
         <Link to={`${path}/owner/${resNo}/eatdeal`}>
           <MenuItem>
             <IconWrapper>
@@ -87,18 +82,26 @@ const OwnerMenu = ({ modeSelModal, modeSelOpenM, modeSelCloseM, resNo }) => {
             Eat Deal
           </MenuItem>
         </Link>
-        <Link to={`${path}/owner/${resNo}/statics`}>
+        <Link to={`${path}/owner/${resNo}/waiting`}>
           <MenuItem>
-            <IconWrapper>
-              <FaRegChartBar />
+            <IconWrapper style={{ marginBottom: '22px' }}>
+              <FaClipboardList />
             </IconWrapper>
-            통계
+            Waiting(사장님용)
+          </MenuItem>
+        </Link>
+        <Link to={`${path}/owner/${resNo}/public`}>
+          <MenuItem>
+            <IconWrapper style={{ marginBottom: '22px' }}>
+              <MdNaturePeople style={{ fontSize: '44px' }} />
+            </IconWrapper>
+            Waiting(매장용)
           </MenuItem>
         </Link>
       </MenuWrapper>
-      {!modeSelModal ? null : (
+      {/* {!modeSelModal ? null : (
         <ModeSelectModal resNo={resNo} modeSelCloseM={modeSelCloseM} />
-      )}
+      )} */}
     </>
   );
 };

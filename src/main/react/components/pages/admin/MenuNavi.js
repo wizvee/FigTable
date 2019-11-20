@@ -11,7 +11,7 @@ const MenuBlock = styled.div`
   position: fixed;
   background-color: rgba(255, 255, 255, 0.1);
   top: 60px;
-  z-index: 9999;
+  z-index: 9998;
   ${props =>
     !props.isHome &&
     css`
@@ -156,13 +156,6 @@ const MenuNavi = ({
             <h3>{subTitle}</h3>
           </TitleWrapper>
           <SearchWrapper>
-            {isQnaList && (
-              <SearchTemplate
-                onSubmit={onSubmit}
-                input={input}
-                onReset={onReset}
-              />
-            )}
             {isOwnList && (
               <SearchTemplate
                 onSubmit={onSubmit}

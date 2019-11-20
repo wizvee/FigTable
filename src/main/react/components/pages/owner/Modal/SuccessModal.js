@@ -24,6 +24,7 @@ const Modal = styled.div`
   width: 24rem;
   height: 10rem;
   border-radius: 5px;
+  box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 `;
 
 const ModalContent = styled.div`

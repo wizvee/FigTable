@@ -1,8 +1,6 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import ReviewDetail from './ReviewDetail';
-import { removeReview } from '../../../../modules/adminReviews';
 
 const ModalWrap = styled.div`
   position: fixed;
@@ -21,7 +19,7 @@ const Modal = styled.div`
   margin: 0px auto;
   flex-direction: column;
   background-color: white;
-  top: 10rem;
+  top: 6.5rem;
   width: 30rem;
   height: auto;
   min-height: 25rem;
@@ -37,15 +35,7 @@ const FormWrapper = styled.div`
   display: flex;
 `;
 
-const RevModal = ({ review, actionButtons }) => {
-  const dispatch = useDispatch();
-  const onRemove = useCallback(
-    rvNo => {
-      dispatch(removeReview({ rvNo: review.rvNo, rvNo }));
-      console.log(rvNo);
-    },
-    [dispatch],
-  );
+const RevModal = ({ review, onReturn, onRemove }) => {
   return (
     <>
       <ModalWrap>
@@ -54,7 +44,11 @@ const RevModal = ({ review, actionButtons }) => {
             <div>리뷰를 삭제하시겠습니까?</div>
           </Content>
           <FormWrapper>
-            <ReviewDetail review={review} actionButtons={actionButtons} />
+            <ReviewDetail
+              review={review}
+              onRemove={onRemove}
+              onReturn={onReturn}
+            />
           </FormWrapper>
         </Modal>
       </ModalWrap>
