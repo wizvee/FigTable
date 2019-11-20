@@ -122,7 +122,7 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/eatdeal/files", method = RequestMethod.PATCH)
 	private void deleteFiles(@RequestBody Eatdeal eatdeal, HttpServletRequest req) {
-		System.out.println("patch들어옴");
+		
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/upload/eatdeal");
 //		 review 등록 실패 혹은 취소 시 파일 삭제 로직
 		if (eatdeal.getThumb()!=null) {
@@ -133,14 +133,13 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/owner/eatdeal/delete", method = RequestMethod.PATCH)
 	private ResponseEntity<List<Eatdeal>> deleteEat(@RequestBody Map<String, String> data) {
-		System.out.println(data);
+		
 		int result=service.deleteEat(data);
 		if (result > 0) {
 			
 			// 성공시 200 반환
 			String resNo=data.get("resNo");
 			List<Eatdeal> list = service.getByResNo(resNo);
-			System.out.println(list);
 			return new ResponseEntity <List<Eatdeal>>(list, HttpStatus.OK);
 		}
 			// 실패 시 400 에러 반환
@@ -150,12 +149,11 @@ public class EatdealController {
 
 	@RequestMapping(value = "/api/owner/eatdeal/extend", method = RequestMethod.PATCH)
 	public ResponseEntity<List<Eatdeal>> extendEat(@RequestBody Map<String, String> data) {
-		System.out.println(data);
+		
 		int result = service.extendEat(data);
 		if (result > 0) {
 			String resNo= data.get("resNo");
 			List<Eatdeal> list = service.getByResNo(resNo);
-			System.out.println(list);
 			return new ResponseEntity<List<Eatdeal>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -175,7 +173,7 @@ public class EatdealController {
 
 		@RequestMapping(value = "/api/eatdeal/payeat", method = RequestMethod.PATCH)
 		public ResponseEntity<Integer> payEat(@RequestBody Map<String, String> data) {
-			System.out.println(data);
+
 			int result=0;
 	        //잇딜 개수 -1 처리
 			Eatdeal eat=service.getEatdeal(data);//잇딜가져와서 개수 -1해주기

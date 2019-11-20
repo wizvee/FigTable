@@ -129,7 +129,10 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
           amount:finalCost,
           buyer_name:member.memName,
         };
-
+        if(finalCost==0){
+          setError('0원이상 결제해야해요');
+          return;
+        }
         if(payway!='html5_inicis'&&payway!='kakaopay') {
           setError('결제수단을 선택하세요');
           return;
@@ -190,6 +193,16 @@ useEffect(() => {
     //모달제어
     const [count, setCount] = useState(1);
     const [isModal, setModal] = useState(false);
+    //수량 보이기 제어
+    const [cont, setCont] = useState(true);
+    //수량보이기 함수
+    const onControll = () =>{
+      console.log('여기들어옴');
+      setAdPoint(0);
+      setUsePoint(0);
+      setFinalCost(final);
+      setCont(true);
+    }
 
     //최종가격
     const final=Number(eatdeal.eatOriginPrice)*(1-Number(eatdeal.eatDiscount));
@@ -198,14 +211,13 @@ useEffect(() => {
     
     //수량*가격
     const setFinalCostCount=(p)=>{
-      setFinalCost(Number(finalCost)*Number(p))
+      setFinalCost(Number(final)*Number(p))
     }
     
     //수량-냥
     const setFinalCostPoint=(p)=>{
       setFinalCost(Number(finalCost)-Number(p))
     }
-
 
 
     //사용한 포인트
@@ -233,16 +245,25 @@ useEffect(() => {
       setUsePoint(Number(e.target.value));
   }
 
+    //냥 추ㅣ소하기 버튼 
+  const cancel=()=>{
+    setAdPoint(0);
+    setUsePoint(0);
+    setFinalCost(final);
+  }
     //냥 적용하기 버튼 
     const onUsePoint=(p)=>{
-      if(point<1000){
+      
+      if(p<1000){
         setMsg('1000😻 이하는 사용할 수 없어요');
         setAdPoint(0);
+        setUsePoint(0);
         return;
       }
       if(point<p){
         setMsg('가지고있는 😻보다 큽니다 ');
         setAdPoint(0);
+        setUsePoint(0);
         return;
       }
       if(finalCost<p){
@@ -250,11 +271,15 @@ useEffect(() => {
         setFinalCostPoint(finalCost);
         setUsePoint(finalCost);
         setMsg('');
+        setUsePoint(0);
+        setCont(false);
       }
       if(finalCost>=p){
         setAdPoint(p);
         setFinalCostPoint(p);
         setMsg('');
+        setUsePoint(0);
+        setCont(false);
       } 
 
   }
@@ -280,6 +305,9 @@ useEffect(() => {
                 count={count}
                 usePoint={usePoint}
                 onChange={onChange}
+                cont={cont}
+                onControll={onControll}
+                cancel={cancel}
               />
             <Separator/>
              <EatPayWay onPayway={onPayway}/>
