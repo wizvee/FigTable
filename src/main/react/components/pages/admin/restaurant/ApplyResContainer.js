@@ -21,6 +21,7 @@ const ApplyResContainer = () => {
   );
 
   useEffect(() => {
+    console.log('들어옴');
     dispatch(listRestaurants());
   }, [dispatch]);
 

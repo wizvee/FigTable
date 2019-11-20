@@ -65,6 +65,7 @@ public class AdminServiceImpl implements AdminService {
 	public int updateOwnApply(String ownNo) {
 		return dao.updateOwnApply(session, ownNo);
 	}
+	
 	@Override
 	public int insertResOwn(AdminOwner owner) {
 		return dao.insertResOwn(session, owner);

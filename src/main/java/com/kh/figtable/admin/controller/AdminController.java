@@ -3,6 +3,7 @@ package com.kh.figtable.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class AdminController {
 			String ext = original.substring(original.lastIndexOf("."));
 			// rename 규칙 설정
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
-			String rename = "restaurant_" + sdf.format(System.currentTimeMillis()) + ext;
+			String rename = "figtable_" + sdf.format(System.currentTimeMillis()) + ext;
 			// rename으로 파일 저장
 			try {
 				f.transferTo(new File(saveDir + "/" + rename));
@@ -120,13 +121,14 @@ public class AdminController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
 	}
 
-	@RequestMapping(value="/api/adminCloseRes/{resNo}", method = RequestMethod.POST)
-	public ResponseEntity<List<Restaurant>> CloseRes(@PathVariable("resNo") String resNo) {
-		int result = service.closeRes(resNo);
-		List<Restaurant> list = null;
+	@RequestMapping(value="/api/adminCloseRes", method = RequestMethod.PATCH)
+	public ResponseEntity<String> CloseRes(@RequestBody Map<String, String> data) {
+		int result = service.closeRes(data.get("resNo"));
+		
+		System.out.println(result);
+		
 		if(result > 0) {
-			list = service.getResList();
-			return new ResponseEntity<List<Restaurant>>(list, HttpStatus.OK);
+			return new ResponseEntity<String>(data.get("resNo"), HttpStatus.OK);
 		}
 		//실패시 400에러
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -156,28 +158,39 @@ public class AdminController {
 		return new ResponseEntity<List<AdminOwner>>(list, HttpStatus.OK);
 	}
 	
+	//사장님 승인일 경우
 	@RequestMapping(value="/api/adminOwner/apply", method=RequestMethod.POST)
-	private ResponseEntity<Integer> applyOwner(@RequestBody AdminOwner owner){
+	private ResponseEntity<List<AdminOwner>> applyOwner(@RequestBody AdminOwner owner){
 		if(!owner.getOwnApply().equals('A')) {
 			int updateOwnApply = service.updateOwnApply(owner.getOwnNo());
 		}
+		List<AdminOwner> own = null;
 		int insertResOwn = service.insertResOwn(owner);
+	
 		if(insertResOwn > 0) {
-			return new ResponseEntity<Integer>(insertResOwn, HttpStatus.OK);
+			Map<String, String> data = new HashMap<String, String>();
+			data.put("ownerNo", owner.getOwnNo());
+			data.put("restNo", owner.getResNo());
+			int remove = service.delLicense(data);
+			own = service.getOwnersByApply();
+			return new ResponseEntity<List<AdminOwner>>(own, HttpStatus.OK);
 		}
 		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
 	}
 	
+	
 	@RequestMapping(value="/api/adminOwner/return", method=RequestMethod.POST)
-	private ResponseEntity returnOwner(@RequestBody Map<String, String> data){
+	private ResponseEntity<List<AdminOwner>> returnOwner(@RequestBody Map<String, String> data){
 		System.out.println(data);
 		if(!data.get("ownerApply").equals('A')) {
 			int updateOwnApply = service.updateOwnApply(data.get("ownerNo"));
 		}
 		int returnResOwn = service.returnResOwn(data);
+		List<AdminOwner> own = null;
 		if(returnResOwn > 0) {
 			int delLicense = service.delLicense(data);
-			return new ResponseEntity<Integer>(returnResOwn, HttpStatus.OK);
+			own = service.getOwnersByApply();
+			return new ResponseEntity<List<AdminOwner>>(own, HttpStatus.OK);
 		}
 		
 		return new ResponseEntity(HttpStatus.BAD_REQUEST); 
@@ -194,13 +207,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/api/adminReturnReview/{rvNo}", method = RequestMethod.POST)
-	public ResponseEntity returnReview(@PathVariable("rvNo") String rvNo) {
-		service.returnReview(rvNo);
-		return new ResponseEntity(HttpStatus.OK);
+	public ResponseEntity<String> returnReview(@PathVariable("rvNo") String rvNo) {
+		
+		int result = service.returnReview(rvNo);
+		if(result>0) {
+			
+			return new ResponseEntity<String>(rvNo, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value="/api/adminRemoveReview/{rvNo}", method = RequestMethod.PATCH)
-	private ResponseEntity<List<AdminReview>> removeReview(@PathVariable("rvNo") String rvNo){
+	private ResponseEntity<String> removeReview(@PathVariable("rvNo") String rvNo){
 		AdminReview r = service.getMember(rvNo);
 		//경고 수 3회 미만이면 경고 +1 
 		if(r.getMemWrCnt() < 3) {
@@ -211,8 +230,7 @@ public class AdminController {
 		}
 		int remove = service.removeReview(rvNo);
 		if(remove>0) {
-			List<AdminReview> reviews = service.getReviews();
-			return new ResponseEntity<List<AdminReview>>(reviews, HttpStatus.OK);
+			return new ResponseEntity<String>(rvNo, HttpStatus.OK);
 		}
 		//실패시 400 에러 반환
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -222,12 +240,7 @@ public class AdminController {
 	
 	
 	//Qna
-	@RequestMapping(value="/api/amdinQnasE", method = RequestMethod.GET)
-	private ResponseEntity<List<AdminQna>> getQnasE(){
-//		List<AdminQna> list = service.getQnas();
-		//System.out.println(list);
-		return new ResponseEntity<List<AdminQna>>(HttpStatus.OK);
-	}
+
 	
 	//카테고리별로 가져오기
 	@RequestMapping(value="/api/adminQuestion", method = RequestMethod.GET)

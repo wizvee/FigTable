@@ -7,6 +7,7 @@ import palette from '../../../../lib/styles/Palette';
 import Responsive from '../../../common/Responsive';
 import AddressModal from '../../owner/Modal/AddressModal';
 import Geocode from 'react-geocode';
+import ConfirmModal from './confirmModal';
 
 const FormBlock = styled(Responsive)`
   display: flex;

@@ -97,16 +97,18 @@
 		FROM FIG_OWN_LICENSE L
 		JOIN FIG_OWNER O ON(L.OWN_NO = O.OWN_NO)
 		JOIN FIG_RESTAURANT R ON(L.RES_NO = R.RES_NO)
-		WHERE RES_APPLY = 'A' AND OWN_STATUS='L'
+		WHERE RES_APPLY = 'A'
   	</select>
   	
   	<update id="updateOwnApply" parameterType="string">
-  		UPDATE FIG_OWNER SET OWN_APPLY = 'A' WHERE OWN_NO = #{ownNo}
+  		UPDATE FIG_OWNER SET OWN_APPLY = 'A', OWN_STATUS = 'L' WHERE OWN_NO = #{ownNo}
   	</update>
   	
   	<update id="insertResOwn" parameterType="adminOwner">
   		UPDATE FIG_RESTAURANT SET OWN_NO = #{ownNo} WHERE RES_NO = #{resNo}
   	</update>
+  	
+  	
   	
   	<update id="returnResOwn" parameterType="map">
   		UPDATE FIG_OWNER SET OWN_RETURN = #{ownerReturn} WHERE OWN_NO = #{ownerNo}
@@ -115,6 +117,8 @@
   	<delete id="delLicense" parameterType="string">
   		DELETE FROM FIG_OWN_LICENSE WHERE OWN_NO = #{ownerNo} AND RES_NO = #{restNo}
   	</delete>
+  	
+  	
   	
   	
   	<select id="getReviews" resultType="adminReview" resultMap="rvResult">

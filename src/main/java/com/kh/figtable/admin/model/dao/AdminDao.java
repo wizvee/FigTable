@@ -31,6 +31,7 @@ public interface AdminDao {
 	int delLicense(SqlSession session, Map data);
 	
 	
+	
 	//review
 	List<AdminReview> getReviews(SqlSession session);
 	int returnReview(SqlSession session, String rvNo);

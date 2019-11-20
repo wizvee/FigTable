@@ -62,6 +62,8 @@ public class AdminDaoImpl implements AdminDao {
 		return session.update("admin.updateOwnApply", ownNo);
 	}
 	
+	
+	
 	@Override
 	public int insertResOwn(SqlSession session, AdminOwner owner) {
 		return session.update("admin.insertResOwn", owner);
@@ -75,6 +77,7 @@ public class AdminDaoImpl implements AdminDao {
 	public int delLicense(SqlSession session, Map data) {
 		return session.delete("admin.delLicense", data);
 	}
+	
 	
 	
 	

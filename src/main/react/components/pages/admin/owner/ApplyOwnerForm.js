@@ -59,7 +59,7 @@ const ImgItem = styled.div`
   height: 150px;
   border-radius: 2px;
   background: url(${props =>
-    `${path}/resources/upload/restaurant/${props.url}`});
+    `${path}/resources/upload/ownerAuth/${props.url}`});
   background-size: cover;
   background-position: center center;
   transition: opacity 0.2s linear;

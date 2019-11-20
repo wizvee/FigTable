@@ -7,6 +7,7 @@ import '../TableStyle.css';
 import moment from 'moment';
 import ConfirmModal from '../restaurant/confirmModal';
 import styled from 'styled-components';
+import Loader from '../../../common/Loader';
 
 const TableWrapper = styled.div`
   margin-top: 5rem;
@@ -54,7 +55,6 @@ const ReviewList = ({ reviews, loading, error }) => {
   //컨펌 모달 끄기
   const onCloseModal = () => {
     setConfirm(false);
-    location.reload();
   };
 
   //리뷰 복구
@@ -85,6 +85,7 @@ const ReviewList = ({ reviews, loading, error }) => {
 
   return (
     <>
+      {loading && <Loader />}
       <TableWrapper>
         <table>
           <thead>

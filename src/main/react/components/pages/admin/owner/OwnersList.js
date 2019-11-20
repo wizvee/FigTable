@@ -7,6 +7,8 @@ import { applyOwner } from '../../../../modules/adminOwners';
 import ConfirmModal from '../restaurant/confirmModal';
 import styled from 'styled-components';
 import '../TableStyle.css';
+import { listOwners } from '../../../../modules/adminOwners';
+import Loader from '../../../common/Loader';
 
 const TableWrapper = styled.div`
   display: flex;
@@ -73,14 +75,16 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
       e.preventDefault();
       setIsModal(false);
       setConfirm(true);
-      await client.post(`${path}/api/adminOwner/return`, {
-        restNo,
-        ownerNo,
-        ownerApply,
-        ownerReturn,
-      });
+      await client
+        .post(`${path}/api/adminOwner/return`, {
+          restNo,
+          ownerNo,
+          ownerApply,
+          ownerReturn,
+        })
+        .then(() => dispatch(listOwners()));
     },
-    [restNo, ownerNo, ownerApply, ownerReturn],
+    [restNo, ownerNo, ownerApply, ownerReturn, dispatch],
   );
 
   const onSubmit = e => {
@@ -100,21 +104,9 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
     }
   }, [own, adminOwnerError, dispatch]);
 
-  if (owner === '') {
-    return (
-      <>
-        <tr style={{ height: 100 }}>
-          <td colSpan="4" className="resNullTd">
-            신청내역이 존재하지 않습니다.
-          </td>
-        </tr>
-        <tr style={{ height: 330 }}></tr>
-      </>
-    );
-  }
-
   return (
     <>
+      {loading && <Loader />}
       <TableWrapper>
         <table>
           <thead>
@@ -153,6 +145,16 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
                   </tr>
                 );
               })}
+            {!loading && (owners == null || owner == '') && (
+              <>
+                <tr style={{ height: 100 }}>
+                  <td colSpan="5" style={{ textAlign: 'center' }}>
+                    신청내역이 존재하지 않습니다.
+                  </td>
+                </tr>
+                <tr style={{ height: 330 }}></tr>
+              </>
+            )}
             {confirm && (
               <ConfirmModal
                 msg="정상적으로 처리되었습니다."

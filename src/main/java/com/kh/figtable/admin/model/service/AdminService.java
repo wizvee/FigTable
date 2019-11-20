@@ -31,6 +31,7 @@ public interface AdminService {
 	int delLicense(Map data);
 	
 	
+	
 	//review
 	List<AdminReview> getReviews();
 	int returnReview(String rvNo);

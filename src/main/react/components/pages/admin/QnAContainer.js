@@ -54,7 +54,7 @@ const TheadItem = styled.div`
 const Theadcontent = styled.div`
   margin-top: 0.5rem;
   height: 2rem;
-  width: 300px;
+  width: 330px;
   text-align: center;
 `;
 
@@ -88,7 +88,7 @@ const TDcontent = styled.div`
   margin-top: 0.5rem;
   height: 2rem;
   border: 1px soild blue;
-  width: 300px;
+  width: 330px;
   text-align: center;
   cursor: pointer;
   &:hover {
@@ -108,13 +108,6 @@ const IconBlock = styled.div`
   &:hover {
     color: #f67280;
   }
-`;
-
-const NoneData = styled.div`
-  margin-top: 10rem;
-  text-align: center;
-  color: #868e96;
-  font-size: 1.3em;
 `;
 
 const ModalWrap = styled.div`
@@ -211,6 +204,7 @@ const QnAContainer = () => {
     await client
       .get(`${path}/api/adminQuestion/?category=${category}`)
       .then(({ data }) => setQnas(data));
+
     setLoading(false);
   }, []);
 
@@ -222,7 +216,6 @@ const QnAContainer = () => {
     async e => {
       e.preventDefault();
       setModal(false);
-      console.log(input);
       await client
         .post(`${path}/api/adminQuestion/answer`, {
           memNo,
@@ -231,15 +224,21 @@ const QnAContainer = () => {
           category,
         })
         .then(() => {
+          setQnas(qnas.filter(qna => qna.Q_CONTENT != content));
           setInput('');
         });
     },
     [memNo, content, input, category],
   );
 
+  const onCheck = useCallback(async qna => {
+    await client.post(`${path}/api/adminQanCheck`, qna).then(() => {
+      setQnas(qnas.filter(data => data.Q_CONTENT != qna.Q_CONTENT));
+    });
+  });
+
   const onCancel = () => {
     setModal(false);
-    console.log(input);
   };
 
   const onOpenModal = qna => {
@@ -248,16 +247,6 @@ const QnAContainer = () => {
     setContent(qna.Q_CONTENT);
     setModal(true);
   };
-
-  const onCloseModal = () => {
-    setIsModal(false);
-    setInput('');
-  };
-
-  const onCheck = useCallback(async qna => {
-    setQna(qna);
-    await client.post(`${path}/api/adminQanCheck`, qna);
-  });
 
   return (
     <>
@@ -288,8 +277,8 @@ const QnAContainer = () => {
                         key={`${index}+content`}
                         onClick={() => onOpenModal(row)}
                       >
-                        {row.Q_CONTENT.length > 20
-                          ? row.Q_CONTENT.slice(0, 20) + '...'
+                        {row.Q_CONTENT.length > 18
+                          ? row.Q_CONTENT.slice(0, 18) + '....'
                           : row.Q_CONTENT}
                       </TDcontent>
                       <TDItem key={`${index}+date`}>
