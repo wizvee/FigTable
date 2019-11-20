@@ -128,6 +128,7 @@ const ModalWaiting = ({ onModal }) => {
       waiting({
         memNo: member.memNo,
         memName: member.memName,
+        memPhone: member.memPhone,
         resNo: restaurant.resNo,
         people,
       }),

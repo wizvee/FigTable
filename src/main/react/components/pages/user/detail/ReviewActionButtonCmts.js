@@ -75,6 +75,9 @@ const StyledInput = styled.input`
   border-radius: 2rem;
   border: 1px solid ${palette.borderGray};
   font-size: 0.95rem;
+  @media (max-width: 426px) {
+    width: 200px;
+  }
 `;
 
 const CommentForm = styled.form`

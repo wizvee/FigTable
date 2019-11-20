@@ -63,9 +63,10 @@ export const unlovesRv = createAction(UNLOVES_RV, ({ member, review }) => ({
 
 export const waiting = createAction(
   WAITING,
-  ({ memNo, memName, resNo, people }) => ({
+  ({ memNo, memName, memPhone, resNo, people }) => ({
     memNo,
     memName,
+    memPhone,
     resNo,
     people,
   }),

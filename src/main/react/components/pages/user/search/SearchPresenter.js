@@ -25,8 +25,11 @@ const Body = styled.div`
   display: grid;
   grid-template-columns: 1fr 280px;
   grid-gap: 1rem;
+  width: 100%;
+  min-height: 100vh;
   @media (max-width: 426px) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
   .ad {
     h4 {

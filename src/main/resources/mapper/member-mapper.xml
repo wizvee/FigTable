@@ -180,10 +180,8 @@
 	</update>
 
 	<insert id="setWaiting" parameterType="map">
-		INSERT INTO FIG_WAITING
-		VALUES (#{memNo}, #{memName},
-		#{resNo}, ${people}, SYSDATE, DEFAULT,
-		NULL, NULL)
+		INSERT INTO FIG_WAITING VALUES ('w'||WT_SEQ.NEXTVAL, #{memNo}, #{memName},
+		#{memPhone}, #{resNo}, ${people}, DEFAULT, 'S', NULL, NULL)
 	</insert>
 
 	<select id="getWaiting" parameterType="string" resultType="map">
@@ -194,8 +192,7 @@
 	</select>
 
 	<delete id="unWaiting" parameterType="string">
-		UPDATE FIG_WAITING SET
-		WT_STATUS = 'C' WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
+		UPDATE FIG_WAITING SET WT_STATUS = 'C' WHERE MEM_NO = #{memNo} AND WT_STATUS = 'S'
 	</delete>
 
 </mapper>

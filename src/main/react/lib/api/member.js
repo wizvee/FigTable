@@ -34,8 +34,14 @@ export const unlovesRv = ({ memNo, rvNo }) =>
   client.patch(`${path}/api/member/love`, { memNo, rvNo });
 
 // waiting 줄서기
-export const waiting = ({ memNo, memName, resNo, people }) =>
-  client.post(`${path}/api/member/waiting`, { memNo, memName, resNo, people });
+export const waiting = ({ memNo, memName, memPhone, resNo, people }) =>
+  client.post(`${path}/api/member/waiting`, {
+    memNo,
+    memName,
+    memPhone,
+    resNo,
+    people,
+  });
 
 // waiting 줄서기 취소
 export const unWaiting = () => client.delete(`${path}/api/member/waiting`);
