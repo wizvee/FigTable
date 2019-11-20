@@ -3,21 +3,22 @@ import styled from 'styled-components';
 import Button from '../../../../lib/styles/Button';
 import palette from '../../../../lib/styles/Palette';
 import Responsive from '../../../common/Responsive';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const FormBlock = styled(Responsive)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 4rem;
   left: 0;
-  top: 0;
   bottom: 0;
   right: 0;
   position: relative;
-  height: 23rem;
+  height: 25rem;
 
   form {
-    width: 290px;
+    width: 320px;
   }
 `;
 
@@ -37,7 +38,7 @@ const StyledButton = styled(Button)`
   padding: 0.5rem;
   width: 5rem;
   margin: 0.5rem;
-  margin-top: 33px;
+  margin-top: 1rem;
 `;
 
 const ButtonWrapper = styled.div`
@@ -46,43 +47,101 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const ApplyOwnerForm = ({ owner, onReturn, onSubmit }) => {
+const ImageBlock = styled.div`
+  margin-top: 0.5rem;
+`;
+
+const path = process.env.PATH;
+const ImgItem = styled.div`
+  align-items: center;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 2px;
+  background: url(${props =>
+    `${path}/resources/upload/restaurant/${props.url}`});
+  background-size: cover;
+  background-position: center center;
+  transition: opacity 0.2s linear;
+  @media (max-width: 426px) {
+    width: 70px;
+    height: 70px;
+  }
+`;
+
+const StyledTextarea = styled(TextareaAutosize)`
+  margin: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid ${palette.borderGray};
+  font-size: 1rem;
+  overflow: hidden;
+  &::placeholder {
+    color: ${palette.textGray};
+  }
+`;
+
+const ApplyOwnerForm = ({ owner, onReturn, onSubmit, onChange }) => {
+  const {
+    ownEmail,
+    ownPhone,
+    ownName,
+    resName,
+    resAddress,
+    license,
+    ownReturn,
+  } = owner;
+
   return (
     <>
       <FormBlock>
-        <form onSubmit={onSubmit}>
+        <form>
           <StyledInput
             type="text"
             name="ownResName"
-            value={owner.resName}
+            value={resName}
+            onChange={onChange}
             readOnly
           />
           <StyledInput
             type="text"
             name="ownResAddress"
-            value={owner.resAddress}
+            value={resAddress}
+            onChange={onChange}
             readOnly
           />
-          <StyledInput type="tel" name="resTel" value={owner.resTel} readOnly />
           <StyledInput
             type="text"
             name="ownName"
-            value={owner.ownName}
+            value={ownName}
+            onChange={onChange}
             readOnly
           />
           <StyledInput
             type="text"
             name="ownEmail"
-            value={owner.ownEmail}
+            value={ownEmail}
+            onChange={onChange}
             readOnly
           />
+          {license && (
+            <ImageBlock>
+              <ImgItem url={license} />
+            </ImageBlock>
+          )}
           {/* 반려사유 등록할 인풋 */}
-          <StyledInput type="text" name="ownReturn" placeholder="반려사유" />
-          <StyledInput type="hidden" name="ownPassword" />
-          <StyledInput type="hidden" name="ownNo" value={owner.ownNo} />
-          <StyledInput type="hidden" name="resNo" value={owner.resNo} />
+          <StyledTextarea
+            type="text"
+            name="ownReturn"
+            placeholder="반려사유"
+            onChange={onChange}
+            value={ownReturn}
+          />
+
           <ButtonWrapper>
-            <StyledButton onClick={onReturn}>승인</StyledButton>
+            <StyledButton onClick={onSubmit}>승인</StyledButton>
             <StyledButton onClick={onReturn}>반려</StyledButton>
           </ButtonWrapper>
         </form>

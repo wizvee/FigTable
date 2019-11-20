@@ -21,3 +21,6 @@ export const insertRes = ({
     resFoodKeyword,
     resThumb,
   });
+
+export const login = ({ adminEmail, adminPassword }) =>
+  client.post(`${path}/api/adminLogin`, { adminEmail, adminPassword });

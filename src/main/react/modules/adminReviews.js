@@ -4,6 +4,7 @@ import createRequestSaga, {
 } from '../lib/createRequestSaga';
 import * as revAPI from '../lib/api/adminReview';
 import { takeLatest } from 'redux-saga/effects';
+import produce from 'immer';
 
 const [
   LIST_REVIEWS,
@@ -11,21 +12,20 @@ const [
   LIST_REVIEWS_FAILURE,
 ] = createRequestActionTypes('adminReview/LIST_REVIEWS');
 
-const [UPDATE_REVIEW, UPDATE_REVIEW_SUCCESS] = createRequestActionTypes(
-  `adminReview/UPDATE_REVIEW`,
+const [REMOVE_REVIEW, REMOVE_REVIEW_SUCCESS] = createRequestActionTypes(
+  'adminReview/REMOVE_REVIEW',
 );
 
+const RETURN_REVIEW = 'adminReview/RETURN_REVIEW';
+
 export const listReviews = createAction(LIST_REVIEWS);
-export const updateReview = createAction(UPDATE_REVIEW, rvNo => {
-  rvNo;
-});
+export const returnReview = createAction(RETURN_REVIEW, rvNo => rvNo);
+export const removeReview = createAction(REMOVE_REVIEW, rvNo => rvNo);
 
 const listReviewsSaga = createRequestSaga(LIST_REVIEWS, revAPI.getReview);
-// const updateReviewSaga = createeRequestSaga(UPDATE_REVIEW, revAPI.updateReview);
 
 export function* adminReviewsSaga() {
   yield takeLatest(LIST_REVIEWS, listReviewsSaga);
-  //yield takeLatest(UPDATE_REVIEW, updateReviewSaga);
 }
 
 const initialState = {
@@ -44,15 +44,17 @@ const adminReviews = handleActions(
       ...state,
       error,
     }),
-
-    // [UPDATE_REVIEW_SUCCESS]: (state, { payload: reviews, rvNo }) => ({
-    //   ...state,
-    //   reviews,
-    // }),
-    // [UPDATE_REVIEW_FAILURE]: (state, { payload: error }) => ({
-    //   ...state,
-    //   error,
-    // }),
+    [REMOVE_REVIEW_SUCCESS]: (state, { payload: rvNo }) =>
+      produce(state, draft => {
+        draft.reviews = draft.adminReviews.filter(
+          review => review.rvNo != rvNo,
+        );
+      }),
+    [RETURN_REVIEW]: (state, { payload: rvNo }) =>
+      produce(state, draft => {
+        const review = draft.adminReviews.find(review => review.rvNo == rvNo);
+        review.rvWarn = '';
+      }),
   },
   initialState,
 );

@@ -17,5 +17,7 @@ public class Owner {
 	private String ownStatics;
 	private String ownApply;
 	private String ownReturn;
+	
+	private String resName;
 
 }

@@ -67,4 +67,12 @@ public class OwnerDaoImpl implements OwnerDao {
 	public int insertOwnerAuth(SqlSession session, Map<String, String> ownerAuth) {
 		return session.insert("owner.insertOwnerAuth", ownerAuth);
 	}
+	@Override
+	public Owner login(SqlSession session, Owner o) {
+		return session.selectOne("owner.login", o);
+	}
+	@Override
+	public String getResList(SqlSession session, String ownNo) {
+		return session.selectOne("owner.getResList", ownNo);
+	}
 }

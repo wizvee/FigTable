@@ -30,9 +30,9 @@ const Modal = styled.div`
 const ModalContent = styled.div`
   width: 100%;
   height: auto;
-  padding-top: 28px;
-  padding-bottom: 24px;
-  font-size: 17px;
+  padding-top: 24px;
+  padding-bottom: 17px;
+  line-height: 30px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -60,18 +60,17 @@ const Button = styled.div`
   }
 `;
 
-const SuccessModal = sModalClose => {
+const ApplyReadyModal = ({ readyClose }) => {
   return (
     <ModalWrapper>
       <Modal>
         <ModalContent>
-          가입이 완료되었습니다.
-          <br />
-          관리자의 승인을 기다려주세요
+          관리자 승인 대기중입니다. <br />
+          Figtable 파트너 서비스의 이용은 불가능합니다.
         </ModalContent>
         <ButtonWrapper>
           <Link to={`${process.env.PATH}`}>
-            <Button onClick={sModalClose}>확인</Button>
+            <Button onClick={readyClose}>확인</Button>
           </Link>
         </ButtonWrapper>
       </Modal>
@@ -79,4 +78,4 @@ const SuccessModal = sModalClose => {
   );
 };
 
-export default SuccessModal;
+export default ApplyReadyModal;

@@ -40,3 +40,6 @@ export const enrollOwn = ({
     resThumb,
     authFile,
   });
+
+export const login = ({ ownEmail, ownPassword }) =>
+  client.post(`${path}/api/ownerLogin`, { ownEmail, ownPassword });

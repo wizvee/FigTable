@@ -147,16 +147,6 @@ const OwnerDetailTitle = ({
                 수정
               </MenuItem>
             </Link>
-            <Link to={`${path}/owner/${resNo}/waiting`}>
-              <MenuItem
-                className={
-                  pathname == `${path}/owner/${resNo}/waiting` && 'selected'
-                }
-                style={{ paddingTop: '14px' }}
-              >
-                Waiting
-              </MenuItem>
-            </Link>
             <Link to={`${path}/owner/${resNo}/eatdeal`}>
               <MenuItem
                 className={
@@ -167,14 +157,29 @@ const OwnerDetailTitle = ({
                 Eat Deal
               </MenuItem>
             </Link>
-            <Link to={`${path}/owner/${resNo}/statics`}>
+            <Link to={`${path}/owner/${resNo}/waiting`}>
+              <MenuItem
+                className={
+                  pathname == `${path}/owner/${resNo}/waiting` && 'selected'
+                }
+                style={{ paddingTop: '6px', fontSize: '17px' }}
+              >
+                Waiting
+                <br />
+                (사장)
+              </MenuItem>
+            </Link>
+
+            <Link to={`${path}/owner/${resNo}/public`}>
               <MenuItem
                 className={
                   pathname == `${path}/owner/${resNo}/statics` && 'selected'
                 }
-                style={{ paddingTop: '15px', width: '85px' }}
+                style={{ paddingTop: '6px', fontSize: '17px' }}
               >
-                통계
+                Waiting
+                <br />
+                (매장)
               </MenuItem>
             </Link>
           </DropDownMenu>
