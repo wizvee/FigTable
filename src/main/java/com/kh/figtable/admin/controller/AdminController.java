@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.figtable.admin.model.service.AdminService;
 import com.kh.figtable.admin.model.vo.AdminOwner;
+import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -200,5 +202,41 @@ public class AdminController {
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
+
+	
+	
+	//Qna
+	@RequestMapping(value="/api/amdinQnasE", method = RequestMethod.GET)
+	private ResponseEntity<List<AdminQna>> getQnasE(){
+//		List<AdminQna> list = service.getQnas();
+		//System.out.println(list);
+		return new ResponseEntity<List<AdminQna>>(HttpStatus.OK);
+	}
+	
+	//카테고리별로 가져오기
+	@RequestMapping(value="/api/adminQuestion", method = RequestMethod.GET)
+	private ResponseEntity<List<Map>> getQnas(@RequestParam("category") String category){
+		List<Map> data = service.getQnas(category);
+		return new ResponseEntity<List<Map>>(data, HttpStatus.OK);
+	}
+	
+	//답변 없는 확인 기능
+	@RequestMapping(value="/api/adminQanCheck", method = RequestMethod.POST)
+	private ResponseEntity<List<Map>> qnaCheck(@RequestBody Map<String, Object> data){
+		service.qnaCheck(data);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	//답변기능
+	@RequestMapping(value="/api/adminQuestion/answer", method = RequestMethod.POST)
+	private ResponseEntity<List<Map>> qnaAnswer(@RequestBody Map<String, Object> data){
+		
+		int answer = service.qnaAnswer(data);
+		if(answer>0) {
+			service.answerCheck(data);
+			return new ResponseEntity(HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
 	
 }

@@ -3,7 +3,7 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
 import * as revAPI from '../lib/api/adminReview';
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
 
 const [

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import client, { path } from '../../../../lib/api/client';
 import { applyRes } from '../../../../modules/adminInsertRes';

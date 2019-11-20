@@ -31,6 +31,8 @@
 			type="com.kh.figtable.admin.model.vo.AdminReview" />
 		<typeAlias alias="adminOwner"
 			type="com.kh.figtable.admin.model.vo.AdminOwner" />
+		<typeAlias alias="adminQna"
+			type="com.kh.figtable.admin.model.vo.AdminQna" />
 		<typeAlias alias="strArrRes"
 			type="com.kh.figtable.common.StringArrayResHandler" />
 	</typeAliases>

@@ -58,6 +58,17 @@
 		<result property="rvLove" column="RV_LOVE" />
 	</resultMap>
 	
+	
+	<resultMap type="adminQna" id="qnaResult">
+		<result property="memNo" column="MEM_NO" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="targetMemNo" column="TARGET_MEM_NO" />
+		<result property="category" column="Q_CATEGORY" />
+		<result property="answer" column="Q_ANSWER" />
+		<result property="qnaDate" column="Q_DATE" />
+		<result property="content" column="Q_CONTENT" />
+	</resultMap>
+	
   
 	<select id="getByResApply" resultType="restaurant" resultMap="resResult">
 		SELECT * FROM FIG_RESTAURANT WHERE RES_APPLY = 'S'
@@ -141,4 +152,27 @@
   	<delete id="removeLv" parameterType="string">
   		DELETE FROM FIG_RV_LOVES WHERE RV_NO = #{rvNo}
   	</delete>
+  	
+  	
+  	<select id="getQnas" resultType="map" parameterType="map">
+  		SELECT Q.*, MEM_NAME
+		FROM FIG_QUESTION Q
+		JOIN FIG_MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+		WHERE Q.MEM_NO != 'admin' AND Q_CATEGORY = #{category} AND Q_ANSWER = 'N' 
+  	</select>
+  	
+  	<update id="qnaCheck" parameterType="map">
+  		UPDATE FIG_QUESTION SET Q_ANSWER='Y' 
+  		WHERE MEM_NO = #{MEM_NO} AND Q_CONTENT = #{Q_CONTENT} AND Q_CATEGORY=#{Q_CATEGORY}
+  	</update>
+  	
+  	<insert id="qnaAnswer" parameterType="map">
+  		INSERT INTO FIG_QUESTION VALUES('admin', #{memNo}, #{input}, SYSDATE, #{category}, 'Y')
+  	</insert>
+  	
+  	<update id="answerCheck" parameterType="map">
+  		UPDATE FIG_QUESTION SET Q_ANSWER='Y' 
+  		WHERE MEM_NO = #{memNo} AND Q_CONTENT = #{content} AND Q_CATEGORY=#{category}
+  	</update>
+  	
 </mapper>

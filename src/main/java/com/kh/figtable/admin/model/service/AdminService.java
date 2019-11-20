@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.figtable.admin.model.vo.AdminOwner;
+import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -34,6 +35,14 @@ public interface AdminService {
 	int wcIncrease(String memNo);
 	int removeLv(String rvNo);
 	int removeReview(String rvNo);
+	
+	
+	
+	//Qna
+	List<Map> getQnas(String category);
+	int qnaCheck(Map data);
+	int qnaAnswer(Map data);
+	int answerCheck(Map data);
 	
 	
 

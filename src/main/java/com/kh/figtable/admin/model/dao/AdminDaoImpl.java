@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.figtable.admin.model.vo.AdminOwner;
+import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -102,5 +103,27 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	
+	
+	
+	//Qna
+	@Override
+	public List<Map> getQnas(SqlSession session, String category) {
+		return session.selectList("admin.getQnas", category);
+	}
+	
+	@Override
+	public int qnaCheck(SqlSession session, Map data) {
+		return session.update("admin.qnaCheck", data);
+	}
+	
+	@Override
+	public int qnaAnswer(SqlSession session, Map data) {
+		return session.insert("admin.qnaAnswer", data);
+	}
+	
+	@Override
+	public int answerCheck(SqlSession session, Map data) {
+		return session.update("admin.answerCheck", data);
+	}
 
 }

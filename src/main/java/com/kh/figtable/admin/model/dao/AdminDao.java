@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.figtable.admin.model.vo.AdminOwner;
+import com.kh.figtable.admin.model.vo.AdminQna;
 import com.kh.figtable.admin.model.vo.AdminReview;
 import com.kh.figtable.restaurant.model.vo.Restaurant;
 
@@ -35,4 +36,10 @@ public interface AdminDao {
 	int wcIncrease(SqlSession session, String memNo);
 	int removeLv(SqlSession session, String rvNo);
 
+	
+	//Qna
+	List<Map> getQnas(SqlSession session, String category);
+	int qnaCheck(SqlSession session, Map data);
+	int qnaAnswer(SqlSession session, Map data);
+	int answerCheck(SqlSession session, Map data);
 }
