@@ -24,7 +24,7 @@ const SearchContainer = ({ match }) => {
     dispatch(
       searchRes({
         lat: position ? position.lat : 0,
-        lon: position ? position.long : 0,
+        lon: position ? position.lon : 0,
         keyword,
       }),
     );
