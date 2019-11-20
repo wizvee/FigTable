@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import client, { path } from '../../../../lib/api/client';
-import { closeRes } from '../../../../modules/adminInsertRes';
+import { closeRes } from '../../../../modules/adminRestaurants';
 import ResModal from './ResModal';
 import ConfirmModal from './confirmModal';
 import styled from 'styled-components';
 import '../TableStyle.css';
+import Loader from '../../../common/Loader';
 
 const TableWrapper = styled.div`
   display: flex;
@@ -29,40 +29,44 @@ const NoneData = styled.div`
 `;
 
 const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
-  const dispatch = useDispatch();
-
   //에러 발생시
   if (error) {
     return <ErrorBlock>에러가 발생했습니다. 다시 시도해주세요.</ErrorBlock>;
   }
+
+  const dispatch = useDispatch();
+
+  const [modal, setIsModal] = useState(false);
+  const [res, setRes] = useState(null);
+  const [confirm, setConfirm] = useState(false);
+  const [target, setTarget] = useState('');
 
   const restaurant =
     keyword != ''
       ? restaurants.filter(s => s.resName.includes(keyword))
       : restaurants;
 
-  const [modal, setIsModal] = useState(false);
-  const [res, setRes] = useState(null);
-  const [target, setTarget] = useState('');
-  const [confirm, setConfirm] = useState(false);
-
   //모달 키는 function
-  const onClickOpenModal = res => {
-    setRes(res);
-    setTarget(res.resNo);
+  const onOpenModal = item => {
+    setRes(item);
+    setTarget(item.resNo);
     setIsModal(true);
   };
 
-  //모달 닫는 function
-  const onSubmit = useCallback(async () => {
+  const onSubmit = () => {
     setIsModal(false);
     setConfirm(true);
-    await client
-      .post(`${path}/api/adminCloseRes/${target}`)
-      .then(() => dispatch(closeRes(target)));
-  }, [target]);
+    dispatch(closeRes({ resNo: res.resNo }));
+  };
+
+  //useCallback(() => {
+  //   setIsModal(false);
+  //   setConfirm(true);
+  //   dispatch(closeRes({ resNo: target }));
+  // }, []);
 
   const onCancel = () => {
+    console.log(target);
     setIsModal(false);
   };
 
@@ -72,51 +76,58 @@ const CloseRestaurantList = ({ restaurants, loading, error, keyword }) => {
 
   return (
     <>
-      <TableWrapper>
-        <table>
-          <thead>
-            <tr>
-              <th>매장명</th>
-              <th>매장주소</th>
-              <th>음식키워드</th>
-              <th>지역키워드</th>
-              <th>전화번호</th>
-            </tr>
-          </thead>
-          <tbody>
-            {modal && (
-              <ResModal
-                restaurant={res}
-                onCancel={onCancel}
-                onSubmit={onSubmit}
-              />
-            )}
-            {!loading &&
-              restaurants &&
-              restaurant.map((row, index) => {
-                return (
-                  <tr
-                    key={index}
-                    onClick={() => onClickOpenModal(row)}
-                    className="resTr"
-                  >
-                    <td key={`${index}+name`}>{row.resName}</td>
-                    <td key={`${index}+addr`}>{row.resAddress}</td>
-                    <td key={`${index}+locationKey`}>{row.resFoodKeyword}</td>
-                    <td key={`${index}+foodKey`}>{row.resLocationKeyword}</td>
-                    <td key={`${index}+tel`}>{row.resTel}</td>
-                  </tr>
-                );
-              })}
-            {confirm && (
-              <ConfirmModal
-                msg="정상적으로 처리되었습니다."
-                onCloseModal={onCloseModal}
-              />
-            )}
-          </tbody>
-        </table>
-      </TableWrapper>
+      {loading && <Loader />}
+      {!loading && (
+        <TableWrapper>
+          <table>
+            <thead>
+              <tr>
+                <th>매장명</th>
+                <th>매장주소</th>
+                <th>음식키워드</th>
+                <th>지역키워드</th>
+                <th>전화번호</th>
+              </tr>
+            </thead>
+            <tbody>
+              {modal && (
+                <ResModal
+                  restaurant={res}
+                  onCancel={onCancel}
+                  onSubmit={onSubmit}
+                />
+              )}
+              {!loading &&
+                restaurants &&
+                restaurant.map((item, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      onClick={() => onOpenModal(item)}
+                      className="resTr"
+                    >
+                      <td key={`${index}+name`}>{item.resName}</td>
+                      <td key={`${index}+addr`}>{item.resAddress}</td>
+                      <td key={`${index}+locationKey`}>
+                        {item.resFoodKeyword}
+                      </td>
+                      <td key={`${index}+foodKey`}>
+                        {item.resLocationKeyword}
+                      </td>
+                      <td key={`${index}+tel`}>{item.resTel}</td>
+                    </tr>
+                  );
+                })}
+              {confirm && (
+                <ConfirmModal
+                  msg="정상적으로 처리되었습니다."
+                  onCloseModal={onCloseModal}
+                />
+              )}
+            </tbody>
+          </table>
+        </TableWrapper>
+      )}
     </>
   );
 };

@@ -24,21 +24,31 @@ const Modal = styled.div`
     flex-direction: column;
     background-color: white;
     top:10rem;
-    width:24rem;
-    height:30rem;
+    width:40%;
+    height:25rem;
     border-radius:8px;
+  @media (max-width: 426px) {
+    width: 15rem;
+    height:20rem;
+  }
 
 `;
 const ModalTitle = styled.div`
     margin:0.8rem 0;
     font-size: 1.2rem;
+  @media (max-width: 426px) {
+    font-size: 0.8rem;
+  }
 `;
 const ModalX = styled.div`
     cursor:pointer;
     text-align:right;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 0.5rem;
     color:black;
+  @media (max-width: 426px) {
+    font-size: 1rem;
+  }
 `;
 
 const Separator = styled.div`
@@ -66,6 +76,9 @@ const ShareContent= styled.div`
     g{
         transform: translateY(0.1rem);
     }
+  @media (max-width: 426px) {
+    font-size: 0.8rem;
+  }
 `;
 const IconBox=styled.div`
 outline-style:none;

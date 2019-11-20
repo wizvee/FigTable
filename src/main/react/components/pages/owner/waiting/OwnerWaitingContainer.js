@@ -8,6 +8,8 @@ import ListContainer from '../ListContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownHeader } from '../../../../modules/ownerHeader';
 import { setOwner } from '../../../../modules/enrollOwner';
+import { getWaitings } from '../../../../modules/waiting';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -77,24 +79,35 @@ const waiting = [
 ];
 ////////////////////////////////////
 
-const OwnerWaitingContainer = () => {
+const OwnerWaitingContainer = ({ match }) => {
+  const { resNo } = match.params;
   const dispatch = useDispatch();
-  const { ownerInfo, ownError, ownLoading, owner } = useSelector(
-    ({ ownHeader, loading, enrollOwner }) => ({
+  const { ownerInfo, ownError, ownLoading, owner, waitings } = useSelector(
+    ({ ownHeader, loading, enrollOwner, ownerWaiting }) => ({
       ownerInfo: ownHeader.ownerInfo,
       ownError: ownHeader.error,
       ownLoading: loading['owner/OWN_HEADER'],
       owner: enrollOwner.owner,
+      waitings: ownerWaiting.waitings,
     }),
   );
 
   useEffect(() => {
     dispatch(setOwner(JSON.parse(sessionStorage.getItem('owner'))));
-  }, []);
+    dispatch(getWaitings(resNo));
+  }, [resNo]);
 
   useEffect(() => {
     if (owner) dispatch(ownHeader(owner.ownNo));
   }, [owner]);
+
+  const [seatModal, setSeatModal] = useState(false);
+  const seatModalOpen = () => {
+    setSeatModal(true);
+  };
+  const seatModalClose = () => {
+    setSeatModal(false);
+  };
 
   return (
     <>
@@ -105,10 +118,15 @@ const OwnerWaitingContainer = () => {
             <ContainerWrapper>
               <OwnerDetailTitle title="Waiting" />
               <CountContainer>
-                현재 <span className="count">{waiting.length}</span> 팀 대기 중
+                현재 <span className="count">{waitings.length}</span> 팀 대기 중
               </CountContainer>
               <Right>
-                <ListContainer list={waiting} />
+                <ListContainer
+                  seatModal={seatModal}
+                  seatModalOpen={seatModalOpen}
+                  seatModalClose={seatModalClose}
+                  list={waitings}
+                />
               </Right>
             </ContainerWrapper>
           </Container>
@@ -118,4 +136,4 @@ const OwnerWaitingContainer = () => {
   );
 };
 
-export default OwnerWaitingContainer;
+export default withRouter(OwnerWaitingContainer);

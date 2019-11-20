@@ -22,7 +22,6 @@ const CHANGE_FIELD = 'adminOwners/CHANGE_FILED';
 
 export const listOwners = createAction(LIST_OWNERS);
 export const applyOwner = createAction(APPLY_OWNER, adminOwner => adminOwner);
-//export const returnOwner = createAction(RETURN_OWNER, adminOwner => adminOwner);
 export const returnOwner = createAction(
   RETURN_OWNER,
   ({ resNo, ownNo, ownReturn, ownApply }) => ({
@@ -74,13 +73,14 @@ const adminOwners = handleActions(
       produce(state, draft => {
         draft.adminOwner[key] = value;
       }),
-    [APPLY_OWNER_SUCCESS]: (state, { payload: adminOwner }) =>
+    [APPLY_OWNER_SUCCESS]: (state, { payload: owners }) =>
       produce(state, draft => {
-        draft.adminOwner = adminOwner;
+        draft.owners = owners;
       }),
-    [RETURN_OWNER_SUCCESS]: (state, { payload: returnOwner }) =>
+
+    [RETURN_OWNER_SUCCESS]: (state, { payload: owners }) =>
       produce(state, draft => {
-        draft.returnOwner = returnOwner;
+        draft.owners = owners;
       }),
   },
   initialState,

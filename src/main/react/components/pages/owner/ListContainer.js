@@ -118,9 +118,23 @@ const Content = styled.div`
       font-size: 25px;
     }
   }
+
+  .text {
+    padding-top: 50px;
+    text-align: center;
+    color: ${palette.textGray};
+  }
 `;
 
-const ListContainer = ({ resOpen, list, location: { pathname }, match }) => {
+const ListContainer = ({
+  resOpen,
+  list,
+  location: { pathname },
+  match,
+  seatModal,
+  seatModalOpen,
+  seatModalClose,
+}) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
   useEffect(() => {
@@ -150,8 +164,18 @@ const ListContainer = ({ resOpen, list, location: { pathname }, match }) => {
           <div className="closeMsg">
             <FiAlertCircle /> 영업 준비 중
           </div>
+        ) : list.length == 0 ? (
+          <div className="text">현재 대기팀이 없습니다</div>
         ) : (
-          list.map((l, index) => <WaitingItem waiting={l} key={index} />)
+          list.map((l, index) => (
+            <WaitingItem
+              waiting={l}
+              key={l.wtNo}
+              seatModal={seatModal}
+              seatModalOpen={seatModalOpen}
+              seatModalClose={seatModalClose}
+            />
+          ))
         )}
       </Content>
     </Container>

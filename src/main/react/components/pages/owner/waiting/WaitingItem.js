@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { MdNotifications, MdClose } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import { FaChair } from 'react-icons/fa';
 import { withRouter } from 'react-router-dom';
+import SeatModal from '../Modal/SeatModal';
 
 const Item = styled.div`
   height: 45px;
@@ -36,18 +37,22 @@ const InnerContent = styled.div`
   &.phone {
     width: 170px;
 
-    &.main {
+    @media (max-width: 1024px) {
       width: 150px;
+    }
+
+    @media (max-width: 768px) {
+      width: 130px;
     }
   }
 
   &.main {
     width: 80px;
     @media (max-width: 1024px) {
-      width: 77px;
+      width: 60px;
     }
     @media (max-width: 768px) {
-      width: 60px;
+      width: 50px;
     }
   }
 `;
@@ -57,28 +62,19 @@ const ButtonWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   position: relative;
   top: -45px;
-  left: 677px;
+  left: 730px;
   width: 140px;
   height: 100%;
 
   @media (max-width: 1024px) {
     top: -45px;
-    left: 530px;
+    left: 573px;
   }
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
     top: -45px;
-    left: 530px;
-  }
-  &.main {
-    left: 410px;
-    @media (max-width: 1024px) {
-      left: 205px;
-    }
-    @media (max-width: 768px) {
-      left: 133px;
-    }
+    left: 571px;
   }
 
   .noti,
@@ -108,35 +104,45 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const WaitingItem = ({ waiting, location: { pathname }, match }) => {
+const WaitingItem = ({
+  waiting,
+  location: { pathname },
+  match,
+  seatModal,
+  seatModalOpen,
+  seatModalClose,
+}) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
-  const { name, count, phone } = waiting;
+
+  const { wtName, wtPeople, wtPhone } = waiting;
 
   return (
-    <Item>
-      <div className="content">
-        <InnerContent
-          className={pathname == `${path}/owner/${resNo}` && 'main'}
-        >
-          {name}
-        </InnerContent>
-        <InnerContent
-          className={pathname == `${path}/owner/${resNo}` && 'main'}
-        >
-          {count}명
-        </InnerContent>
+    <>
+      <Item>
+        <div className="content">
+          <InnerContent
+            className={pathname == `${path}/owner/${resNo}` && 'main'}
+          >
+            {wtName}
+          </InnerContent>
+          <InnerContent
+            className={pathname == `${path}/owner/${resNo}` && 'main'}
+          >
+            {wtPeople}명
+          </InnerContent>
 
-        {pathname == `${path}/owner/waiting` && (
-          <InnerContent className="phone">{phone}</InnerContent>
+          <InnerContent className="phone">{wtPhone}</InnerContent>
+        </div>
+        {pathname == `${path}/owner/${resNo}/waiting` && (
+          <ButtonWrapper>
+            <FaChair className="seat" onClick={seatModalOpen} />
+            <MdClose className="cancel" />
+          </ButtonWrapper>
         )}
-      </div>
-      <ButtonWrapper className={pathname == `${path}/owner/${resNo}` && 'main'}>
-        <MdNotifications className="noti" /* onClick={notiModalOpen} */ />
-        <FaChair className="seat" />
-        <MdClose className="cancel" />
-      </ButtonWrapper>
-    </Item>
+      </Item>
+      {seatModal && <SeatModal seatModalClose={seatModalClose} />}
+    </>
   );
 };
 

@@ -11,6 +11,7 @@ import {
   register,
   getWaitings,
 } from '../../../../modules/waiting';
+import { IoIosAlert } from 'react-icons/io';
 
 const Container = styled.div`
   height: 100vmax;
@@ -90,15 +91,29 @@ const Logo = styled.div`
   }
 `;
 
+const ErrorMsg = styled.div`
+  color: #fa5252;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 15px;
+  svg {
+    font-size: 25px;
+    position: relative;
+    top: 7px;
+    margin-right: 12px;
+  }
+`;
+
 const WaitingPublicContainer = ({ match }) => {
   const resNo = match.params;
 
   const path = process.env.PATH;
 
   const dispatch = useDispatch();
-  const { wait, waitings } = useSelector(({ ownerWaiting }) => ({
+  const { wait, waitings, wtSuccess } = useSelector(({ ownerWaiting }) => ({
     wait: ownerWaiting.waiting,
     waitings: ownerWaiting.waitings,
+    wtSuccess: ownerWaiting.wtSuccess,
   }));
 
   const onChange = ({ target }) => {
@@ -112,6 +127,12 @@ const WaitingPublicContainer = ({ match }) => {
     dispatch(initializeForm('waiting'));
     dispatch(getWaitings(resNo.resNo));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (wtSuccess) {
+      dispatch(initializeForm('waiting'));
+    }
+  }, [dispatch, wtSuccess]);
 
   const onIncrease = () => {
     let value = wait.wtPeople + 1;
@@ -156,7 +177,7 @@ const WaitingPublicContainer = ({ match }) => {
             </Back>
           </Left>
           <Right>
-            <Link to={`${path}/owner/${resNo}`}>
+            <Link to={`${path}/owner/${resNo.resNo}`}>
               <Logo>
                 <div className="logoMain">FIGTABLE</div>
                 &nbsp;&nbsp;
@@ -172,6 +193,12 @@ const WaitingPublicContainer = ({ match }) => {
               onIncrease={onIncrease}
               onDecrease={onDecrease}
             />
+
+            {error && (
+              <ErrorMsg>
+                <IoIosAlert />빈 칸을 모두 입력하세요
+              </ErrorMsg>
+            )}
           </Right>
         </Container>
       )}

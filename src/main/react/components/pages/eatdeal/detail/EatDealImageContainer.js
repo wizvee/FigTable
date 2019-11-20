@@ -10,6 +10,9 @@ const ImageContainer = styled.div`
   position: relative;
   overflow: hidden;
   height:40rem;
+  @media (max-width: 426px) {
+    height:20rem;
+  }
 `;
 const Image = styled.div`
   background: url(${props => `${props.url}`});

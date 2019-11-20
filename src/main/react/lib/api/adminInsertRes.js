@@ -22,5 +22,6 @@ export const insertRes = ({
     resThumb,
   });
 
+//로그인
 export const login = ({ adminEmail, adminPassword }) =>
   client.post(`${path}/api/adminLogin`, { adminEmail, adminPassword });

@@ -46,14 +46,11 @@ const adminReviews = handleActions(
     }),
     [REMOVE_REVIEW_SUCCESS]: (state, { payload: rvNo }) =>
       produce(state, draft => {
-        draft.reviews = draft.adminReviews.filter(
-          review => review.rvNo != rvNo,
-        );
+        draft.reviews = draft.reviews.filter(review => review.rvNo != rvNo);
       }),
     [RETURN_REVIEW]: (state, { payload: rvNo }) =>
       produce(state, draft => {
-        const review = draft.adminReviews.find(review => review.rvNo == rvNo);
-        review.rvWarn = '';
+        draft.reviews = draft.reviews.filter(review => review.rvNo != rvNo);
       }),
   },
   initialState,
