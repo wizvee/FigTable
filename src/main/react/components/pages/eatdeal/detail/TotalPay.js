@@ -101,17 +101,10 @@ const TotalPay
     eat, 
     memPoint,
     onUsePoint, 
-    adPoint, 
-    finalCost, 
-    onAddCount, 
-    onRemoveCount, 
+    finalCost,  
     msg, 
-    count,
     usePoint, 
     onChange,
-    cont,
-    onControll,
-    cancel,
 })=>{
     const {
       eatNo,
@@ -133,35 +126,35 @@ const TotalPay
     return(
         <>
         <TotalPayWrap>
-            <Emph>총수량
-                
+            <Emph>총수량<span>1개</span>
+{/*                 
             {cont?(
                 <span>
                     <MdRemoveCircleOutline onClick={() => onRemoveCount(count)}/>
                     {count}
                     <MdAddCircleOutline onClick={() => onAddCount(count)} />
                 </span>
-            ):(<span onClick={onControll}>수량 보기</span>)}
+            ):(<span onClick={onControll}>수량 보기</span>)} */}
             </Emph>
 
         <PayContents>
-            내 😻
+            내 냥
             <Point>
                 {memPoint}
             </Point>
-            <Title>사용 😻</Title>
+            <Title>사용 냥</Title>
                 <Point>
                     <input type="text" name="partPoint" value={usePoint} onChange={onChange}/>
                 </Point>
-                <PointButton htmlType="button" onClick={() => onUsePoint(usePoint)} >적용</PointButton>
-                <CancelButton htmlType="button" onClick={() => cancel} >취소</CancelButton>
+                <PointButton htmlType="button" onClick={() => onUsePoint()} >전액 적용</PointButton>
+               
                 
                  {msg && <Msg>{msg}</Msg>} 
                
             
         </PayContents>
         <PayContents>
-              적용 😻<span>{adPoint} p</span>
+              적용 냥<span>{usePoint} p</span>
         </PayContents>
 
               <Emph>총 결제금액<span className="cost">\ {finalCost}</span></Emph>

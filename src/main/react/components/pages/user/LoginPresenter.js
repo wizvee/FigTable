@@ -86,7 +86,14 @@ const ErrorMsg = styled.div`
   font-size: 0.875rem;
 `;
 
-const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
+const LoginPresenter = ({
+  form,
+  onChange,
+  onToggle,
+  onSubmit,
+  onKakao,
+  error,
+}) => {
   return (
     <Container>
       <h3>로그인</h3>
@@ -111,7 +118,12 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
       </form>
       <div className="option">
         <label>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="isKeep"
+            checked={form.isKeep}
+            onChange={onToggle}
+          />
           로그인 유지
         </label>
         <span>비밀번호 찾기</span>
@@ -120,7 +132,7 @@ const LoginPresenter = ({ form, onChange, onSubmit, error }) => {
         <span>또는</span>
       </div>
       <div className="other">
-        <ButtonWithMarginTop fullwidth bgColor="#fed330">
+        <ButtonWithMarginTop fullwidth bgColor="#fed330" onClick={onKakao}>
           카카오톡으로 로그인
         </ButtonWithMarginTop>
       </div>

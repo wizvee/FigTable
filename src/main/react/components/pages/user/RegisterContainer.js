@@ -32,7 +32,7 @@ const RegisterContainer = ({ history }) => {
 
   const onToggle = ({ target }) => {
     const { name } = target;
-    dispatch(toggleField(name));
+    dispatch(toggleField({ form: 'register', key: name }));
   };
 
   // 폼 등록 이벤트 핸들러

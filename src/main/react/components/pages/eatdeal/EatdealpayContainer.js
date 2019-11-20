@@ -138,7 +138,7 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
           return;
         }
         
-        //afterPay(eatNo, member.memNo, adPoint);
+        //afterPay(eatNo, member.memNo, usePoint);
           /* 웹 환경일때 */
           const { IMP } = window;
           IMP.init(userCode);
@@ -152,7 +152,7 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
       error_msg,
     }=response;
       if (success) {
-        afterPay(eatNo, member.memNo, adPoint);
+        afterPay(eatNo, member.memNo, Number(-usePoint));
         //개수 -1 처리
         //포인트차감
         //구매테이블 생성
@@ -191,97 +191,36 @@ useEffect(() => {
     const [error, setError] = useState(null);
     const [msg, setMsg] = useState(null);
     //모달제어
-    const [count, setCount] = useState(1);
     const [isModal, setModal] = useState(false);
-    //수량 보이기 제어
-    const [cont, setCont] = useState(true);
-    //수량보이기 함수
-    const onControll = () =>{
-      console.log('여기들어옴');
-      setAdPoint(0);
-      setUsePoint(0);
-      setFinalCost(final);
-      setCont(true);
-    }
-
     //최종가격
     const final=Number(eatdeal.eatOriginPrice)*(1-Number(eatdeal.eatDiscount));
     const [finalCost, setFinalCost]=useState(final);
     
     
-    //수량*가격
-    const setFinalCostCount=(p)=>{
-      setFinalCost(Number(final)*Number(p))
-    }
-    
-    //수량-냥
-    const setFinalCostPoint=(p)=>{
-      setFinalCost(Number(finalCost)-Number(p))
-    }
-
-
-    //사용한 포인트
-    const [adPoint, setAdPoint]=useState(0);
-    //총 수량 더하기
-    const onAddCount=count=>{
-      //수량설정
-      setCount(count+1);
-      setFinalCostCount(count+1);
-  }
-  //총 수량 빼기
-  const onRemoveCount=count=>{
-      if(count===1){
-          //수량 누르면 포인트 적용 초기화
-          setCount(1);
-      }else {
-          setCount(count-1);
-          setFinalCostCount(count-1);
-      }
-  }
   //사용할 포인트
   const [usePoint, setUsePoint]= useState(0);
   //입력한 포인트 숫자로 넣어주기
   const onChange=e=>{
       setUsePoint(Number(e.target.value));
-  }
-
-    //냥 추ㅣ소하기 버튼 
-  const cancel=()=>{
-    setAdPoint(0);
-    setUsePoint(0);
-    setFinalCost(final);
-  }
-    //냥 적용하기 버튼 
-    const onUsePoint=(p)=>{
-      
-      if(p<1000){
-        setMsg('1000😻 이하는 사용할 수 없어요');
-        setAdPoint(0);
-        setUsePoint(0);
+      setFinalCost(Number(final)-Number(e.target.value));
+      if(Number(e.target.value)>point){
+        setMsg('가진 냥보다 클 수 없어요');
+        setUsePoint('');
+        setFinalCost(final);
         return;
       }
-      if(point<p){
-        setMsg('가지고있는 😻보다 큽니다 ');
-        setAdPoint(0);
-        setUsePoint(0);
-        return;
-      }
-      if(finalCost<p){
-        setAdPoint(finalCost);
-        setFinalCostPoint(finalCost);
-        setUsePoint(finalCost);
-        setMsg('');
-        setUsePoint(0);
-        setCont(false);
-      }
-      if(finalCost>=p){
-        setAdPoint(p);
-        setFinalCostPoint(p);
-        setMsg('');
-        setUsePoint(0);
-        setCont(false);
-      } 
 
+  }
+
+    //냥 전체적용하기 버튼 
+    const onUsePoint=()=>{
+      if(final<point){
+      setUsePoint(final);
+      setFinalCost(0);
+      }else{
+        setUsePoint(point);
+        setFinalCost(Number(final)-Number(point));
+      }
   }
 
    
@@ -297,17 +236,10 @@ useEffect(() => {
                 eat={eatdeal} 
                 memPoint={point} 
                 onUsePoint={onUsePoint}
-                adPoint={adPoint}
                 finalCost={finalCost}
-                onAddCount={onAddCount}
-                onRemoveCount={onRemoveCount}
                 msg={msg}
-                count={count}
                 usePoint={usePoint}
                 onChange={onChange}
-                cont={cont}
-                onControll={onControll}
-                cancel={cancel}
               />
             <Separator/>
              <EatPayWay onPayway={onPayway}/>

@@ -2,6 +2,9 @@ package com.kh.figtable.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -75,13 +78,16 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/api/member/{memNo}", method = RequestMethod.POST)
-	public ResponseEntity<Member> checkMember(@PathVariable("memNo") String memNo) {
+	public ResponseEntity<Member> checkMember(@PathVariable("memNo") String memNo, HttpSession session) {
 		Member m = service.check(memNo);
 		m.setMemPassword(null);
 		if (service.getWaiting(m.getMemNo()) != null)
 			m.setWaiting(true);
 		else
 			m.setWaiting(false);
+
+		if ((Member) session.getAttribute("login") == null)
+			session.setAttribute("login", m);
 		return new ResponseEntity<Member>(m, HttpStatus.OK);
 	}
 
@@ -347,7 +353,7 @@ public class MemberController {
 
 		return new ResponseEntity<Map>(result, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/member/waiting", method = RequestMethod.DELETE)
 	private ResponseEntity unWaiting(HttpSession session) {
 		Member m = (Member) session.getAttribute("login");
