@@ -37,7 +37,7 @@ const Button= styled.div`
     color: white;
     border:none;
     cursor: pointer;
-    position:sticky !important;
+    position:sticky;
     bottom:0;
     z-index:3;
 `;
@@ -104,9 +104,9 @@ const EatdealDetailContainer=({match})=>{
              !member?(
              <Button onClick={() => openLoginModal('payment')}>구매하기</Button> 
             ):(
-              <Link to={`${path}/payment/${eatNo}`}>
-              <Button>구매하기</Button> 
-            </Link>
+              
+              <Button><Link to={`${path}/payment/${eatNo}`}>구매하기</Link></Button> 
+            
             ))
             }
         </EatdealCard>

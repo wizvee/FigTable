@@ -138,7 +138,7 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
           return;
         }
         
-        //afterPay(eatNo, member.memNo, adPoint);
+        //afterPay(eatNo, member.memNo, usePoint);
           /* 웹 환경일때 */
           const { IMP } = window;
           IMP.init(userCode);
@@ -152,7 +152,7 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
       error_msg,
     }=response;
       if (success) {
-        afterPay(eatNo, member.memNo, adPoint);
+        afterPay(eatNo, member.memNo, Number(-usePoint));
         //개수 -1 처리
         //포인트차감
         //구매테이블 생성
@@ -212,13 +212,6 @@ useEffect(() => {
 
   }
 
-    //냥 추ㅣ소하기 버튼 
-  const onCancel = () => {
-    console.log('취소하기 들어옴');
-    setAdPoint(0);
-    setUsePoint(0);
-    setFinalCost(final);
-  }
     //냥 전체적용하기 버튼 
     const onUsePoint=()=>{
       if(final<point){
