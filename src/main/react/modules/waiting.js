@@ -74,6 +74,7 @@ const waiting = handleActions(
     [INITIALIZE_FORM]: (state, { payload: type }) => ({
       ...state,
       [type]: initialState[type],
+      wtSuccess: false,
     }),
     [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
       produce(state, draft => {
