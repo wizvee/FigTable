@@ -58,9 +58,11 @@ const ReviewActionButtonLoves = ({ review }) => {
   // 좋아요 제어 이벤트 핸들러
   const onLove = useCallback(() => dispatch(lovesRv({ member, review })), [
     dispatch,
+    review,
   ]);
   const onUnlove = useCallback(() => dispatch(unlovesRv({ member, review })), [
     dispatch,
+    review,
   ]);
 
   // 좋아요 목록 보기 이벤트 핸들러
@@ -103,4 +105,4 @@ const ReviewActionButtonLoves = ({ review }) => {
   );
 };
 
-export default ReviewActionButtonLoves;
+export default React.memo(ReviewActionButtonLoves);
