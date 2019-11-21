@@ -85,8 +85,10 @@ const ShopItem = styled.div`
 const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
+
   const [numbers, setNumbers] = useState(no.split(','));
   const [names, setNames] = useState(name.split(','));
+
   useEffect(() => {
     numbers.map((no, index) => {
       no == resNo &&
@@ -106,7 +108,9 @@ const SelectShopModal = ({ resCount, no, name, shopModalClose, match }) => {
                 </Link>
               ))
             : ''}
-          <Button>매장 추가</Button>
+          <Link to={`${path}/ownerShop`}>
+            <Button>매장 추가</Button>
+          </Link>
         </Modal>
         <Background onClick={shopModalClose} />
       </ModalWrapper>

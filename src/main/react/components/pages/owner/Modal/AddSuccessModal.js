@@ -9,7 +9,7 @@ const ModalWrapper = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: white;
   z-index: 50;
 `;
 
@@ -21,22 +21,24 @@ const Modal = styled.div`
   flex-direction: column;
   background-color: white;
   top: 14rem;
-  width: 20rem;
-  height: 10.7rem;
+  width: 24rem;
+  height: 10rem;
   border-radius: 5px;
+  box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 `;
 
 const ModalContent = styled.div`
   width: 100%;
   height: auto;
-  padding-top: 50px;
-  padding-bottom: 42px;
-  font-size: 17px;
+  padding-top: 24px;
+  padding-bottom: 17px;
+  line-height: 30px;
 `;
 
 const ButtonWrapper = styled.div`
-  width: 100%;
+  width: 74%;
   height: auto;
+  margin: 0 auto;
   text-align: center;
 `;
 
@@ -58,19 +60,22 @@ const Button = styled.div`
   }
 `;
 
-const SeatModal = ({ wtNo, seatModalClose }) => {
+const ApplyReadyModal = ({ resList, addSuccessMClose }) => {
   return (
-    <>
-      <ModalWrapper>
-        <Modal>
-          <ModalContent>착석 완료</ModalContent>
-          <ButtonWrapper>
-            <Button onClick={seatModalClose}>확인</Button>
-          </ButtonWrapper>
-        </Modal>
-      </ModalWrapper>
-    </>
+    <ModalWrapper>
+      <Modal>
+        <ModalContent>
+          관리자의 승인 이후 <br />
+          관리하실 수 있습니다.
+        </ModalContent>
+        <ButtonWrapper>
+          <Link to={`${process.env.PATH}/owner/${resList}`}>
+            <Button onClick={addSuccessMClose}>확인</Button>
+          </Link>
+        </ButtonWrapper>
+      </Modal>
+    </ModalWrapper>
   );
 };
 
-export default SeatModal;
+export default ApplyReadyModal;

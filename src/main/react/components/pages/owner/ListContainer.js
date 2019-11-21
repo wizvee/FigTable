@@ -134,6 +134,9 @@ const ListContainer = ({
   seatModal,
   seatModalOpen,
   seatModalClose,
+  deleteModal,
+  deleteModalOpen,
+  deleteModalClose,
 }) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
@@ -174,6 +177,9 @@ const ListContainer = ({
               seatModal={seatModal}
               seatModalOpen={seatModalOpen}
               seatModalClose={seatModalClose}
+              deleteModal={deleteModal}
+              deleteModalOpen={deleteModalOpen}
+              deleteModalClose={deleteModalClose}
             />
           ))
         )}

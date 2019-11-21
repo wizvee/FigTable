@@ -24,9 +24,15 @@ const [SELECT_RES, SELECT_RES_SUCCESS] = createRequestActionTypes(
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
   'ownerEnroll/REGISTER',
 );
+const [ADD_SHOP, ADD_SHOP_SUCCESS] = createRequestActionTypes(
+  'ownerEnroll/ADD_SHOP',
+);
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
   'ownerEnroll/LOGIN',
 );
+
+const LOGOUT = 'ownerEnroll/LOGOUT';
+export const logout = createAction(LOGOUT);
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
@@ -91,18 +97,60 @@ export const register = createAction(
     authFile,
   }),
 );
+
+export const addShop = createAction(
+  ADD_SHOP,
+  ({
+    ownNo,
+    resNo,
+    resName,
+    resAddress,
+    resTel,
+    resLat,
+    resLong,
+    resLocationKeyword,
+    resFoodKeyword,
+    resThumb,
+    authFile,
+  }) => ({
+    ownNo,
+    resNo,
+    resName,
+    resAddress,
+    resTel,
+    resLat,
+    resLong,
+    resLocationKeyword,
+    resFoodKeyword,
+    resThumb,
+    authFile,
+  }),
+);
 export const setOwner = createAction(SET_OWNER, owner => owner);
 
 const searchSaga = createRequestSaga(SEARCH_RES, restAPI.searchRes);
 const selectSaga = createRequestSaga(SELECT_RES, restAPI.selectRes);
 const registerSaga = createRequestSaga(REGISTER, restAPI.enrollOwn);
 const loginSaga = createRequestSaga(LOGIN, restAPI.login);
+const addSaga = createRequestSaga(ADD_SHOP, restAPI.addShop);
+
+function* logoutSaga() {
+  try {
+    yield put(initializeForm());
+    yield sessionStorage.removeItem('member');
+    yield localStorage.removeItem('member');
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function* ownerEnrollSaga() {
   yield takeLatest(SEARCH_RES, searchSaga);
   yield takeLatest(SELECT_RES, selectSaga);
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(ADD_SHOP, addSaga);
+  yield takeLatest(LOGOUT, logoutSaga);
 }
 
 const initialState = {
@@ -129,6 +177,7 @@ const initialState = {
   restaurants: [],
   authFile: '',
   enrollSuccess: false,
+  addSuccess: false,
   loginE: null,
   loginS: null,
 };
@@ -190,6 +239,12 @@ const enrollOwner = handleActions(
       ...state,
       owner,
     }),
+    [ADD_SHOP_SUCCESS]: (state, { payload: data }) =>
+      produce(state, draft => {
+        draft.resList = data;
+        draft.addSuccess = true;
+      }),
+    [LOGOUT]: () => initialState,
   },
   initialState,
 );

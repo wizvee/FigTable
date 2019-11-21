@@ -46,7 +46,7 @@ const PayInfo =({eat})=>{
             <PayContent>
             <p>{resName}</p>
             <h3>{eatFoodName}</h3>
-            <p> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </p>
+            <p> \{Math.floor(Number(eatOriginPrice)*(1-Number(eatDiscount)))} </p>
             </PayContent>
             
         </PayInfoContainer>

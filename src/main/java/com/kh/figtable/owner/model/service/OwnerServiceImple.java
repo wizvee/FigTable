@@ -102,6 +102,34 @@ public class OwnerServiceImple implements OwnerService {
 	public List<Waiting> getWaitings(String resNo) {
 		return dao.getWaitings(session, resNo);
 	}
+	@Override
+	public int completeWt(String wtNo) {
+		return dao.completeWt(session, wtNo);
+	}
+	@Override
+	public int deleteWt(String wtNo) {
+		return dao.deleteWt(session, wtNo);
+	}
+	@Override
+	public int addShop(Restaurant r, String ownNo, String authFile) {
+		int result = 0;
+		
+		if(r.getResNo().length()==0) {
+			result = dao.insertNewRes(session,r);	
+		}else {
+			result = dao.insertOldRes(session,r);	
+		}
+		
+		Map<String, String> ownerAuth = new HashMap();
+		ownerAuth.put("ownNo", ownNo);
+		ownerAuth.put("resNo", r.getResNo());
+		ownerAuth.put("authFile", authFile);
+		
+		result=0;
+		result = dao.insertOwnerAuth(session, ownerAuth);
+		
+		return result;
+	}
 	
 	
 }

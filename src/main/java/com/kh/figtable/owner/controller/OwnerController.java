@@ -215,7 +215,6 @@ public class OwnerController {
 		r.setResLocationKeyword(data.get("resLocationKeyword"));
 		r.setResFoodKeyword(data.get("resFoodKeyword"));
 		r.setResThumb(data.get("resThumb"));
-		System.out.println(data);
 		
 		int result = service.enrollOwn(o,r,data.get("authFile"));
 		
@@ -262,6 +261,54 @@ public class OwnerController {
 		List<Waiting> list = service.getWaitings(resNo);
 		
 		return new ResponseEntity<List<Waiting>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/owner/completeWt", method=RequestMethod.PATCH)
+	private ResponseEntity<String> completeWt (@RequestBody String wtNo){
+		int result = service.completeWt(wtNo);
+		if(result>0) {
+			return new ResponseEntity<String>(wtNo, HttpStatus.OK);		
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/owner/deleteWt", method=RequestMethod.PATCH)
+	private ResponseEntity<String> deleteWt (@RequestBody String wtNo){
+		int result = service.deleteWt(wtNo);
+		if(result>0) {
+			return new ResponseEntity<String>(wtNo, HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/owner/addShop", method=RequestMethod.POST)
+	private ResponseEntity<String> addShop (@RequestBody Map<String, String> data) {
+		System.out.println(data);
+		
+		Restaurant r = new Restaurant();
+		r.setResNo(data.get("resNo"));
+		r.setResName(data.get("resName"));
+		r.setResAddress(data.get("resAddress"));
+		r.setResTel(data.get("resTel"));
+		r.setResLat(Double.parseDouble(data.get("resLat")));
+		r.setResLong(Double.parseDouble(data.get("resLong")));
+		r.setResLocationKeyword(data.get("resLocationKeyword"));
+		r.setResFoodKeyword(data.get("resFoodKeyword"));
+		r.setResThumb(data.get("resThumb"));
+		
+		String ownNo = data.get("ownNo");
+		String authFile = data.get("authFile");
+		
+		int result = service.addShop(r,ownNo, authFile);
+		if(result>0) {
+			String list = service.getResList(ownNo);
+			if(list != null) {
+				String[] resList = list.split(",");	
+			
+				return new ResponseEntity<String>(resList[0], HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 }

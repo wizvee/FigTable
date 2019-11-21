@@ -4,6 +4,7 @@ import { MdClose } from 'react-icons/md';
 import { FaChair } from 'react-icons/fa';
 import { withRouter } from 'react-router-dom';
 import SeatModal from '../Modal/SeatModal';
+import DeleteModal from '../Modal/DeleteModal';
 
 const Item = styled.div`
   height: 45px;
@@ -111,11 +112,14 @@ const WaitingItem = ({
   seatModal,
   seatModalOpen,
   seatModalClose,
+  deleteModal,
+  deleteModalOpen,
+  deleteModalClose,
 }) => {
   const { resNo } = match.params;
   const path = process.env.PATH;
 
-  const { wtName, wtPeople, wtPhone } = waiting;
+  const { wtName, wtPeople, wtPhone, wtNo } = waiting;
 
   return (
     <>
@@ -136,12 +140,13 @@ const WaitingItem = ({
         </div>
         {pathname == `${path}/owner/${resNo}/waiting` && (
           <ButtonWrapper>
-            <FaChair className="seat" onClick={seatModalOpen} />
-            <MdClose className="cancel" />
+            <FaChair className="seat" onClick={() => seatModalOpen(wtNo)} />
+            <MdClose className="cancel" onClick={() => deleteModalOpen(wtNo)} />
           </ButtonWrapper>
         )}
       </Item>
       {seatModal && <SeatModal seatModalClose={seatModalClose} />}
+      {deleteModal && <DeleteModal deleteModalClose={deleteModalClose} />}
     </>
   );
 };

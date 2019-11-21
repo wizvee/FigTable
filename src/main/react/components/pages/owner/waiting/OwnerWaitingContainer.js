@@ -8,7 +8,7 @@ import ListContainer from '../ListContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownHeader } from '../../../../modules/ownerHeader';
 import { setOwner } from '../../../../modules/enrollOwner';
-import { getWaitings } from '../../../../modules/waiting';
+import { getWaitings, complete, deleteWt } from '../../../../modules/waiting';
 import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
@@ -70,15 +70,6 @@ const CountContainer = styled.div`
   }
 `;
 
-////////////임시데이터////////////////
-
-const waiting = [
-  { name: '김손님', count: '2', phone: '010-1111-1111' },
-  { name: '이손님', count: '1', phone: '010-2222-2222' },
-  { name: '박손님', count: '5', phone: '010-3333-3333' },
-];
-////////////////////////////////////
-
 const OwnerWaitingContainer = ({ match }) => {
   const { resNo } = match.params;
   const dispatch = useDispatch();
@@ -102,11 +93,23 @@ const OwnerWaitingContainer = ({ match }) => {
   }, [owner]);
 
   const [seatModal, setSeatModal] = useState(false);
-  const seatModalOpen = () => {
+
+  const seatModalOpen = wtNo => {
     setSeatModal(true);
+    dispatch(complete(wtNo));
   };
   const seatModalClose = () => {
     setSeatModal(false);
+  };
+
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const deleteModalOpen = wtNo => {
+    setDeleteModal(true);
+    dispatch(deleteWt(wtNo));
+  };
+  const deleteModalClose = () => {
+    setDeleteModal(false);
   };
 
   return (
@@ -125,6 +128,9 @@ const OwnerWaitingContainer = ({ match }) => {
                   seatModal={seatModal}
                   seatModalOpen={seatModalOpen}
                   seatModalClose={seatModalClose}
+                  deleteModal={deleteModal}
+                  deleteModalOpen={deleteModalOpen}
+                  deleteModalClose={deleteModalClose}
                   list={waitings}
                 />
               </Right>
