@@ -258,4 +258,4 @@ const ReviewActionButtonCmts = ({ review }) => {
   );
 };
 
-export default ReviewActionButtonCmts;
+export default React.memo(ReviewActionButtonCmts);

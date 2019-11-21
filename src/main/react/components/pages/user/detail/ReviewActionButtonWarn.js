@@ -145,4 +145,4 @@ const ReviewActionButtonWarn = ({ review }) => {
   );
 };
 
-export default ReviewActionButtonWarn;
+export default React.memo(ReviewActionButtonWarn);
