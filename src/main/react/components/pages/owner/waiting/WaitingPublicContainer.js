@@ -56,7 +56,7 @@ const Count = styled.div`
   width: 60%;
   height: 250px;
   position: relative;
-  top: 28rem;
+  top: 22rem;
   left: 4rem;
   border-radius: 5px;
   font-size: 57px;
