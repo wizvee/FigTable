@@ -91,6 +91,7 @@ const InsertRestaurant = ({ history }) => {
   //등록 버튼
   const onSubmit = e => {
     e.preventDefault();
+    setModal(true);
     const {
       resName,
       resAddress,
