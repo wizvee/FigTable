@@ -42,8 +42,8 @@ public class restaurantServiceImpl implements RestaurantService {
 	@Override
 	public List<Restaurant> getRestaurantsByKeyword(Map<String, Object> data) {
 		List<Restaurant> result = dao.getRestaurantsByKeyword(session, (String) data.get("keyword"));
-		Double lat = (Double) data.get("lat");
-		Double lon = (Double) data.get("lon");
+		Double lat = Double.valueOf(String.valueOf(data.get("lat")));
+		Double lon = Double.valueOf(String.valueOf(data.get("lon")));
 
 		for (Restaurant res : result) {
 			List<Map<String, Object>> eatdealArr = dao.getEatdealArr(session, res.getResNo());
