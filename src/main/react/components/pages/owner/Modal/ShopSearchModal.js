@@ -184,7 +184,6 @@ const ShopSearchModal = ({
           </>
         )}
       </Modal>
-      /
     </ModalWrapper>
   );
 };

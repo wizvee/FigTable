@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../../../common/Responsive';
 import palette from '../../../../lib/styles/Palette';
+import { Link } from 'react-router-dom';
 
 const Header = styled.div`
   width: 100%;
@@ -49,13 +50,15 @@ const HeaderOwnerSimple = () => {
   return (
     <Header>
       <Wrapper>
-        <div className="logo">
-          <div className="logoMain">FIGTABLE</div>
-          &nbsp;&nbsp;
-          <div className="logoSide">
-            <b>파트너</b>
+        <Link to={`${path}/ownerMain`}>
+          <div className="logo">
+            <div className="logoMain">FIGTABLE</div>
+            &nbsp;&nbsp;
+            <div className="logoSide">
+              <b>파트너</b>
+            </div>
           </div>
-        </div>
+        </Link>
       </Wrapper>
     </Header>
   );

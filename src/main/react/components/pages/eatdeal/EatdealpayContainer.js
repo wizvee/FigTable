@@ -166,8 +166,6 @@ const onPayway=useCallback(payway=>setPayway(payway),[]);
   
   const afterPay = useCallback(
     (eatNo, memNo, poHistory ) => {
-      console.log('afterpay함수')
-      console.log({ eatNo, memNo, poHistory });
       dispatch(payEat({ eatNo, memNo, poHistory }));
       //잇딜개수수정
       //구매테이블생성
