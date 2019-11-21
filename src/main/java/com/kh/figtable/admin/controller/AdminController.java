@@ -125,8 +125,6 @@ public class AdminController {
 	public ResponseEntity<String> CloseRes(@RequestBody Map<String, String> data) {
 		int result = service.closeRes(data.get("resNo"));
 		
-		System.out.println(result);
-		
 		if(result > 0) {
 			return new ResponseEntity<String>(data.get("resNo"), HttpStatus.OK);
 		}
@@ -240,8 +238,6 @@ public class AdminController {
 	
 	
 	//Qna
-
-	
 	//카테고리별로 가져오기
 	@RequestMapping(value="/api/adminQuestion", method = RequestMethod.GET)
 	private ResponseEntity<List<Map>> getQnas(@RequestParam("category") String category){

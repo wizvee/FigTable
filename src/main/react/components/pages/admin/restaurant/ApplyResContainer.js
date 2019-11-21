@@ -7,7 +7,7 @@ import '../TableStyle.css';
 
 const BodyHeight = styled.div`
   height: 'auto';
-  min-height: 260px;
+  min-height: 400px;
 `;
 
 const ApplyResContainer = () => {
