@@ -177,7 +177,7 @@ const ReviewActionButtonCmts = ({ review }) => {
     rvcNo => {
       dispatch(deleteComment({ rvNo: review.rvNo, rvcNo }));
     },
-    [dispatch],
+    [dispatch, review],
   );
 
   // 코멘트 모두 보기
