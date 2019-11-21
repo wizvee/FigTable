@@ -19,8 +19,12 @@ const Container = styled(Responsive)`
 `;
 
 const Profile = styled.div`
+  position: relative;
   display: flex;
   margin-bottom: 1.5rem;
+  @media (max-width: 426px) {
+    margin-bottom: 1rem;
+  }
   label {
     display: inline-flex;
     justify-content: center;
@@ -59,6 +63,11 @@ const Info = styled.div`
   div {
     padding: 0.5rem;
   }
+  @media (max-width: 426px) {
+    div {
+      padding: 0.1rem;
+    }
+  }
 `;
 
 const Name = styled.div`
@@ -66,6 +75,9 @@ const Name = styled.div`
   align-items: center;
   height: 100%;
   font-size: 1.5rem;
+  @media (max-width: 426px) {
+    padding-left: 0.4rem !important;
+  }
   &.stop {
     color: #fa5252;
   }
@@ -91,17 +103,29 @@ const Social = styled.div`
   margin-right: 0.2rem;
   height: 100%;
   color: ${palette.textGray};
+  @media (max-width: 426px) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    justify-content: space-around;
+  }
   span {
     display: inline-flex;
     align-items: center;
     height: 100%;
     transition: color 0.2s linear;
     cursor: pointer;
+    @media (max-width: 426px) {
+      align-items: flex-end;
+    }
     &:hover {
       color: ${palette.text};
     }
     &.right {
       margin-left: auto;
+      @media (max-width: 426px) {
+        margin-left: 0.7rem;
+      }
     }
     &.selected {
       color: ${palette.primary};
@@ -110,6 +134,9 @@ const Social = styled.div`
   }
   span + span {
     margin-left: 1.3rem;
+    @media (max-width: 426px) {
+      margin-left: 0.7rem;
+    }
   }
 `;
 

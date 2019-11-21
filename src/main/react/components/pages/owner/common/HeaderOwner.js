@@ -6,6 +6,10 @@ import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import SelectShopModal from '../Modal/SelectShopModal';
+import LogoutModal from '../Modal/LogoutModal';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logout } from '../../../../modules/enrollOwner';
 
 const Header = styled.div`
   width: 100%;
@@ -87,6 +91,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
   const path = process.env.PATH;
   const { ownName, resCount, no, name } = ownerInfo;
   const { resNo } = match.params;
+  const dispatch = useDispatch();
   const [selectShopModal, setSelectShopModal] = useState(false);
   const shopModalOpen = () => {
     setSelectShopModal(true);
@@ -95,6 +100,20 @@ const HeaderOwner = ({ ownerInfo, match }) => {
   const shopModalClose = () => {
     setSelectShopModal(false);
     document.body.style.overflow = 'scroll';
+  };
+
+  const [out, setOut] = useState(false);
+  const LogoutModalOpen = () => {
+    setOut(true);
+  };
+  const LogoutModalClose = () => {
+    setOut(false);
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    LogoutModalClose();
+    location.href = `${path}`;
   };
   return (
     <>
@@ -110,7 +129,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
             </Link>
           </div>
           <Button onClick={shopModalOpen}>다른 매장 관리</Button>
-          <div className="info">
+          <div className="info" onClick={LogoutModalOpen}>
             <b>{ownName}</b> 파트너님
             <div className="icon">
               &nbsp;
@@ -126,6 +145,9 @@ const HeaderOwner = ({ ownerInfo, match }) => {
           name={name}
           shopModalClose={shopModalClose}
         />
+      )}
+      {!out ? null : (
+        <LogoutModal onLogout={onLogout} LogoutModalClose={LogoutModalClose} />
       )}
     </>
   );

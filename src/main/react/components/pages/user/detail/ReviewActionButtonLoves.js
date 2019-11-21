@@ -103,4 +103,4 @@ const ReviewActionButtonLoves = ({ review }) => {
   );
 };
 
-export default React.memo(ReviewActionButtonLoves);
+export default ReviewActionButtonLoves;

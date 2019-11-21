@@ -31,6 +31,9 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
   'ownerEnroll/LOGIN',
 );
 
+const LOGOUT = 'ownerEnroll/LOGOUT';
+export const logout = createAction(LOGOUT);
+
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
@@ -131,12 +134,23 @@ const registerSaga = createRequestSaga(REGISTER, restAPI.enrollOwn);
 const loginSaga = createRequestSaga(LOGIN, restAPI.login);
 const addSaga = createRequestSaga(ADD_SHOP, restAPI.addShop);
 
+function* logoutSaga() {
+  try {
+    yield put(initializeForm());
+    yield sessionStorage.removeItem('member');
+    yield localStorage.removeItem('member');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* ownerEnrollSaga() {
   yield takeLatest(SEARCH_RES, searchSaga);
   yield takeLatest(SELECT_RES, selectSaga);
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(ADD_SHOP, addSaga);
+  yield takeLatest(LOGOUT, logoutSaga);
 }
 
 const initialState = {
@@ -230,6 +244,7 @@ const enrollOwner = handleActions(
         draft.resList = data;
         draft.addSuccess = true;
       }),
+    [LOGOUT]: () => initialState,
   },
   initialState,
 );
