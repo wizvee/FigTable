@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../lib/styles/Button';
 import client, { path } from '../../../lib/api/client';
@@ -50,6 +50,7 @@ const ButtonWithMarginTop = styled(Button)`
 
 const ModalLogin = ({ msg, closeModal }) => {
   const dispatch = useDispatch();
+  const { member } = useSelector(({ member }) => ({ member: member.member }));
 
   const onKakao = useCallback(() => {
     const kakaoScript = document.createElement('script');
@@ -63,7 +64,10 @@ const ModalLogin = ({ msg, closeModal }) => {
         success: function({ access_token }) {
           client
             .post(`${path}/api/auth/kakao`, access_token)
-            .then(({ data }) => dispatch(setMember(data)));
+            .then(({ data }) => dispatch(setMember(data)))
+            .then(() => {
+              sessionStorage.setItem('member', JSON.stringify(member));
+            });
         },
         fail: function(err) {
           console.log(err);
