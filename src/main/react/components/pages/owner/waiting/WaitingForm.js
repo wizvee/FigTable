@@ -10,7 +10,7 @@ const FormContainer = styled.div`
   height: auto;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
   margin-left: 10%;
-  margin-top: 23%;
+  margin-top: 22%;
   text-align: center;
   padding-bottom: 37px;
   padding-top: 45px;
