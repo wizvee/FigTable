@@ -66,7 +66,6 @@ const OwnersList = ({ owners, keyword, error, loading }) => {
   //컨펌 모달 닫기
   const onCloseModal = () => {
     setConfirm(false);
-    location.reload();
   };
 
   //반려 버튼 기능

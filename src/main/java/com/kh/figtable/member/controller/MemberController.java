@@ -49,7 +49,7 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
 
-	public static final String URL = "http://localhost:9090/figtable";
+	public static final String URL = "https://rclass.iptime.org/19PM_figtable_final";
 
 	@RequestMapping(value = "/api/auth/register", method = RequestMethod.POST)
 	public ResponseEntity<Member> register(@RequestBody Member mem, HttpSession session) {
@@ -112,27 +112,35 @@ public class MemberController {
 
 			String id = element.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String profile = properties.getAsJsonObject().get("profile_image").getAsString();
+			String profile = null;
+			try {
+				profile = properties.getAsJsonObject().get("profile_image").getAsString();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 
 			br.close();
 
 			Member m = service.check(id);
 			if (m == null) {
-				// 프로필 다운로드
-				// 파일저장경로
-				String saveDir = session.getServletContext().getRealPath("/resources/upload/profiles");
-				// 저장경로가 없으면 생성
-				File dir = new File(saveDir);
-				if (!dir.exists())
-					dir.mkdirs();
-				// rename 규칙 설정
-				String ext = profile.substring(profile.lastIndexOf(".") + 1);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
-				String rename = "profile_" + sdf.format(System.currentTimeMillis()) + "_" + id + "." + ext;
-				// rename으로 파일 저장
-				URL imgURL = new URL(profile);
-				BufferedImage bi = ImageIO.read(imgURL);
-				ImageIO.write(bi, ext, new File(saveDir + "/" + rename));
+				String rename = "default.png";
+				if (profile != null) {
+					// 프로필 다운로드
+					// 파일저장경로
+					String saveDir = session.getServletContext().getRealPath("/resources/upload/profiles");
+					// 저장경로가 없으면 생성
+					File dir = new File(saveDir);
+					if (!dir.exists())
+						dir.mkdirs();
+					// rename 규칙 설정
+					String ext = profile.substring(profile.lastIndexOf(".") + 1);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd_HHmmssSSS");
+					rename = "profile_" + sdf.format(System.currentTimeMillis()) + "_" + id + "." + ext;
+					// rename으로 파일 저장
+					URL imgURL = new URL(profile);
+					BufferedImage bi = ImageIO.read(imgURL);
+					ImageIO.write(bi, ext, new File(saveDir + "/" + rename));
+				}
 
 				m = new Member();
 				m.setMemNo(id);
