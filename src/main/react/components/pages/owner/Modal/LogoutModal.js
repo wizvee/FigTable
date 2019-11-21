@@ -28,9 +28,9 @@ const Modal = styled.div`
   text-align: center;
   margin: 0px auto;
   flex-direction: column;
-  background-color: #a0a5ab;
+  background: #d2d5d9;
   top: 3.8rem;
-  left: 17.2rem;
+  left: 26.2rem;
   width: 13rem;
   height: auto;
   min-height: 56px;
@@ -39,7 +39,7 @@ const Modal = styled.div`
   color: white;
 
   @media (max-width: 1024px) {
-    left: 9.2rem;
+    left: 19.2rem;
   }
 
   &::before {
@@ -49,14 +49,14 @@ const Modal = styled.div`
     right: 5.9rem;
     border-left: 0.5rem solid transparent;
     border-right: 0.5rem solid transparent;
-    border-bottom: 0.5rem solid #a0a5ab;
+    border-bottom: 0.5rem solid #d2d5d9;
   }
 `;
 const Button = styled.div`
   color: #a0a5ab;
   width: 90%;
   height: 30px;
-  padding-top: 0.2rem;
+  padding-top: 0.4rem;
   background: white;
   opacity: 0.8;
   margin: 6% 5% 5% 0.7rem;
@@ -69,25 +69,12 @@ const Button = styled.div`
   }
 `;
 
-const ShopItem = styled.div`
-  width: 100%;
-  height: auto;
-  font-size: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  padding-top: 5%;
-  padding-bottom: 5%;
-  &:hover {
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.3);
-  }
-`;
-
-const LogoutModal = ({ LogoutModalClose }) => {
+const LogoutModal = ({ onLogout, LogoutModalClose }) => {
   return (
     <>
       <ModalWrapper>
         <Modal>
-          <Button>매장 추가</Button>
+          <Button onClick={onLogout}>로그아웃</Button>
         </Modal>
         <Background onClick={LogoutModalClose} />
       </ModalWrapper>

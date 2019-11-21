@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import SelectShopModal from '../Modal/SelectShopModal';
 import LogoutModal from '../Modal/LogoutModal';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logout } from '../../../../modules/enrollOwner';
 
 const Header = styled.div`
   width: 100%;
@@ -88,6 +91,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
   const path = process.env.PATH;
   const { ownName, resCount, no, name } = ownerInfo;
   const { resNo } = match.params;
+  const dispatch = useDispatch();
   const [selectShopModal, setSelectShopModal] = useState(false);
   const shopModalOpen = () => {
     setSelectShopModal(true);
@@ -104,6 +108,12 @@ const HeaderOwner = ({ ownerInfo, match }) => {
   };
   const LogoutModalClose = () => {
     setOut(false);
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    LogoutModalClose();
+    location.href = `${path}`;
   };
   return (
     <>
@@ -136,7 +146,9 @@ const HeaderOwner = ({ ownerInfo, match }) => {
           shopModalClose={shopModalClose}
         />
       )}
-      {!out ? null : <LogoutModal LogoutModalClose={LogoutModalClose} />}
+      {!out ? null : (
+        <LogoutModal onLogout={onLogout} LogoutModalClose={LogoutModalClose} />
+      )}
     </>
   );
 };
