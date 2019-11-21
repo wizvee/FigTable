@@ -24,6 +24,9 @@ const Image = styled.div`
     background-size: cover;
     width : 8rem;
     height : 8rem;
+  @media (max-width: 426px) {
+    height: 10rem;
+  }
 `;
 
 const RightContainer=styled.div`
@@ -38,6 +41,9 @@ const Text=styled.div`
     display:block;
     font-size:0.8rem;
     color: ${palette.textGray};
+  @media (max-width: 426px) {
+    font-size:0.7rem;
+  }
     span{
         color:#57606f;
         font-weight:bold;
@@ -132,13 +138,13 @@ const EatdealManageDetail=({
             <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
             <RightContainer>
                     <Text>메뉴 : <span>{eatFoodName}</span></Text>
-                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{Number(eatDiscount)*100}%</span> |  할인 가격 :  <span>\{Number(eatOriginPrice)*(1-Number(eatDiscount))}</span></Text>
+                    <Text>원래 가격 : <span>\{eatOriginPrice}</span> | 할인율 : <span>{Number(eatDiscount)*100}%</span> |  할인 가격 :  <span>\{Math.floor(Number(eatOriginPrice)*(1-Number(eatDiscount)))}</span></Text>
             
                     <Text>기간 : {moment(eatStartDate).format('YYYY-MM-DD')} ~ {moment(eatEndDate).format('YYYY-MM-DD')}</Text>
                     <Text>남은 수량 : <span>{eatCount}</span> </Text>
                     {eatStatus==='P'?
-                    (<TextS >상태 : <span>New</span></TextS>)
-                    :(<TextS color="#f67280">상태 : <span>Sold Out</span></TextS>)
+                    (<TextS >상태 : <span>진행중</span></TextS>)
+                    :(<TextS color="#f67280">상태 : <span>종료됨</span></TextS>)
                      }
             </RightContainer>
         </EatdealCard>

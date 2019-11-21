@@ -29,7 +29,8 @@
 
 	<select id="getEatdeals"
 		resultType="eatdeal" resultMap="eatResult">
-		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO)
+		SELECT * FROM FIG_EATDEAL JOIN FIG_RESTAURANT USING(RES_NO)WHERE EAT_ENDDATE>SYSDATE AND EAT_STATUS IN('P','S')
+		ORDER BY TO_NUMBER(REPLACE(EAT_NO,'e','')) DESC
 	</select>
 	
 	<select id="getByEatNo"
