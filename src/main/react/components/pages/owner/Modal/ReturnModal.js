@@ -22,7 +22,7 @@ const Modal = styled.div`
   background-color: white;
   top: 14rem;
   width: 24rem;
-  height: 10rem;
+  height: 13rem;
   border-radius: 5px;
   box-shadow: 0 3px 15px rgba(51, 51, 51, 0.2);
 `;
@@ -30,7 +30,7 @@ const Modal = styled.div`
 const ModalContent = styled.div`
   width: 100%;
   height: auto;
-  padding-top: 11px;
+  padding-top: 15px;
   padding-bottom: 25px;
   line-height: 30px;
 `;
