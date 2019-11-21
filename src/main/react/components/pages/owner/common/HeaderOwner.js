@@ -6,6 +6,7 @@ import { MdSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import SelectShopModal from '../Modal/SelectShopModal';
+import LogoutModal from '../Modal/LogoutModal';
 
 const Header = styled.div`
   width: 100%;
@@ -96,6 +97,14 @@ const HeaderOwner = ({ ownerInfo, match }) => {
     setSelectShopModal(false);
     document.body.style.overflow = 'scroll';
   };
+
+  const [out, setOut] = useState(false);
+  const LogoutModalOpen = () => {
+    setOut(true);
+  };
+  const LogoutModalClose = () => {
+    setOut(false);
+  };
   return (
     <>
       <Header>
@@ -110,7 +119,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
             </Link>
           </div>
           <Button onClick={shopModalOpen}>다른 매장 관리</Button>
-          <div className="info">
+          <div className="info" onClick={LogoutModalOpen}>
             <b>{ownName}</b> 파트너님
             <div className="icon">
               &nbsp;
@@ -127,6 +136,7 @@ const HeaderOwner = ({ ownerInfo, match }) => {
           shopModalClose={shopModalClose}
         />
       )}
+      {!out ? null : <LogoutModal LogoutModalClose={LogoutModalClose} />}
     </>
   );
 };

@@ -12,6 +12,7 @@ import {
 import Responsive from '../../common/Responsive';
 import HeaderOwnerSimple from './common/HeaderOwnerSimple';
 import ApplyReadyModal from './Modal/ApplyReadyModal';
+import ReturnModal from './Modal/ReturnModal';
 
 const Container = styled.div`
   padding-top: 80px;
@@ -132,16 +133,22 @@ const OwnerLoginContainer = ({ history }) => {
         setReady(true);
       }
       if (owner.ownApply == 'A') {
-        location.href = `${path}/owner/${resList[0]}`;
+        if (owner.ownReturn) {
+          setReturnOwn(true);
+        } else {
+          location.href = `${path}/owner/${resList[0]}`;
+        }
       }
     }
   }, [loginE, loginS, resList, dispatch]);
 
   useEffect(() => {
-    try {
-      sessionStorage.setItem('owner', JSON.stringify(owner));
-    } catch (e) {
-      console.log('sessionStorage is not working');
+    if (!owner.ownReturn) {
+      try {
+        sessionStorage.setItem('owner', JSON.stringify(owner));
+      } catch (e) {
+        console.log('sessionStorage is not working');
+      }
     }
   }, [history, owner]);
 
@@ -154,6 +161,11 @@ const OwnerLoginContainer = ({ history }) => {
   const [ready, setReady] = useState(false);
   const readyClose = () => {
     setReady(false);
+  };
+
+  const [returnOwn, setReturnOwn] = useState(false);
+  const returnClose = () => {
+    setReturnOwn(false);
   };
 
   return (
@@ -196,6 +208,11 @@ const OwnerLoginContainer = ({ history }) => {
         </ContainerWrapper>
       </Container>
       {!ready ? '' : <ApplyReadyModal readyClose={readyClose} />}
+      {!returnOwn ? (
+        ''
+      ) : (
+        <ReturnModal ownReturn={owner.ownReturn} returnClose={returnClose} />
+      )}
     </>
   );
 };
