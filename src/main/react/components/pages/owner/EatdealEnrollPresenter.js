@@ -65,19 +65,20 @@ const EatdealDateInput= styled.div`
         transition-duration:0.5s;
       }
     }
+    }
     textarea{
-      width:60%;
+      width:60% !important;
       border-radius: 5px;
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
          @media (max-width: 1024px) {
-           width:100%;}
+           width:100%;
+           }
       :focus{
         border: 1px solid ${palette.primary};
         transition-duration:0.5s;
+       }
       }
-    }
-    }
     
   `;
   const Image= styled.div`

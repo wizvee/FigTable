@@ -276,4 +276,4 @@ const InstaViewer = ({ title, reviews, viewInsta, openInsta, closeInsta }) => {
   );
 };
 
-export default React.memo(InstaViewer);
+export default InstaViewer;

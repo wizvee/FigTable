@@ -64,9 +64,9 @@ const ModalLogin = ({ msg, closeModal }) => {
         success: function({ access_token }) {
           client
             .post(`${path}/api/auth/kakao`, access_token)
-            .then(({ data }) => dispatch(setMember(data)))
-            .then(() => {
-              sessionStorage.setItem('member', JSON.stringify(member));
+            .then(({ data }) => {
+              sessionStorage.setItem('member', JSON.stringify(data));
+              dispatch(setMember(data));
             });
         },
         fail: function(err) {
