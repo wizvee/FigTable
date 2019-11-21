@@ -329,7 +329,7 @@ const AddShopContainer = ({ match }) => {
                     {errorMsg}
                   </div>
                 )}
-                <SubmitBT onClick={onSubmit}>회원가입</SubmitBT>
+                <SubmitBT onClick={onSubmit}>등록</SubmitBT>
               </SubmitWrapper>
             </ContentWrapper>
           </Container>
