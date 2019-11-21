@@ -13,8 +13,6 @@ import HeaderSimple from '../../common/HeaderSimple';
 import client, { path } from '../../../lib/api/client';
 
 const LoginContainer = ({ history }) => {
-  const [error, setError] = useState(null);
-
   const dispatch = useDispatch();
   const { form, auth, authError, member } = useSelector(({ auth, member }) => ({
     form: auth.login,
@@ -22,6 +20,8 @@ const LoginContainer = ({ history }) => {
     authError: auth.authError,
     member: member.member,
   }));
+
+  const [error, setError] = useState(null);
 
   // 인풋 변경 이벤트 핸들러
   const onChange = e => {

@@ -81,7 +81,6 @@ const RegisterContainer = ({ history }) => {
   // 회원가입 성공/실패 처리
   useEffect(() => {
     if (authError) {
-      console.log('오류 발생');
       console.log(authError);
       return;
     }
@@ -101,6 +100,7 @@ const RegisterContainer = ({ history }) => {
 
   return (
     <>
+      <HeaderSimple />
       {isModal && (
         <ModalAlert
           title="포인트"
@@ -108,7 +108,6 @@ const RegisterContainer = ({ history }) => {
           url={`${process.env.PATH}`}
         />
       )}
-      <HeaderSimple />
       <RegisterPresenter
         form={form}
         onChange={onChange}

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../lib/styles/Button';
+import client, { path } from '../../../lib/api/client';
+import { setMember } from '../../../modules/member';
 
 // 모달 배경
 const Overlay = styled.div`
@@ -46,6 +49,29 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const ModalLogin = ({ msg, closeModal }) => {
+  const dispatch = useDispatch();
+
+  const onKakao = useCallback(() => {
+    const kakaoScript = document.createElement('script');
+    kakaoScript.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+    window.document.body.appendChild(kakaoScript);
+
+    kakaoScript.addEventListener('load', () => {
+      Kakao.init(`${process.env.KAKAO_APIKEY}`);
+
+      Kakao.Auth.login({
+        success: function({ access_token }) {
+          client
+            .post(`${path}/api/auth/kakao`, access_token)
+            .then(({ data }) => dispatch(setMember(data)));
+        },
+        fail: function(err) {
+          console.log(err);
+        },
+      });
+    });
+  }, []);
+
   return (
     <>
       <Overlay onClick={closeModal} />
@@ -62,7 +88,7 @@ const ModalLogin = ({ msg, closeModal }) => {
           <ButtonWithMarginTop to={`${process.env.PATH}/login`} fullwidth>
             로그인
           </ButtonWithMarginTop>
-          <ButtonWithMarginTop fullwidth bgColor="#fed330">
+          <ButtonWithMarginTop onClick={onKakao} fullwidth bgColor="#fed330">
             카카오톡으로 로그인
           </ButtonWithMarginTop>
         </div>

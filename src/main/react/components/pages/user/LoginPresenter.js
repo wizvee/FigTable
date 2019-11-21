@@ -11,10 +11,10 @@ const Container = styled(Responsive)`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 2rem;
+  padding: 2rem 0 1rem;
   min-height: calc(100vh - 12rem);
   @media (max-width: 426px) {
-    padding-top: 1rem;
+    padding: 1rem 0 1rem;
   }
   form {
     width: ${width};

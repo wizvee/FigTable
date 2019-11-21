@@ -49,7 +49,7 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
 
-	public static final String URL = "http://localhost:9090/figtable";
+	public static final String URL = "https://rclass.iptime.org/19PM_figtable_final";
 
 	@RequestMapping(value = "/api/auth/register", method = RequestMethod.POST)
 	public ResponseEntity<Member> register(@RequestBody Member mem, HttpSession session) {
