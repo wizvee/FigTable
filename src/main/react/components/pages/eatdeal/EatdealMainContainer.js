@@ -9,7 +9,7 @@ const EatdealCard =styled.div`
     text-align:center; 
     margin:0px auto;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
     height: 45rem;
   @media (max-width: 426px) {
     width: 90%;
@@ -139,15 +139,16 @@ const EatdealMainContainer = ({eatdeal}) => {
             <ImageContainer>
             <Image url={`${path}/resources/upload/eatdeal/${thumb}`}/>
                 <LeftArea>
-                    {eatStatus==='P'?
-                        (<Status color="#f67280">New</Status>)
-                        :(<Status color="#f1c40f">Sold Out</Status>)
-                    }
+                    {/* {eatStatus==='S'?
+                        (<Status color="#f67280">sold-out</Status>)
+                        :null
+                    } */}
                     <Status >{Number(eatDiscount)*100}%</Status>
                 </LeftArea>
                 <RightArea>
                     <OriginFoodPrice >\{eatOriginPrice} </OriginFoodPrice>
-                    <FoodPrice> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </FoodPrice>
+                    <FoodPrice> \{Math.floor(Number(eatOriginPrice)*(1-Number(eatDiscount)))}
+             </FoodPrice>
 
                 </RightArea>
             </ImageContainer>

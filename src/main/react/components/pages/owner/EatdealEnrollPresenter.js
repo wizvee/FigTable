@@ -6,6 +6,9 @@ import DatePicker from './EatdealDetail/DatePicker';
 
 const EnrollWrapper = styled.div`
   height:45rem;
+  @media (max-width: 1024px) {
+  height:60rem;
+  }
 `;
 const EatdealDateInput= styled.div`
 
@@ -18,6 +21,9 @@ const EatdealDateInput= styled.div`
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
       outline: none;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
       :focus{
         border: 1px solid ${palette.primary};
         transition-duration:0.5s;
@@ -41,6 +47,9 @@ const EatdealDateInput= styled.div`
       text-align:right;
       margin-right:1rem;
       vertical-align:top;
+         @media (max-width: 1024px) {
+          text-align:left;
+           }
     }
     input{
       width:60%;
@@ -48,6 +57,9 @@ const EatdealDateInput= styled.div`
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
       outline: none;
+      
+  @media (max-width: 1024px) {
+      width:100%;
       :focus{
         border: 1px solid ${palette.primary};
         transition-duration:0.5s;
@@ -58,10 +70,13 @@ const EatdealDateInput= styled.div`
       border-radius: 5px;
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
+         @media (max-width: 1024px) {
+           width:100%;}
       :focus{
         border: 1px solid ${palette.primary};
         transition-duration:0.5s;
       }
+    }
     }
     
   `;
@@ -80,6 +95,9 @@ const EatdealDateInput= styled.div`
       border: 1px solid ${palette.borderGray};
       font-size: 0.8rem;
       outline: none;
+         @media (max-width: 1024px) {
+           width:100% !important;
+           }
   `;
   const ButtonArea = styled.div`
       font-size: 0.8rem;

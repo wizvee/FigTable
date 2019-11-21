@@ -19,7 +19,7 @@ import ModalLogin from '../../pages/user/ModalLogin';
   text-align:center; 
   margin:0px auto;
   flex-direction: column;
-  width: 80%;
+  width: 60%;
   @media (max-width: 426px) {
     width: 90%;
   }

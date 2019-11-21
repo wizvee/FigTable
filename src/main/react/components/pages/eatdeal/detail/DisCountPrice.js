@@ -72,7 +72,7 @@ const DiscountPrice=({eat})=>{
                 {eatCount<=0&&'sold-out'||(eatCount+'개 남음')}
                 </Remaining>
             <Percentage>  {Number(eatDiscount)*100}%</Percentage>
-            <FoodPrice> \{Number(eatOriginPrice)*(1-Number(eatDiscount))} </FoodPrice>
+            <FoodPrice> \{Math.floor(Number(eatOriginPrice)*(1-Number(eatDiscount)))} </FoodPrice>
         </DiscountContainer>
 
         </>
