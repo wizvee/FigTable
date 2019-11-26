@@ -81,7 +81,7 @@ const RegisterContainer = ({ history }) => {
   // 회원가입 성공/실패 처리
   useEffect(() => {
     if (authError) {
-      console.log(authError);
+      setError('이미 가입된 이메일입니다');
       return;
     }
     if (auth) {
